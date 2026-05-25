@@ -66,7 +66,7 @@ export default function AboutClients() {
     },
     {
       name: "Globaton",
-      src: "/aboutclients/globaton.png",
+      src: "/aboutclients/jivosolutions.png",
       left: "0%",
       top: "50%",
       containerClass: "bg-white border border-[#E5E7EB] shadow-[0_8px_24px_rgba(0,0,0,0.06)]",
@@ -116,16 +116,16 @@ export default function AboutClients() {
         <div className="relative w-full flex items-center justify-center py-8 sm:py-16">
           {/* Main Orbit Ring Wrapper (with custom scaling on mobile to guarantee a perfect round layout) */}
           <div className="relative w-[300px] h-[300px] xs:w-[350px] xs:h-[350px] sm:w-[480px] sm:h-[480px] md:w-[580px] md:h-[580px] lg:w-[700px] lg:h-[700px]">
-            
+
             {/* Outer Concentric Circle Line */}
             <div className="absolute inset-[-6px] xs:inset-[-8px] sm:inset-[-12px] md:inset-[-16px] lg:inset-[-20px] rounded-full border border-gray-200/90 pointer-events-none" />
-            
+
             {/* Inner Concentric Circle Line (slight gap inside the outer one) */}
             <div className="absolute inset-[6px] xs:inset-[8px] sm:inset-[12px] md:inset-[16px] lg:inset-[20px] rounded-full border border-gray-200/90 pointer-events-none" />
 
             {/* Central Copy inside the Orbit Path */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 sm:p-10 md:p-14 lg:p-20 pointer-events-none select-none">
-              
+
 
 
               {/* Central Heading */}
@@ -166,9 +166,8 @@ export default function AboutClients() {
                       src={node.src}
                       alt={`${node.name} logo`}
                       fill
-                      className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
-                        node.invert ? "brightness-0 invert" : ""
-                      }`}
+                      className={`object-contain transition-transform duration-300 group-hover:scale-105 ${node.invert ? "brightness-0 invert" : ""
+                        }`}
                       sizes="(max-width: 640px) 48px, (max-width: 768px) 80px, 110px"
                       priority
                     />

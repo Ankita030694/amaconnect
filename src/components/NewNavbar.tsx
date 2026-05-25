@@ -12,9 +12,9 @@ export default function NewNavbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Communities", href: "/communities" },
-    { name: "AMA", href: "/ask-me-anything" },
     { name: "Interviews", href: "/interviews" },
+    { name: "AMA", href: "/ask-me-anything" },
+    { name: "Communities", href: "/communities" },
     { name: "Drafts", href: "/drafts" },
     { name: "Blogs", href: "/blog" },
     { name: "Contact", href: "/contact" },
@@ -24,7 +24,7 @@ export default function NewNavbar() {
     <nav className="w-full bg-white border-b border-gray-100/90 sticky top-0 z-50 transition-all duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          
+
           {/* Left Section: Brand Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
@@ -47,11 +47,10 @@ export default function NewNavbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-[15px] font-medium transition-colors duration-200 ${
-                    isActive
-                      ? "text-[#D4AF37] font-semibold"
-                      : "text-[#2D2319]/90 hover:text-[#D4AF37]"
-                  }`}
+                  className={`text-[15px] font-medium transition-colors duration-200 ${isActive
+                    ? "text-[#D4AF37] font-semibold"
+                    : "text-[#2D2319]/90 hover:text-[#D4AF37]"
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -186,17 +185,16 @@ export default function NewNavbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-3 py-2.5 rounded-xl text-base font-medium transition-all ${
-                    isActive
-                      ? "bg-gray-50 text-[#D4AF37] font-semibold"
-                      : "text-[#2D2319]/90 hover:bg-gray-50 hover:text-[#D4AF37]"
-                  }`}
+                  className={`block px-3 py-2.5 rounded-xl text-base font-medium transition-all ${isActive
+                    ? "bg-gray-50 text-[#D4AF37] font-semibold"
+                    : "text-[#2D2319]/90 hover:bg-gray-50 hover:text-[#D4AF37]"
+                    }`}
                 >
                   {link.name}
                 </Link>
               );
             })}
-            
+
             {/* Mobile App Download Actions */}
             <div className="pt-4 border-t border-gray-100 flex items-center justify-between px-3">
               <span className="text-sm font-medium text-gray-500">Get the App</span>

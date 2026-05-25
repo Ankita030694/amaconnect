@@ -42,28 +42,13 @@ export default function AboutFeatures() {
             {/* Phone Mockup at the top edge showing only the bottom half (30% bigger) */}
             <div className="absolute -top-[260px] sm:-top-[300px] left-1/2 -translate-x-1/2 w-[338px] sm:w-[390px] h-[520px] sm:h-[600px] z-10 transition-transform duration-500 ease-out group-hover:translate-y-4 group-hover:scale-[1.01]">
               <Image
-                src="/phone.png"
+                src="/casedesk.png"
                 alt="Case Desk mobile mockup"
                 fill
                 className="object-bottom object-contain"
                 priority
               />
             </div>
-
-            {/* Content below is elevated with z-20 */}
-            <div className="relative z-20">
-              <h3 className="text-2xl font-bold text-[#2D2219] mb-3">
-                Case Desk
-              </h3>
-              <p className="text-gray-500 text-[15px] leading-relaxed font-normal">
-                Track case progress, manage updates, store important documents, and stay informed in one organized space.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 3: Ask Your Lawyer */}
-          <div className="bg-[#F8F7F6] rounded-3xl p-6 sm:p-8 flex flex-col justify-between overflow-hidden h-[500px] sm:h-[560px] text-left relative group">
-            {/* Content above is elevated with z-20 */}
             <div className="relative z-20">
               <h3 className="text-2xl font-bold text-[#2D2219] mb-3">
                 Ask Your Lawyer
@@ -73,10 +58,27 @@ export default function AboutFeatures() {
               </p>
             </div>
 
+
+
+          </div>
+
+          {/* Card 3: Ask Your Lawyer */}
+          <div className="bg-[#F8F7F6] rounded-3xl p-6 sm:p-8 flex flex-col justify-between overflow-hidden h-[500px] sm:h-[560px] text-left relative group">
+            {/* Content above is elevated with z-20 */}
+            {/* Content below is elevated with z-20 */}
+            <div className="relative z-20">
+              <h3 className="text-2xl font-bold text-[#2D2219] mb-3">
+                Case Desk
+              </h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed font-normal">
+                Track case progress, manage updates, store important documents, and stay informed in one organized space.
+              </p>
+            </div>
+
             {/* Phone Mockup at the bottom showing only the top half (30% bigger) */}
             <div className="absolute -bottom-[260px] sm:-bottom-[300px] left-1/2 -translate-x-1/2 w-[338px] sm:w-[390px] h-[520px] sm:h-[600px] z-10 transition-transform duration-500 ease-out group-hover:-translate-y-4 group-hover:scale-[1.01]">
               <Image
-                src="/phone.png"
+                src="/casedesk.png"
                 alt="Ask Your Lawyer mobile mockup"
                 fill
                 className="object-top object-contain"
