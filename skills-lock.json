@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "atlas-stream-processing": {
+      "source": "mongodb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/atlas-stream-processing/SKILL.md",
+      "computedHash": "5599db9fe9cbd47ebdd2a463a5788efabd64f4178710fb072e3e115d63120505"
+    },
+    "mongodb-connection": {
+      "source": "mongodb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mongodb-connection/SKILL.md",
+      "computedHash": "5eb79fab35b821215eb5dbb5f1f49ef6c621efcbe3b20f276b9b0a279b298cd2"
+    },
+    "mongodb-mcp-setup": {
+      "source": "mongodb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mongodb-mcp-setup/SKILL.md",
+      "computedHash": "6e86c23c82f5de78ea9f5290c48024eb687a81d63b164ea7ff0b76900714392f"
+    },
+    "mongodb-natural-language-querying": {
+      "source": "mongodb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mongodb-natural-language-querying/SKILL.md",
+      "computedHash": "fccf114ccac49bb7b43bb8f059a46d3a2e7e5bb0d5cb01d158980140e33e43b1"
+    },
+    "mongodb-query-optimizer": {
+      "source": "mongodb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mongodb-query-optimizer/SKILL.md",
+      "computedHash": "661ff75d8dc771b96aba5ccab7fb0cb689fcb9a902c4a0ce1a36c4be984d6518"
+    },
+    "mongodb-schema-design": {
+      "source": "mongodb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mongodb-schema-design/SKILL.md",
+      "computedHash": "46d658eaab2b13e9b8e571b5b084ae62cc9b3866bbbd98d23e4b9af9c1c26626"
+    },
+    "mongodb-search-and-ai": {
+      "source": "mongodb/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/mongodb-search-and-ai/SKILL.md",
+      "computedHash": "cb61e5d2405b20b3cf2e8316cf0475af2d82a0ad8798f4b52da1ffc68e90e5c3"
+    }
+  }
+}
