@@ -84,8 +84,8 @@ function Breadcrumbs({ items }: { items: { label: string; href: string }[] }) {
       {items.map((item, idx) => (
         <React.Fragment key={idx}>
           <span className="text-slate-300">/</span>
-          <Link 
-            href={item.href} 
+          <Link
+            href={item.href}
             className={idx === items.length - 1 ? "text-[#B8860B] font-bold" : "hover:text-[#D4AF37] transition-colors"}
           >
             {item.label}
@@ -99,7 +99,7 @@ function Breadcrumbs({ items }: { items: { label: string; href: string }[] }) {
 // Table of Contents component
 function TableOfContents({ sections, orientation = "horizontal" }: { sections: { id: string; title: string }[]; orientation?: "horizontal" | "vertical" }) {
   if (!sections || sections.length === 0) return null;
-  
+
   if (orientation === "vertical") {
     return (
       <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-3xs">
@@ -107,8 +107,8 @@ function TableOfContents({ sections, orientation = "horizontal" }: { sections: {
         <ul className="space-y-3">
           {sections.map((section, idx) => (
             <li key={idx}>
-              <a 
-                href={`#${section.id}`} 
+              <a
+                href={`#${section.id}`}
                 className="text-xs font-bold text-slate-500 hover:text-[#B8860B] transition-colors block leading-snug"
               >
                 {section.title}
@@ -119,13 +119,13 @@ function TableOfContents({ sections, orientation = "horizontal" }: { sections: {
       </div>
     );
   }
-  
+
   return (
     <div className="bg-[#FDFBF7] p-5 rounded-2xl border border-[#D4AF37]/20 shadow-3xs mb-8">
       <h4 className="text-xs font-extrabold text-[#B8860B] uppercase tracking-wider mb-3">On This Page</h4>
       <div className="flex flex-wrap gap-x-4 gap-y-2">
         {sections.map((section, idx) => (
-          <a 
+          <a
             key={idx}
             href={`#${section.id}`}
             className="text-xs font-bold text-slate-600 hover:text-[#B8860B] transition-colors"
@@ -148,14 +148,14 @@ const processContent = (html: string) => {
     const cleanTitle = title.replace(/<[^>]*>/g, '').trim();
     // Generate ID from title
     const id = cleanTitle.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-    
+
     sections.push({ id, title: cleanTitle });
-    
+
     // Check if ID already exists in attrs
     if (attrs.includes('id=')) {
       return match; // Return original if ID exists
     }
-    
+
     return `<${tag} id="${id}"${attrs}>${title}</${tag}>`;
   });
 
@@ -165,7 +165,7 @@ const processContent = (html: string) => {
 const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
   const [currentUrl, setCurrentUrl] = useState('');
   const [expandedFaqs, setExpandedFaqs] = useState<string[]>([]);
-  
+
   // Process content for TOC
   const { content: processedContent, sections: tocSections } = useMemo(() => {
     return processContent(blog.description);
@@ -176,7 +176,7 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
   }, []);
 
   const toggleFaq = (faqId: string) => {
-    setExpandedFaqs(prev => 
+    setExpandedFaqs(prev =>
       prev.includes(faqId)
         ? prev.filter(id => id !== faqId)
         : [...prev, faqId]
@@ -187,7 +187,7 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
     const title = blog.title;
     let shareUrl = '';
 
-    switch(platform) {
+    switch (platform) {
       case 'facebook':
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
         break;
@@ -211,18 +211,18 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
   return (
     <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16">
       {/* Hero Image Section */}
-      <div className="w-full h-[320px] md:h-[450px] relative bg-[#413832]/90 flex items-center justify-center overflow-hidden">
+      <div className="w-full h-[320px] md:h-[650px] relative bg-[#413832]/90 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-slate-900/10 z-0" />
         <img
           src={blog.image || "/logo_qa.png"}
           alt={blog.title}
-          className="h-full w-auto object-contain z-10 pt-8"
+          className="h-full w-full object-cover z-10"
         />
       </div>
 
       <div className="container mx-auto px-4 max-w-[1600px] py-8">
         <Breadcrumbs items={breadcrumbItems} />
-        
+
         {/* Header Content */}
         <div className="text-center mb-12 max-w-4xl mx-auto mt-8">
           <span className="px-3.5 py-1.5 bg-[#B8860B]/10 text-[#B8860B] rounded-full text-xs font-extrabold uppercase tracking-wider">
@@ -242,24 +242,24 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
             <span className="text-[#B8860B] font-bold">By {blog.author}</span>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr_280px] gap-8 items-start">
-          
+
           {/* Left Sidebar - TOC (Desktop) */}
           <div className="hidden lg:block sticky top-24">
-             <TableOfContents sections={tocSections} orientation="vertical" />
+            <TableOfContents sections={tocSections} orientation="vertical" />
           </div>
 
           {/* Main Content Area */}
           <div className="min-w-0">
             {/* TOC (Mobile) */}
             <div className="lg:hidden mb-8">
-               <TableOfContents sections={tocSections} />
+              <TableOfContents sections={tocSections} />
             </div>
 
             <div className="bg-white p-6 md:p-12 rounded-3xl border border-slate-100 shadow-3xs space-y-12">
               {/* Article Content */}
-              <div 
+              <div
                 className="prose prose-lg max-w-none text-slate-700 leading-relaxed tiptap-content"
                 dangerouslySetInnerHTML={{ __html: processedContent }}
               />
@@ -280,7 +280,7 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                 .tiptap-content th { background: #f8fafc; padding: 0.85rem; text-align: left; font-weight: 700; border: 1px solid #e2e8f0; color: #0f172a; }
                 .tiptap-content td { padding: 0.85rem; border: 1px solid #e2e8f0; color: #334155; }
               `}</style>
-              
+
               {/* Share Section */}
               <div className="border-t border-slate-100 pt-8 mt-8">
                 <div className="flex items-center justify-between flex-wrap gap-4">
@@ -311,24 +311,24 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                       <div key={idx} className="bg-slate-50/50 p-6 rounded-2xl border border-slate-150 relative">
                         <QuoteLeftIcon />
                         <div className="relative z-10 mt-2">
-                           <div className="flex items-center mb-4 gap-2">
-                             <div className="flex gap-0.5">
-                               {[...Array(5)].map((_, i) => (
-                                 <StarIcon 
-                                   key={i} 
-                                   filled={i < review.rating} 
-                                 />
-                               ))}
-                             </div>
-                             <span className="font-extrabold text-slate-900 text-sm">{review.rating}.0</span>
-                           </div>
-                           <p className="text-slate-600 italic mb-4 text-sm sm:text-base">"{review.review}"</p>
-                           <div className="flex items-center mt-6">
-                             <div className="w-9 h-9 bg-slate-100 rounded-full flex items-center justify-center mr-3 border border-slate-200 shadow-3xs">
-                               <UserIcon />
-                             </div>
-                             <p className="font-extrabold text-slate-955 text-sm">{review.name}</p>
-                           </div>
+                          <div className="flex items-center mb-4 gap-2">
+                            <div className="flex gap-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                <StarIcon
+                                  key={i}
+                                  filled={i < review.rating}
+                                />
+                              ))}
+                            </div>
+                            <span className="font-extrabold text-slate-900 text-sm">{review.rating}.0</span>
+                          </div>
+                          <p className="text-slate-600 italic mb-4 text-sm sm:text-base">"{review.review}"</p>
+                          <div className="flex items-center mt-6">
+                            <div className="w-9 h-9 bg-slate-100 rounded-full flex items-center justify-center mr-3 border border-slate-200 shadow-3xs">
+                              <UserIcon />
+                            </div>
+                            <p className="font-extrabold text-slate-955 text-sm">{review.name}</p>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -378,8 +378,8 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                       <Link key={item._id} href={`/blog/${item.slug}`} className="group">
                         <div className="bg-white border border-slate-150 rounded-2xl overflow-hidden hover:shadow-lg transition-all h-full flex flex-col">
                           <div className="relative h-44 bg-[#413832]/85 flex items-end justify-center overflow-hidden pt-4">
-                            <img 
-                              src={item.image || '/logo_qa.png'} 
+                            <img
+                              src={item.image || '/logo_qa.png'}
                               alt={item.title}
                               className="h-full w-auto object-contain group-hover:scale-103 transition-transform duration-500"
                             />
@@ -411,56 +411,56 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
 
           {/* Right Sidebar - Author & CTA */}
           <div className="space-y-8 sticky top-24">
-              {/* Author Card */}
-              <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-3xs">
-                <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-50 pb-2">Author Profile</h3>
-                <div className="flex items-center mb-4">
-                  <div className="w-16 h-16 rounded-2xl overflow-hidden mr-4 bg-[#D4AF37]/10 flex items-end justify-center pt-2">
-                    <img 
-                      src={authorBios[blog.author as keyof typeof authorBios]?.image || "/anujbhiya.png"}
-                      alt={blog.author}
-                      className="h-full w-auto object-contain"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-extrabold text-slate-950 text-sm sm:text-base leading-snug">{blog.author}</h4>
-                    <span className="text-[10px] text-green-700 font-extrabold bg-green-50 border border-green-200/50 px-1.5 py-0.5 rounded-md mt-1 inline-block">Verified Expert</span>
-                  </div>
+            {/* Author Card */}
+            <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-3xs">
+              <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-50 pb-2">Author Profile</h3>
+              <div className="flex items-center mb-4">
+                <div className="w-16 h-16 rounded-2xl overflow-hidden mr-4 bg-[#D4AF37]/10 flex items-end justify-center pt-2">
+                  <img
+                    src={authorBios[blog.author as keyof typeof authorBios]?.image || "/anujbhiya.png"}
+                    alt={blog.author}
+                    className="h-full w-auto object-contain"
+                  />
                 </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
-                  {authorBios[blog.author as keyof typeof authorBios]?.description || "Advocate specializing in direct mediation, arbitration, and civil representation. Registered with the Supreme Court bar."}
-                </p>
-                <a 
-                  href={authorBios[blog.author as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2.5 rounded-xl text-xs font-extrabold transition-all shadow-3xs cursor-pointer"
-                >
-                  Connect on LinkedIn
-                </a>
+                <div>
+                  <h4 className="font-extrabold text-slate-950 text-sm sm:text-base leading-snug">{blog.author}</h4>
+                  <span className="text-[10px] text-green-700 font-extrabold bg-green-50 border border-green-200/50 px-1.5 py-0.5 rounded-md mt-1 inline-block">Verified Expert</span>
+                </div>
               </div>
-
-              {/* Contact Card */}
-              <div className="bg-[#413832] p-6 rounded-3xl shadow-md text-white border border-[#D4AF37]/20 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/10 rounded-full -mr-8 -mt-8 pointer-events-none" />
-                <h3 className="text-lg font-black mb-3">Need Legal Advice?</h3>
-                <p className="text-slate-300 mb-6 text-xs sm:text-sm leading-relaxed">
-                  Get specialized, strategic advocate counsel directly from verified experts at AMA Legal Solutions.
-                </p>
-                <a 
-                  href="tel:+918700343611" 
-                  className="block w-full bg-[#B8860B] hover:bg-[#9E7307] text-white text-center py-3 rounded-xl font-bold text-xs sm:text-sm transition-colors mb-4 shadow-3xs cursor-pointer"
-                >
-                  Call +91-8700343611
-                </a>
-                <Link 
-                  href="/contact" 
-                  className="block w-full border border-white/20 hover:bg-white hover:text-[#413832] text-white text-center py-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer"
-                >
-                  Request Callback
-                </Link>
-              </div>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                {authorBios[blog.author as keyof typeof authorBios]?.description || "Advocate specializing in direct mediation, arbitration, and civil representation. Registered with the Supreme Court bar."}
+              </p>
+              <a
+                href={authorBios[blog.author as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2.5 rounded-xl text-xs font-extrabold transition-all shadow-3xs cursor-pointer"
+              >
+                Connect on LinkedIn
+              </a>
             </div>
+
+            {/* Contact Card */}
+            <div className="bg-[#413832] p-6 rounded-3xl shadow-md text-white border border-[#D4AF37]/20 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/10 rounded-full -mr-8 -mt-8 pointer-events-none" />
+              <h3 className="text-lg font-black mb-3">Need Legal Advice?</h3>
+              <p className="text-slate-300 mb-6 text-xs sm:text-sm leading-relaxed">
+                Get specialized, strategic advocate counsel directly from verified experts at AMA Legal Solutions.
+              </p>
+              <a
+                href="tel:+918700343611"
+                className="block w-full bg-[#B8860B] hover:bg-[#9E7307] text-white text-center py-3 rounded-xl font-bold text-xs sm:text-sm transition-colors mb-4 shadow-3xs cursor-pointer"
+              >
+                Call +91-8700343611
+              </a>
+              <Link
+                href="/contact"
+                className="block w-full border border-white/20 hover:bg-white hover:text-[#413832] text-white text-center py-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer"
+              >
+                Request Callback
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
