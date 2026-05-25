@@ -17,17 +17,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "AMA Connect | Digital Legal Solutions & Custom Templates",
+    default: "AMA Connect | Lawyer Interviews, Legal Community & AMA Sessions",
     template: "%s | AMA Connect",
   },
-  description: "Access premium digital legal services, custom contract drafting, professional lawyer interviews, and community Q&A forums with AMA Legal Solutions.",
+  description: "Join AMA Connect for professional lawyer interviews and posts. Engage with our exclusive legal communities and get answers to your legal queries in our Ask Me Anything (AMA) section of our AMA Connect application.",
   metadataBase: new URL("https://amaconnect.in"),
   alternates: {
     canonical: "./",
   },
   openGraph: {
-    title: "AMA Connect | Digital Legal Solutions & Custom Templates",
-    description: "Access premium digital legal services, custom contract drafting, professional lawyer interviews, and community Q&A forums with AMA Legal Solutions.",
+    title: "AMA Connect | Lawyer Interviews, Legal Community & AMA Sessions",
+    description: "Join AMA Connect for professional lawyer interviews and guest posts. Engage with our exclusive WhatsApp legal communities and get answers to your legal queries in our Ask Me Anything (AMA) sessions.",
     url: "https://amaconnect.in",
     siteName: "AMA Legal Solutions",
     locale: "en_US",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AMA Connect | Digital Legal Solutions & Custom Templates",
-    description: "Access premium digital legal services, custom contract drafting, professional lawyer interviews, and community Q&A forums with AMA Legal Solutions.",
+    title: "AMA Connect | Lawyer Interviews, Legal Community & AMA Sessions",
+    description: "Join AMA Connect for professional lawyer interviews and guest posts. Engage with our exclusive WhatsApp legal communities and get answers to your legal queries in our Ask Me Anything (AMA) sessions.",
   },
 };
 
