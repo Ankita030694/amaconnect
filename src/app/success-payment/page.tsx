@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import SuccessClient from "./success-client";
 
 export const metadata: Metadata = {
-  title: "Payment Success | AMA Connect",
+  title: "Payment Success",
   description: "Your payment was processed successfully. Thank you for using AMA Legal Solutions.",
   robots: {
     index: false,

@@ -74,6 +74,8 @@ type TopLawyerStoriesProps = {
   className?: string;
   /** Compact layout for hero slide — fits ~slide-1 visual height */
   variant?: "default" | "hero";
+  headingTag?: "h1" | "h2";
+  initialInterviews?: LawyerInterview[];
 };
 
 /** Hero slide interview cards — ~20% smaller than previous hero sizing */
@@ -88,12 +90,18 @@ const HERO_SIDEBAR_ROW_GAP = "gap-3 sm:gap-4";
 export default function TopLawyerStories({
   className,
   variant = "default",
+  headingTag = "h2",
+  initialInterviews = [],
 }: TopLawyerStoriesProps = {}) {
   const isHero = variant === "hero";
-  const [interviews, setInterviews] = useState<LawyerInterview[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [interviews, setInterviews] = useState<LawyerInterview[]>(initialInterviews);
+  const [loading, setLoading] = useState(initialInterviews.length === 0);
 
   useEffect(() => {
+    if (initialInterviews && initialInterviews.length > 0) {
+      return;
+    }
+
     const fetchInterviews = async () => {
       try {
         const res = await fetch("/api/interviews");
@@ -107,7 +115,7 @@ export default function TopLawyerStories({
       }
     };
     fetchInterviews();
-  }, []);
+  }, [initialInterviews]);
 
   // DEDICATED HERO SLIDE LAYOUT (Concise, flat row of cards designed to fit perfectly in the hero section without clipping)
   if (isHero) {
@@ -262,12 +270,14 @@ export default function TopLawyerStories({
   // STANDARD / FULL PAGE LAYOUT
   const sectionClass = `w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24 font-sans ${className || ""}`;
 
+  const Heading = headingTag;
+
   if (loading) {
     return (
       <section className={sectionClass}>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-8 sm:mb-12">
+        <Heading className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-8 sm:mb-12">
           This Month’s Top<br />Lawyer Stories
-        </h2>
+        </Heading>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 animate-pulse">
           <div className="lg:col-span-7 flex flex-col">
             <div className="w-full bg-slate-200 aspect-[16/9] rounded-[2rem] mb-6" />
@@ -300,9 +310,9 @@ export default function TopLawyerStories({
 
   return (
     <section className={sectionClass}>
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-8 sm:mb-12">
+      <Heading className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-8 sm:mb-12">
         This Month’s Top<br />Lawyer Stories
-      </h2>
+      </Heading>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
         {featured && (

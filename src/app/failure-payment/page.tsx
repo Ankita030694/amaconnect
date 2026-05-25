@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import FailureClient from "./failure-client";
 
 export const metadata: Metadata = {
-  title: "Payment Failure | AMA Connect",
+  title: "Payment Failure",
   description: "Your payment attempt failed or was canceled. Please try again.",
   robots: {
     index: false,

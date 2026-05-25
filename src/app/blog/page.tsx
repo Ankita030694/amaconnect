@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Legal Blogs | Expert Opinions by AMA Legal Solutions',
+  title: 'Legal Blogs & Expert Insights',
   description: 'Explore expert legal blogs from AMA Legal Solutions, featuring insights on corporate law, compliance, contracts, and more to keep you informed.',
   alternates: {
     canonical: 'https://amaconnect.in/blog',
@@ -76,11 +76,26 @@ export default async function Page() {
       
       <div className="container mx-auto px-4 py-8">
         <h1 
-          className="text-[32px] md:text-[45px] font-semibold text-center mb-[80px] mt-[120px] leading-[40px] md:leading-[65px] opacity-100 h1-seo-fix"
+          className="text-[32px] md:text-[45px] font-semibold text-center mb-[30px] mt-[120px] leading-[40px] md:leading-[65px] opacity-100 h1-seo-fix"
           style={{ color: '#5A4C33', fontFamily: "var(--font-polysans)" }}
         >
           Legal Blogs & Expert Insights
         </h1>
+
+        <div className="max-w-3xl mx-auto text-center mb-[60px] text-[#5A4C33]/85 text-sm sm:text-base leading-relaxed space-y-4">
+          <p>
+            Welcome to the AMA Connect Expert Legal Blog, a premier educational resource designed by 
+            enrolled advocates at AMA Legal Solutions. Our mission is to demystify complex legal frameworks, 
+            statutory amendments, and regulatory updates to empower individual citizens, business owners, 
+            and legal professionals across India.
+          </p>
+          <p>
+            Our legal editorial board regularly publishes authoritative articles spanning diverse domains 
+            including corporate law, debt recovery protocols, one-time settlements (OTS), intellectual property rights, 
+            family dispute resolutions, and litigation defense strategies. We analyze recent High Court and Supreme Court 
+            ruling trends to provide you with practical legal answers and actionable guidance for everyday legal compliance.
+          </p>
+        </div>
 
         <Suspense fallback={<BlogLoading />}>
           <BlogPage initialBlogs={blogs} />

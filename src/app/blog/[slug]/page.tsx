@@ -5,6 +5,7 @@ import BlogDetail from "./blogdetail";
 import Script from "next/script";
 // import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getOptimalPageTitle } from "@/lib/seoTitleHelper";
 
 export const revalidate = 3600; // Cache the page at the Edge for 1 hour
 
@@ -76,7 +77,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await props.params;
 
-  let title = "Legal Blog | AMA Legal Solutions";
+  let title = "Legal Blog";
   let description = "Read verified legal insights and advocate guides at AMA Legal Solutions";
   let image = "";
   let author = "AMA Legal Solutions";
@@ -87,7 +88,8 @@ export async function generateMetadata(
     const blogData = await getBlogBySlug(slug);
 
     if (blogData) {
-      title = blogData.metaTitle || blogData.title || title;
+      const rawTitle = blogData.metaTitle || blogData.title || title;
+      title = getOptimalPageTitle(rawTitle);
       description = blogData.metaDescription || description;
       image = blogData.image || "";
       author = blogData.author || author;

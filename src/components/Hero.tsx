@@ -342,9 +342,9 @@ export default function Hero() {
                 AMA Connect Community
               </span>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-[54px] font-extrabold text-[#2D2219] leading-[1.08] mb-4 sm:mb-6 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-[54px] font-extrabold text-[#2D2219] leading-[1.08] mb-4 sm:mb-6 tracking-tight">
                 Join the Legal <br className="hidden lg:inline" /> Community That <br className="hidden lg:inline" /> Helps You Grow
-              </h1>
+              </h2>
 
               <p className="text-gray-600 font-medium text-xs sm:text-sm lg:text-base xl:text-lg mb-5 leading-relaxed max-w-md lg:max-w-none">
                 Real questions, expert answers, trusted legal discussions

@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Legal Communities & Practice Discussion Forums | AMA Connect",
+  title: "Legal Communities & Practice Forums",
   description: "Join active legal discussion groups, connect with professional legal networks, share courtroom experiences, and participate in peer Q&A.",
   alternates: {
     canonical: "https://amaconnect.in/communities",
@@ -35,9 +35,7 @@ export default function CommunitiesPage() {
         </div>
       </div>
 
-      <div id="communities">
-        <LegalCommunities />
-      </div>
+      <LegalCommunities />
       <CTASection />
       <Footer />
     </div>

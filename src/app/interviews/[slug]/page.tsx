@@ -5,6 +5,7 @@ import InterviewDetail from "./interviewdetail";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getOptimalPageTitle } from "@/lib/seoTitleHelper";
 
 export const revalidate = 3600; // Cache the page at the Edge for 1 hour
 
@@ -76,7 +77,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await props.params;
 
-  let title = "Lawyer Case Study & Interview | AMA Legal Solutions";
+  let title = "Lawyer Interview";
   let description = "Read verified legal insights and advocate guides at AMA Legal Solutions";
   let image = "";
   let author = "AMA Legal Solutions";
@@ -87,7 +88,8 @@ export async function generateMetadata(
     const interviewData = await getInterviewBySlug(slug);
     
     if (interviewData) {
-      title = interviewData.metaTitle || interviewData.title || title;
+      const rawTitle = interviewData.metaTitle || interviewData.title || title;
+      title = getOptimalPageTitle(rawTitle);
       description = interviewData.metaDescription || description;
       image = interviewData.image || "";
       author = interviewData.lawyer || author;

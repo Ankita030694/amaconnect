@@ -12,7 +12,7 @@ import CommunityShowcase from "@/components/CommunityShowcase";
 
 
 export const metadata: Metadata = {
-  title: "AMA Connect | Digital Legal Solutions & Custom Templates",
+  title: "Digital Legal Solutions & Custom Templates",
   description: "Access premium digital legal services, custom contract drafting, professional lawyer interviews, and community Q&A forums with AMA Legal Solutions.",
   alternates: {
     canonical: "https://amaconnect.in",

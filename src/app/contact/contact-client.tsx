@@ -543,6 +543,44 @@ export default function ContactClient() {
 
             </div>
           </div>
+
+          {/* Help Center & FAQ Section */}
+          <div className="mt-20 border-t border-gray-150 pt-16 max-w-4xl mx-auto text-left relative z-10">
+            <h3 className="text-2xl font-black text-gray-900 mb-2">Frequently Asked Questions</h3>
+            <p className="text-gray-500 mb-8 text-sm sm:text-base">
+              Get immediate answers to common questions about our platform, templates, and pro bono legal support.
+            </p>
+            
+            <div className="space-y-6">
+              <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
+                <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">1. Are the legal templates legally compliant under Indian law?</h4>
+                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                  Yes, every document, draft, and agreement template available in our library is curated and verified by senior legal advisors and enrolled advocates. They are designed to align strictly with relevant enactments such as the Indian Contract Act, 1872, the Transfer of Property Act, 1882, the Registration Act, 1908, and the Code of Civil Procedure, 1908.
+                </p>
+              </div>
+
+              <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
+                <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">2. How does the WhatsApp legal community work?</h4>
+                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                  Our exclusive practice forums allow individuals to ask legal questions and share courtroom experiences in real-time. The communities are categorized by practice domains (Property, Family, Corporate, and Criminal Law) to ensure focused, peer-to-peer discussions overseen by expert advocate administrators.
+                </p>
+              </div>
+
+              <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
+                <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">3. Can I request a customized draft not found in the library?</h4>
+                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                  Absolutely. If you require a bespoke legal document or specialized agreement customized for your unique business needs or litigation facts, you can specify your request in the contact form above. Our network of legal drafting professionals will review your requirements and provide a customized draft within 24–48 hours.
+                </p>
+              </div>
+
+              <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
+                <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">4. Is pro bono legal support truly free on the AMA Connect app?</h4>
+                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                  Yes. AMA Connect is India's first dedicated pro bono legal aid platform. Asking legal questions, getting community answers, and seeking advice on credit card disputes or debt settlements through our official Android and iOS applications is completely free of charge. We believe in making high-quality legal support accessible to every citizen.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
 

@@ -390,9 +390,12 @@ const DraftDetail = memo(function DraftDetail({ draft, content, preview, faqs, r
     setErrors({});
   };
 
+  const lastDot = draft.fileName.lastIndexOf('.');
+  const slug = lastDot !== -1 ? draft.fileName.substring(0, lastDot).toLowerCase().trim() : draft.fileName.toLowerCase().trim();
+
   const breadcrumbItems = [
     { label: "Drafts", href: "/drafts" },
-    { label: cleanDraftTitle, href: `/drafts/${draft.fileName.split('.')[0]}` },
+    { label: cleanDraftTitle, href: `/drafts/${slug}` },
   ];
 
 

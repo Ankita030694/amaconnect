@@ -46,7 +46,7 @@ export default function DraftsHero() {
           </span>
           {/* Exact spacing gap replicated dynamically using responsive layout spacing */}
           <span className="inline-block w-5 h-2"></span>
-          <span className="text-[#1A1A1A]">you need to create</span>
+          <span className="text-[#1A1A1A]"> you need to create</span>
         </h1>
 
         {/* 3. Supporting Subheadline (Two-line structure with precise styling) */}

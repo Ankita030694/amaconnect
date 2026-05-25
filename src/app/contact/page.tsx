@@ -3,13 +3,13 @@ import { Suspense } from "react";
 import ContactClient from "./contact-client";
 
 export const metadata: Metadata = {
-  title: "Contact Our Legal Experts | AMA Connect",
+  title: "Contact Our Legal Experts",
   description: "Have questions about legal templates, custom drafting services, or lawyer interviews? Write to us, and our legal aid team will connect with you within 24 hours.",
   alternates: {
     canonical: "https://amaconnect.in/contact",
   },
   openGraph: {
-    title: "Contact Our Legal Experts | AMA Connect",
+    title: "Contact Our Legal Experts",
     description: "Have questions about legal templates, custom drafting services, or lawyer interviews? Write to us, and our legal aid team will connect with you within 24 hours.",
     url: "https://amaconnect.in/contact",
     siteName: "AMA Legal Solutions",

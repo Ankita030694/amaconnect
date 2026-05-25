@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import NullifyClient from "./nullify-client";
 
 export const metadata: Metadata = {
-  title: "Dashboard Authority Portal | AMA Connect",
+  title: "Dashboard Authority Portal",
   description: "Secure administration login panel for verified AMA Legal Solutions team authorities.",
   robots: {
     index: false,

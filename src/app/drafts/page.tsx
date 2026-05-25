@@ -10,7 +10,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Legal Drafts & Document Templates Library | AMA Connect",
+  title: "Legal Drafts & Document Templates",
   description: "Browse 2,100+ premium, professionally formatted legal drafts, agreements, contracts, and deeds. Pick, customize, and download instantly.",
   alternates: {
     canonical: "https://amaconnect.in/drafts",

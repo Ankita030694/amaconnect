@@ -10,15 +10,33 @@ import Footer from "@/components/Footer";
 // import LawyerInterviews from "@/components/LawyerInterviews";
 import RequestDraftForm from "@/components/RequestDraftForm";
 
+import dbConnect from "@/lib/dbConnect";
+import { LawyerInterview as LawyerInterviewModel } from "@/lib/models";
+
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
-  title: "Lawyer Interviews & Legal Success Stories | AMA Connect",
+  title: "Lawyer Interviews & Success Stories",
   description: "Read exclusive interviews with prominent legal professionals, attorneys, and law experts sharing courtroom experiences and legal insights.",
   alternates: {
     canonical: "https://amaconnect.in/interviews",
   },
 };
 
-export default function InterviewsPage() {
+const getInterviews = async () => {
+  try {
+    await dbConnect();
+    const list = await LawyerInterviewModel.find({}).sort({ created: -1 }).lean();
+    return JSON.parse(JSON.stringify(list));
+  } catch (error) {
+    console.error("Error fetching lawyer interviews on server:", error);
+    return [];
+  }
+};
+
+export default async function InterviewsPage() {
+  const interviews = await getInterviews();
+
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
@@ -26,7 +44,7 @@ export default function InterviewsPage() {
 
 
         {/* New Top Stories Section */}
-        <TopLawyerStories className="!pt-0" />
+        <TopLawyerStories className="!pt-0" headingTag="h1" initialInterviews={interviews} />
 
         {/* Courtroom Experiences Carousel */}
         <CourtroomExperiences />

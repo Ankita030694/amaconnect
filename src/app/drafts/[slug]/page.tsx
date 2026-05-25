@@ -12,6 +12,7 @@ import {
   generateDraftPreview,
   cleanTitle
 } from "@/lib/draftsContentGenerator";
+import { getOptimalDraftTitle } from "@/lib/seoTitleHelper";
 
 export const revalidate = 3600; // Cache the page at the Edge for 1 hour
 
@@ -46,13 +47,13 @@ export async function generateMetadata(
 
   if (!draft) {
     return {
-      title: "Legal Draft Template | AMA Legal Solutions",
+      title: "Legal Draft Template",
       description: "Download premium, professionally formatted legal drafts at AMA Legal Solutions.",
     };
   }
 
+  const title = getOptimalDraftTitle(draft.title, cleanTitle);
   const cleanName = cleanTitle(draft.title);
-  const title = `Download ${cleanName} Template | AMA Connect`;
   const description = `Get a fully formatted, legally compliant ${cleanName}. Professional legal draft with execution checklist, stamp duty rules, and immediate download.`;
   const baseUrl = "https://amaconnect.in";
   const draftUrl = `${baseUrl}/drafts/${slug}`;
@@ -150,11 +151,11 @@ export default async function Page({
 
       {/* Crawlability Node - Content always available in SSR response */}
       <article className="sr-only" aria-hidden="true">
-        <h1>{draft.title}</h1>
+        <h2>{draft.title}</h2>
         <span>Category: {draft.category}</span>
         <span>Subcategory: {draft.subCategory}</span>
         <p>{cleanTitle(draft.title)} is a professional legal document provided by AMA Legal Solutions.</p>
-        <div dangerouslySetInnerHTML={{ __html: content.substring(0, 1000) }} />
+        <p>{content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().substring(0, 1000)}...</p>
       </article>
 
       <main className="flex-grow">

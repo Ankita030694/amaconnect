@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import CancelClient from "./cancel-client";
 
 export const metadata: Metadata = {
-  title: "Payment Cancelled | AMA Connect",
+  title: "Payment Cancelled",
   description: "Your payment attempt was cancelled. No charges have been made.",
   robots: {
     index: false,
