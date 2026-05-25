@@ -43,7 +43,28 @@ const getBlogBySlug = async (slug: string) => {
 
     if (blog) {
       // Serialize Mongo ID and properties safely
-      return JSON.parse(JSON.stringify(blog));
+      const data = JSON.parse(JSON.stringify(blog));
+      
+      const decodeEntities = (str: string): string => {
+        if (!str) return '';
+        return str
+          .replace(/&amp;?/gi, '&')
+          .replace(/&lt;/gi, '<')
+          .replace(/&gt;/gi, '>')
+          .replace(/&quot;/gi, '"')
+          .replace(/&#39;/gi, "'")
+          .replace(/&ndash;/gi, '–')
+          .replace(/&mdash;/gi, '—')
+          .replace(/&nbsp;/gi, ' ');
+      };
+
+      return {
+        ...data,
+        title: decodeEntities(data.title || ''),
+        subtitle: decodeEntities(data.subtitle || ''),
+        metaTitle: decodeEntities(data.metaTitle || ''),
+        metaDescription: decodeEntities(data.metaDescription || '')
+      };
     }
 
     console.log(`[getBlogBySlug] No blog found for slug: "${slug}"`);
@@ -63,7 +84,26 @@ const getRelatedBlogs = async (excludeId: string) => {
       .limit(3)
       .lean();
 
-    return JSON.parse(JSON.stringify(related));
+    const decodeEntities = (str: string): string => {
+      if (!str) return '';
+      return str
+        .replace(/&amp;?/gi, '&')
+        .replace(/&lt;/gi, '<')
+        .replace(/&gt;/gi, '>')
+        .replace(/&quot;/gi, '"')
+        .replace(/&#39;/gi, "'")
+        .replace(/&ndash;/gi, '–')
+        .replace(/&mdash;/gi, '—')
+        .replace(/&nbsp;/gi, ' ');
+    };
+
+    return JSON.parse(JSON.stringify(related)).map((item: any) => ({
+      ...item,
+      title: decodeEntities(item.title || ''),
+      subtitle: decodeEntities(item.subtitle || ''),
+      metaTitle: decodeEntities(item.metaTitle || ''),
+      metaDescription: decodeEntities(item.metaDescription || '')
+    }));
   } catch (error) {
     console.error("Error fetching related blogs:", error);
     return [];

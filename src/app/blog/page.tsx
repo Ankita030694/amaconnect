@@ -28,12 +28,39 @@ const BlogLoading = () => (
 
 export const dynamic = 'force-dynamic';
 
-// Helper function
+// Helper function to decode standard HTML entities
+const decodeEntities = (str: string): string => {
+  if (!str) return '';
+  return str
+    .replace(/&amp;?/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&ndash;/gi, '–')
+    .replace(/&mdash;/gi, '—')
+    .replace(/&nbsp;/gi, ' ');
+};
+
+// Helper function to clean raw blog descriptions and truncate to a professional short version
 const truncateWords = (text: string, wordCount: number) => {
   if (!text) return '';
-  const strippedText = text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-  const words = strippedText.split(/\s+/);
-  if (words.length <= wordCount) return strippedText;
+  
+  // 1. Remove heading tags and their internal text contents (e.g. <h2>...</h2>) to avoid heading-body mashing
+  let cleaned = text.replace(/<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/gi, ' ');
+  
+  // 2. Strip all remaining HTML tags
+  cleaned = cleaned.replace(/<[^>]*>/g, ' ');
+  
+  // 3. Decode HTML entities
+  cleaned = decodeEntities(cleaned);
+  
+  // 4. Normalize whitespaces
+  cleaned = cleaned.replace(/\s+/g, ' ').trim();
+  
+  // 5. Truncate to word count limit
+  const words = cleaned.split(/\s+/);
+  if (words.length <= wordCount) return cleaned;
   return words.slice(0, wordCount).join(' ') + '...';
 };
 
@@ -46,8 +73,8 @@ const getBlogs = async () => {
         return JSON.parse(JSON.stringify(blogsList)).map((data: any) => {
             return {
                 id: data._id || '',
-                title: data.title || '',
-                subtitle: data.subtitle || '',
+                title: decodeEntities(data.title || ''),
+                subtitle: decodeEntities(data.subtitle || ''),
                 description: truncateWords(data.description || '', 20),
                 fullDescription: truncateWords(data.description || '', 150),
                 date: data.date || '',
@@ -56,8 +83,8 @@ const getBlogs = async () => {
                 created: typeof data.created === 'number' 
                   ? data.created 
                   : (data.created ? new Date(data.created).getTime() : Date.now()),
-                metaTitle: data.metaTitle || '',
-                metaDescription: data.metaDescription || '',
+                metaTitle: decodeEntities(data.metaTitle || ''),
+                metaDescription: decodeEntities(data.metaDescription || ''),
                 slug: data.slug || ''
             };
         });
