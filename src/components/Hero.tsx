@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { communities } from "@/data/communities";
-import TopLawyerStories from "./TopLawyerStories";
+import TopLawyerStories, { LawyerInterview } from "./TopLawyerStories";
 
 function HeroCommunityOrbit() {
   // 5 community buttons mapped to positions along the right arc (semi-circle)
@@ -166,7 +166,7 @@ const HERO_VISUAL_PANEL =
 const HERO_TEXT_COLUMN =
   "lg:col-span-6 xl:col-span-5 order-1 lg:order-2 flex flex-col justify-center text-left max-w-2xl mx-auto lg:mx-0 lg:pl-4 xl:pl-8";
 
-export default function Hero() {
+export default function Hero({ initialInterviews = [] }: { initialInterviews?: LawyerInterview[] } = {}) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const totalSlides = 3;
@@ -251,7 +251,7 @@ export default function Hero() {
             </div>
 
             <div className="w-full mt-2 lg:mt-4">
-              <TopLawyerStories variant="hero" className="w-full" />
+              <TopLawyerStories variant="hero" className="w-full" initialInterviews={initialInterviews} />
             </div>
           </div>
         </div>

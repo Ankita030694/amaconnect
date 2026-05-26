@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AskAMAFeature from "@/components/AskAMAFeature";
@@ -10,22 +9,31 @@ import Footer from "@/components/Footer";
 import TopLawyerStories from "@/components/TopLawyerStories";
 import CommunityShowcase from "@/components/CommunityShowcase";
 
+import dbConnect from "@/lib/dbConnect";
+import { LawyerInterview as LawyerInterviewModel } from "@/lib/models";
 
-export const metadata: Metadata = {
-  title: "Digital Legal Solutions & Custom Templates",
-  description: "Access premium digital legal services, custom contract drafting, professional lawyer interviews, and community Q&A forums with AMA Legal Solutions.",
-  alternates: {
-    canonical: "https://amaconnect.in",
-  },
+export const dynamic = 'force-dynamic';
+
+const getInterviews = async () => {
+  try {
+    await dbConnect();
+    const list = await LawyerInterviewModel.find({}).sort({ created: -1 }).lean();
+    return JSON.parse(JSON.stringify(list));
+  } catch (error) {
+    console.error("Error fetching lawyer interviews on server home page:", error);
+    return [];
+  }
 };
 
-export default function Home() {
+export default async function Home() {
+  const interviews = await getInterviews();
+
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
-      <Hero />
+      <Hero initialInterviews={interviews} />
       <AskAMAFeature />
-      <TopLawyerStories />
+      <TopLawyerStories initialInterviews={interviews} />
       <CommunityShowcase />
       {/* <LegalQA /> */}
       {/* <LawyerInterviews /> */}

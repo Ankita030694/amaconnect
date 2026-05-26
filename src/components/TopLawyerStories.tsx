@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
-interface LawyerInterview {
+export interface LawyerInterview {
   _id: string;
   title: string;
   lawyer: string;

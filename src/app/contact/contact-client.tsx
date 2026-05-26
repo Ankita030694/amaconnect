@@ -101,7 +101,7 @@ export default function ContactClient() {
     const value = e.target.value;
     const filteredValue = value.replace(/[^a-zA-Z\s]/g, "");
     setFormData(prev => ({ ...prev, name: filteredValue }));
-    
+
     // Clear error
     if (errors.name) {
       setErrors(prev => ({ ...prev, name: undefined }));
@@ -112,7 +112,7 @@ export default function ContactClient() {
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setFormData(prev => ({ ...prev, email: value }));
-    
+
     // Clear error
     if (errors.email) {
       setErrors(prev => ({ ...prev, email: undefined }));
@@ -124,7 +124,7 @@ export default function ContactClient() {
     const value = e.target.value;
     const filteredValue = value.replace(/\D/g, "").slice(0, 10);
     setFormData(prev => ({ ...prev, phone: filteredValue }));
-    
+
     // Clear error
     if (errors.phone) {
       setErrors(prev => ({ ...prev, phone: undefined }));
@@ -135,7 +135,7 @@ export default function ContactClient() {
   const handleStateChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setFormData(prev => ({ ...prev, state: value }));
-    
+
     // Clear error
     if (errors.state) {
       setErrors(prev => ({ ...prev, state: undefined }));
@@ -146,7 +146,7 @@ export default function ContactClient() {
   const handleReasonChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setFormData(prev => ({ ...prev, reason: value }));
-    
+
     // Clear error
     if (errors.reason) {
       setErrors(prev => ({ ...prev, reason: undefined }));
@@ -157,7 +157,7 @@ export default function ContactClient() {
   const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setFormData(prev => ({ ...prev, message: value }));
-    
+
     // Clear error
     if (errors.message) {
       setErrors(prev => ({ ...prev, message: undefined }));
@@ -167,11 +167,11 @@ export default function ContactClient() {
   // Validate form submission
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else {
@@ -180,13 +180,13 @@ export default function ContactClient() {
         newErrors.email = "Please enter a valid email address";
       }
     }
-    
+
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
     } else if (formData.phone.length !== 10) {
       newErrors.phone = "Phone number must be exactly 10 digits";
     }
-    
+
     if (!formData.state) {
       newErrors.state = "Please select your state or union territory";
     }
@@ -194,11 +194,11 @@ export default function ContactClient() {
     if (!formData.reason) {
       newErrors.reason = "Please select a reason for contacting us";
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = "Message is required";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -209,7 +209,7 @@ export default function ContactClient() {
 
     setIsSubmitting(true);
     setSubmitError(null);
-    
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -265,7 +265,7 @@ export default function ContactClient() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start">
-            
+
             {/* Contact Details Card (left 5 columns) */}
             <div className="lg:col-span-5 bg-[#F8F8F5] rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-sm flex flex-col gap-8 sm:gap-10">
               <div>
@@ -275,7 +275,7 @@ export default function ContactClient() {
 
               {/* Detail Items */}
               <div className="flex flex-col gap-6 sm:gap-8">
-                
+
                 {/* Phone */}
                 <div className="flex items-start gap-4">
                   <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-[#D4AF37]">
@@ -283,8 +283,8 @@ export default function ContactClient() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Call Us</h4>
-                    <p className="text-[#D4AF37] font-bold mt-1 text-sm sm:text-base">+91 98765 43210</p>
-                    <p className="text-gray-500 text-xs sm:text-sm mt-0.5">Mon - Sat: 9:00 AM - 6:00 PM</p>
+                    <p className="text-[#D4AF37] font-bold mt-1 text-sm sm:text-base">Coming Soon</p>
+                    {/* <p className="text-gray-500 text-xs sm:text-sm mt-0.5">Mon - Sat: 9:00 AM - 6:00 PM</p> */}
                   </div>
                 </div>
 
@@ -295,8 +295,8 @@ export default function ContactClient() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Email Support</h4>
-                    <p className="text-[#D4AF37] font-bold mt-1 text-sm sm:text-base">support@amaconnect.com</p>
-                    <p className="text-gray-500 text-xs sm:text-sm mt-0.5">For queries: info@amaconnect.com</p>
+                    <p className="text-[#D4AF37] font-bold mt-1 text-sm sm:text-base">Coming Soon</p>
+                    <p className="text-gray-500 text-xs sm:text-sm mt-0.5"></p>
                   </div>
                 </div>
 
@@ -307,10 +307,8 @@ export default function ContactClient() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Our Headquarters</h4>
-                    <p className="text-gray-700 mt-1 leading-relaxed text-sm sm:text-base">
-                      AMA Connect Legal Solutions,<br />
-                      4th Floor, Connaught Place,<br />
-                      New Delhi, Delhi 110001, India
+                    <p className="text-[#D4AF37] font-bold mt-1 leading-relaxed text-sm sm:text-base">
+                      Coming Soon
                     </p>
                   </div>
                 </div>
@@ -327,7 +325,7 @@ export default function ContactClient() {
 
             {/* Contact Form Card (right 7 columns) */}
             <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-md">
-              
+
               {isSuccess ? (
                 /* Success Micro-animation State */
                 <div className="flex flex-col items-center justify-center text-center py-12 px-4 animate-in fade-in zoom-in duration-300">
@@ -338,7 +336,7 @@ export default function ContactClient() {
                   <p className="text-gray-600 max-w-md mb-8">
                     Thank you for reaching out. A legal aid coordinator has received your message and will contact you shortly.
                   </p>
-                  <button 
+                  <button
                     onClick={() => setIsSuccess(false)}
                     className="bg-[#2E2822] text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-black transition-all active:scale-95 shadow-sm"
                   >
@@ -348,7 +346,7 @@ export default function ContactClient() {
               ) : (
                 /* Form Component */
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
-                  
+
                   {submitError && (
                     <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3 text-red-600 font-semibold text-sm">
                       <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
@@ -361,15 +359,14 @@ export default function ContactClient() {
                     <label htmlFor="name" className="text-gray-800 font-bold text-sm sm:text-base">
                       Name <span className="text-[#D4AF37]">*</span>
                     </label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       id="name"
                       value={formData.name}
                       onChange={handleNameChange}
                       placeholder="Enter your full name (e.g. Rajesh Kumar)"
-                      className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base ${
-                        errors.name ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-                      }`}
+                      className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base ${errors.name ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+                        }`}
                     />
                     {errors.name && (
                       <span className="text-red-500 text-xs sm:text-sm flex items-center gap-1 mt-1 font-semibold">
@@ -384,15 +381,14 @@ export default function ContactClient() {
                       <label htmlFor="email" className="text-gray-800 font-bold text-sm sm:text-base">
                         Email Address <span className="text-[#D4AF37]">*</span>
                       </label>
-                      <input 
-                        type="email" 
+                      <input
+                        type="email"
                         id="email"
                         value={formData.email}
                         onChange={handleEmailChange}
                         placeholder="Enter your email address (e.g. rajesh@example.com)"
-                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base ${
-                          errors.email ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-                        }`}
+                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base ${errors.email ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+                          }`}
                       />
                       {errors.email && (
                         <span className="text-red-500 text-xs sm:text-sm flex items-center gap-1 mt-1 font-semibold">
@@ -406,15 +402,14 @@ export default function ContactClient() {
                       <label htmlFor="phone" className="text-gray-800 font-bold text-sm sm:text-base">
                         Phone Number <span className="text-[#D4AF37]">*</span>
                       </label>
-                      <input 
-                        type="tel" 
+                      <input
+                        type="tel"
                         id="phone"
                         value={formData.phone}
                         onChange={handlePhoneChange}
                         placeholder="Enter 10-digit mobile number (e.g. 9876543210)"
-                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base ${
-                          errors.phone ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-                        }`}
+                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base ${errors.phone ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+                          }`}
                       />
                       {errors.phone && (
                         <span className="text-red-500 text-xs sm:text-sm flex items-center gap-1 mt-1 font-semibold">
@@ -430,13 +425,12 @@ export default function ContactClient() {
                       State / Union Territory <span className="text-[#D4AF37]">*</span>
                     </label>
                     <div className="relative">
-                      <select 
+                      <select
                         id="state"
                         value={formData.state}
                         onChange={handleStateChange}
-                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base appearance-none ${
-                          errors.state ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-                        }`}
+                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base appearance-none ${errors.state ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+                          }`}
                       >
                         <option value="" disabled className="text-gray-400">Select State/UT</option>
                         {indianStatesAndUTs.map(state => (
@@ -465,13 +459,12 @@ export default function ContactClient() {
                       Reason for Contact <span className="text-[#D4AF37]">*</span>
                     </label>
                     <div className="relative">
-                      <select 
+                      <select
                         id="reason"
                         value={formData.reason}
                         onChange={handleReasonChange}
-                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base appearance-none ${
-                          errors.reason ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-                        }`}
+                        className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 sm:py-3.5 border text-gray-800 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base appearance-none ${errors.reason ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+                          }`}
                       >
                         <option value="" disabled className="text-gray-400">Select reason for contacting us</option>
                         {contactReasons.map(reason => (
@@ -499,15 +492,14 @@ export default function ContactClient() {
                     <label htmlFor="message" className="text-gray-800 font-bold text-sm sm:text-base">
                       Message <span className="text-[#D4AF37]">*</span>
                     </label>
-                    <textarea 
+                    <textarea
                       id="message"
                       rows={5}
                       value={formData.message}
                       onChange={handleMessageChange}
                       placeholder="Briefly describe your legal query or message here..."
-                      className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base resize-none ${
-                        errors.message ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-                      }`}
+                      className={`w-full bg-[#F8F8F5] rounded-xl px-4 py-3 border text-gray-800 placeholder-gray-400 font-semibold focus:outline-none transition-all duration-200 text-sm sm:text-base resize-none ${errors.message ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-gray-200 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+                        }`}
                     />
                     {errors.message && (
                       <span className="text-red-500 text-xs sm:text-sm flex items-center gap-1 mt-1 font-semibold">
@@ -517,7 +509,7 @@ export default function ContactClient() {
                   </div>
 
                   {/* Submit Button */}
-                  <button 
+                  <button
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full bg-[#D4AF37] hover:bg-[#C09F32] border border-[#B8962D] text-white py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-98 shadow-sm hover:shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
@@ -550,32 +542,32 @@ export default function ContactClient() {
             <p className="text-gray-500 mb-8 text-sm sm:text-base">
               Get immediate answers to common questions about our platform, templates, and pro bono legal support.
             </p>
-            
+
             <div className="space-y-6">
               <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
                 <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">1. Are the legal templates legally compliant under Indian law?</h4>
-                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                <p className="text-black text-sm sm:text-base leading-relaxed">
                   Yes, every document, draft, and agreement template available in our library is curated and verified by senior legal advisors and enrolled advocates. They are designed to align strictly with relevant enactments such as the Indian Contract Act, 1872, the Transfer of Property Act, 1882, the Registration Act, 1908, and the Code of Civil Procedure, 1908.
                 </p>
               </div>
 
               <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
                 <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">2. How does the WhatsApp legal community work?</h4>
-                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                <p className="text-black text-sm sm:text-base leading-relaxed">
                   Our exclusive practice forums allow individuals to ask legal questions and share courtroom experiences in real-time. The communities are categorized by practice domains (Property, Family, Corporate, and Criminal Law) to ensure focused, peer-to-peer discussions overseen by expert advocate administrators.
                 </p>
               </div>
 
               <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
                 <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">3. Can I request a customized draft not found in the library?</h4>
-                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                <p className="text-black text-sm sm:text-base leading-relaxed">
                   Absolutely. If you require a bespoke legal document or specialized agreement customized for your unique business needs or litigation facts, you can specify your request in the contact form above. Our network of legal drafting professionals will review your requirements and provide a customized draft within 24–48 hours.
                 </p>
               </div>
 
               <div className="bg-[#F8F8F5] p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-3xs">
                 <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mb-2">4. Is pro bono legal support truly free on the AMA Connect app?</h4>
-                <p className="text-gray-650 text-sm sm:text-base leading-relaxed">
+                <p className="text-black text-sm sm:text-base leading-relaxed">
                   Yes. AMA Connect is India's first dedicated pro bono legal aid platform. Asking legal questions, getting community answers, and seeking advice on credit card disputes or debt settlements through our official Android and iOS applications is completely free of charge. We believe in making high-quality legal support accessible to every citizen.
                 </p>
               </div>
