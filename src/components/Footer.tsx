@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="w-full bg-white pt-12 sm:pt-16 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Top Section: Links and Apps */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mb-10 sm:mb-16">
           {/* Logo Column */}
           <div className="flex flex-col items-start">
             <Link href="/" className="inline-block transition-opacity hover:opacity-80">
@@ -65,7 +65,6 @@ const Footer = () => {
                 { name: "Communities", href: "/communities" },
                 { name: "AMA", href: "/ask-me-anything" },
                 { name: "Interviews", href: "/interviews" },
-                { name: "Success Stories", href: "/success-stories" },
                 { name: "Drafts Library", href: "/drafts" },
                 { name: "Contact Us", href: "/contact" }
               ].map((link) => (
@@ -81,28 +80,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal Column */}
-          <div>
-            <h3 className="text-lg sm:text-xl font-medium text-gray-900 mb-4 sm:mb-6">Legal</h3>
-            <ul className="space-y-3 sm:space-y-4">
-              {[
-                { name: "Terms and Conditions", href: "https://amaconnect.in/terms-and-conditions" },
-                { name: "Privacy Policy", href: "https://amaconnect.in/privacy-policy" },
-                { name: "Disclaimer", href: "https://amaconnect.in/disclaimer" }
-              ].map((link) => (
-                <li key={link.name}>
-                  <a 
-                    href={link.href} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-base sm:text-lg"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+
         </div>
 
         {/* Featured In Section */}
