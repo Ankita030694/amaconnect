@@ -241,9 +241,9 @@ function generateCombinedSchema(interviewData: any) {
   };
   graph.push(articleSchema);
 
-  // 2. Organization / LegalService Schema with AggregateRating
+  // 2. Organization / LocalBusiness / LegalService Schema with AggregateRating
   const organizationSchema: any = {
-    "@type": "LegalService",
+    "@type": ["LocalBusiness", "LegalService"],
     "@id": `${baseUrl}/#organization`,
     "name": "AMA Legal Solutions",
     "url": baseUrl,

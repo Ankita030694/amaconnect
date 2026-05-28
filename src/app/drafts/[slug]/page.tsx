@@ -203,9 +203,9 @@ function generateDraftSchema(draft: any, faqs: any[], reviews: any[], slug: stri
     "description": `Step-by-step guidelines, stamp duty codes, and complete printable ${cleanName} template.`
   });
 
-  // 2. LegalService Schema with AggregateRating
+  // 2. Organization / LocalBusiness / LegalService Schema with AggregateRating
   const organizationSchema: any = {
-    "@type": "LegalService",
+    "@type": ["LocalBusiness", "LegalService"],
     "@id": `${baseUrl}/#organization`,
     "name": "AMA Legal Solutions",
     "url": baseUrl,
