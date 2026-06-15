@@ -2,6 +2,7 @@ import AmaClient from "./AmaClient";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata = {
   title: "Ask Me Anything Legal Q&A",
@@ -44,8 +45,8 @@ export default async function AmaPage() {
   const faqs = answeredQuestions
     .filter((q: any) => q.answer && q.answer.content)
     .map((q: any) => ({
-      question: q.content,
-      answer: q.answer.content
+      question: (q.content || "Legal Question").replace(/<[^>]*>/g, '').trim(),
+      answer: (q.answer.content || "").replace(/<[^>]*>/g, '').trim()
     }));
 
   const faqSchema = {
@@ -64,7 +65,8 @@ export default async function AmaPage() {
   return (
     <>
       {faqs.length > 0 && (
-        <script
+        <Script
+          id="ama-faq-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />

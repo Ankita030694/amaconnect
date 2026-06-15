@@ -12,7 +12,7 @@ export default function AskAMAFeature() {
 
 
           {/* Heading */}
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D2219] leading-[1.1] tracking-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-6">
             Ask legal questions. <br />
             Get answers in 45 minutes.
           </h2>

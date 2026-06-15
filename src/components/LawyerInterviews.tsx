@@ -90,7 +90,7 @@ export default function LawyerInterviews() {
         <h3 className="text-[#D4AF37] font-bold tracking-widest text-xs sm:text-sm uppercase mb-3 sm:mb-4">
           Featured Lawyer Q&A Case Guides
         </h3>
-        <h2 className="text-3xl sm:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 max-w-3xl mx-auto leading-tight">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-4 sm:mb-6 max-w-3xl mx-auto">
           Verified Lawyers Break Down Real Legal Issues
         </h2>
         <p className="text-gray-500 text-base sm:text-xl max-w-2xl mx-auto">

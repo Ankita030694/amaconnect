@@ -102,7 +102,7 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
         
         {/* Centered Catchy Big Heading */}
         <div className="text-center mb-5 sm:mb-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#2D2219] tracking-tight leading-none">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] tracking-tight leading-tight">
             Top <span className="text-[#D4AF37]">Lawyer Stories</span>
           </h2>
           <p className="text-gray-500 font-medium text-xs sm:text-xs lg:text-sm mt-3 max-w-2xl mx-auto">

@@ -271,7 +271,7 @@ export default function RequestDraftForm({ defaultReason = "" }: { defaultReason
         </p>
 
         {/* 2. Main Bold Heading */}
-        <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#1A1A1A] leading-tight mb-5">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-5">
           {heading}
         </h2>
 

@@ -17,7 +17,7 @@ export default function SuccessStoriesHero() {
           <h3 className="text-[#D4AF37] font-semibold tracking-wide text-sm mb-4 uppercase">
             Client Success Stories
           </h3>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-[#1a1a1a] mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-[#2D2219] mb-6">
             Trusted by people who needed real legal help.{" "}
             <span className="text-gray-400">
               Across real cases and real outcomes.

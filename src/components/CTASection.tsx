@@ -32,7 +32,7 @@ export default function CTASection() {
 
         {/* Left Content Section */}
         <div className="flex-[1.2] p-6 sm:p-10 lg:p-14 flex flex-col justify-center relative z-10">
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold leading-[1.2] sm:leading-[1.1] tracking-tight mb-4 sm:mb-5">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight mb-4 sm:mb-5">
             Get Legal Help in <br className="hidden xl:block" />
             Minutes. One <br className="hidden xl:block" />
             Download Away.

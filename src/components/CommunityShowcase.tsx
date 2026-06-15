@@ -182,7 +182,7 @@ export default function CommunityShowcase() {
         {/* Top Badge and Headline Header */}
         <div className="mb-12 sm:mb-16">
 
-          <h2 className="text-4xl sm:text-5xl lg:text-[54px] font-bold text-[#2D241E] leading-[1.1] mb-6 max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-6 max-w-3xl">
             Connect with people facing similar legal challenges.
           </h2>
           <p className="text-gray-500 text-lg sm:text-xl max-w-2xl leading-relaxed">

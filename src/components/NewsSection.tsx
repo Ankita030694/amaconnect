@@ -206,7 +206,7 @@ export default function NewsSection() {
             <span className="text-[#C79116] font-bold uppercase tracking-[0.15em] text-xs sm:text-sm lg:text-[14px] mb-1.5 sm:mb-2 block opacity-90">
               Live Court Updates
             </span>
-            <h2 className="text-xl sm:text-2xl lg:text-[28px] xl:text-[34px] font-extrabold text-[#2D2219] leading-tight mb-1 sm:mb-1.5 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-1.5 sm:mb-2">
               Supreme Court & High Court Rulings
             </h2>
             <p className="text-gray-500 font-medium text-xs sm:text-sm lg:text-[13px] leading-relaxed max-w-xl">

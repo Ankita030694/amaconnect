@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 // Enhanced loading component
 const BlogLoading = () => (
-  <div className="min-h-screen bg-[#F5F2EB] flex items-center justify-center">
+  <div className="min-h-screen bg-white flex items-center justify-center font-sans">
     <div className="text-center">
       <div className="w-12 h-12 border-4 border-[#D2A02A] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
       <p className="text-lg text-gray-600">Loading blogs...</p>
@@ -98,13 +98,12 @@ export default async function Page() {
   const blogs = await getBlogs();
 
   return (
-    <main className='bg-[#F5F2EB]' style={{ fontFamily: "var(--font-polysans)" }}>
+    <main className="bg-white font-sans">
       {/* <Navbar /> */}
       
       <div className="container mx-auto px-4 py-8">
         <h1 
-          className="text-[32px] md:text-[45px] font-semibold text-center mb-[30px] mt-[20px] leading-[40px] md:leading-[65px] opacity-100 h1-seo-fix"
-          style={{ color: '#5A4C33', fontFamily: "var(--font-polysans)" }}
+          className="text-[32px] md:text-[45px] font-medium text-center mb-[30px] mt-[20px] leading-[40px] md:leading-[65px] opacity-100 h1-seo-fix text-[#1A1A1A] font-sans"
         >
           Legal Blogs & Expert Insights
         </h1>
@@ -137,7 +136,7 @@ export default async function Page() {
         </section>
       )}
 
-<div className="max-w-3xl mx-auto text-center mb-[60px] text-[#5A4C33]/85 text-sm sm:text-base leading-relaxed space-y-4">
+<div className="max-w-3xl mx-auto text-center mb-[60px] text-[#2D2319]/80 text-sm sm:text-base leading-relaxed space-y-4 font-sans">
           <p>
             Welcome to the AMA Connect Expert Legal Blog, a premier educational resource designed by 
             enrolled advocates at AMA Legal Solutions. Our mission is to demystify complex legal frameworks, 

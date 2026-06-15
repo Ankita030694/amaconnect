@@ -123,7 +123,7 @@ export default function LegalCommunities() {
           <p className="text-[#D49B00] text-xs sm:text-sm font-extrabold tracking-[0.15em] uppercase mb-3">
             ALL COMMUNITIES
           </p>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#2A201A] leading-tight mb-8">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-8">
             Search across all legal communities
           </h2>
           

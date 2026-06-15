@@ -90,7 +90,7 @@ export default function CourtroomExperiences() {
       <section className="w-full py-16 sm:py-24 overflow-hidden">
         {/* Header Container */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-[#2D241E] leading-[1.1] max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight max-w-3xl">
             Real courtroom experiences that changed the way I practice law.
           </h2>
         </div>
@@ -129,7 +129,7 @@ export default function CourtroomExperiences() {
     <section className="w-full py-16 sm:py-24 overflow-hidden">
       {/* Header Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-[#2D241E] leading-[1.1] max-w-3xl">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight max-w-3xl">
           Real courtroom experiences that changed the way I practice law.
         </h2>
       </div>

@@ -530,7 +530,7 @@ export default function DraftsCatalog() {
           <p className="text-[#C69214] font-bold tracking-[0.2em] text-xs uppercase mb-3">
             2,165+ LEGAL TEMPLATES
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] leading-tight mb-4 select-none">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-4 select-none">
             Browse the Complete{" "}
             <span className="text-[#C69214]">Drafts Library</span>
           </h2>

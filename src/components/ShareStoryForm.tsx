@@ -8,7 +8,7 @@ export default function ShareStoryForm() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
          
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2E2822] mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-4">
             Have a legal success story to share?
           </h2>
           <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
