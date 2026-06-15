@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function SuccessStoriesPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans pt-24">
+    <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
       <SuccessStoriesHero />
       <SuccessStats />

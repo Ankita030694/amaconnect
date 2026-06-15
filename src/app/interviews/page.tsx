@@ -40,7 +40,7 @@ export default async function InterviewsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
-      <main className="flex-grow pt-20">
+      <main className="flex-grow pt-[52px]">
 
 
         {/* New Top Stories Section */}

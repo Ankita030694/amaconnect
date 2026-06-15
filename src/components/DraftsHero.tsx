@@ -19,7 +19,7 @@ export default function DraftsHero() {
   };
 
   return (
-    <section className="relative w-full bg-white pt-16 sm:pt-24 lg:pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
+    <section className="relative w-full bg-white pt-[52px] pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
       {/* Premium Visual Element: Ambient Gold Radial Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05)_0%,transparent_70%)] rounded-full blur-3xl pointer-events-none -z-10" />
 

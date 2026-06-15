@@ -11,7 +11,7 @@ export default function SuccessStoriesHero() {
   ];
 
   return (
-    <section className="w-full bg-white pt-12 sm:pt-20 pb-16">
+    <section className="w-full bg-white pt-[52px] pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-end gap-8 mb-12">
         <div className="max-w-8xl">
           <h3 className="text-[#D4AF37] font-semibold tracking-wide text-sm mb-4 uppercase">

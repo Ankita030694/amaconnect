@@ -246,10 +246,10 @@ export default function ContactClient() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans pt-24">
+    <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
 
-      <main className="flex-grow py-12 sm:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white">
+      <main className="flex-grow pt-[52px] pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white">
         {/* Soft Background Glow matching Hero page */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[300px] sm:h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(255,215,0,0.1)_0%,transparent_60%)] rounded-full blur-2xl sm:blur-3xl -z-0 pointer-events-none" />
 

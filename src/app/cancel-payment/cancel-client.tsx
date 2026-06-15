@@ -43,7 +43,7 @@ export default function CancelClient() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F5F2EB] text-gray-800 pt-24 font-sans">
+    <div className="flex flex-col min-h-screen bg-[#F5F2EB] text-gray-800 pt-[52px] font-sans">
       {/* <Navbar /> */}
 
       <main className="flex-grow py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex items-center justify-center">

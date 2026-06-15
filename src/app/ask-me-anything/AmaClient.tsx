@@ -372,7 +372,7 @@ export default function AmaClient({ initialQuestions = [] }: { initialQuestions?
       {showModal && <DownloadModal onClose={() => setShowModal(false)} />}
 
       {/* Sub-Header / Tool Bar */}
-      <div className="pt-24 pb-6 px-4 sm:px-6 lg:px-8">
+      <div className="pt-[52px] pb-6 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
                <div className="bg-white/80 backdrop-blur-md border border-[#30261C]/5 rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row gap-4 items-center justify-between">
                    {/* Search */}

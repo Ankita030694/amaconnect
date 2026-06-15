@@ -96,7 +96,7 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
     <section 
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full overflow-hidden py-4 sm:py-12 px-4 sm:px-6 lg:px-8 bg-white flex flex-col items-center justify-center min-h-[480px] font-sans"
+      className="relative w-full overflow-hidden pt-[52px] pb-4 sm:pb-12 px-4 sm:px-6 lg:px-8 bg-white flex flex-col items-center justify-center min-h-[480px] font-sans"
     >
       <div className="max-w-6xl mx-auto w-full relative z-20 flex flex-col gap-5">
         

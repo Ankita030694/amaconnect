@@ -8,7 +8,7 @@ const APP_STORE_URL =
 export default function AboutHero() {
   return (
     <section className="relative w-full bg-white overflow-hidden font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-10 pb-12 sm:pb-16 flex flex-col items-center text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[52px] pb-12 sm:pb-16 flex flex-col items-center text-center">
         {/* Social proof / trust badge */}
         <Image
           src="/reviews.svg"

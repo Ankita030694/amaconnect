@@ -22,7 +22,7 @@ export default function CommunitiesHero() {
   ];
 
   return (
-    <section className="relative w-full bg-white py-10 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
+    <section className="relative w-full bg-white pt-[52px] pb-10 sm:pb-20 lg:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
