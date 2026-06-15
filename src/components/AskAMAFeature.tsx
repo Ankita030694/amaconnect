@@ -159,38 +159,58 @@ export default function AskAMAFeature() {
               As Featured In
             </h4>
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12 w-full opacity-80 select-none">
-              <div className="relative h-12 w-28 sm:w-36 grayscale hover:grayscale-0 transition-all duration-300">
+              <a 
+                href="https://www.barandbench.com/news/ama-legal-solutions-launches-indias-first-law-firm-backed-pro-bono-driven-mobile-app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative h-12 w-28 sm:w-36 grayscale hover:grayscale-0 transition-all duration-300 block"
+              >
                 <Image 
                   src="/media/barandbench.png" 
                   alt="Bar & Bench" 
                   fill
                   className="object-contain"
                 />
-              </div>
-              <div className="relative h-12 w-20 sm:w-28 grayscale hover:grayscale-0 transition-all duration-300">
+              </a>
+              <a 
+                href="https://www.livemint.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative h-12 w-20 sm:w-28 grayscale hover:grayscale-0 transition-all duration-300 block"
+              >
                 <Image 
                   src="/media/livemint.png" 
                   alt="Mint" 
                   fill
                   className="object-contain"
                 />
-              </div>
-              <div className="relative h-12 w-24 sm:w-32 grayscale hover:grayscale-0 transition-all duration-300">
+              </a>
+              <a 
+                href="https://medium.com/@amalegalsolutions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative h-12 w-24 sm:w-32 grayscale hover:grayscale-0 transition-all duration-300 block"
+              >
                 <Image 
                   src="/media/medium.png" 
                   alt="Medium" 
                   fill
                   className="object-contain"
                 />
-              </div>
-              <div className="relative h-12 w-24 sm:w-32 grayscale hover:grayscale-0 transition-all duration-300">
+              </a>
+              <a 
+                href="https://yourstory.com/companies/ama-legal-solutions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative h-12 w-24 sm:w-32 grayscale hover:grayscale-0 transition-all duration-300 block"
+              >
                 <Image 
                   src="/media/yourstory.png" 
                   alt="YourStory" 
                   fill
                   className="object-contain"
                 />
-              </div>
+              </a>
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@ export default async function Home() {
       {/* <Navbar /> */}
       <Hero initialInterviews={interviews} />
       <AskAMAFeature />
-      <TopLawyerStories initialInterviews={interviews} />
+      {/* <TopLawyerStories initialInterviews={interviews} /> */}
       <CommunityShowcase />
       {/* <LegalQA /> */}
       {/* <LawyerInterviews /> */}
