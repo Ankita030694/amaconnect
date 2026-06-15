@@ -1,11 +1,25 @@
 import Link from "next/link";
-import { FileText, Tv, Shield, ArrowUpRight, HelpCircle, Activity } from "lucide-react";
+import { FileText, Tv, Shield, ArrowUpRight, HelpCircle, Activity, ClipboardList } from "lucide-react";
+import dbConnect from "@/lib/dbConnect";
+import { Blog, LawyerInterview, Contact, DraftPayment } from "@/lib/models";
 
-export default function AuthorityDashboard() {
+export default async function AuthorityDashboard() {
+  await dbConnect();
+
+  // Fetch counts from database
+  const [blogsCount, interviewsCount, contactsCount, draftPaymentsCount] = await Promise.all([
+    Blog.countDocuments(),
+    LawyerInterview.countDocuments(),
+    Contact.countDocuments(),
+    DraftPayment.countDocuments()
+  ]);
+
+  const totalLeads = contactsCount + draftPaymentsCount;
+
   const stats = [
     {
       name: "Published Blogs",
-      value: "12",
+      value: blogsCount.toString(),
       description: "Manage and create lawyer insights",
       href: "/authority/blogs",
       icon: FileText,
@@ -15,13 +29,23 @@ export default function AuthorityDashboard() {
     },
     {
       name: "Lawyer Interviews",
-      value: "8",
+      value: interviewsCount.toString(),
       description: "Manage showcase video features",
       href: "/authority/interviews",
       icon: Tv,
       color: "bg-amber-50/40 hover:bg-amber-50 border-amber-100",
       iconBg: "bg-amber-50 border-amber-100 text-[#B8860B]",
       accentText: "text-[#B8860B]",
+    },
+    {
+      name: "Leads & Queries",
+      value: totalLeads.toString(),
+      description: "Unified contact & draft forms",
+      href: "/authority/leads",
+      icon: ClipboardList,
+      color: "bg-purple-50/50 hover:bg-purple-50 border-purple-100",
+      iconBg: "bg-purple-50 border-purple-100 text-purple-650",
+      accentText: "text-purple-650",
     },
     {
       name: "App Q&A Queries",
@@ -58,7 +82,7 @@ export default function AuthorityDashboard() {
       </div>
 
       {/* Grid Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
           return (

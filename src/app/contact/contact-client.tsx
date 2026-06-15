@@ -216,7 +216,10 @@ export default function ContactClient() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          sourceUrl: typeof window !== "undefined" ? window.location.href : ""
+        })
       });
 
       const data = await response.json();

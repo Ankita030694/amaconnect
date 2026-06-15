@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     await dbConnect();
 
     const body = await request.json();
-    const { name, email, phone, state, message, draftTitle, draftFileName, draftFilePath } = body;
+    const { name, email, phone, state, message, draftTitle, draftFileName, draftFilePath, sourceUrl } = body;
 
     // Defensive validation check
     if (!name || !email || !phone || !state || !message || !draftTitle || !draftFileName || !draftFilePath) {
@@ -62,7 +62,8 @@ export async function POST(request: Request) {
       draftTitle: draftTitle.trim(),
       draftFileName: draftFileName.trim(),
       draftFilePath: draftFilePath.trim(),
-      paymentStatus: "pending"
+      paymentStatus: "pending",
+      sourceUrl: sourceUrl ? sourceUrl.trim() : ""
     });
 
     const savedLead = await lead.save();

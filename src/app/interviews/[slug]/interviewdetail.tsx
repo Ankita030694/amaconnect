@@ -332,13 +332,15 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
   return (
     <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16">
       {/* Hero Image Section */}
-      <div className={`w-full relative ${interview.bgColor || 'bg-[#1a202c]'} overflow-hidden`}>
-        <div className="absolute inset-0 bg-slate-900/10 z-10 pointer-events-none" />
-        <img
-          src={interview.image || "/ashishbhay.png"}
-          alt={interview.lawyer}
-          className="w-full h-auto z-0 block"
-        />
+      <div className={`w-full ${interview.bgColor || 'bg-[#1a202c]'} flex justify-center`}>
+        <div className="w-full max-w-[1478px] relative overflow-hidden aspect-[1478/831] flex items-center justify-center">
+          <div className="absolute inset-0 bg-slate-900/10 z-10 pointer-events-none" />
+          <img
+            src={interview.image || "/ashishbhay.png"}
+            alt={interview.lawyer}
+            className="w-full h-full object-cover z-0 block"
+          />
+        </div>
       </div>
 
       <div className="container mx-auto px-4 max-w-[1600px] py-8">

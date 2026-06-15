@@ -83,6 +83,7 @@ const ContactSchema = new Schema({
   state: { type: String, required: true },
   reason: { type: String, required: true },
   message: { type: String, required: true },
+  sourceUrl: { type: String },
   createdAt: { type: Date, default: Date.now }
 }, { collection: "contact" });
 
@@ -101,6 +102,7 @@ const DraftPaymentSchema = new Schema({
   draftFileName: { type: String, required: true },
   draftFilePath: { type: String, required: true },
   paymentStatus: { type: String, enum: ["pending", "success", "failed", "cancelled"], default: "pending" },
+  sourceUrl: { type: String },
   createdAt: { type: Date, default: Date.now }
 }, { collection: "draft_payments" });
 

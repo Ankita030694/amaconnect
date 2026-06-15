@@ -9,7 +9,8 @@ import {
   FileText, 
   Tv, 
   LogOut, 
-  User 
+  User,
+  ClipboardList
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -17,6 +18,7 @@ export default function Sidebar() {
 
   const links = [
     { name: "Dashboard", href: "/authority", icon: LayoutDashboard },
+    { name: "Manage Leads", href: "/authority/leads", icon: ClipboardList },
     { name: "Manage Blogs", href: "/authority/blogs", icon: FileText },
     { name: "Lawyer Interviews", href: "/authority/interviews", icon: Tv },
   ];

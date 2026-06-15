@@ -348,7 +348,8 @@ export default function DraftsCatalog() {
         ...formData,
         draftTitle: cleanDraftTitle,
         draftFileName: selectedDraftForPayment.fileName,
-        draftFilePath: selectedDraftForPayment.filePath
+        draftFilePath: selectedDraftForPayment.filePath,
+        sourceUrl: typeof window !== "undefined" ? window.location.href : ""
       };
 
       const response = await fetch("/api/draft-payments", {

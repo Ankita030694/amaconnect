@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     
     // 2. Parse request body
     const body = await request.json();
-    const { name, email, phone, state, reason, message } = body;
+    const { name, email, phone, state, reason, message, sourceUrl } = body;
 
     // 3. Defensive Backend Validation
     if (!name || !email || !phone || !state || !reason || !message) {
@@ -59,7 +59,8 @@ export async function POST(request: Request) {
       phone: phone.trim(),
       state,
       reason: reason.trim(),
-      message: message.trim()
+      message: message.trim(),
+      sourceUrl: sourceUrl ? sourceUrl.trim() : ""
     });
 
     await contactEntry.save();

@@ -1,626 +1,256 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { communities } from "@/data/communities";
-import TopLawyerStories, { LawyerInterview } from "./TopLawyerStories";
 
-// Unused community orbit and layout tokens commented out:
-//
-// function HeroCommunityOrbit() {
-//   // 5 community buttons mapped to positions along the right arc (semi-circle)
-//   const buttons = [
-//     {
-//       label: "Join Property Help",
-//       link: communities[3]?.link || "#",
-//       left: "28.3%",
-//       top: "6.9%"
-//     },
-//     {
-//       label: "Join Family Law Help",
-//       link: communities[0]?.link || "#",
-//       left: "57.8%",
-//       top: "19.5%"
-//     },
-//     {
-//       label: "Join IPR & Trademark",
-//       link: communities[1]?.link || "#",
-//       left: "70.0%",
-//       top: "50.0%"
-//     },
-//     {
-//       label: "Join Corporate Network",
-//       link: communities[2]?.link || "#",
-//       left: "57.8%",
-//       top: "80.5%"
-//     },
-//     {
-//       label: "Join Drafting Help",
-//       link: communities[4]?.link || "#",
-//       left: "28.3%",
-//       top: "93.1%"
-//     },
-//   ];
-//
-//   return (
-//     <>
-//       {/* ── Desktop Layout: Golden thick segmented semi-circle (right facing) ── */}
-//       <div className="hidden lg:block relative w-full max-w-[540px] lg:max-w-[540px] xl:max-w-[594px] aspect-[600/580] lg:h-[522px] lg:w-[540px] xl:w-[594px] select-none overflow-visible lg:ml-[-60px] xl:ml-[-120px] transition-all duration-300">
-//
-//         {/* Golden semi-circle SVG */}
-//         <div className="absolute inset-0 z-0 pointer-events-none">
-//           <svg viewBox="0 0 600 580" className="w-full h-full drop-shadow-[0_12px_32px_rgba(180,130,20,0.3)]">
-//             <defs>
-//               <linearGradient id="heroGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-//                 <stop offset="0%" stopColor="#E8A810" />
-//                 <stop offset="30%" stopColor="#F5C024" />
-//                 <stop offset="60%" stopColor="#D4A00E" />
-//                 <stop offset="100%" stopColor="#9A7005" />
-//               </linearGradient>
-//             </defs>
-//
-//             {/* Subtle gold glow path underneath */}
-//             <path
-//               d="M 170 40 A 250 250 0 0 1 170 540"
-//               stroke="url(#heroGoldGrad)"
-//               strokeWidth="64"
-//               fill="none"
-//               className="opacity-20 blur-md"
-//             />
-//
-//             {/* Main segmented semi-circle path */}
-//             <path
-//               d="M 170 40 A 250 250 0 0 1 170 540"
-//               stroke="url(#heroGoldGrad)"
-//               strokeWidth="48"
-//               fill="none"
-//               strokeLinecap="round"
-//               strokeDasharray="100 60"
-//             />
-//           </svg>
-//         </div>
-//
-//         {/* Phone mockup ─ placed flush to left edge, full height */}
-//         <div className="absolute left-0 top-0 h-full w-[47%] z-20 overflow-visible">
-//           <div className="relative w-full h-full">
-//             <Image
-//               src="/Chat.svg"
-//               alt="AMA Connect WhatsApp community chat mockup"
-//               fill
-//               className="object-contain object-left drop-shadow-[0_25px_60px_rgba(0,0,0,0.4)]"
-//               priority
-//             />
-//           </div>
-//         </div>
-//
-//         {/* Five pill-shaped WhatsApp join buttons placed on the 5 sections */}
-//         <div className="absolute inset-0 z-30 pointer-events-none">
-//           {buttons.map((btn, i) => (
-//             <a
-//               key={i}
-//               href={btn.link}
-//               target="_blank"
-//               rel="noopener noreferrer"
-//               style={{ left: btn.left, top: btn.top }}
-//               className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center gap-2.5 bg-[#2D2219] hover:bg-[#3d3026] text-white py-2.5 lg:py-3 px-5 lg:px-6 rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_10px_28px_rgba(37,211,102,0.3)] hover:scale-[1.05] transition-all duration-300 active:scale-[0.97] cursor-pointer whitespace-nowrap pointer-events-auto border border-[#E8A810]/20 hover:border-[#E8A810]/40"
-//             >
-//               {/* WhatsApp icon */}
-//               <svg className="w-4 h-4 lg:w-5 lg:h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                 <circle cx="12" cy="12" r="12" fill="#25D366" />
-//                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.705 1.459h.006c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white" transform="scale(0.55) translate(9.5, 9.5)" />
-//               </svg>
-//               <span className="text-[11px] xl:text-[13px] font-bold tracking-wide leading-none">
-//                 {btn.label}
-//               </span>
-//             </a>
-//           ))}
-//         </div>
-//       </div>
-//
-//       {/* ── Mobile/Tablet Layout: Clean, thumb-friendly side-by-side or stacked list ── */}
-//       <div className="flex lg:hidden items-center justify-center gap-3 min-[400px]:gap-4 sm:gap-8 md:gap-12 w-full max-w-[480px] sm:max-w-[580px] mx-auto select-none py-2 sm:py-4 overflow-visible">
-//
-//         {/* Phone mockup */}
-//         <div className="w-[80px] min-[400px]:w-[110px] sm:w-[150px] md:w-[180px] aspect-[9/19] shrink-0 relative">
-//           <Image
-//             src="/Chat.svg"
-//             alt="AMA Connect WhatsApp community chat mockup mobile"
-//             fill
-//             className="object-contain drop-shadow-[0_12px_32px_rgba(0,0,0,0.25)]"
-//             priority
-//           />
-//         </div>
-//
-//         {/* Stack of 5 premium WhatsApp join buttons */}
-//         <div className="flex flex-col gap-2 min-[400px]:gap-3 sm:gap-4 flex-1 justify-center max-w-[200px] min-[400px]:max-w-[240px] sm:max-w-[280px]">
-//           {buttons.map((btn, i) => (
-//             <a
-//               key={i}
-//               href={btn.link}
-//               target="_blank"
-//               rel="noopener noreferrer"
-//               className="flex items-center gap-2 bg-[#2D2219] hover:bg-[#3d3026] text-white py-2 min-[400px]:py-2.5 px-3 min-[400px]:px-4 sm:px-5 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_16px_rgba(37,211,102,0.25)] hover:scale-[1.03] transition-all duration-300 active:scale-[0.97] cursor-pointer whitespace-nowrap border border-[#E8A810]/15 hover:border-[#E8A810]/30"
-//             >
-//               {/* WhatsApp icon */}
-//               <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                 <circle cx="12" cy="12" r="12" fill="#25D366" />
-//                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.705 1.459h.006c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white" transform="scale(0.55) translate(9.5, 9.5)" />
-//             </a>
-//           ))}
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-//
-// const HERO_SLIDE_GRID =
-//   "grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full h-full";
-// const HERO_LEFT_COLUMN =
-//   "lg:col-span-6 xl:col-span-7 order-2 lg:order-1 flex lg:justify-start items-center w-full overflow-visible";
-// const HERO_VISUAL_PANEL =
-//   "w-full max-w-[380px] sm:max-w-[480px] lg:max-w-[580px] xl:max-w-[660px] h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] xl:h-[420px] relative mx-auto shrink-0";
-// const HERO_TEXT_COLUMN =
-//   "lg:col-span-6 xl:col-span-5 order-1 lg:order-2 flex flex-col justify-center text-left max-w-2xl mx-auto lg:mx-0 lg:pl-4 xl:pl-8";
-
-interface NewsArticle {
+export interface LawyerInterview {
+  _id: string;
   title: string;
+  lawyer: string;
+  image: string;
+  specialization: string;
+  date: string;
+  bgColor: string;
   description: string;
-  url: string;
-  urlToImage: string;
-  publishedAt: string;
-  source: string;
-  author: string;
+  slug: string;
+  duration?: string;
+  videoUrl?: string;
+  created?: number;
 }
 
-const cleanNewsDescription = (text: string) => {
-  if (!text) return "";
-  return text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+const cleanDescription = (html: string) => {
+  if (!html) return "";
+  let text = html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  text = text
+    .replace(/&amp;amp;/g, "&")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+  text = text.replace(/^\s*(Executive\s+Summary\s*(?:&|and|&amp;)?\s*Overview\s*[\-:]*\s*)/i, "");
+  text = text.replace(/^\s*(Executive\s+Summary\s*[\-:]*\s*)/i, "");
+  return text.trim();
 };
 
-const truncateNewsWords = (text: string, maxWords: number) => {
+const truncateWords = (text: string, maxWords: number) => {
   if (!text) return "";
   const words = text.split(/\s+/);
   if (words.length <= maxWords) return text;
   return words.slice(0, maxWords).join(" ") + "...";
 };
 
-const formatNewsDate = (dateStr: string) => {
+const formatDateToWord = (dateStr: string) => {
   if (!dateStr) return "";
   try {
-    const parsedDate = new Date(dateStr);
+    const parsedDate = new Date(dateStr.trim().replace(/[\/.]/g, "-"));
     if (!isNaN(parsedDate.getTime())) {
-      const day = String(parsedDate.getDate()).padStart(2, "0");
-      const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
-      const year = parsedDate.getFullYear();
-      return `${day}-${month}-${year}`;
+      return parsedDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      });
     }
   } catch (err) {}
   return dateStr;
 };
 
-function HeroNews() {
-  const [articles, setArticles] = useState<NewsArticle[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isFetchingMore, setIsFetchingMore] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [brokenImages, setBrokenImages] = useState<Record<number, boolean>>({});
-
-  useEffect(() => {
-    async function fetchInitialNews() {
-      try {
-        setLoading(true);
-        const res = await fetch("/api/news?page=1");
-        if (!res.ok) throw new Error("Failed to fetch news");
-        const data = await res.json();
-        setArticles(data.articles || []);
-        setHasMore(data.hasMore ?? false);
-      } catch (err) {
-        console.error("Error loading news for Hero:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchInitialNews();
-  }, []);
-
-  const loadMoreArticles = async () => {
-    if (isFetchingMore || !hasMore) return;
-    try {
-      setIsFetchingMore(true);
-      const nextPage = page + 1;
-      const res = await fetch(`/api/news?page=${nextPage}`);
-      if (!res.ok) throw new Error("Failed to fetch more news");
-      const data = await res.json();
-      if (data.articles && data.articles.length > 0) {
-        setArticles((prev) => [...prev, ...data.articles]);
-        setPage(nextPage);
-        setHasMore(data.hasMore ?? false);
-      } else {
-        setHasMore(false);
-      }
-    } catch (err) {
-      console.error("Error loading more articles in Hero:", err);
-    } finally {
-      setIsFetchingMore(false);
-    }
-  };
-
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-    // Detect if we scrolled within 300px of the right end of the horizontal container
-    const distanceToRight = target.scrollWidth - target.scrollLeft - target.clientWidth;
-    if (distanceToRight < 300 && hasMore && !isFetchingMore) {
-      loadMoreArticles();
-    }
-  };
-
-  const handleImageError = (index: number) => {
-    setBrokenImages((prev) => ({ ...prev, [index]: true }));
-  };
-
-  // Pastels/Warm gradients matching CourtroomExperiences styles
-  const gradients = [
-    "from-[#FFAFA3] to-[#FFC6B3]",
-    "from-[#FFD3B6] to-[#FFE5D9]",
-    "from-[#FFCAD4] to-[#F4ACB7]",
-  ];
-
-  if (loading) {
-    return (
-      <div className="w-full">
-        <div 
-          className="flex overflow-x-auto gap-4 sm:gap-6 pb-6 snap-x snap-mandatory w-full animate-pulse"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {[0, 1, 2].map((n) => (
-            <div
-              key={n}
-              className="flex-shrink-0 w-[260px] sm:w-[320px] h-[320px] sm:h-[332px] rounded-3xl bg-white/40 border border-[#2D2219]/5 flex flex-col justify-end p-5 sm:p-6 snap-start"
-            >
-              <div className="h-6 bg-slate-200 rounded w-11/12 mb-3"></div>
-              <div className="h-4 bg-slate-200 rounded w-2/3 mb-6"></div>
-              <div className="h-3.5 bg-slate-200 rounded w-1/3"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (articles.length === 0) return null;
-
-  return (
-    <div className="w-full">
-      <div
-        className="flex overflow-x-auto gap-4 sm:gap-6 pb-6 snap-x snap-mandatory w-full"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        onScroll={handleScroll}
-      >
-        <style dangerouslySetInnerHTML={{__html: `
-          .flex::-webkit-scrollbar { display: none; }
-        `}} />
-
-        {articles.map((art, index) => {
-          const hasImage = !!art.urlToImage && !brokenImages[index];
-          const bgGradient = gradients[index % gradients.length];
-
-          return (
-            <a
-              key={index}
-              href={art.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 w-[260px] sm:w-[320px] h-[320px] sm:h-[332px] rounded-3xl overflow-hidden border border-gray-100 bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col relative group snap-start"
-            >
-              {hasImage ? (
-                <>
-                  <img
-                    src={art.urlToImage}
-                    alt={art.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={() => handleImageError(index)}
-                  />
-                  {/* Modern dark gradient overlay for text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30 group-hover:via-black/70 transition-all duration-300 z-0"></div>
-                </>
-              ) : (
-                /* Sleek light gradient fallback */
-                <div className={`absolute top-0 left-0 w-full h-[70%] bg-gradient-to-b ${bgGradient} from-40% to-white/0 to-100% z-0`}></div>
-              )}
-
-              {/* Bottom Content Area */}
-              <div className={`relative z-10 flex-1 flex flex-col justify-end p-5 sm:p-6 ${hasImage ? "text-white" : "text-[#2D241E]"}`}>
-                <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-2 ${hasImage ? "text-[#E8A810]" : "text-[#C79116]"}`}>
-                  {art.source}
-                </span>
-
-                <h4 className="font-bold leading-snug text-[14px] sm:text-base line-clamp-3 mb-6 group-hover:underline transition-colors duration-200">
-                  {art.title}
-                </h4>
-
-                <div className={`flex justify-between items-center pt-3 border-t border-dashed mt-auto ${hasImage ? "border-gray-200/20" : "border-gray-200"}`}>
-                  <span className={`text-[10px] ${hasImage ? "text-gray-300" : "text-gray-500"} font-semibold`}>
-                    {formatNewsDate(art.publishedAt)}
-                  </span>
-                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${hasImage ? "text-[#FFC6B3] group-hover:text-white" : "text-[#D4AF37] group-hover:text-[#bca032]"}`}>
-                    Read Article →
-                  </span>
-                </div>
-              </div>
-            </a>
-          );
-        })}
-
-        {/* Shimmering skeletons when loading more items at the right end of the carousel */}
-        {isFetchingMore && (
-          <>
-            {Array(2).fill(0).map((_, index) => (
-              <div 
-                key={`loading-more-${index}`}
-                className="flex-shrink-0 w-[260px] sm:w-[320px] h-[320px] sm:h-[332px] rounded-3xl snap-start bg-gray-50 border border-gray-100 flex flex-col justify-end p-5 sm:p-6 animate-pulse"
-              >
-                <div className="h-6 bg-gray-200/80 rounded w-11/12 mb-3"></div>
-                <div className="h-4 bg-gray-200/80 rounded w-2/3 mb-6"></div>
-                <div className="h-3.5 bg-gray-200/80 rounded w-1/3"></div>
-              </div>
-            ))}
-          </>
-        )}
-
-        {/* Spacer at the end for padding */}
-        <div className="w-4 sm:w-6 lg:w-8 flex-shrink-0"></div>
-      </div>
-    </div>
-  );
-}
-
 export default function Hero({ initialInterviews = [] }: { initialInterviews?: LawyerInterview[] } = {}) {
+  const [interviews] = useState<LawyerInterview[]>(initialInterviews);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const totalSlides = 2;
+
+  const itemsPerSlide = 4;
+  const totalSlides = Math.ceil(interviews.length / itemsPerSlide) || 1;
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || totalSlides <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [isPaused, totalSlides]);
 
-  const slides = [
-    { id: 0, bg: "bg-white" },       // Interviews
-    { id: 1, bg: "bg-[#F8F8F6]" }    // News
-  ];
+  if (interviews.length === 0) return null;
+
+  // Sort interviews by date / created descending to ensure order
+  const sortedInterviews = [...interviews].sort((a, b) => {
+    const timeA = a.created || (a.date ? new Date(a.date).getTime() : 0);
+    const timeB = b.created || (b.date ? new Date(b.date).getTime() : 0);
+    return timeB - timeA;
+  });
+
+  // Slice interviews for current slide
+  const slideStartIndex = currentSlide * itemsPerSlide;
+  const slideInterviews = sortedInterviews.slice(slideStartIndex, slideStartIndex + itemsPerSlide);
+  const featuredStory = slideInterviews[0];
+  
+  // Sidebar stories sorted by date descending (one below another)
+  const sidebarStories = slideInterviews.slice(1).sort((a, b) => {
+    const timeA = a.created || (a.date ? new Date(a.date).getTime() : 0);
+    const timeB = b.created || (b.date ? new Date(b.date).getTime() : 0);
+    return timeB - timeA;
+  });
 
   return (
-    <section
+    <section 
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className={`relative w-full overflow-hidden pt-12 sm:pt-24 lg:pt-28 pb-12 sm:pb-20 lg:pb-24 px-4 sm:px-6 lg:px-8 flex items-center justify-center transition-all duration-700 ease-in-out min-h-[660px] sm:min-h-[580px] lg:h-[580px] lg:max-h-[580px] ${slides[currentSlide].bg}`}
+      className="relative w-full overflow-hidden pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-white flex flex-col items-center justify-center min-h-[600px] font-sans"
     >
-      {/* Background Graphic for the App Slide (Commented out)
-      <div
-        className={`absolute inset-0 z-0 select-none pointer-events-none overflow-hidden transition-opacity duration-700 ease-in-out hidden lg:block ${currentSlide === 1 ? "opacity-100" : "opacity-0"
-          }`}
-      >
-        <Image
-          src="/3rdslidee.svg"
-          alt="AMA Connect Slide 3 Graphic Background edge-to-edge"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-      </div>
-      */}
-
-      <div className="max-w-7xl mx-auto w-full relative z-20 h-full flex items-center">
-
-        {/* SLIDE 1 (Index 0): Interviews heading + Top Lawyer Stories */}
-        <div
-          className={`w-full h-full transition-all duration-700 ease-in-out ${currentSlide === 0
-            ? "opacity-100 translate-x-0 relative pointer-events-auto scale-100 z-10"
-            : "opacity-0 absolute inset-0 pointer-events-none scale-[0.98] -translate-x-4 z-0"
-            }`}
-        >
-          <div className="w-full h-full min-h-0 flex flex-col gap-3 sm:gap-4 lg:gap-5 mt-0 lg:-mt-14">
-            <div className="shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start lg:items-end">
-              <div className="lg:col-span-8 text-left">
-                <span className="text-[#C79116] font-bold uppercase tracking-[0.15em] text-xs sm:text-sm lg:text-[14px] mb-1.5 sm:mb-2 block opacity-90">
-                  AMA Connect Interviews
-                </span>
-                <h2 className="text-xl sm:text-2xl lg:text-[28px] xl:text-[34px] font-extrabold text-[#2D2219] leading-tight mb-1 sm:mb-1.5 tracking-tight">
-                  Beyond Legal Advice. Real Legal Conversations.
-                </h2>
-                <p className="text-gray-500 font-medium text-xs sm:text-sm lg:text-[13px] leading-relaxed max-w-xl">
-                  Watch exclusive lawyer interviews—or nominate a legal professional you want featured next.
-                </p>
-              </div>
-
-              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-2 sm:gap-3 lg:items-end lg:justify-end">
-                <Link
-                  href="/contact?reason=Suggest%20a%20Professional%20Interview"
-                  className="inline-flex items-center justify-center gap-2 bg-[#2D2219] hover:bg-[#423327] text-white font-bold px-5 sm:px-7 py-2.5 sm:py-3 rounded-full shadow-[0_4px_14px_0_rgba(45,34,25,0.2)] hover:shadow-[0_6px_20px_0_rgba(45,34,25,0.35)] hover:scale-[1.03] transition-all duration-300 active:scale-[0.98] text-xs sm:text-sm tracking-wide whitespace-nowrap"
-                >
-                  <span>Suggest an Interview</span>
-                  <svg className="w-4 h-4 stroke-current shrink-0" fill="none" viewBox="0 0 24 24" aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/interviews"
-                  className="inline-flex items-center justify-center gap-2 text-[#2D2219] font-bold px-5 sm:px-7 py-2.5 sm:py-3 rounded-full border border-[#2D2219]/15 hover:border-[#2D2219]/30 hover:bg-[#FDFBF7] transition-all duration-300 text-xs sm:text-sm tracking-wide whitespace-nowrap"
-                >
-                  <span>View All Interviews</span>
-                </Link>
-              </div>
-            </div>
-
-            <div className="w-full mt-2 lg:mt-4">
-              <TopLawyerStories variant="hero" className="w-full" initialInterviews={initialInterviews} />
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto w-full relative z-20 flex flex-col gap-6">
+        
+        {/* Centered Catchy Big Heading */}
+        <div className="text-center mb-6 sm:mb-10">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#2D2219] tracking-tight leading-none">
+            Top <span className="text-[#D4AF37]">Lawyer Stories</span>
+          </h2>
+          <p className="text-gray-500 font-medium text-xs sm:text-sm lg:text-base mt-4 max-w-2xl mx-auto">
+            Exclusive insights, professional milestones, and real-world courtroom experiences from verified legal advocates.
+          </p>
         </div>
 
-        {/* SLIDE 2 (Index 1): Indian Court News & Updates */}
-        <div
-          className={`w-full h-full transition-all duration-700 ease-in-out ${currentSlide === 1
-            ? "opacity-100 translate-x-0 relative pointer-events-auto scale-100 z-10"
-            : "opacity-0 absolute inset-0 pointer-events-none scale-[0.98] -translate-x-4 z-0"
-            }`}
-        >
-          <div className="w-full h-full min-h-0 flex flex-col gap-3 sm:gap-4 lg:gap-5 mt-0 lg:-mt-14">
-            <div className="shrink-0 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start lg:items-end">
-              <div className="lg:col-span-8 text-left">
-                <span className="text-[#C79116] font-bold uppercase tracking-[0.15em] text-xs sm:text-sm lg:text-[14px] mb-1.5 sm:mb-2 block opacity-90">
-                  Live Court Updates
-                </span>
-                <h2 className="text-xl sm:text-2xl lg:text-[28px] xl:text-[34px] font-extrabold text-[#2D2219] leading-tight mb-1 sm:mb-1.5 tracking-tight">
-                  Supreme Court & High Court Rulings
-                </h2>
-                <p className="text-gray-500 font-medium text-xs sm:text-sm lg:text-[13px] leading-relaxed max-w-xl">
-                  Get real-time insights on key judgments, regulatory guidelines, and landmark decisions across Indian courts.
-                </p>
-              </div>
+        {/* Dynamic Slide Grid Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-stretch">
+          
+          {/* Left Column: Featured Card */}
+          {featuredStory && (
+            <div className="lg:col-span-7 bg-white border border-gray-150 rounded-3xl overflow-hidden transition-all duration-300 flex flex-col h-full hover:shadow-md group">
+              {/* Image Container with custom background color if available */}
+              <Link 
+                href={`/interviews/${featuredStory.slug}`} 
+                className={`relative block overflow-hidden rounded-t-3xl aspect-[1478/831] flex items-center justify-center ${featuredStory.bgColor || "bg-[#ECE8F5]"}`}
+              >
+                <img
+                  src={featuredStory.image || "/man.png"}
+                  alt={featuredStory.lawyer}
+                  className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-500"
+                />
+                
+                {/* Play Button Overlay on Hover (AMA Gold theme) */}
+                <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-[#D4AF37] text-white p-3.5 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
 
-              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-2 sm:gap-3 lg:items-end lg:justify-end">
-                <Link
-                  href="/interviews"
-                  className="inline-flex items-center justify-center gap-2 bg-[#2D2219] hover:bg-[#423327] text-white font-bold px-5 sm:px-7 py-2.5 sm:py-3 rounded-full shadow-[0_4px_14px_0_rgba(45,34,25,0.2)] hover:shadow-[0_6px_20px_0_rgba(45,34,25,0.35)] hover:scale-[1.03] transition-all duration-300 active:scale-[0.98] text-xs sm:text-sm tracking-wide whitespace-nowrap"
+              {/* Bottom Content Area */}
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  {/* Category, Date & Views Row */}
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-[11px] sm:text-xs font-bold text-[#C79116] uppercase tracking-wider">
+                      {featuredStory.specialization} • {formatDateToWord(featuredStory.date)}
+                    </span>
+                    <div className="flex items-center gap-1.5 text-xs text-gray-400 font-semibold">
+                      <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {/* Deterministic views based on ID to simulate database counter */}
+                      <span>{(parseInt(featuredStory._id.substring(18, 24), 16) % 400) + 280}</span> 
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <Link href={`/interviews/${featuredStory.slug}`}>
+                    <h4 className="font-extrabold text-[#2D2219] group-hover:text-[#D4AF37] transition-colors leading-tight text-base sm:text-lg lg:text-xl line-clamp-1 mb-2">
+                      {featuredStory.title}
+                    </h4>
+                  </Link>
+
+                  {/* Description */}
+                  <p className="text-xs sm:text-sm text-gray-500 font-medium leading-relaxed line-clamp-2 mb-4">
+                    {truncateWords(cleanDescription(featuredStory.description), 35)}
+                  </p>
+                </div>
+
+                {/* Read Full / Share Row */}
+                <div className="flex justify-between items-center pt-3.5 border-t border-dashed border-gray-150 mt-auto">
+                  <Link href={`/interviews/${featuredStory.slug}`} className="text-xs sm:text-sm font-extrabold text-[#D4AF37] hover:text-[#B8860B] transition-colors flex items-center gap-1">
+                    Read Full Interview
+                  </Link>
+                  <button className="text-gray-400 hover:text-[#D4AF37] transition-colors p-1.5 rounded-full hover:bg-gray-50 cursor-pointer">
+                    <svg className="w-4.5 h-4.5 stroke-current" fill="none" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Right Column: List of 3 Horizontal Cards (Stacked one below another) */}
+          <div className="lg:col-span-5 flex flex-col gap-4 justify-start">
+            {sidebarStories.map((story) => (
+              <div 
+                key={story._id} 
+                className="bg-white border border-gray-100 hover:border-gray-250 rounded-3xl p-4 flex gap-4 transition-all duration-300 hover:shadow-sm h-[120px] sm:h-[135px] items-stretch group overflow-hidden"
+              >
+                {/* Left Details */}
+                <div className="flex-grow flex flex-col justify-between py-0.5 flex-1 min-w-0">
+                  <div>
+                    {/* Category & Date */}
+                    <span className="text-[10px] sm:text-xs font-bold text-[#C79116] uppercase tracking-wider block mb-0.5 line-clamp-1">
+                      {story.specialization} • {formatDateToWord(story.date)}
+                    </span>
+                    {/* Title */}
+                    <Link href={`/interviews/${story.slug}`}>
+                      <h5 className="font-extrabold text-[#2D2219] group-hover:text-[#D4AF37] transition-colors leading-snug text-xs sm:text-sm line-clamp-2 mb-1">
+                        {story.title}
+                      </h5>
+                    </Link>
+                  </div>
+                  {/* Read More */}
+                  <Link href={`/interviews/${story.slug}`} className="text-xs font-bold text-[#D4AF37] hover:text-[#B8860B] transition-colors mt-auto block">
+                    Read More
+                  </Link>
+                </div>
+
+                {/* Right Thumbnail Image */}
+                <Link 
+                  href={`/interviews/${story.slug}`} 
+                  className="self-center h-full aspect-[1478/831] rounded-2xl overflow-hidden shrink-0 bg-[#EFEFEF] relative flex items-center justify-center border border-gray-50"
                 >
-                  <span>Explore Courtroom News</span>
-                  <svg className="w-4 h-4 stroke-current shrink-0" fill="none" viewBox="0 0 24 24" aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  <img
+                    src={story.image || "/man.png"}
+                    alt={story.lawyer}
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {/* Red Play Icon Overlay if videoUrl exists */}
+                  {story.videoUrl && (
+                    <div className="absolute bottom-1.5 right-1.5 bg-white/95 rounded-md p-1 flex items-center justify-center shadow-md border border-gray-100">
+                      <svg className="w-4 h-4 text-red-600 fill-current" viewBox="0 0 24 24">
+                        <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.872.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                      </svg>
+                    </div>
+                  )}
                 </Link>
               </div>
-            </div>
-
-            <div className="w-full mt-2 lg:mt-4">
-              <HeroNews />
-            </div>
+            ))}
           </div>
+
         </div>
 
-        {/* Commented Out App Showcase and WhatsApp Community Slides
-        // OLD SLIDE 2 (Index 1): AMA Connect Legal Aid App Showcase
-        <div
-          className={`w-full h-full transition-all duration-700 ease-in-out ${currentSlide === 1
-            ? "opacity-100 translate-x-0 relative pointer-events-auto scale-100 z-10"
-            : "opacity-0 absolute inset-0 pointer-events-none scale-[0.98] -translate-x-4 z-0"
-            }`}
-        >
-          <div className="relative w-full h-full z-10 grid grid-cols-1 lg:grid-cols-12 items-start gap-8 px-4 sm:px-6 lg:px-8 min-h-[inherit] pt-4 sm:pt-12 lg:pt-14">
-            <div className="hidden lg:block lg:col-span-7" />
-            <div className="block lg:hidden w-[120px] min-[400px]:w-[140px] sm:w-[180px] aspect-[9/19] relative shrink-0 mx-auto select-none my-3">
-              <Image
-                src="/phone.png"
-                alt="AMA Connect Phone Mockup Slide 3"
-                fill
-                className="object-contain"
-                priority
+        {/* Slide Indicator Dots (Charcoal Neutral theme) */}
+        {totalSlides > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-4.5">
+            {[...Array(totalSlides)].map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentSlide(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  currentSlide === idx ? "w-8 bg-[#2D2219]" : "w-2.5 bg-[#2D2219]/25 hover:bg-[#2D2219]/55"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
               />
-            </div>
-            <div className="col-span-1 lg:col-span-5 flex flex-col justify-start lg:items-end lg:text-right text-center items-center lg:pr-6 xl:pr-10 max-w-[92%] sm:max-w-md lg:max-w-none mx-auto lg:mx-0">
-              <h1 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-[#2C2724] leading-[1.15] mb-4 sm:mb-5 tracking-tight">
-                India’s First Pro Bono <br />
-                Legal Aid App
-              </h1>
-              <p className="text-[#605C59] font-medium text-xs sm:text-sm lg:text-base xl:text-lg mb-6 sm:mb-8 leading-relaxed max-w-md">
-                Get expert legal answers, track cases,<br />
-                and connect with lawyers in one platform.
-              </p>
-              <div className="mb-4 sm:mb-6">
-                <Link
-                  href="/#download"
-                  className="inline-flex items-center gap-2.5 sm:gap-4 bg-[#25201D] hover:bg-[#322a26] text-white font-semibold py-2.5 sm:py-4 px-4 sm:px-8 rounded-full shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:scale-[1.02] transition-all duration-300 active:scale-[0.98] text-[11px] sm:text-sm tracking-wide cursor-pointer"
-                >
-                  <span className="font-bold tracking-wide">Get the App</span>
-                  <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3.25 2.875A1.5 1.5 0 0 0 3 3.875v16.25a1.5 1.5 0 0 0 .25 1L12.5 12 3.25 2.875z" fill="#4285F4" />
-                    <path d="M12.5 12l3.75-3.75L4.25 3.25a1.5 1.5 0 0 0-1 .375L12.5 12z" fill="#EA4335" />
-                    <path d="M16.25 8.25L12.5 12l3.75 3.75L20.25 13a1.5 1.5 0 0 0 0-2l-4-2.75z" fill="#FBBC05" />
-                    <path d="M12.5 12L3.25 21.25a1.5 1.5 0 0 0 1 .375l12-5.375L12.5 12z" fill="#34A853" />
-                  </svg>
-                  <div className="h-5 w-[1px] bg-white/20 mx-0.5" />
-                  <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.22.67-2.94 1.52-.63.74-1.18 1.88-1.03 2.99 1.12.09 2.26-.59 2.98-1.45Z" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
+        )}
 
-        // OLD SLIDE 3 (Index 2): Community
-        <div
-          className={`w-full h-full overflow-visible transition-all duration-700 ease-in-out ${currentSlide === 2
-            ? "opacity-100 translate-x-0 relative pointer-events-auto scale-100 z-10"
-            : "opacity-0 absolute inset-0 pointer-events-none scale-[0.98] -translate-x-4 z-0"
-            }`}
-        >
-          <div className={HERO_SLIDE_GRID}>
-            <div className={`${HERO_LEFT_COLUMN} overflow-visible mt-0 lg:-mt-20`}>
-              <HeroCommunityOrbit />
-            </div>
-            <div className={HERO_TEXT_COLUMN}>
-              <span className="text-[#2D2219] font-bold uppercase tracking-[0.15em] text-xs sm:text-sm lg:text-[14px] mb-3 lg:mb-4 opacity-90">
-                AMA Connect Community
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-[54px] font-extrabold text-[#2D2219] leading-[1.08] mb-4 sm:mb-6 tracking-tight">
-                Join the Legal <br className="hidden lg:inline" /> Community That <br className="hidden lg:inline" /> Helps You Grow
-              </h2>
-              <p className="text-gray-600 font-medium text-xs sm:text-sm lg:text-base xl:text-lg mb-5 leading-relaxed max-w-md lg:max-w-none">
-                Real questions, expert answers, trusted legal discussions
-              </p>
-              <div className="mb-6 sm:mb-8">
-                <a
-                  href="https://chat.whatsapp.com/EjV3VwKghHi9sJp48CTmTH?mode=gi_t"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#20ba56] hover:to-[#0e7569] text-white font-bold px-6 sm:px-8 py-3 sm:py-3.5 rounded-full shadow-[0_4px_14px_0_rgba(37,211,102,0.35)] hover:shadow-[0_6px_20px_0_rgba(37,211,102,0.45)] hover:scale-[1.03] transition-all duration-300 active:scale-[0.98] ring-4 ring-[#25D366]/10 hover:ring-[#25D366]/20 text-xs sm:text-sm tracking-wide cursor-pointer"
-                >
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-white shrink-0"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.705 1.459h.006c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg>
-                  <span>Join Community on WhatsApp</span>
-                </a>
-              </div>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[#C79116] font-bold text-xs sm:text-sm lg:text-[14px] tracking-[0.2em] uppercase select-none">
-                <span className="hover:text-[#A07010] cursor-pointer transition-colors duration-200">Connect</span>
-                <span className="text-[#C79116]/50 select-none font-light sm:text-lg">•</span>
-                <span className="hover:text-[#A07010] cursor-pointer transition-colors duration-200">Learn</span>
-                <span className="text-[#C79116]/50 select-none font-light sm:text-lg">•</span>
-                <span className="hover:text-[#A07010] cursor-pointer transition-colors duration-200">Discuss</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        */
-        }
-
-      </div>
-
-      {/* Dynamic Navigation Indicator Dots */}
-      <div className="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30">
-        {[...Array(totalSlides)].map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-2.5 rounded-full transition-all duration-300 ${currentSlide === index
-              ? "w-8 bg-[#2D2219]"
-              : "w-2.5 bg-[#2D2219]/20 hover:bg-[#2D2219]/40"
-              }`}
-            aria-label={`Switch to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </section>
   );

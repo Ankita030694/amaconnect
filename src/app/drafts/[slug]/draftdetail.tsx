@@ -348,7 +348,8 @@ const DraftDetail = memo(function DraftDetail({ draft, content, preview, faqs, r
         ...formData,
         draftTitle: cleanDraftTitle,
         draftFileName: draft.fileName,
-        draftFilePath: draft.filePath
+        draftFilePath: draft.filePath,
+        sourceUrl: typeof window !== "undefined" ? window.location.href : ""
       };
 
       const response = await fetch("/api/draft-payments", {

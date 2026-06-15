@@ -5,6 +5,7 @@ import LegalQA from "@/components/LegalQA";
 import LawyerInterviews from "@/components/LawyerInterviews";
 import LegalCommunities from "@/components/LegalCommunities";
 import CTASection from "@/components/CTASection";
+import CourtroomExperiences from "@/components/CourtroomExperiences";
 import Footer from "@/components/Footer";
 import TopLawyerStories from "@/components/TopLawyerStories";
 import CommunityShowcase from "@/components/CommunityShowcase";
@@ -39,6 +40,7 @@ export default async function Home() {
       {/* <LawyerInterviews /> */}
       {/* <LegalCommunities /> */}
       <CTASection />
+      <CourtroomExperiences />
       <Footer />
     </div>
   );
