@@ -1,202 +1,228 @@
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import OpenAI from "openai";
 
-export async function POST(request: Request) {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const maxDuration = 300; // Custom maximum duration for long-running Vercel operations
+
+export async function POST(request: NextRequest) {
+  // Validate NextAuth session
+  const session = await getServerSession(authOptions);
+  if (!session || session.user?.email !== process.env.ADMIN_EMAIL) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const apiKey = process.env.HELLO_DROP_CHOO;
+  if (!apiKey) {
+    return NextResponse.json(
+      { error: "OpenAI API configuration secret (HELLO_DROP_CHOO) is not set." },
+      { status: 500 }
+    );
+  }
+
+  const openai = new OpenAI({
+    apiKey: apiKey,
+  });
+
+  const sanitizeText = (txt: string) => txt.replace(/—/g, "-").replace(/\u2014/g, "-");
+
   try {
-    const session = await getServerSession(authOptions);
-    if (!session || session.user?.email !== process.env.ADMIN_EMAIL) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const body = await request.json();
+    const primaryKeyword = body.primaryKeyword || body.context || body.writeup;
+    const secondaryKeyword = body.secondaryKeyword || body.secondaryKeywords;
+
+    if (!primaryKeyword) {
+      return NextResponse.json({ error: "Primary Keyword, Context, or Writeup is required" }, { status: 400 });
     }
 
-    const { writeup } = await request.json();
+    console.log(`[AI Generator Flow] Step 1: Generating SEO metadata (Title, Subtitle, Slug) for: [${primaryKeyword}]...`);
 
-    if (!writeup || typeof writeup !== "string" || !writeup.trim()) {
-      return NextResponse.json({ error: "Writeup is required and must be a non-empty string" }, { status: 400 });
-    }
-
-    const apiKey = process.env.HELLO_DROP_CHOO;
-    if (!apiKey) {
-      return NextResponse.json({ error: "OpenAI API key (HELLO_DROP_CHOO) is not configured in environment variables" }, { status: 500 });
-    }
-
-    // ==========================================
-    // STEP 1: GENERATE METADATA, FAQS, & REVIEWS
-    // ==========================================
-    const step1SystemPrompt = `You are a master legal content coordinator for AMA Connect.
-Your task is to take a raw draft writeup/notes and generate the structured JSON schema data: metadata, FAQs, and verified client reviews for a premium legal blog post.
-
-The output MUST be a JSON object with the following fields:
-- "title": A compelling, click-worthy, SEO-optimized title for the blog post (e.g. 'Complete Guide to Defeating Bank Harassment & Debt Settlement').
-- "slug": A URL-safe slug generated from the title (e.g. 'complete-guide-defeating-bank-harassment-debt-settlement').
-- "subtitle": An engaging, professional legal subtitle summarizing the post's core message.
-- "metaTitle": Search engine optimized listing title (Max 60 characters).
-- "metaDescription": Compelling snippet appearing in search results (Max 160 characters).
-- "faqs": An array of at least 10 highly relevant, comprehensive Frequently Asked Questions (FAQs) based on the topic. Each FAQ must have a detailed, professional legal answer. Do not output fewer than 10 FAQs.
-- "reviews": An array of at least 5 client feedback / review snippets. Each snippet must contain:
-  - "name": A realistic Indian name.
-  - "rating": An integer rating (must be 5).
-  - "review": A detailed, positive comment praising the legal guidance and relief provided on the topic. Do not output fewer than 5 review snippets.
+    // STEP 1: Generate Title, Subtitle, Meta Title, Meta Description, Slug
+    const step1Completion = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content: `You are a professional legal SEO and AEO strategist.
+Generate an SEO-optimized H1 Title, engaging subtitle, meta title, meta description, and URL slug for a blog article on AMA Connect.
+Primary Keyword: ${primaryKeyword}
+Secondary Keywords: ${secondaryKeyword || ""}
 
 CRITICAL NEGATIVE CONSTRAINT:
-Under no circumstances should you include any em dashes (—) anywhere in your entire response (including in FAQs, reviews, title, or description). Always use normal hyphens (-), colons (:), commas, parentheses, or rewrite the sentence to avoid them.
+Under no circumstances should you include any em dashes (—) anywhere in your response. Always use normal hyphens (-), colons (:), commas, parentheses, or rewrite the sentence to avoid them.
 
-Return ONLY a valid JSON object matching the above structure.`;
-
-    const step1Response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: step1SystemPrompt },
-          { role: "user", content: `Here is the raw writeup: ${writeup}` }
-        ],
-        response_format: { type: "json_object" },
-        temperature: 0.7
-      })
+Return ONLY a JSON object with this exact structure:
+{
+  "title": "H1 Title containing the primary keyword (max 70 chars)",
+  "subtitle": "Engaging subtitle (max 120 chars)",
+  "metaTitle": "SEO meta title (60-70 chars)",
+  "metaDescription": "SEO meta description (150-160 chars)",
+  "slug": "url-friendly-slug"
+}`
+        }
+      ],
+      response_format: { type: "json_object" },
+      temperature: 0.7,
     });
 
-    if (!step1Response.ok) {
-      const errText = await step1Response.text();
-      console.error("OpenAI Step 1 API call failed:", errText);
-      return NextResponse.json({ error: `OpenAI API error in Step 1: ${step1Response.statusText}. Details: ${errText}` }, { status: step1Response.status });
-    }
+    const step1ResultStr = sanitizeText(step1Completion.choices[0].message.content || "{}");
+    const step1Result = JSON.parse(step1ResultStr);
 
-    const step1Data = await step1Response.json();
-    let step1JsonText = step1Data.choices?.[0]?.message?.content;
-    if (!step1JsonText) {
-      return NextResponse.json({ error: "Failed to receive Step 1 metadata content from OpenAI" }, { status: 502 });
-    }
+    console.log(`[AI Generator Flow] Step 1 complete. Title: "${step1Result.title}"`);
+    console.log(`[AI Generator Flow] Step 2: Generating description content (3500+ words HTML)...`);
 
-    // Programmatic em-dash removal post-processing for Step 1
-    step1JsonText = step1JsonText.replace(/—/g, "-").replace(/\u2014/g, "-");
-    const parsedStep1 = JSON.parse(step1JsonText);
+    // STEP 2: Generate Description (Complete body in HTML)
+    const step2SystemPrompt = `
+You are a professional legal content writer and SEO expert. Write a fully human-written, SEO-optimized, exhaustive legal article body for AMA Connect (https://amaconnect.in/).
+Target Primary Keyword: ${primaryKeyword}
+Secondary Keywords: ${secondaryKeyword || ""}
+Title: ${step1Result.title}
+Subtitle: ${step1Result.subtitle}
 
-    // ==========================================
-    // STEP 2: GENERATE EXHAUSTIVE 3000+ WORD HTML DESCRIPTION
-    // ==========================================
-    const step2SystemPrompt = `You are a master legal copywriter and chief editor for AMA Connect.
-Your task is to write an exhaustive, highly detailed, deeply comprehensive legal analysis and blog post based on a raw writeup, a title, and a subtitle.
+**CRITICAL WORD COUNT REQUIREMENT**:
+The content MUST be extremely detailed and exceed 3500 words. To achieve this, expand every section, subtopic, and legal concept with 4-6 detailed, comprehensive paragraphs.
+Discuss relevant Indian acts (Payment of Wages, Shops & Establishments, Gratuity Act, BNS/IPC, NI Act), specify court procedures, draft step-by-step guidance, list required evidence, and outline detailed case studies.
 
-The output MUST be a JSON object with a single field: "description", which contains a highly expanded HTML rich text content.
-This HTML content must be structured into exactly 9 detailed sections (each headed by a <h2> or <h3> tag, containing multiple paragraphs, bullet points, numbered lists, bold keywords, blockquotes, etc.):
-1. Executive Summary & Blog Overview (Target: 350+ words)
-2. Socio-Legal Context & Consumer Rights in India (Target: 350+ words)
-3. Direct Statutory Analysis & Relevant Legal Provisions (e.g., Banking Regulation Act, Consumer Protection Act, RBI Fair Practice Codes) (Target: 500+ words)
-4. Step-by-Step Practical Legal Recourse & Dispute Resolution (Target: 500+ words)
-5. Evidence Collection, Call Logs, & Documentation Safeguarding Protocol (Target: 400+ words)
-6. Drafting and Dispatching of Formal Complaints & Legal Letters (Target: 400+ words)
-7. Ombudsman Complaint Procedures & Litigation Strategy (Target: 350+ words)
-8. In-Depth Case Study Examples, Court Precedents & Judgments (Target: 350+ words)
-9. Critical Warnings, Expert Advocate Advice, & Immediate Next Steps (Target: 300+ words)
+**Requirements**:
+- **Structure**: Use HTML tags: <h2>, <h3>, <h4>, <p>, <ul>, <li>, <table>. Include at least 8 main H2 sections.
+- **Tone**: Professional, authoritative, human. Use Indian context (Rupees ₹, RBI, etc.) naturally.
+- **No Markdown**: Do NOT use markdown headers (like ## or ###) or markdown bold (like **text**). Use HTML tags instead (like <h2>, <h3>, <strong>).
+- **Internal Linking**: You MUST naturally integrate links to the following AMA Connect pages:
+  - https://amaconnect.in/
+  - https://amaconnect.in/about
+  - https://amaconnect.in/blog
+  - https://amaconnect.in/drafts
+  - https://amaconnect.in/interviews
+  - https://amaconnect.in/communities
+  - https://amaconnect.in/success-stories
+  - https://amaconnect.in/ask-me-anything
+  - https://amaconnect.in/contact
+- **Do NOT** include any title (H1) or subtitle, as they are already generated. Start directly with the introduction paragraphs.
+- **Do NOT** include any FAQs or Reviews in this content.
+- **Do NOT** wrap the response in markdown code blocks like \`\`\`html or \`\`\`. Output RAW HTML only. Start directly with the first HTML tag (e.g. <h2> or <p>).
+- **CRITICAL NEGATIVE CONSTRAINT**:
+  Under no circumstances should you include any em dashes (—) anywhere in your entire response. Always use normal hyphens (-), colons, commas, or parentheses if needed instead.
+`;
 
-CRITICAL INSTRUCTIONS:
-- Ensure the combined word count of the entire HTML description is AT LEAST 3000 words. Write extensively, explaining every legal concept, statute section, and process in absolute detail. Expand heavily on background facts, procedures, drafts, and strategies.
-- DO NOT USE MARKDOWN (such as **bold** or # headers) in the description. Return valid, well-structured, semantic HTML.
-- DO NOT use em dashes (—) anywhere in your response. Always use normal hyphens (-), colons, commas, or parentheses if needed instead.
+    const context = body.context || body.writeup;
+    const step2UserMessage = context && context !== primaryKeyword
+      ? `Write an exhaustive, extremely detailed 3500+ words HTML body about: ${primaryKeyword}\nAdditional context & details: ${context}`
+      : `Write an exhaustive, extremely detailed 3500+ words HTML body about: ${primaryKeyword}`;
 
-Return ONLY a valid JSON object of structure: { "description": "HTML content" }`;
-
-    const step2UserPrompt = `Title: ${parsedStep1.title || "Legal Blog Guide"}
-Subtitle: ${parsedStep1.subtitle || "Statutory Legal Analysis"}
-Raw writeup sent:
-${writeup}`;
-
-    const step2Response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: step2SystemPrompt },
-          { role: "user", content: step2UserPrompt }
-        ],
-        response_format: { type: "json_object" },
-        temperature: 0.6
-      })
+    const step2Completion = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        { role: "system", content: step2SystemPrompt },
+        { role: "user", content: step2UserMessage },
+      ],
+      temperature: 0.8,
     });
 
-    if (!step2Response.ok) {
-      const errText = await step2Response.text();
-      console.error("OpenAI Step 2 API call failed:", errText);
-      return NextResponse.json({ error: `OpenAI API error in Step 2: ${step2Response.statusText}. Details: ${errText}` }, { status: step2Response.status });
+    let rawDescription = sanitizeText(step2Completion.choices[0].message.content || "");
+
+    // Clean up markdown fences at the root level
+    let cleanedDescription = rawDescription.trim();
+    if (cleanedDescription.startsWith("```html")) {
+      cleanedDescription = cleanedDescription.slice(7).trim();
+    } else if (cleanedDescription.startsWith("```")) {
+      cleanedDescription = cleanedDescription.slice(3).trim();
+    }
+    if (cleanedDescription.endsWith("```")) {
+      cleanedDescription = cleanedDescription.slice(0, -3).trim();
     }
 
-    const step2Data = await step2Response.json();
-    let step2JsonText = step2Data.choices?.[0]?.message?.content;
-    if (!step2JsonText) {
-      return NextResponse.json({ error: "Failed to receive Step 2 description content from OpenAI" }, { status: 502 });
+    console.log(`[AI Generator Flow] Step 2 complete. Description length: ${cleanedDescription.split(/\s+/).length} words.`);
+    console.log(`[AI Generator Flow] Step 3: Generating FAQs, reviews, and image prompt in the context of the description...`);
+
+    // STEP 3: Generate FAQs, Reviews, suggestedImagePrompt based on the Title, Subtitle, and Description
+    let faqs = [];
+    let reviews = [];
+    let suggestedImagePrompt = "Professional legal recovery illustration";
+
+    try {
+      const step3SystemPrompt = `
+You are a legal content strategist and SEO expert.
+Analyze the following generated article Title, Subtitle, and HTML Description, and generate:
+1. At least 8-10 highly relevant, detailed FAQs (frequently asked questions) that directly relate to the article content.
+2. 5 realistic customer review snippets (with Indian names) expressing high satisfaction with the recovery service.
+3. A suggested image prompt describing a clean, professional, modern corporate infographic/illustration suitable for this article.
+
+Article Title: ${step1Result.title}
+Article Subtitle: ${step1Result.subtitle}
+
+Article Description:
+${cleanedDescription}
+
+CRITICAL NEGATIVE CONSTRAINT:
+Under no circumstances should you include any em dashes (—) anywhere in your response. Always use normal hyphens (-), colons (:), commas, parentheses, or rewrite the sentence to avoid them.
+
+Return ONLY a JSON object with this exact structure:
+{
+  "faqs": [
+    { "question": "Detailed question?", "answer": "Detailed helpful answer." }
+  ],
+  "reviews": [
+    { "name": "Reviewer Full Name", "rating": 5, "review": "Detailed review text..." }
+  ],
+  "suggestedImagePrompt": "Visual description for the article's featured image"
+}`;
+
+      const step3Completion = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: step3SystemPrompt }
+        ],
+        response_format: { type: "json_object" },
+        temperature: 0.8,
+      });
+
+      const step3ResultStr = sanitizeText(step3Completion.choices[0].message.content || "{}");
+      const step3Result = JSON.parse(step3ResultStr);
+
+      faqs = step3Result.faqs || [];
+      reviews = step3Result.reviews || [];
+      suggestedImagePrompt = step3Result.suggestedImagePrompt || "Professional legal recovery illustration";
+
+      console.log(`[AI Generator Flow] Step 3 complete. FAQs: ${faqs.length}, Reviews: ${reviews.length}`);
+    } catch (step3Error) {
+      console.error("[AI Generator Flow] Error in Step 3:", step3Error);
     }
 
-    // Programmatic em-dash removal post-processing for Step 2
-    step2JsonText = step2JsonText.replace(/—/g, "-").replace(/\u2014/g, "-");
-    const parsedStep2 = JSON.parse(step2JsonText);
-
-    // ==========================================
-    // STEP 3: CONSOLIDATE & SANITIZE BOTH PARTS
-    // ==========================================
-    const mergedData = {
-      ...parsedStep1,
-      description: parsedStep2.description || ""
+    // Build the final unified JSON object
+    const finalResult = {
+      title: step1Result.title,
+      subtitle: step1Result.subtitle,
+      metaTitle: step1Result.metaTitle,
+      metaDescription: step1Result.metaDescription,
+      slug: step1Result.slug,
+      description: cleanedDescription,
+      faqs: faqs,
+      reviews: reviews,
+      suggestedImagePrompt: suggestedImagePrompt
     };
 
-    // Pad FAQs to 10 if necessary
-    if (!mergedData.faqs || !Array.isArray(mergedData.faqs) || mergedData.faqs.length < 10) {
-      if (!mergedData.faqs) mergedData.faqs = [];
-      while (mergedData.faqs.length < 10) {
-        mergedData.faqs.push({
-          question: `General Statutory Recourse Query ${mergedData.faqs.length + 1}`,
-          answer: `Consult a professional advocate at AMA Legal Solutions for absolute statutory guidance and personalized review of specific claim records.`
-        });
-      }
-    }
+    const finalJsonStr = JSON.stringify(finalResult);
 
-    // Pad reviews to 5 if necessary
-    if (!mergedData.reviews || !Array.isArray(mergedData.reviews) || mergedData.reviews.length < 5) {
-      if (!mergedData.reviews) mergedData.reviews = [];
-      const mockNames = ["Rajesh Kumar", "Meera Sen", "Amit Sharma", "Sunita Rao", "Vikram Joshi"];
-      while (mergedData.reviews.length < 5) {
-        const idx = mergedData.reviews.length;
-        mergedData.reviews.push({
-          name: mockNames[idx % mockNames.length],
-          rating: 5,
-          review: `Extremely practical guidelines provided in this blog post. Settle legal disputes and understood statutory safeguards thoroughly!`
-        });
-      }
-    }
+    // Stream the final JSON to the client to keep compatibility with the dashboard streaming reader
+    const stream = new ReadableStream({
+      async start(controller) {
+        controller.enqueue(new TextEncoder().encode(finalJsonStr));
+        controller.close();
+      },
+    });
 
-    // Final em-dash clean up across all fields to guarantee compliance
-    const sanitizeText = (txt: string) => txt.replace(/—/g, "-").replace(/\u2014/g, "-");
-    
-    if (mergedData.title) mergedData.title = sanitizeText(mergedData.title);
-    if (mergedData.subtitle) mergedData.subtitle = sanitizeText(mergedData.subtitle);
-    if (mergedData.description) mergedData.description = sanitizeText(mergedData.description);
-    if (mergedData.metaTitle) mergedData.metaTitle = sanitizeText(mergedData.metaTitle);
-    if (mergedData.metaDescription) mergedData.metaDescription = sanitizeText(mergedData.metaDescription);
-    if (mergedData.faqs) {
-      mergedData.faqs = mergedData.faqs.map((faq: any) => ({
-        question: sanitizeText(faq.question || ""),
-        answer: sanitizeText(faq.answer || "")
-      }));
-    }
-    if (mergedData.reviews) {
-      mergedData.reviews = mergedData.reviews.map((rev: any) => ({
-        name: sanitizeText(rev.name || ""),
-        rating: typeof rev.rating === 'number' ? rev.rating : 5,
-        review: sanitizeText(rev.review || "")
-      }));
-    }
-
-    return NextResponse.json(mergedData);
-  } catch (error: any) {
-    console.error("Error in blog generate route:", error);
-    return NextResponse.json({ error: error.message || "An unexpected error occurred during generation" }, { status: 500 });
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+      },
+    });
+  } catch (error) {
+    console.error("Error generating article:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

@@ -96,6 +96,7 @@ export default function BlogsDashboard() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStep, setGenerationStep] = useState('');
   const [generationError, setGenerationError] = useState('');
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
   // Fetch blogs from MongoDB
   const fetchBlogs = async () => {
@@ -275,6 +276,55 @@ export default function BlogsDashboard() {
       alert("Failed to upload image.");
     } finally {
       setUploading(false);
+    }
+  };
+
+  // Generate cover image via AI
+  const handleGenerateAIImage = async () => {
+    const defaultPrompt = newBlog.title 
+      ? `A professional, high-quality legal illustration or premium blog banner representing: ${newBlog.title}`
+      : "A professional legal illustration with a modern scales of justice, gold and deep charcoal colors, premium high-quality digital art";
+    
+    const userPrompt = window.prompt("Enter the prompt for the AI image generator:", defaultPrompt);
+    if (userPrompt === null) return; // User cancelled
+
+    const finalPrompt = userPrompt.trim() || defaultPrompt;
+
+    try {
+      setIsGeneratingImage(true);
+      const res = await fetch("/api/blogs/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: finalPrompt }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Image generation failed.");
+      }
+
+      const data = await res.json();
+      if (data.imageUrl) {
+        setNewBlog(prev => ({
+          ...prev,
+          image: data.imageUrl
+        }));
+        setImagePreview(data.imageUrl);
+        if (data.warning) {
+          alert(`Image generated successfully: ${data.warning}`);
+        } else {
+          alert("AI Image generated successfully!");
+        }
+      } else {
+        throw new Error("No image URL returned from API.");
+      }
+    } catch (err: any) {
+      console.error("Error generating AI image:", err);
+      alert(`Failed to generate AI image: ${err.message || "Unknown error"}`);
+    } finally {
+      setIsGeneratingImage(false);
     }
   };
 
@@ -973,6 +1023,15 @@ export default function BlogsDashboard() {
                   >
                     <FontAwesomeIcon icon={faUpload} />
                     <span>{uploading ? '...' : 'Upload'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleGenerateAIImage}
+                    disabled={isGeneratingImage}
+                    className="px-4 py-3 bg-amber-50 hover:bg-amber-100 border border-[#D4AF37]/35 text-[#B8860B] rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                    title="Generate cover image with AI"
+                  >
+                    <span>{isGeneratingImage ? '💫 Generating...' : '✨ Generate AI'}</span>
                   </button>
                 </div>
               </div>
