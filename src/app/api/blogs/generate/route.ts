@@ -83,7 +83,7 @@ Subtitle: ${step1Result.subtitle}
 
 **CRITICAL WORD COUNT REQUIREMENT**:
 The content MUST be extremely detailed and exceed 3500 words. To achieve this, expand every section, subtopic, and legal concept with 4-6 detailed, comprehensive paragraphs.
-Discuss relevant Indian acts (Payment of Wages, Shops & Establishments, Gratuity Act, BNS/IPC, NI Act), specify court procedures, draft step-by-step guidance, list required evidence, and outline detailed case studies.
+
 
 **Requirements**:
 - **Structure**: Use HTML tags: <h2>, <h3>, <h4>, <p>, <ul>, <li>, <table>. Include at least 8 main H2 sections.

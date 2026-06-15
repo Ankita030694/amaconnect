@@ -21,6 +21,27 @@ const QuoteLeftIcon = () => (
   </svg>
 );
 
+// Helper function to validate and provide fallback for images
+const getValidImageSrc = (imageSrc: string | undefined | null): string => {
+  if (!imageSrc || imageSrc.trim() === '') {
+    return '/logo_qa.png'; // Fallback to AMA logo / general QA logo
+  }
+  return imageSrc;
+};
+
+// Helper function to check if image src is valid
+const hasValidImage = (imageSrc: string | undefined | null): boolean => {
+  return !!(imageSrc && imageSrc.trim() !== '');
+};
+
+// Function to handle image loading errors
+const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  const target = e.target as HTMLImageElement;
+  if (target.src !== '/logo_qa.png') {
+    target.src = '/logo_qa.png';
+  }
+};
+
 export interface FAQ {
   id?: string;
   question: string;
@@ -210,21 +231,30 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
 
   return (
     <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16">
-      {/* Hero Image Section */}
-      <div className="w-full h-[320px] md:h-[650px] relative bg-[#413832]/90 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-slate-900/10 z-0" />
-        <img
-          src={blog.image || "/logo_qa.png"}
-          alt={blog.title}
-          className="h-full w-full object-cover z-10"
-        />
-      </div>
+      {/* Full Screen Banner with Blurred Background Filler */}
+      {blog.image && (
+        <div className="w-full h-[280px] sm:h-[380px] md:h-[500px] lg:h-[550px] relative bg-[#2D2219] flex items-center justify-center overflow-hidden border-b border-slate-200/40 shadow-xs">
+          {/* Blurred Background Filler */}
+          <img
+            src={getValidImageSrc(blog.image)}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-30 select-none pointer-events-none z-0"
+          />
+          {/* Foreground Contained Image */}
+          <img
+            src={getValidImageSrc(blog.image)}
+            alt={blog.title}
+            className="relative z-10 max-w-full max-h-full h-full w-auto object-contain"
+            onError={handleImageError}
+          />
+        </div>
+      )}
 
       <div className="container mx-auto px-4 max-w-[1600px] py-8">
         <Breadcrumbs items={breadcrumbItems} />
 
         {/* Header Content */}
-        <div className="text-center mb-12 max-w-4xl mx-auto mt-8">
+        <div className="text-center mb-8 max-w-4xl mx-auto mt-8">
           <span className="px-3.5 py-1.5 bg-[#B8860B]/10 text-[#B8860B] rounded-full text-xs font-extrabold uppercase tracking-wider">
             Verified Legal Insight
           </span>
@@ -377,13 +407,35 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                     {relatedBlogs.map((item) => (
                       <Link key={item._id} href={`/blog/${item.slug}`} className="group">
                         <div className="bg-white border border-slate-150 rounded-2xl overflow-hidden hover:shadow-lg transition-all h-full flex flex-col">
-                          <div className="relative h-44 bg-[#413832]/85 flex items-end justify-center overflow-hidden pt-4">
-                            <img
-                              src={item.image || '/logo_qa.png'}
-                              alt={item.title}
-                              className="h-full w-auto object-contain group-hover:scale-103 transition-transform duration-500"
-                            />
-                            <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-xs rounded-lg px-2.5 py-1 text-xs font-bold text-[#B8860B] border border-slate-100 shadow-3xs">
+                          <div className="relative h-44 bg-gray-900 overflow-hidden flex items-center justify-center">
+                            {hasValidImage(item.image) ? (
+                              <>
+                                {/* Blurred background filler */}
+                                <img
+                                  src={getValidImageSrc(item.image)}
+                                  alt=""
+                                  className="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-30 select-none pointer-events-none z-0"
+                                />
+                                {/* Foreground contained image */}
+                                <img
+                                  src={getValidImageSrc(item.image)}
+                                  alt={item.title}
+                                  className="relative z-10 max-w-full max-h-full h-full w-auto object-contain group-hover:scale-103 transition-transform duration-500"
+                                  loading="lazy"
+                                  onError={handleImageError}
+                                />
+                              </>
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                                <div className="text-center p-4">
+                                  <svg className="w-10 h-10 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                  </svg>
+                                  <span className="text-xs text-gray-400 font-medium">Image coming soon</span>
+                                </div>
+                              </div>
+                            )}
+                            <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-xs rounded-lg px-2.5 py-1 text-xs font-bold text-[#B8860B] border border-slate-100 shadow-3xs z-20">
                               {item.date}
                             </div>
                           </div>

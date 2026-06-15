@@ -272,15 +272,24 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
                       initial="initial"
                       whileHover="hover"
                     >
-                      <div className="relative h-56 w-full flex-shrink-0 bg-gray-50">
+                      <div className="relative h-56 w-full flex-shrink-0 bg-gray-900 overflow-hidden flex items-center justify-center">
                         {hasValidImage(article.image) ? (
-                          <img
-                            src={getValidImageSrc(article.image)}
-                            alt={`${article.title} | AMA Legal Solutions`}
-                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                            loading="lazy"
-                            onError={handleImageError}
-                          />
+                          <>
+                            {/* Blurred background filler */}
+                            <img
+                              src={getValidImageSrc(article.image)}
+                              alt=""
+                              className="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-30 select-none pointer-events-none z-0"
+                            />
+                            {/* Foreground contained image */}
+                            <img
+                              src={getValidImageSrc(article.image)}
+                              alt={`${article.title} | AMA Legal Solutions`}
+                              className="relative z-10 max-w-full max-h-full h-full w-auto object-contain transition-transform duration-500 hover:scale-103"
+                              loading="lazy"
+                              onError={handleImageError}
+                            />
+                          </>
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gray-100">
                             <div className="text-center p-4">

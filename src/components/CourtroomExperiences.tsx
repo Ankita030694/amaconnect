@@ -87,7 +87,7 @@ export default function CourtroomExperiences() {
 
   if (isLoading) {
     return (
-      <section className="w-full py-12 sm:py-24 overflow-hidden">
+      <section className="w-full py-16 sm:py-24 overflow-hidden">
         {/* Header Container */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-[#2D241E] leading-[1.1] max-w-3xl">
@@ -126,7 +126,7 @@ export default function CourtroomExperiences() {
   }
 
   return (
-    <section className="w-full py-12 sm:py-24 overflow-hidden">
+    <section className="w-full py-16 sm:py-24 overflow-hidden">
       {/* Header Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-[#2D241E] leading-[1.1] max-w-3xl">
