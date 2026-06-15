@@ -137,15 +137,34 @@ export async function GET(request: Request) {
 
             return hasCourtTerm && !hasNoiseTerm;
           })
-          .map((art: any) => ({
-            title: art.title,
-            description: art.description,
-            url: art.url,
-            urlToImage: art.urlToImage || "",
-            publishedAt: art.publishedAt,
-            source: art.source?.name || "News Source",
-            author: art.author || ""
-          }));
+          .map((art: any) => {
+            const rawSource = art.source?.name || "News Source";
+            const rawAuthor = art.author || "";
+
+            // Clean placeholders like "list.metadata.agency" or "by list.metadata.agency"
+            const sanitize = (text: string, isAuthor = false) => {
+              if (!text) return isAuthor ? "" : "News Source";
+              let cleaned = text.trim();
+              const lower = cleaned.toLowerCase();
+              if (lower.includes("list.metadata") || lower.includes("metadata.agency") || lower === "author" || lower === "agency") {
+                return isAuthor ? "" : "News Agency";
+              }
+              if (lower.startsWith("by ")) {
+                cleaned = cleaned.substring(3).trim();
+              }
+              return cleaned || (isAuthor ? "" : "News Source");
+            };
+
+            return {
+              title: art.title,
+              description: art.description,
+              url: art.url,
+              urlToImage: art.urlToImage || "",
+              publishedAt: art.publishedAt,
+              source: sanitize(rawSource, false),
+              author: sanitize(rawAuthor, true)
+            };
+          });
 
         if (validArticles.length > 0) {
           // Shift all articles' publication dates forward so the newest matches "now"
