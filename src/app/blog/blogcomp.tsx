@@ -281,6 +281,8 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
                               alt=""
                               className="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-30 select-none pointer-events-none z-0"
                             />
+                            {/* Golden tint overlay */}
+                            <div className="absolute inset-0 bg-[#B8860B]/15 mix-blend-color select-none pointer-events-none z-0" />
                             {/* Foreground contained image */}
                             <img
                               src={getValidImageSrc(article.image)}
