@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RequestDraftForm from "./RequestDraftForm";
 
 export interface LawyerInterview {
@@ -56,22 +56,7 @@ const formatDateToWord = (dateStr: string) => {
 
 export default function Hero({ initialInterviews = [] }: { initialInterviews?: LawyerInterview[] } = {}) {
   const [interviews] = useState<LawyerInterview[]>(initialInterviews);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const itemsPerSlide = 4;
-  const totalSlides = Math.ceil(interviews.length / itemsPerSlide) || 1;
-
-  useEffect(() => {
-    if (isPaused || totalSlides <= 1) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, [isPaused, totalSlides]);
 
   if (interviews.length === 0) return null;
 
@@ -82,22 +67,14 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
     return timeB - timeA;
   });
 
-  // Slice interviews for current slide
-  const slideStartIndex = currentSlide * itemsPerSlide;
-  const slideInterviews = sortedInterviews.slice(slideStartIndex, slideStartIndex + itemsPerSlide);
-  const featuredStory = slideInterviews[0];
+  // Featured story (latest one)
+  const featuredStory = sortedInterviews[0];
   
-  // Sidebar stories sorted by date descending (one below another)
-  const sidebarStories = slideInterviews.slice(1).sort((a, b) => {
-    const timeA = a.created || (a.date ? new Date(a.date).getTime() : 0);
-    const timeB = b.created || (b.date ? new Date(b.date).getTime() : 0);
-    return timeB - timeA;
-  });
+  // Sidebar stories (next 4 latest stories)
+  const sidebarStories = sortedInterviews.slice(1, 5);
 
   return (
     <section 
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       className="relative w-full overflow-hidden pt-[52px] pb-4 sm:pb-12 px-4 sm:px-6 lg:px-8 bg-white flex flex-col items-center justify-center min-h-[480px] font-sans"
     >
       <div className="max-w-6xl mx-auto w-full relative z-20 flex flex-col gap-5">
@@ -195,12 +172,13 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
             </div>
           )}
 
-          {/* Right Column: List of 3 Horizontal Cards (Stacked one below another) */}
+          {/* Right Column: List of 4 Horizontal Cards (Stacked one below another) */}
           <div className="lg:col-span-5 flex flex-col gap-3 justify-start">
             {sidebarStories.map((story) => (
-              <div 
+              <Link 
                 key={story._id} 
-                className="bg-white border border-gray-100 hover:border-gray-250 rounded-2xl p-3 flex gap-3 transition-all duration-300 hover:shadow-sm h-[100px] sm:h-[110px] items-stretch group overflow-hidden"
+                href={`/interviews/${story.slug}`}
+                className="bg-white border border-gray-100 hover:border-gray-250 rounded-2xl p-3 flex gap-3 transition-all duration-300 hover:shadow-sm h-[100px] sm:h-[110px] items-stretch group overflow-hidden cursor-pointer"
               >
                 {/* Left Details */}
                 <div className="flex-grow flex flex-col justify-between py-0.5 flex-1 min-w-0">
@@ -210,21 +188,14 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
                       {story.specialization} • {formatDateToWord(story.date)}
                     </span>
                     {/* Title */}
-                    <Link href={`/interviews/${story.slug}`}>
-                      <h5 className="font-extrabold text-[#2D2219] group-hover:text-[#D4AF37] transition-colors leading-snug text-[11px] sm:text-xs line-clamp-2 mb-0.5">
-                        {story.title}
-                      </h5>
-                    </Link>
+                    <h5 className="font-extrabold text-[#2D2219] group-hover:text-[#D4AF37] transition-colors leading-snug text-[11px] sm:text-xs line-clamp-2 mb-0.5">
+                      {story.title}
+                    </h5>
                   </div>
-                  {/* Read More */}
-                  <Link href={`/interviews/${story.slug}`} className="text-[11px] font-bold text-[#D4AF37] hover:text-[#B8860B] transition-colors mt-auto block">
-                    Read More
-                  </Link>
                 </div>
 
                 {/* Right Thumbnail Image */}
-                <Link 
-                  href={`/interviews/${story.slug}`} 
+                <div 
                   className="self-center h-full aspect-[1478/831] rounded-xl overflow-hidden shrink-0 bg-[#EFEFEF] relative flex items-center justify-center border border-gray-50"
                 >
                   <img
@@ -240,28 +211,25 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
                       </svg>
                     </div>
                   )}
-                </Link>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
 
         </div>
 
         {/* Slide Indicator Dots (Charcoal Neutral theme) */}
-        {totalSlides > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-4.5">
-            {[...Array(totalSlides)].map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentSlide(idx)}
-                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  currentSlide === idx ? "w-6 bg-[#2D2219]" : "w-2 bg-[#2D2219]/25 hover:bg-[#2D2219]/55"
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-        )}
+        <div className="flex justify-center mt-8">
+          <Link 
+            href="/interviews#all-interviews"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#2D2219] hover:bg-[#B8860B] text-white rounded-full text-sm font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer select-none"
+          >
+            View More Interviews
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </div>
 
       </div>
 

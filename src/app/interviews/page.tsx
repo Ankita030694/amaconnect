@@ -45,6 +45,7 @@ export default async function InterviewsPage() {
 
         {/* New Top Stories Section */}
         <TopLawyerStories className="!pt-0" headingTag="h1" initialInterviews={interviews} />
+        <AllLawyerStories initialInterviews={interviews} />
 
         {/* Courtroom Experiences Carousel */}
         <CourtroomExperiences />
@@ -64,7 +65,6 @@ export default async function InterviewsPage() {
         </div>
 
         {/* All Lawyer Stories Grid */}
-        <AllLawyerStories initialInterviews={interviews} />
 
         {/* Suggest an Interview Form */}
         <RequestDraftForm defaultReason="Suggest a Professional Interview" />

@@ -132,7 +132,7 @@ export default function   AllLawyerStories({ initialInterviews = [] }: AllLawyer
   const hasMore = filteredInterviews.length > visibleCount;
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 font-sans">
+    <section id="all-interviews" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 font-sans">
       <div className="mb-10 sm:mb-14">
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#2D241E] leading-[1.1] text-left">
            Lawyer Stories<br />& Interviews
