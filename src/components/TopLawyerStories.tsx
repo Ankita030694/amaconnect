@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import RequestDraftForm from "./RequestDraftForm";
 
 export interface LawyerInterview {
   _id: string;
@@ -96,6 +97,7 @@ export default function TopLawyerStories({
   const isHero = variant === "hero";
   const [interviews, setInterviews] = useState<LawyerInterview[]>(initialInterviews);
   const [loading, setLoading] = useState(initialInterviews.length === 0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (initialInterviews && initialInterviews.length > 0) {
@@ -310,9 +312,20 @@ export default function TopLawyerStories({
 
   return (
     <section className={sectionClass}>
-      <Heading className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-8 sm:mb-12">
-        This Month’s Top<br />Lawyer Stories
-      </Heading>
+      <div className="relative flex flex-col sm:flex-row sm:justify-between sm:items-end mb-8 sm:mb-12 gap-4">
+        <Heading className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2D241E] leading-tight">
+          This Month’s Top<br />Lawyer Stories
+        </Heading>
+        
+        <div className="flex shrink-0">
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="px-5 py-2.5 bg-[#2D2219] hover:bg-[#B8860B] text-white rounded-full text-xs font-bold transition-all shadow-3xs cursor-pointer select-none"
+          >
+            Request an interview
+          </button>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
         {featured && (
@@ -371,6 +384,23 @@ export default function TopLawyerStories({
           ))}
         </div>
       </div>
+
+      {/* Suggest an Interview Modal Popup */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl border border-gray-150 p-2 md:p-6 animate-in fade-in zoom-in-95 duration-200">
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 z-50 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-black w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer font-bold text-lg"
+              title="Close modal"
+            >
+              &times;
+            </button>
+            <RequestDraftForm defaultReason="Suggest a Professional Interview" isCompact={true} />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
