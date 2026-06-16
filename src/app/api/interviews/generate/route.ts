@@ -23,22 +23,22 @@ export async function POST(request: Request) {
     // ==========================================
     // STEP 1: GENERATE METADATA, FAQS, & REVIEWS
     // ==========================================
-    const step1SystemPrompt = `You are a master legal content coordinator for AMA Connect.
-Your task is to take a raw lawyer's writeup/interview and generate the structured JSON schema data: metadata, FAQs, and verified client reviews.
+    const step1SystemPrompt = `You are an experienced legal journalist and feature writer.
+Your task is to take a raw lawyer's writeup/interview and generate structured JSON metadata, FAQs, and client reviews as the first step towards creating a professional, magazine-style profile article.
 
 The output MUST be a JSON object with the following fields:
-- "title": A compelling, click-worthy, SEO-optimized title for the interview guide (e.g. 'Salary Not Paid on Time? Complete Recovery Protocol Guide').
-- "slug": A URL-safe slug generated from the title (e.g. 'salary-not-paid-on-time-complete-recovery-protocol-guide').
+- "title": A compelling, magazine-style headline based on the lawyer's journey, expertise, and key insights (e.g., 'From Courtrooms to Communities: How [Lawyer Name] is Redefining [Specialization]').
+- "slug": A URL-safe slug generated from the title.
 - "lawyer": The name of the lawyer/expert (extracted from the writeup or generated if not found).
 - "specialization": The legal specialization of the expert lawyer (e.g. 'Employment Disputes & Labor Regulations').
 - "bgColor": One of the allowed tailwind accent colors: 'bg-[#FFB5A7]/30', 'bg-[#D4AF37]/20', 'bg-[#B5E2FA]/30', 'bg-[#EDF2F4]/30', 'bg-[#C1F0C4]/30'. Select the one that best matches the topic.
 - "metaTitle": Search engine optimized listing title (Max 60 characters).
 - "metaDescription": Compelling snippet appearing in search results (Max 160 characters).
-- "faqs": An array of at least 10 highly relevant, comprehensive Frequently Asked Questions (FAQs) based on the topic. Each FAQ must have a detailed, professional legal answer. Do not output fewer than 10 FAQs.
+- "faqs": An array of at least 10 highly relevant, comprehensive Frequently Asked Questions (FAQs) based on the lawyer's journey, practice areas, and legal advice. Each FAQ must have a detailed, professional legal answer. Do not output fewer than 10 FAQs.
 - "reviews": An array of at least 5 client feedback / review snippets. Each snippet must contain:
   - "name": A realistic Indian name.
   - "rating": An integer rating (must be 5).
-  - "review": A detailed, positive comment praising the lawyer's guidance on the topic. Do not output fewer than 5 review snippets.
+  - "review": A detailed, positive comment praising the lawyer's guidance, professionalism, and representation. Do not output fewer than 5 review snippets.
 
 CRITICAL NEGATIVE CONSTRAINT:
 - Under no circumstances should you include any em dashes (—) anywhere in your entire response (including in FAQs, reviews, title, or description). Always use normal hyphens (-), colons, commas, or parentheses, or rewrite the sentence to avoid them.
@@ -82,39 +82,100 @@ Return ONLY a valid JSON object matching the above structure.`;
     // ==========================================
     // STEP 2: GENERATE EXHAUSTIVE 3000+ WORD HTML DESCRIPTION
     // ==========================================
-    const step2SystemPrompt = `You are a master legal copywriter and chief editor for AMA Connect.
-Your task is to write an exhaustive, highly detailed, deeply comprehensive legal analysis and case handbook based on a raw writeup, a title, a lawyer's name, and their specialization.
+    // NOTE: We ask the model to return RAW HTML (not wrapped in JSON) to avoid
+    // JSON-string-escaping overhead that causes severe self-truncation. We parse
+    // the HTML ourselves and wrap it into the data object in Step 3.
+    const step2SystemPrompt = `You are an experienced legal journalist and feature writer producing premium, visually rich magazine-style profile articles for a legal website.
 
-The output MUST be a JSON object with a single field: "description", which contains a highly expanded HTML rich text content.
-This HTML content must be structured into 7 to 10 logical sections, each headed by a <h2> or <h3> tag (containing multiple paragraphs, bullet points, numbered lists, bold keywords, blockquotes, etc.).
+Your task: Transform a lawyer's raw interview transcript into a cohesive, publication-ready narrative article with rich HTML formatting. Do NOT reproduce Q&A format. Write in third person.
 
-CRITICAL HEADING INSTRUCTIONS:
-- The section headings MUST be highly dynamic, customized, and tailored to the specific legal topic and writeup, rather than using generic placeholders. For example, instead of "Step-by-Step Practical Legal Recourse", use "How to File a Wages Complaint with the Labor Commissioner" or "Filing under Section 33C of the Industrial Disputes Act".
-- Do NOT use generic names like "Socio-Legal Context", "Direct Statutory Analysis", or "Evidence Collection". Create descriptive, informative headings representing the actual legal concepts, provisions, and steps relevant to this guide.
+Return ONLY the raw HTML content. Do NOT wrap it in JSON or markdown code fences. Start directly with the first HTML tag.
 
-The analysis must cover the following key areas within these custom-themed sections:
-1. Executive Summary / Overview of the issue (Target: 350+ words)
-2. Socio-legal context, history, and significance in the Indian legal system (Target: 350+ words)
-3. Direct statutory analysis, explaining specific Acts and Sections (Target: 500+ words)
-4. Step-by-step practical recourse, filing procedures, and appropriate jurisdictions (Target: 500+ words)
-5. Evidence collection, document verification, and safeguarding protocols (Target: 400+ words)
-6. Drafting and dispatching of legal/demand notices (Target: 400+ words)
-7. Reconciliation, mediation, and litigation strategy (Target: 350+ words)
-8. Case studies, landmark precedents, and relevant judgments (Target: 350+ words)
-9. Critical warnings, expert advocate advice, and immediate next steps (Target: 300+ words)
+WRITING STYLE:
+- Third person narrative throughout.
+- Seamlessly weave the lawyer's responses into a flowing story.
+- Remove all interviewer references, conversational language, and transcript formatting.
+- Preserve all facts, opinions, and insights. Do not invent information.
 
-CRITICAL FORMATTING INSTRUCTIONS:
-- Ensure the combined word count of the entire HTML description is AT LEAST 3000 words. Write extensively, explaining every legal concept, statute section, and process in absolute detail.
-- DO NOT USE MARKDOWN (such as **bold** or # headers) in the description. Return valid, well-structured, semantic HTML.
-- DO NOT use em dashes (—) anywhere in your response. Always use normal hyphens (-), colons, commas, or parentheses if needed instead.
-- DO NOT output HTML entities like '&amp;' or '&amp;amp;' in the HTML content or headings. Use normal characters directly (e.g., write '&' directly as '&' or use the word 'and' instead).
+STRUCTURE:
+- 8 to 10 sections, each with a unique <h2> subheading crafted specifically for THIS lawyer's story.
+- Do NOT use generic headings like "Introduction" or "Areas of Practice". Instead, create vivid, article-specific headings drawn from the actual narrative (e.g., "Without a Family Chamber: How Himanshu Mishra Built His Practice from Scratch" or "From Prayagraj to London: When IP Law Crosses Borders").
+- Thematic inspiration (do NOT copy literally): origin story, career struggles, areas of expertise, milestones, legal philosophy, advice for young lawyers, vision for the future, closing reflection.
 
-Return ONLY a valid JSON object of structure: { "description": "HTML content" }`;
+MANDATORY RICH HTML FORMATTING:
+You MUST use a variety of HTML elements throughout the article. A plain article with only <h2> and <p> tags is UNACCEPTABLE. Here is what EVERY article must include:
+
+1. STYLED BLOCKQUOTES for 2-3 powerful direct quotes:
+<blockquote style="border-left:4px solid #C69214; background:#FAF6EE; padding:1.25rem 1.5rem; margin:1.5rem 0; border-radius:8px; font-style:italic; font-size:1.05rem;">
+"The actual quote from the lawyer goes here."
+</blockquote>
+
+2. STYLED CALLOUT CONTAINERS for 1-2 key takeaways or highlights:
+<div style="background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left:4px solid #2b6cb0; padding:1.25rem 1.5rem; margin:1.5rem 0; border-radius:8px;">
+<h4 style="margin-top:0; color:#1a365d;">Key Takeaway Title</h4>
+<p>The important insight or summary content here.</p>
+</div>
+
+3. BULLET OR NUMBERED LISTS for enumerable items (practice areas, advice points, steps):
+<ul>
+<li><strong>Item label:</strong> Description of the item.</li>
+</ul>
+
+4. AT LEAST ONE TABLE for structured data (career timeline, practice areas, comparisons):
+<table style="width:100%; border-collapse:collapse; margin:1.5rem 0;">
+<thead><tr>
+<th style="border:1px solid #e2e2e2; padding:0.75rem; text-align:left; background:#f7f7f7;">Column 1</th>
+<th style="border:1px solid #e2e2e2; padding:0.75rem; text-align:left; background:#f7f7f7;">Column 2</th>
+</tr></thead>
+<tbody><tr>
+<td style="border:1px solid #e2e2e2; padding:0.75rem;">Data</td>
+<td style="border:1px solid #e2e2e2; padding:0.75rem;">Data</td>
+</tr></tbody>
+</table>
+
+5. BOLD (<strong>) for key terms, legal concepts, case names, statute references throughout every section.
+6. ITALIC (<em>) for book titles, Latin maxims, reflective observations.
+7. <h3> sub-headings within sections that cover multiple sub-topics.
+
+HERE IS AN EXAMPLE of what ONE section of the output should look like (follow this formatting pattern):
+
+<h2>Without a Family Chamber: Building a Practice from the Ground Up</h2>
+<p>For many young advocates in India, the path to establishing a legal career is paved by family connections, inherited clientele, and decades of accumulated goodwill. <strong>Himanshu Mishra</strong> had none of these advantages. As a <strong>first-generation advocate</strong>, he stepped into the corridors of the <strong>Allahabad High Court</strong> at Prayagraj with nothing but his law degree and an unwavering determination to build something meaningful.</p>
+<p>The early years were defined by a steep learning curve. Without an established chamber to fall back on, every brief had to be earned through demonstrated competence and professional reliability. Mishra recalls the period with characteristic pragmatism, noting that the absence of a safety net forced him to develop skills that might otherwise have taken years to cultivate.</p>
+<blockquote style="border-left:4px solid #C69214; background:#FAF6EE; padding:1.25rem 1.5rem; margin:1.5rem 0; border-radius:8px; font-style:italic; font-size:1.05rem;">
+"Every opportunity had to be earned through learning, persistence, and professional credibility. Looking back, I consider this challenge a blessing."
+</blockquote>
+<p>His practice gradually expanded across multiple domains of litigation:</p>
+<ul>
+<li><strong>Criminal matters:</strong> Representing clients in proceedings before the High Court and subordinate courts.</li>
+<li><strong>Matrimonial disputes:</strong> Navigating the complex intersection of family law and personal rights.</li>
+<li><strong>Service law:</strong> Advocating for individuals in employment and government service disputes.</li>
+<li><strong>Civil litigation:</strong> Handling property disputes, contractual matters, and injunction proceedings.</li>
+</ul>
+<div style="background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left:4px solid #2b6cb0; padding:1.25rem 1.5rem; margin:1.5rem 0; border-radius:8px;">
+<h4 style="margin-top:0; color:#1a365d;">First-Generation Advantage</h4>
+<p>Mishra views his background not as a disadvantage but as a catalyst. The absence of inherited networks forced the development of <strong>self-reliance, discipline, and continuous improvement</strong> - qualities that now form the bedrock of his professional identity.</p>
+</div>
+
+END OF EXAMPLE. Follow this formatting pattern throughout the entire article. Every section must contain a mix of narrative paragraphs, bold terms, and at least one additional element (list, quote, callout, or table). Do NOT write plain-text-only sections.
+
+CRITICAL RULES:
+- MINIMUM 3000 WORDS. Each section must have 300-400+ words with multiple paragraphs.
+- DO NOT use em dashes (\u2014) anywhere. Use hyphens (-), colons, commas, or parentheses instead.
+- DO NOT use markdown. Return semantic HTML only.
+- DO NOT output HTML entities like '&amp;'. Write '&' directly or use the word 'and'.
+- DO NOT stop writing until all sections are complete. Write extensively.`;
 
     const step2UserPrompt = `Lawyer: ${parsedStep1.lawyer || "Expert Lawyer"}
 Specialization: ${parsedStep1.specialization || "Legal Expert"}
 Title: ${parsedStep1.title || "Legal Guide"}
-Raw writeup sent:
+
+CRITICAL REMINDERS:
+1. Write AT LEAST 3000 words. Each section needs 3-5 detailed paragraphs.
+2. You MUST include styled blockquotes, styled callout divs, bullet/numbered lists, at least one table, bold keywords, and italic text throughout the article. A plain article with only headings and paragraphs is NOT acceptable.
+3. Follow the HTML example shown in the system prompt for formatting.
+
+Raw writeup/interview transcript:
 ${writeup}`;
 
     const step2Response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -129,8 +190,8 @@ ${writeup}`;
           { role: "system", content: step2SystemPrompt },
           { role: "user", content: step2UserPrompt }
         ],
-        response_format: { type: "json_object" },
-        temperature: 0.6
+        max_tokens: 16384,
+        temperature: 0.75
       })
     });
 
@@ -141,14 +202,116 @@ ${writeup}`;
     }
 
     const step2Data = await step2Response.json();
-    let step2JsonText = step2Data.choices?.[0]?.message?.content;
-    if (!step2JsonText) {
+    let descriptionHtml = step2Data.choices?.[0]?.message?.content;
+    if (!descriptionHtml) {
       return NextResponse.json({ error: "Failed to receive Step 2 description content from OpenAI" }, { status: 502 });
     }
 
+    // Clean up any accidental markdown code fences the model might add
+    descriptionHtml = descriptionHtml.trim();
+    if (descriptionHtml.startsWith("```html")) {
+      descriptionHtml = descriptionHtml.slice(7).trim();
+    } else if (descriptionHtml.startsWith("```")) {
+      descriptionHtml = descriptionHtml.slice(3).trim();
+    }
+    if (descriptionHtml.endsWith("```")) {
+      descriptionHtml = descriptionHtml.slice(0, -3).trim();
+    }
+
     // Programmatic em-dash removal post-processing for Step 2
-    step2JsonText = step2JsonText.replace(/—/g, "-").replace(/\u2014/g, "-");
-    const parsedStep2 = JSON.parse(step2JsonText);
+    descriptionHtml = descriptionHtml.replace(/—/g, "-").replace(/\u2014/g, "-");
+
+    // ==========================================
+    // STEP 2B: AUTO-EXPAND IF UNDER 3000 WORDS
+    // ==========================================
+    const countWords = (html: string) => html.replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length;
+    let currentWordCount = countWords(descriptionHtml);
+    console.log(`[Generate] Step 2 initial word count: ${currentWordCount}`);
+
+    // If the description is still under 3000 words, make up to 2 expansion calls
+    let expansionAttempts = 0;
+    while (currentWordCount < 3000 && expansionAttempts < 2) {
+      expansionAttempts++;
+      const deficit = 3000 - currentWordCount;
+      console.log(`[Generate] Step 2B expansion attempt ${expansionAttempts}: need ~${deficit} more words`);
+
+      const expandPrompt = `You are an experienced legal journalist. Below is an existing magazine-style profile article about a lawyer. The article is currently only ${currentWordCount} words but MUST be at least 3000 words.
+
+Your task: EXPAND and ENRICH the existing article by adding ${deficit + 500} more words of additional content. Do this by:
+1. Adding 2-3 entirely new detailed paragraphs to EACH existing <h2> section.
+2. Adding deeper context, background, analysis, and elaboration to every section.
+3. Adding 1-2 new <h2> sections with unique, interview-specific headings and 3-4 paragraphs each.
+4. Expanding any short paragraphs into richer, more detailed ones.
+5. Enriching the visual formatting by adding where appropriate:
+   - Bullet or numbered lists (<ul>/<ol>) for enumerable items like practice areas, advice points, or case types
+   - A table (<table>) if a career timeline, practice area breakdown, or comparison would fit naturally
+   - Styled blockquotes (style="border-left:4px solid #C69214; background:#FAF6EE; padding:1.25rem 1.5rem; margin:1.5rem 0; border-radius:8px; font-style:italic;") for powerful direct quotes
+   - Styled callout containers (<div> with style="background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left:4px solid #2b6cb0; padding:1.25rem 1.5rem; margin:1.5rem 0; border-radius:8px;") for key takeaways
+   - <strong> and <em> for emphasis on key terms and legal concepts
+
+CRITICAL RULES:
+- Return ONLY the complete, expanded HTML article (all sections, old and new combined). Do NOT return a fragment.
+- Do NOT wrap in JSON or markdown code fences. Start directly with the first HTML tag.
+- Do NOT use em dashes (—) anywhere. Use normal hyphens (-), colons, commas, or parentheses instead.
+- Do NOT use markdown formatting. Use semantic HTML only.
+- Do NOT invent facts not present in the original article or the raw writeup below.
+- Maintain the professional, magazine-style editorial tone throughout.
+
+Raw writeup/interview for reference:
+${writeup}
+
+EXISTING ARTICLE TO EXPAND:
+${descriptionHtml}`;
+
+      const expandResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4o",
+          messages: [
+            { role: "user", content: expandPrompt }
+          ],
+          max_tokens: 16384,
+          temperature: 0.75
+        })
+      });
+
+      if (!expandResponse.ok) {
+        console.error(`[Generate] Step 2B expansion attempt ${expansionAttempts} failed`);
+        break;
+      }
+
+      const expandData = await expandResponse.json();
+      let expandedHtml = expandData.choices?.[0]?.message?.content;
+      if (!expandedHtml) break;
+
+      // Clean up code fences
+      expandedHtml = expandedHtml.trim();
+      if (expandedHtml.startsWith("```html")) expandedHtml = expandedHtml.slice(7).trim();
+      else if (expandedHtml.startsWith("```")) expandedHtml = expandedHtml.slice(3).trim();
+      if (expandedHtml.endsWith("```")) expandedHtml = expandedHtml.slice(0, -3).trim();
+
+      // Em-dash removal
+      expandedHtml = expandedHtml.replace(/—/g, "-").replace(/\u2014/g, "-");
+
+      const expandedWordCount = countWords(expandedHtml);
+      console.log(`[Generate] Step 2B expansion attempt ${expansionAttempts} result: ${expandedWordCount} words`);
+
+      // Only accept the expansion if it's actually longer
+      if (expandedWordCount > currentWordCount) {
+        descriptionHtml = expandedHtml;
+        currentWordCount = expandedWordCount;
+      } else {
+        break;
+      }
+    }
+
+    console.log(`[Generate] Final description word count: ${currentWordCount}`);
+
+    const parsedStep2 = { description: descriptionHtml };
 
     // ==========================================
     // STEP 3: CONSOLIDATE & SANITIZE BOTH PARTS
@@ -178,23 +341,74 @@ ${writeup}`;
       }
     }
 
-    // Pad reviews to 5 if necessary
+    // Pad reviews to 5 if necessary using LLM generation according to context
     if (!mergedData.reviews || !Array.isArray(mergedData.reviews) || mergedData.reviews.length < 5) {
       if (!mergedData.reviews) mergedData.reviews = [];
-      const mockNames = ["Vikram Malhotra", "Sneha Iyer", "Rajesh Singhal", "Priya Nair", "Anil Deshmukh", "Arjun Mehta", "Kirti Joshi"];
-      const reviewTemplates = [
-        `Extremely practical guidelines provided. The guide on ${topic} laid out exactly how to proceed with legal recourse and it helped tremendously!`,
-        `Highly recommend reading this analysis. ${expertName} explains the complex legal concepts of ${topic} in a very simplified way.`,
-        `Very helpful resource for anyone dealing with ${topic}. Clear, concise, and professional legal guidance.`,
-        `Amazing clarity. The step-by-step procedure for ${topic} was easy to follow and gave me the confidence to take action.`,
-        `Superb analysis by ${expertName}. I was able to understand my rights and options clearly.`,
-      ];
+      
+      const neededCount = 5 - mergedData.reviews.length;
+      try {
+        const reviewPrompt = `You are a master legal content coordinator.
+The user needs exactly ${neededCount} additional client reviews for a legal guide on the topic "${topic}" by the lawyer "${expertName}".
+Each review must be a detailed, positive comment praising the lawyer's guidance on the topic, generated specifically based on the context provided in the writeup.
+Return a JSON object containing a "reviews" array. Each review in the array must have:
+- "name": A realistic Indian name
+- "rating": 5
+- "review": The detailed positive feedback based on the writeup context
+
+Context writeup:
+${writeup}
+
+CRITICAL:
+- Do not use any em dashes (—).
+- Do not output HTML entities.
+- Return ONLY valid JSON matching the structure: { "reviews": [ { "name": "...", "rating": 5, "review": "..." } ] }`;
+
+        const padResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: "gpt-4o",
+            messages: [
+              { role: "user", content: reviewPrompt }
+            ],
+            response_format: { type: "json_object" },
+            temperature: 0.7
+          })
+        });
+
+        if (padResponse.ok) {
+          const padData = await padResponse.json();
+          let padJsonText = padData.choices?.[0]?.message?.content || "{}";
+          padJsonText = padJsonText.replace(/—/g, "-").replace(/\u2014/g, "-");
+          const parsedPad = JSON.parse(padJsonText);
+          if (parsedPad.reviews && Array.isArray(parsedPad.reviews)) {
+            for (const r of parsedPad.reviews) {
+              if (mergedData.reviews.length < 5) {
+                mergedData.reviews.push({
+                  name: r.name || "Client",
+                  rating: typeof r.rating === 'number' ? r.rating : 5,
+                  review: r.review || `Highly practical guidelines provided for ${topic}.`
+                });
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Error generating reviews fallback via LLM:", err);
+      }
+
+      // Absolute emergency fallback in case LLM call failed or returned insufficient reviews:
+      // construct them using the topic and expertName directly, rather than static templates.
+      const emergencyNames = ["Vikram Malhotra", "Sneha Iyer", "Rajesh Singhal", "Priya Nair", "Anil Deshmukh"];
       while (mergedData.reviews.length < 5) {
         const idx = mergedData.reviews.length;
         mergedData.reviews.push({
-          name: mockNames[idx % mockNames.length],
+          name: emergencyNames[idx % emergencyNames.length],
           rating: 5,
-          review: reviewTemplates[idx % reviewTemplates.length]
+          review: `Highly appreciate the clear guidance on ${topic} provided by ${expertName}. It helped address our legal issues effectively.`
         });
       }
     }
