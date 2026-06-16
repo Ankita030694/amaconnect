@@ -308,7 +308,7 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
                               </div>
                             </div>
                           )}
-                          <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-[2px] rounded px-3 py-1 text-[10px] uppercase font-bold text-[#5A4C33] border border-[#5A4C33]/10 shadow-xs">
+                          <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-[2px] rounded px-3 py-1 text-[10px] uppercase font-bold text-[#5A4C33] border border-[#5A4C33]/10 shadow-xs">
                             {article.date}
                           </div>
                         </div>
