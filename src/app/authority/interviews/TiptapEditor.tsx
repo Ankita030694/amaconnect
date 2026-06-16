@@ -577,12 +577,12 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ content, onChange, classNam
   `;
 
   return (
-    <div className={`${className} relative flex flex-col h-full rounded-xl overflow-hidden border border-slate-200 bg-white`}>
+    <div className={`${className} relative flex flex-col rounded-xl overflow-hidden border border-slate-200 bg-white`}>
       <style jsx global>{editorStyles}</style>
       {isMounted && editor && (
-        <div className="flex flex-col h-full bg-white">
+        <div className="flex flex-col bg-white">
           <MenuBar editor={editor} />
-          <div className="overflow-y-auto flex-1 bg-white">
+          <div className="bg-white">
             <EditorContent editor={editor} />
           </div>
         </div>

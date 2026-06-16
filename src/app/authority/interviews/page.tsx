@@ -1164,11 +1164,11 @@ const InterviewsDashboard = () => {
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Detailed Case Analysis & Interview Transcript <span className="text-red-500">*</span></label>
                   
                   {/* Tiptap Integration */}
-                  <div className="h-[480px]">
+                  <div className="min-h-[480px]">
                     <TiptapEditor 
                       content={newInterview.description} 
                       onChange={handleEditorChange} 
-                      className="h-full shadow-2xs" 
+                      className="min-h-full shadow-2xs" 
                     />
                   </div>
                 </div>
