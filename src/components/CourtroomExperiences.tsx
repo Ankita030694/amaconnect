@@ -128,12 +128,7 @@ export default function CourtroomExperiences() {
   return (
     <section className="w-full py-16 sm:py-24 overflow-hidden">
       {/* Header Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight max-w-3xl">
-          Real courtroom experiences that changed the way I practice law.
-        </h2>
-      </div>
-
+     
       {/* News Carousel */}
       <div 
         className="flex overflow-x-auto gap-4 sm:gap-6 pb-12 snap-x snap-mandatory px-4 sm:px-6 lg:px-8"
