@@ -62,7 +62,8 @@ export async function PUT(
       metaDescription,
       faqs,
       reviews,
-      author
+      author,
+      linkedinUrl
     } = body;
 
     // Validation
@@ -97,6 +98,7 @@ export async function PUT(
     interview.faqs = faqs || [];
     interview.reviews = reviews || [];
     interview.author = author || "Anuj Anand Malik";
+    interview.linkedinUrl = linkedinUrl || "";
 
     const updatedInterview = await interview.save();
     return NextResponse.json(updatedInterview);

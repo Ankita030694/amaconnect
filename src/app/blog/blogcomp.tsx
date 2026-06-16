@@ -168,6 +168,10 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
 
   const hasMore = filteredBlogs.length > visibleCount;
 
+  const latestBlogs = useMemo(() => {
+    return blogs.slice(0, 5);
+  }, [blogs]);
+
   return (
     <>
       {/* Schema.org FAQ Markup for SEO */}
@@ -252,100 +256,136 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
             </button>
           </motion.div>
         ) : (
-          <>
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {displayedBlogs.map((article) => (
-                <motion.div
-                  key={article.id}
-                  variants={itemVariants}
-                  className="h-full"
-                >
-                  <Link href={`/blog/${article.slug}`}>
-                    <motion.div
-                      className="flex flex-col h-full bg-white rounded-xl overflow-hidden border border-gray-100 shadow-2xs hover:border-[#D2A02A]/30 transition-all duration-300"
-                      variants={hoverVariants}
-                      initial="initial"
-                      whileHover="hover"
-                    >
-                      <div className="relative h-56 w-full flex-shrink-0 bg-gray-900 overflow-hidden flex items-center justify-center">
-                        {hasValidImage(article.image) ? (
-                          <>
-                            {/* Blurred background filler */}
-                            <img
-                              src={getValidImageSrc(article.image)}
-                              alt=""
-                              className="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-30 select-none pointer-events-none z-0"
-                            />
-                            {/* Golden tint overlay */}
-                            <div className="absolute inset-0 bg-[#B8860B]/15 mix-blend-color select-none pointer-events-none z-0" />
-                            {/* Foreground contained image */}
-                            <img
-                              src={getValidImageSrc(article.image)}
-                              alt={`${article.title} | AMA Legal Solutions`}
-                              className="relative z-10 max-w-full max-h-full h-full w-auto object-contain transition-transform duration-500 hover:scale-103"
-                              loading="lazy"
-                              onError={handleImageError}
-                            />
-                          </>
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                            <div className="text-center p-4">
-                              <svg className="w-10 h-10 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
-                              <span className="text-xs text-gray-400 font-medium">Image coming soon</span>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Left side: Main Blog Grid (takes 3 columns on large screens) */}
+            <div className="lg:col-span-3">
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {displayedBlogs.map((article) => (
+                  <motion.div
+                    key={article.id}
+                    variants={itemVariants}
+                    className="h-full"
+                  >
+                    <Link href={`/blog/${article.slug}`}>
+                      <motion.div
+                        className="flex flex-col h-full bg-white rounded-xl overflow-hidden border border-gray-100 shadow-2xs hover:border-[#D2A02A]/30 transition-all duration-300"
+                        variants={hoverVariants}
+                        initial="initial"
+                        whileHover="hover"
+                      >
+                        <div className="relative h-48 w-full flex-shrink-0 bg-gray-900 overflow-hidden flex items-center justify-center">
+                          {hasValidImage(article.image) ? (
+                            <>
+                              {/* Blurred background filler */}
+                              <img
+                                src={getValidImageSrc(article.image)}
+                                alt=""
+                                className="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-30 select-none pointer-events-none z-0"
+                              />
+                              {/* Golden tint overlay */}
+                              <div className="absolute inset-0 bg-[#B8860B]/15 mix-blend-color select-none pointer-events-none z-0" />
+                              {/* Foreground contained image */}
+                              <img
+                                src={getValidImageSrc(article.image)}
+                                alt={`${article.title} | AMA Legal Solutions`}
+                                className="relative z-10 max-w-full max-h-full h-full w-auto object-contain transition-transform duration-500 hover:scale-103"
+                                loading="lazy"
+                                onError={handleImageError}
+                              />
+                            </>
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                              <div className="text-center p-4">
+                                <svg className="w-10 h-10 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span className="text-xs text-gray-400 font-medium">Image coming soon</span>
+                              </div>
                             </div>
+                          )}
+                          <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-[2px] rounded px-3 py-1 text-[10px] uppercase font-bold text-[#5A4C33] border border-[#5A4C33]/10 shadow-xs">
+                            {article.date}
                           </div>
-                        )}
-                        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-[2px] rounded px-3 py-1 text-[10px] uppercase font-bold text-[#5A4C33] border border-[#5A4C33]/10 shadow-xs">
-                          {article.date}
                         </div>
-                      </div>
 
-                      <div className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-lg font-semibold leading-snug mb-2 line-clamp-2 text-[#5A4C33]">
+                        <div className="p-6 flex flex-col flex-grow">
+                          <h3 className="text-lg font-semibold leading-snug mb-2 line-clamp-2 text-[#5A4C33]">
+                            {article.title}
+                          </h3>
+                          {article.subtitle && (
+                            <p className="text-xs font-bold text-[#D2A02A] mb-3">
+                              {article.subtitle}
+                            </p>
+                          )}
+                          <p className="text-sm text-gray-600 leading-relaxed font-normal line-clamp-3 mb-4 flex-grow">
+                            {article.description}
+                          </p>
+                          <div className="pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-[#5A4C33]/80 group cursor-pointer mt-auto">
+                            <span>Read Full Article</span>
+                            <svg className="w-4 h-4 ml-1.5 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* "Show More" Button Section */}
+              {hasMore && (
+                <div className="flex justify-center mt-12">
+                  <motion.button
+                    onClick={handleShowMore}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="px-8 py-3.5 bg-[#5A4C33] text-[#F5F2EB] text-sm font-semibold rounded-lg shadow-md hover:bg-[#4A3C23] active:bg-[#3d311c] transition-all cursor-pointer border border-[#5A4C33]/15"
+                  >
+                    Show More Articles
+                  </motion.button>
+                </div>
+              )}
+            </div>
+
+            {/* Right side: Latest Blogs Sidebar (takes 1 column on large screens) */}
+            <div className="lg:col-span-1 border-t lg:border-t-0 lg:border-l border-gray-100 lg:pl-6 pt-8 lg:pt-0">
+              <h2 className="text-[#5A4C33] text-lg font-bold mb-6 pb-2 border-b border-gray-100 tracking-wide uppercase">
+                Latest Blogs
+              </h2>
+              <div className="flex flex-col gap-5">
+                {latestBlogs.map((article) => (
+                  <Link key={`latest-${article.id}`} href={`/blog/${article.slug}`}>
+                    <div className="flex gap-3 items-center group cursor-pointer">
+                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-900 flex items-center justify-center border border-gray-100">
+                        <img
+                          src={getValidImageSrc(article.image)}
+                          alt=""
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          onError={handleImageError}
+                        />
+                      </div>
+                      <div className="min-w-0 flex-grow">
+                        <h4 className="text-sm font-semibold text-[#5A4C33] line-clamp-2 leading-tight group-hover:text-[#D2A02A] transition-colors duration-200">
                           {article.title}
-                        </h3>
+                        </h4>
                         {article.subtitle && (
-                          <p className="text-xs font-bold text-[#D2A02A] uppercase tracking-wider mb-3">
+                          <p className="text-[11px] font-bold text-[#D2A02A] mt-1 line-clamp-1">
                             {article.subtitle}
                           </p>
                         )}
-                        <p className="text-sm text-gray-600 leading-relaxed font-normal line-clamp-3 mb-4 flex-grow">
-                          {article.description}
-                        </p>
-                        <div className="pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-[#5A4C33]/80 group cursor-pointer mt-auto">
-                          <span>Read Full Article</span>
-                          <svg className="w-4 h-4 ml-1.5 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </Link>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* "Show More" Button Section */}
-            {hasMore && (
-              <div className="flex justify-center mt-12">
-                <motion.button
-                  onClick={handleShowMore}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="px-8 py-3.5 bg-[#5A4C33] text-[#F5F2EB] text-sm font-semibold rounded-lg shadow-md hover:bg-[#4A3C23] active:bg-[#3d311c] transition-all cursor-pointer border border-[#5A4C33]/15"
-                >
-                  Show More Articles
-                </motion.button>
+                ))}
               </div>
-            )}
-          </>
+            </div>
+          </div>
         )}
       </div>
 

@@ -43,7 +43,8 @@ export async function POST(request: Request) {
       metaDescription,
       faqs,
       reviews,
-      author
+      author,
+      linkedinUrl
     } = body;
 
     // Validation
@@ -77,6 +78,7 @@ export async function POST(request: Request) {
       faqs: faqs || [],
       reviews: reviews || [],
       author: author || "Anuj Anand Malik",
+      linkedinUrl: linkedinUrl || "",
       created: Date.now()
     });
 

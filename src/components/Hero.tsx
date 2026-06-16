@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import RequestDraftForm from "./RequestDraftForm";
 
 export interface LawyerInterview {
   _id: string;
@@ -57,6 +58,7 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
   const [interviews] = useState<LawyerInterview[]>(initialInterviews);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const itemsPerSlide = 4;
   const totalSlides = Math.ceil(interviews.length / itemsPerSlide) || 1;
@@ -101,13 +103,23 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
       <div className="max-w-6xl mx-auto w-full relative z-20 flex flex-col gap-5">
         
         {/* Centered Catchy Big Heading */}
-        <div className="text-center mb-5 sm:mb-8">
+        <div className="text-center mb-5 sm:mb-8 relative">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] tracking-tight leading-tight">
             Top <span className="text-[#D4AF37]">Lawyer Stories</span>
           </h2>
           <p className="text-gray-500 font-medium text-xs sm:text-xs lg:text-sm mt-3 max-w-2xl mx-auto">
             Exclusive insights, professional milestones, and real-world courtroom experiences from verified legal advocates.
           </p>
+          
+          {/* Request an Interview CTA Button - Top Right of Heading Section */}
+          <div className="sm:absolute sm:top-2 sm:right-0 mt-4 sm:mt-0 flex justify-center">
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="px-5 py-2.5 bg-[#2D2219] hover:bg-[#B8860B] text-white rounded-full text-xs font-bold transition-all shadow-3xs cursor-pointer select-none"
+            >
+              Request an interview
+            </button>
+          </div>
         </div>
 
         {/* Dynamic Slide Grid Container */}
@@ -252,6 +264,23 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
         )}
 
       </div>
+
+      {/* Suggest an Interview Modal Popup */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl border border-gray-150 p-2 md:p-6 animate-in fade-in zoom-in-95 duration-200">
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 z-50 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-black w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer font-bold text-lg"
+              title="Close modal"
+            >
+              &times;
+            </button>
+            <RequestDraftForm defaultReason="Suggest a Professional Interview" isCompact={true} />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

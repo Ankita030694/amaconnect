@@ -72,6 +72,7 @@ export interface LawyerInterview {
   author: string;
   created?: number;
   duration?: string;
+  linkedinUrl?: string;
 }
 
 interface InterviewDetailProps {
@@ -198,20 +199,29 @@ function TableOfContents({
 const processContent = (html: string) => {
   if (!html) return { content: '', sections: [] };
 
-  // 1. Decode &amp;amp; and &amp;
+  // 1. Decode &amp;amp;, &amp;, and other common HTML entities
   let sanitized = html
     .replace(/&amp;amp;/g, "&")
-    .replace(/&amp;/g, "&");
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
 
   // 2. Strip prefix "Executive Summary & Overview" or "Executive Summary" if it occurs at the start of any HTML tags or text at the very beginning
   sanitized = sanitized.replace(/^((?:<[^>]+>)*)\s*(Executive\s+Summary\s*(?:&|and)?\s*Overview\s*[\-:]*\s*)/i, "$1");
   sanitized = sanitized.replace(/^((?:<[^>]+>)*)\s*(Executive\s+Summary\s*[\-:]*\s*)/i, "$1");
 
   const sections: { id: string, title: string }[] = [];
-  // Regex to match h2 and h3 tags
-  let modifiedContent = html.replace(/<(h[23])(.*?)>(.*?)<\/\1>/g, (match, tag, attrs, title) => {
+  // Regex to match h2 and h3 tags on the sanitized content
+  let modifiedContent = sanitized.replace(/<(h[23])(.*?)>(.*?)<\/\1>/g, (match, tag, attrs, title) => {
     // Strip HTML from title for the TOC label
-    const cleanTitle = title.replace(/<[^>]*>/g, '').trim();
+    let cleanTitle = title.replace(/<[^>]*>/g, '').trim();
+    // Decode common entities from cleanTitle
+    cleanTitle = cleanTitle
+      .replace(/&amp;amp;/g, "&")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">");
+
     // Generate ID from title
     const id = cleanTitle.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
     
@@ -351,7 +361,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16">
+    <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16 font-sans">
       {/* Full Screen Banner with Blurred Background Filler */}
       {interview.image && (
         <div className={`w-full h-[280px] sm:h-[380px] md:h-[500px] lg:h-[550px] relative ${interview.bgColor || 'bg-[#2D2219]'} flex items-center justify-center overflow-hidden border-b border-slate-200/40 shadow-xs`}>
@@ -381,10 +391,10 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
           <span className="px-3.5 py-1.5 bg-[#B8860B]/10 text-[#B8860B] rounded-full text-xs font-extrabold uppercase tracking-wider">
             Verified Interview Guide
           </span>
-          <h1 className="text-3xl md:text-5xl font-black mb-6 leading-tight text-gray-900 mt-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-6 mt-4">
             {interview.title}
           </h1>
-          <p className="text-xl md:text-2xl mb-6 text-slate-500 font-semibold italic">
+          <p className="text-gray-600 font-medium text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed mb-6">
             {interview.specialization}
           </p>
           <div className="flex justify-center items-center space-x-4 text-sm md:text-base text-gray-500 font-medium">
@@ -428,9 +438,9 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
 
               {/* Tiptap Styles */}
               <style jsx global>{`
-                .tiptap-content h1 { font-size: 2em; font-weight: 900; margin-top: 1.5em; margin-bottom: 0.8em; color: #0f172a; }
-                .tiptap-content h2 { font-size: 1.75em; font-weight: 800; margin-top: 1.5em; margin-bottom: 0.8em; color: #0f172a; scroll-margin-top: 100px; }
-                .tiptap-content h3 { font-size: 1.5em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #1e293b; scroll-margin-top: 100px; }
+                .tiptap-content h1 { font-size: 2em; font-weight: 800; margin-top: 1.5em; margin-bottom: 0.8em; color: #2D2219; }
+                .tiptap-content h2 { font-size: 1.75em; font-weight: 800; margin-top: 1.5em; margin-bottom: 0.8em; color: #2D2219; scroll-margin-top: 100px; }
+                .tiptap-content h3 { font-size: 1.5em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #2D2219; scroll-margin-top: 100px; }
                 .tiptap-content p { margin-bottom: 1.2em; line-height: 1.8; color: #334155; }
                 .tiptap-content ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1.2em; }
                 .tiptap-content ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1.2em; }
@@ -467,7 +477,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
               {/* Reviews Section */}
               {interview.reviews && interview.reviews.length > 0 && (
                 <section id="reviews" className="scroll-mt-32 border-t border-slate-100 pt-12">
-                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-8">Verified Client Reviews</h2>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-[#2D2219] tracking-tight mb-8">Verified Client Reviews</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {interview.reviews.map((review, idx) => (
                       <div key={idx} className="bg-slate-50/50 p-6 rounded-2xl border border-slate-150 relative">
@@ -501,7 +511,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
               {/* FAQs Section */}
               {interview.faqs && interview.faqs.length > 0 && (
                 <section id="faqs" className="scroll-mt-32 border-t border-slate-100 pt-12">
-                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-8">Frequently Asked Questions</h2>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-[#2D2219] tracking-tight mb-8">Frequently Asked Questions</h2>
                   <div className="space-y-4">
                     {interview.faqs.map((faq, idx) => {
                       const faqId = `faq-${idx}`;
@@ -534,7 +544,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
               {/* Related Interviews */}
               {relatedInterviews.length > 0 && (
                 <section className="border-t border-slate-100 pt-12">
-                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-8">Related Lawyer Insights</h2>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-[#2D2219] tracking-tight mb-8">Related Lawyer Insights</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {relatedInterviews.map((item) => (
                       <Link key={item._id} href={`/interviews/${item.slug}`} className="group">
@@ -575,7 +585,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
                           </div>
                           <div className="p-5 flex-grow flex flex-col justify-between">
                             <div>
-                              <h3 className="text-base sm:text-lg font-extrabold text-slate-900 mb-2 group-hover:text-[#B8860B] transition-colors line-clamp-2">
+                              <h3 className="text-base sm:text-lg font-extrabold text-[#2D2219] mb-2 group-hover:text-[#B8860B] transition-colors line-clamp-2">
                                 {item.title}
                               </h3>
                               <p className="text-xs text-slate-400 font-semibold mb-4 uppercase">
@@ -627,19 +637,22 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
                   {authorBios[interview.lawyer as keyof typeof authorBios]?.description || "Advocate specializing in direct mediation, arbitration, and civil representation. Registered with the Supreme Court bar."}
                 </p>
                 <a 
-                  href={authorBios[interview.lawyer as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
+                  href={interview.linkedinUrl || authorBios[interview.lawyer as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2.5 rounded-xl text-xs font-extrabold transition-all shadow-3xs cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2.5 rounded-xl text-xs font-extrabold transition-all shadow-3xs cursor-pointer"
                 >
-                  Connect on LinkedIn
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                  <span>Connect on LinkedIn</span>
                 </a>
               </div>
 
               {/* Contact Card */}
               <div className="bg-[#413832] p-6 rounded-3xl shadow-md text-white border border-[#D4AF37]/20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/10 rounded-full -mr-8 -mt-8 pointer-events-none" />
-                <h3 className="text-lg font-black mb-3">Need Legal Advice?</h3>
+                <h3 className="text-lg font-extrabold text-white mb-3">Need Legal Advice?</h3>
                 <p className="text-slate-300 mb-6 text-xs sm:text-sm leading-relaxed">
                   Get specialized, strategic advocate counsel directly from verified experts at AMA Legal Solutions.
                 </p>

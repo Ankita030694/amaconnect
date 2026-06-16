@@ -139,7 +139,8 @@ const LawyerInterviewSchema = new Schema({
   faqs: [FAQSchema],
   reviews: [ReviewSchema],
   created: { type: Number, default: Date.now },
-  author: { type: String, default: "Anuj Anand Malik" }
+  author: { type: String, default: "Anuj Anand Malik" },
+  linkedinUrl: { type: String, default: "" }
 }, { collection: "lawyer_interviews" });
 
 export const LawyerInterview = mongoose.models.LawyerInterview || mongoose.model("LawyerInterview", LawyerInterviewSchema);

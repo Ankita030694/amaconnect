@@ -67,6 +67,8 @@ interface LawyerInterview {
   reviews?: Review[];
   author: string;
   created?: number;
+  linkedinUrl?: string;
+  duration?: string;
 }
 
 const InterviewsDashboard = () => {
@@ -86,7 +88,9 @@ const InterviewsDashboard = () => {
     metaDescription: '',
     faqs: [],
     reviews: [],
-    author: 'Anuj Anand Malik'
+    author: 'Anuj Anand Malik',
+    linkedinUrl: '',
+    duration: '5 min read'
   });
 
   const [uploading, setUploading] = useState(false);
@@ -430,7 +434,8 @@ const InterviewsDashboard = () => {
 
         <p>Consult a specialized labor advocate immediately to protect your interests and expedite the settlement process in appropriate tribunals.</p>
       `,
-      author: "Anuj Anand Malik"
+      author: "Anuj Anand Malik",
+      linkedinUrl: "https://www.linkedin.com/company/ama-legal-solutions/"
     });
 
     // 2. Programmatically generate a premium gold scales/court banner on the fly
@@ -574,6 +579,7 @@ const InterviewsDashboard = () => {
         metaDescription: generated.metaDescription || prevState.metaDescription,
         faqs: generated.faqs || prevState.faqs,
         reviews: generated.reviews || prevState.reviews,
+        duration: generated.duration || prevState.duration,
       }));
 
       // Alert successful completion
@@ -609,7 +615,9 @@ const InterviewsDashboard = () => {
       metaDescription: '',
       faqs: [],
       reviews: [],
-      author: 'Anuj Anand Malik'
+      author: 'Anuj Anand Malik',
+      linkedinUrl: '',
+      duration: '5 min read'
     });
     setImagePreview(null);
     setFormMode('add');
@@ -845,7 +853,7 @@ const InterviewsDashboard = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   <div>
                     <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Featured Expert Lawyer <span className="text-red-500">*</span></label>
                     <input
@@ -868,6 +876,18 @@ const InterviewsDashboard = () => {
                       onChange={handleInputChange}
                       required
                       placeholder="e.g. Labour Law • Employment Disputes"
+                      className="w-full px-4 py-3 bg-white border border-slate-200 focus:border-[#B8860B] rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-50 text-slate-800 text-sm placeholder-slate-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">LinkedIn Profile Link</label>
+                    <input
+                      type="url"
+                      name="linkedinUrl"
+                      value={newInterview.linkedinUrl || ''}
+                      onChange={handleInputChange}
+                      placeholder="e.g. https://www.linkedin.com/in/username"
                       className="w-full px-4 py-3 bg-white border border-slate-200 focus:border-[#B8860B] rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-50 text-slate-800 text-sm placeholder-slate-400"
                     />
                   </div>

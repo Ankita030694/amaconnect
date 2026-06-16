@@ -41,7 +41,8 @@ The output MUST be a JSON object with the following fields:
   - "review": A detailed, positive comment praising the lawyer's guidance on the topic. Do not output fewer than 5 review snippets.
 
 CRITICAL NEGATIVE CONSTRAINT:
-Under no circumstances should you include any em dashes (—) anywhere in your entire response (including in FAQs, reviews, title, or description). Always use normal hyphens (-), colons (:), commas, parentheses, or rewrite the sentence to avoid them.
+- Under no circumstances should you include any em dashes (—) anywhere in your entire response (including in FAQs, reviews, title, or description). Always use normal hyphens (-), colons, commas, or parentheses, or rewrite the sentence to avoid them.
+- DO NOT output HTML entities like '&amp;' or '&amp;amp;' in any generated text (including titles, FAQs, and reviews). Use normal characters directly (e.g., write '&' directly as '&' or use the word 'and' instead).
 
 Return ONLY a valid JSON object matching the above structure.`;
 
@@ -85,21 +86,28 @@ Return ONLY a valid JSON object matching the above structure.`;
 Your task is to write an exhaustive, highly detailed, deeply comprehensive legal analysis and case handbook based on a raw writeup, a title, a lawyer's name, and their specialization.
 
 The output MUST be a JSON object with a single field: "description", which contains a highly expanded HTML rich text content.
-This HTML content must be structured into exactly 9 detailed sections (each headed by a <h2> or <h3> tag, containing multiple paragraphs, bullet points, numbered lists, bold keywords, blockquotes, etc.):
-1. Executive Summary & Overview (Target: 350+ words)
-2. Socio-Legal Context & Legislative Intent in India (Target: 350+ words)
-3. Direct Statutory Analysis & Relevant Legal Provisions of the Acts (Target: 500+ words)
-4. Step-by-Step Practical Legal Recourse & Filing Procedure (Target: 500+ words)
-5. Evidence Collection, Verification, & Electronic/Hard Copy Safeguarding Protocol (Target: 400+ words)
-6. Drafting and Dispatching of Demand Notices & Formal Legal Notices (Target: 400+ words)
-7. Reconciliation, Mediation, and Litigation Strategy (Target: 350+ words)
-8. In-Depth Case Study Examples, Court Precedents & Judgments (Target: 350+ words)
-9. Critical Warnings, Advocate Advice, & Immediate Next Steps (Target: 300+ words)
+This HTML content must be structured into 7 to 10 logical sections, each headed by a <h2> or <h3> tag (containing multiple paragraphs, bullet points, numbered lists, bold keywords, blockquotes, etc.).
 
-CRITICAL INSTRUCTIONS:
-- Ensure the combined word count of the entire HTML description is AT LEAST 3000 words. Write extensively, explaining every legal concept, statute section (e.g. Payment of Wages Act Section 33C, etc.), and process in absolute detail. Expand heavily on background facts, procedures, drafts, and strategies.
+CRITICAL HEADING INSTRUCTIONS:
+- The section headings MUST be highly dynamic, customized, and tailored to the specific legal topic and writeup, rather than using generic placeholders. For example, instead of "Step-by-Step Practical Legal Recourse", use "How to File a Wages Complaint with the Labor Commissioner" or "Filing under Section 33C of the Industrial Disputes Act".
+- Do NOT use generic names like "Socio-Legal Context", "Direct Statutory Analysis", or "Evidence Collection". Create descriptive, informative headings representing the actual legal concepts, provisions, and steps relevant to this guide.
+
+The analysis must cover the following key areas within these custom-themed sections:
+1. Executive Summary / Overview of the issue (Target: 350+ words)
+2. Socio-legal context, history, and significance in the Indian legal system (Target: 350+ words)
+3. Direct statutory analysis, explaining specific Acts and Sections (Target: 500+ words)
+4. Step-by-step practical recourse, filing procedures, and appropriate jurisdictions (Target: 500+ words)
+5. Evidence collection, document verification, and safeguarding protocols (Target: 400+ words)
+6. Drafting and dispatching of legal/demand notices (Target: 400+ words)
+7. Reconciliation, mediation, and litigation strategy (Target: 350+ words)
+8. Case studies, landmark precedents, and relevant judgments (Target: 350+ words)
+9. Critical warnings, expert advocate advice, and immediate next steps (Target: 300+ words)
+
+CRITICAL FORMATTING INSTRUCTIONS:
+- Ensure the combined word count of the entire HTML description is AT LEAST 3000 words. Write extensively, explaining every legal concept, statute section, and process in absolute detail.
 - DO NOT USE MARKDOWN (such as **bold** or # headers) in the description. Return valid, well-structured, semantic HTML.
 - DO NOT use em dashes (—) anywhere in your response. Always use normal hyphens (-), colons, commas, or parentheses if needed instead.
+- DO NOT output HTML entities like '&amp;' or '&amp;amp;' in the HTML content or headings. Use normal characters directly (e.g., write '&' directly as '&' or use the word 'and' instead).
 
 Return ONLY a valid JSON object of structure: { "description": "HTML content" }`;
 
@@ -145,18 +153,27 @@ ${writeup}`;
     // ==========================================
     // STEP 3: CONSOLIDATE & SANITIZE BOTH PARTS
     // ==========================================
+    const wordCount = (parsedStep2.description || "").split(/\s+/).filter(Boolean).length;
+    const readMinutes = Math.max(5, Math.ceil(wordCount / 250));
+    const duration = `${readMinutes} min read`;
+
     const mergedData = {
       ...parsedStep1,
-      description: parsedStep2.description || ""
+      description: parsedStep2.description || "",
+      duration
     };
+
+    const topic = mergedData.title || "this legal matter";
+    const expertName = mergedData.lawyer || "our panel of experts";
 
     // Pad FAQs to 10 if necessary
     if (!mergedData.faqs || !Array.isArray(mergedData.faqs) || mergedData.faqs.length < 10) {
       if (!mergedData.faqs) mergedData.faqs = [];
       while (mergedData.faqs.length < 10) {
+        const num = mergedData.faqs.length + 1;
         mergedData.faqs.push({
-          question: `General Legal Recourse Query ${mergedData.faqs.length + 1}`,
-          answer: `Consult a professional advocate at AMA Connect for absolute statutory guidance and personalized review of specific claim records.`
+          question: `What are the next key steps to discuss with ${expertName} regarding ${topic}?`,
+          answer: `For detailed, personalized guidance on ${topic}, consult ${expertName} directly through AMA Connect to review your specific documentation and legal options.`
         });
       }
     }
@@ -164,13 +181,20 @@ ${writeup}`;
     // Pad reviews to 5 if necessary
     if (!mergedData.reviews || !Array.isArray(mergedData.reviews) || mergedData.reviews.length < 5) {
       if (!mergedData.reviews) mergedData.reviews = [];
-      const mockNames = ["Vikram Malhotra", "Sneha Iyer", "Rajesh Singhal", "Priya Nair", "Anil Deshmukh"];
+      const mockNames = ["Vikram Malhotra", "Sneha Iyer", "Rajesh Singhal", "Priya Nair", "Anil Deshmukh", "Arjun Mehta", "Kirti Joshi"];
+      const reviewTemplates = [
+        `Extremely practical guidelines provided. The guide on ${topic} laid out exactly how to proceed with legal recourse and it helped tremendously!`,
+        `Highly recommend reading this analysis. ${expertName} explains the complex legal concepts of ${topic} in a very simplified way.`,
+        `Very helpful resource for anyone dealing with ${topic}. Clear, concise, and professional legal guidance.`,
+        `Amazing clarity. The step-by-step procedure for ${topic} was easy to follow and gave me the confidence to take action.`,
+        `Superb analysis by ${expertName}. I was able to understand my rights and options clearly.`,
+      ];
       while (mergedData.reviews.length < 5) {
         const idx = mergedData.reviews.length;
         mergedData.reviews.push({
           name: mockNames[idx % mockNames.length],
           rating: 5,
-          review: `Extremely practical guidelines provided. The case study laid out exactly how to proceed with legal recourse and it helped tremendously!`
+          review: reviewTemplates[idx % reviewTemplates.length]
         });
       }
     }
