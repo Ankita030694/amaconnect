@@ -391,40 +391,52 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
 
       {/* Styled Disclaimer Section */}
       <motion.div
-        className="my-16 px-6 py-8 bg-white rounded-xl border border-gray-200 shadow-3xs text-center max-w-4xl mx-auto"
+        className="my-16 px-8 py-8 bg-[#FAF8F5]/60 backdrop-blur-[2px] rounded-xl border border-[#5A4C33]/10 max-w-4xl mx-auto text-left relative overflow-hidden"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.5 }}
       >
-        <h3 className="text-[#5A4C33] text-lg font-bold mb-4 text-center">Disclaimer</h3>
-        <div className="text-black text-xs leading-relaxed space-y-4 font-normal text-justify">
+        <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-[#D2A02A]/40 via-[#5A4C33]/40 to-[#D2A02A]/40" />
+        <div className="flex items-center gap-3 mb-4">
+          <svg className="w-5 h-5 text-[#D2A02A] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <h3 className="text-[#5A4C33] text-sm font-bold tracking-wide uppercase">Disclaimer</h3>
+        </div>
+        <div className="text-[#5A4C33]/80 text-xs leading-relaxed space-y-4 font-normal text-justify">
           <p>
-            The information provided on this website https://amaconnect.in is for general informational purposes only
-            and should not be considered legal, financial, or professional advice. While we strive to ensure that the content is accurate and
-            up to date, we do not guarantee the completeness, reliability, or accuracy of any information.
+            The information provided on this website{" "}
+            <a href="https://amaconnect.in" className="text-[#D2A02A] hover:underline hover:text-[#5A4C33] transition-colors">
+              https://amaconnect.in
+            </a>{" "}
+            is for general informational purposes only and should not be considered legal, financial, or professional advice. 
+            While we strive to ensure that the content is accurate and up to date, we do not guarantee the completeness, 
+            reliability, or accuracy of any information.
           </p>
           <p>
-            Any reliance you place on the information provided is strictly at your own risk. AMA Legal
-            Solutions, its founders, employees, or affiliates shall be held liable for any losses, damages, or legal consequences arising from
+            Any reliance you place on the information provided is strictly at your own risk. AMA Legal Solutions, its founders, 
+            employees, or affiliates shall not be held liable for any losses, damages, or legal consequences arising from 
             the use of this website or any linked resources.
           </p>
           <p>
-            The content on this website does not establish a client-attorney relationship. If you
-            require legal or financial assistance, we strongly recommend consulting with a qualified professional. Any discussions,
-            consultations, or assessments provided through this website or preliminary guidance only.
+            The content on this website does not establish a client-attorney relationship. If you require legal or financial 
+            assistance, we strongly recommend consulting with a qualified professional. Any discussions, consultations, or 
+            assessments provided through this website are for preliminary guidance only.
           </p>
           <p>
-            Our services are subject to applicable laws and regulations, and results may vary depending on individual circumstances. We do not guarantee specific
-            outcomes for loan settlements, debt negotiations, or legal proceedings.
+            Our services are subject to applicable laws and regulations, and results may vary depending on individual 
+            circumstances. We do not guarantee specific outcomes for loan settlements, debt negotiations, or legal proceedings.
           </p>
           <p>
-            Additionally, this website may contain links to
-            third-party websites for additional information or reference. We do not endorse or assume responsibility for the content, privacy
-            policies, or practices of these external websites.
+            Additionally, this website may contain links to third-party websites for additional information or reference. 
+            We do not endorse or assume responsibility for the content, privacy policies, or practices of these external websites.
           </p>
-          <p className="font-semibold text-center mt-6">
-            By using this website, you acknowledge and agree to this disclaimer. If you do not agree with any part of this notice, please refrain from using our
-            services. For legal assistance or inquiries, please contact us <Link href="/contact" className="text-[#D2A02A]">here</Link>
+          <p className="font-semibold text-center border-t border-[#5A4C33]/10 pt-4 mt-6 text-[#5A4C33]">
+            By using this website, you acknowledge and agree to this disclaimer. If you do not agree with any part of this 
+            notice, please refrain from using our services. For legal assistance or inquiries, please contact us{" "}
+            <Link href="/contact" className="text-[#D2A02A] hover:underline hover:text-[#5A4C33] transition-colors">
+              here
+            </Link>.
           </p>
         </div>
       </motion.div>

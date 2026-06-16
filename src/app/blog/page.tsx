@@ -136,19 +136,55 @@ export default async function Page() {
         </section>
       )}
 
-<div className="max-w-3xl mx-auto text-center mb-[60px] text-[#2D2319]/80 text-sm sm:text-base leading-relaxed space-y-4 font-sans">
-          <p>
-            Welcome to the AMA Connect Expert Legal Blog, a premier educational resource designed by 
-            enrolled advocates at AMA Legal Solutions. Our mission is to demystify complex legal frameworks, 
-            statutory amendments, and regulatory updates to empower individual citizens, business owners, 
-            and legal professionals across India.
-          </p>
-          <p>
-            Our legal editorial board regularly publishes authoritative articles spanning diverse domains 
-            including corporate law, debt recovery protocols, one-time settlements (OTS), intellectual property rights, 
-            family dispute resolutions, and litigation defense strategies. We analyze recent High Court and Supreme Court 
-            ruling trends to provide you with practical legal answers and actionable guidance for everyday legal compliance.
-          </p>
+        <div className="max-w-5xl mx-auto mb-[80px] mt-[40px] font-sans">
+          <div className="bg-[#FAF8F5] rounded-2xl border border-[#5A4C33]/10 p-8 md:p-10 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#D2A02A]/5 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#5A4C33]/5 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+              <div className="md:col-span-7 space-y-4 text-left">
+                <span className="text-[#D2A02A] text-xs uppercase font-extrabold tracking-widest block">
+                  Authoritative Guidance
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#1A1A1A] leading-tight">
+                  Welcome to the AMA Connect Legal Blog
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  A premier educational resource curated by enrolled advocates at{' '}
+                  <strong className="text-[#5A4C33] font-semibold">AMA Legal Solutions</strong>. 
+                  Our mission is to demystify complex legal frameworks, statutory amendments, 
+                  and regulatory updates to empower individual citizens, business owners, and legal 
+                  professionals across India.
+                </p>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  We analyze recent High Court and Supreme Court ruling trends to provide you with 
+                  practical legal answers and actionable guidance for everyday legal compliance.
+                </p>
+              </div>
+
+              <div className="md:col-span-5 bg-white rounded-xl border border-gray-100 p-6 shadow-2xs space-y-4 text-left">
+                <h3 className="text-sm font-bold text-[#5A4C33] uppercase tracking-wider border-b border-gray-100 pb-2">
+                  Areas of Coverage & Research
+                </h3>
+                <ul className="space-y-2.5">
+                  {[
+                    'Corporate Law & Compliance',
+                    'Debt Recovery Protocols & OTS',
+                    'Intellectual Property Rights (IPR)',
+                    'Family Dispute Resolutions',
+                    'Litigation Defense Strategies',
+                  ].map((area, idx) => (
+                    <li key={idx} className="flex items-center gap-2.5 text-xs md:text-sm text-gray-700 font-medium">
+                      <svg className="w-4.5 h-4.5 text-[#D2A02A] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      {area}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
 

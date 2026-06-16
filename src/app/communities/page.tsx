@@ -20,10 +20,8 @@ export default function CommunitiesPage() {
     <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
       <CommunitiesHero />
-
-      {/* Community Graphic Banner Section */}
-      <div className="w-full  mx-auto py-8 sm:py-8">
-        <div className="relative w-full overflow-hidden rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+      <LegalCommunities />
+      <div className="relative w-full overflow-hidden rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
           <Image
             src="/Community.svg"
             alt="AMA Legal Communities Network"
@@ -33,9 +31,6 @@ export default function CommunitiesPage() {
             priority
           />
         </div>
-      </div>
-
-      <LegalCommunities />
       <CTASection />
       <Footer />
     </div>
