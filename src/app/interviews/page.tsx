@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import LawyersHero from "@/components/LawyersHero";
 import TopLawyerStories from "@/components/TopLawyerStories";
 import CourtroomExperiences from "@/components/CourtroomExperiences";
-// import AllLawyerStories from "@/components/AllLawyerStories";
+import AllLawyerStories from "@/components/AllLawyerStories";
 // import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 // import LawyerInterviews from "@/components/LawyerInterviews";
@@ -64,14 +64,10 @@ export default async function InterviewsPage() {
         </div>
 
         {/* All Lawyer Stories Grid */}
-        {/* <AllLawyerStories /> */}
-
-        {/* <LawyerInterviews /> */}
+        <AllLawyerStories initialInterviews={interviews} />
 
         {/* Suggest an Interview Form */}
         <RequestDraftForm defaultReason="Suggest a Professional Interview" />
-
-        {/* <CTASection /> */}
       </main>
       <Footer />
     </div>
