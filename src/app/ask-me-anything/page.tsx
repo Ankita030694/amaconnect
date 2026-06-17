@@ -3,6 +3,9 @@ import { db } from "@/lib/firebase";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import Link from "next/link";
 import Script from "next/script";
+import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
+
 
 export const metadata = {
   title: "Ask Me Anything Legal Q&A",
@@ -76,7 +79,7 @@ export default async function AmaPage() {
 
       {/* SEO Content Section - Static text for search engine crawlers */}
       <section
-        className="bg-[#F8F5EC] py-16 px-4"
+        className="bg-[#F8F5EC] py-6 px-4"
         style={{ fontFamily: "var(--font-polysans)" }}
       >
         <div className="max-w-5xl mx-auto">
@@ -154,6 +157,11 @@ export default async function AmaPage() {
           </div>
         </div>
       </section>
+
+      <div className="bg-[#EBE9E4]">
+        <CTASection />
+      </div>
+      <Footer />
     </>
   );
 }

@@ -183,7 +183,7 @@ export default function NewNavbar() {
 
       {/* Mobile Dropdown Menu with micro-animations */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-[#D4AF37]/15 bg-[#FDFBF0]/95 backdrop-blur-md shadow-lg animate-in slide-in-from-top duration-200">
+        <div className="absolute top-full left-0 w-full md:hidden border-t border-[#D4AF37]/15 bg-[#FDFBF0]/95 backdrop-blur-md shadow-lg animate-in slide-in-from-top duration-200 z-50">
           <div className="px-4 pt-3 pb-6 space-y-3">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;

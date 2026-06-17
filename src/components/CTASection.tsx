@@ -25,7 +25,7 @@ export default function CTASection() {
   }, [isModalOpen]);
 
   return (
-    <section id="download" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <section id="download" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <div className="relative overflow-hidden rounded-3xl sm:rounded-[2rem] bg-[#0a0a0a] text-white flex flex-col lg:flex-row items-stretch shadow-2xl min-h-[350px] sm:min-h-[450px]">
         {/* Subtle Background Glow */}
         <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-20 bg-[radial-gradient(circle_at_70%_50%,rgba(255,215,0,0.15),transparent_50%)]" />

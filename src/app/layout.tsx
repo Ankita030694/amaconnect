@@ -32,11 +32,20 @@ export const metadata: Metadata = {
     siteName: "AMA Legal Solutions",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AMA Connect Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AMA Connect | Lawyer Interviews, Legal Community & AMA Sessions",
     description: "Join AMA Connect for professional lawyer interviews and guest posts. Engage with our exclusive WhatsApp legal communities and get answers to your legal queries in our Ask Me Anything (AMA) sessions.",
+    images: ["/og-image.png"],
   },
 };
 

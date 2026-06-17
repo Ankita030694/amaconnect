@@ -94,7 +94,7 @@ export default function LawyerInterviews() {
   }, []);
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Header Section */}
       <div className="text-center mb-8 sm:mb-12">
         <h3 className="text-[#D4AF37] font-bold tracking-widest text-xs sm:text-sm uppercase mb-3 sm:mb-4">

@@ -510,7 +510,7 @@ export default function DraftsCatalog() {
 
   return (
     <>
-    <section id="catalog-section" className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 font-sans">
+    <section id="catalog-section" className="w-full bg-white py-6 px-4 sm:px-6 lg:px-8 font-sans">
 
       {/* ── Download Toast Notification ── */}
       {downloadSuccess && (

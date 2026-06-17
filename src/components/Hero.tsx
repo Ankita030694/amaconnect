@@ -187,11 +187,11 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
                 <div className="flex-grow flex flex-col justify-between py-0.5 flex-1 min-w-0">
                   <div>
                     {/* Category & Date */}
-                    <span className="text-[10px] sm:text-xs font-bold text-[#986F09] uppercase tracking-wider block mb-0.5 line-clamp-1">
+                    <span className="text-[9px] sm:text-[10px] font-bold text-[#986F09] uppercase tracking-wider block mb-0.5 line-clamp-1">
                       {story.specialization} • {formatDateToWord(story.date)}
                     </span>
                     {/* Title */}
-                    <h3 className="font-extrabold text-[#2D2219] group-hover:text-[#986F09] transition-colors leading-snug text-[11px] sm:text-xs line-clamp-2 mb-0.5">
+                    <h3 className="font-extrabold text-[#2D2219] group-hover:text-[#986F09] transition-colors leading-snug text-[10px] sm:text-[11px] line-clamp-2 mb-0.5">
                       {story.title}
                     </h3>
                   </div>

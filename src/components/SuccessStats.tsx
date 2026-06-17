@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function SuccessStats() {
   return (
-    <section className="w-full bg-white py-16 sm:py-24 overflow-hidden flex justify-center">
+    <section className="w-full bg-white py-6 overflow-hidden flex justify-center">
       <div className="relative text-center z-10 px-4 inline-block mt-8 mb-8">
         <h2 className="text-[#2E2822] font-bold text-5xl sm:text-7xl md:text-[90px] leading-[1.05] tracking-tight">
           50,000+<br />

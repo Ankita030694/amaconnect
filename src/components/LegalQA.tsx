@@ -106,7 +106,7 @@ export default function LegalQA() {
   });
 
   return (
-    <section id="qa" className="w-full bg-white py-12 sm:py-20 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden">
+    <section id="qa" className="w-full bg-white py-6 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Header Section */}

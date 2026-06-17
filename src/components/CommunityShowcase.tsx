@@ -179,7 +179,7 @@ export default function CommunityShowcase() {
   }, [isHovered, total]);
 
   return (
-    <section className="w-full bg-[#FAF9F6] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden">
+    <section className="w-full bg-[#FAF9F6] py-6 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Top Badge and Headline Header */}
         <div className="mb-12 sm:mb-16">

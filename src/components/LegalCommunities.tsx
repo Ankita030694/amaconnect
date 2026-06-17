@@ -115,7 +115,7 @@ export default function LegalCommunities() {
   });
 
   return (
-    <section id="communities" className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
+    <section id="communities" className="w-full bg-white py-6 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
       <div className="max-w-6xl mx-auto">
         
         {/* Header Section */}

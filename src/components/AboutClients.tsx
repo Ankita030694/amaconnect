@@ -113,7 +113,7 @@ export default function AboutClients() {
 
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         {/* Dynamic Circular Orbit Arena */}
-        <div className="relative w-full flex items-center justify-center py-8 sm:py-16">
+        <div className="relative w-full flex items-center justify-center py-6">
           {/* Main Orbit Ring Wrapper (with custom scaling on mobile to guarantee a perfect round layout) */}
           <div className="relative w-[300px] h-[300px] xs:w-[350px] xs:h-[350px] sm:w-[480px] sm:h-[480px] md:w-[580px] md:h-[580px] lg:w-[700px] lg:h-[700px]">
 

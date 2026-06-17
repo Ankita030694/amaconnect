@@ -450,9 +450,9 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
             <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-3xs">
               <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-50 pb-2">Author Profile</h3>
               <div className="flex items-center mb-4">
-                <div className="w-16 h-16 rounded-2xl overflow-hidden mr-4 bg-[#D4AF37]/10 flex items-end justify-center pt-2">
+                <div className="w-16 h-16 rounded-2xl overflow-hidden mr-4 bg-[#D4AF37]/10 flex items-center justify-center">
                   <img
-                    src={authorBios[blog.author as keyof typeof authorBios]?.image || "/anujbhiya.png"}
+                    src="/advocate-icon.svg"
                     alt={blog.author}
                     className="h-full w-auto object-contain"
                   />
