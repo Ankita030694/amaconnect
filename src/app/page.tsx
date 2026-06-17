@@ -14,12 +14,12 @@ import CommunityShowcase from "@/components/CommunityShowcase";
 import dbConnect from "@/lib/dbConnect";
 import { LawyerInterview as LawyerInterviewModel, Blog as BlogModel } from "@/lib/models";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300; // Revalidate every 5 minutes
 
 const getInterviews = async () => {
   try {
     await dbConnect();
-    const list = await LawyerInterviewModel.find({}).sort({ created: -1 }).lean();
+    const list = await LawyerInterviewModel.find({}).sort({ created: -1 }).limit(10).lean();
     
     // Sort so that the featured interview is always at index 0
     const sorted = JSON.parse(JSON.stringify(list));

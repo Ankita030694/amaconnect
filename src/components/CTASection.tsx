@@ -89,7 +89,6 @@ export default function CTASection() {
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover object-left-top lg:object-right-top scale-110 lg:scale-125 translate-x-4 lg:translate-x-10"
-            priority
           />
           {/* Overlay to blend the image into the dark background */}
           <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l from-[#0a0a0a] via-transparent to-transparent sm:from-transparent sm:via-transparent sm:to-[#0a0a0a]/90 lg:to-[#0a0a0a]" />

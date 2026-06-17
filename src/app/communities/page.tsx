@@ -23,7 +23,7 @@ export default function CommunitiesPage() {
       <LegalCommunities />
       <div className="relative w-full overflow-hidden rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
           <Image
-            src="/Community.svg"
+            src="/Community.png"
             alt="AMA Legal Communities Network"
             width={1920}
             height={700}

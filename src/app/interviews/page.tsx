@@ -62,7 +62,7 @@ export default async function InterviewsPage() {
         <div className="w-full mx-auto py-8 sm:py-8">
           <div className="relative w-full overflow-hidden rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
             <Image
-              src="/Interview.svg"
+              src="/Interview.png"
               alt="Interview Success Stories"
               width={1920}
               height={700}
