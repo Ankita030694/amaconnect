@@ -71,6 +71,7 @@ export default function NewNavbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Get it on Google Play"
+                aria-label="Get it on Google Play"
                 className="flex items-center justify-center text-white hover:scale-110 transition-transform active:scale-95 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px]">
@@ -102,6 +103,7 @@ export default function NewNavbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Download on the App Store"
+                aria-label="Download on the App Store"
                 className="flex items-center justify-center text-white hover:scale-110 transition-transform active:scale-95 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] fill-white">
@@ -120,6 +122,7 @@ export default function NewNavbar() {
                 href="https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions&pcampaignid=web_share"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Get it on Google Play"
                 className="flex items-center justify-center text-white px-3.5 py-1.5 hover:bg-white/10 rounded-full transition-all active:scale-95 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]">
@@ -146,6 +149,7 @@ export default function NewNavbar() {
                 href="https://apps.apple.com/in/app/ama-legal-solutions/id6755156186"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Download on the App Store"
                 className="flex items-center justify-center text-white px-3.5 py-1.5 hover:bg-white/10 rounded-full transition-all active:scale-95 cursor-pointer"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] fill-white">

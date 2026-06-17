@@ -4,6 +4,16 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import RequestDraftForm from "./RequestDraftForm";
 
+const getOptimizedImageSrc = (src: string | undefined | null, width: number, fallback: string = "/ashishbhay.png"): string => {
+  if (!src || src.trim() === "") {
+    return fallback;
+  }
+  if (src.includes("/api/images/")) {
+    return `${src}?w=${width}`;
+  }
+  return src;
+};
+
 export interface LawyerInterview {
   _id: string;
   title: string;
@@ -176,7 +186,7 @@ export default function TopLawyerStories({
               {/* Left Side: Large Avatar Thumbnail with play hover overlay */}
               <div className="self-center relative w-24 h-24 sm:w-36 sm:h-36 lg:w-52 lg:h-52 rounded-2xl overflow-hidden shrink-0 bg-[#FDFBF0] border border-[#E8A810]/15 shadow-inner flex items-center justify-center">
                 <img
-                  src={featuredStory.image || "/ashishbhay.png"}
+                  src={getOptimizedImageSrc(featuredStory.image, 800)}
                   alt={featuredStory.lawyer}
                   className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                 />
@@ -195,17 +205,17 @@ export default function TopLawyerStories({
               <div className="flex flex-col min-w-0 justify-between py-0.5 pb-1 sm:pb-2 lg:pb-3 flex-1 relative z-10 mt-3 sm:mt-0">
                 <div>
                   <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                    <span className="text-[8px] sm:text-[9px] font-extrabold bg-[#E8A810] text-[#2D2219] px-2.5 py-0.5 rounded-full tracking-wide uppercase shrink-0 shadow-sm">
+                    <span className="text-[8px] sm:text-[9px] font-extrabold bg-[#986F09]/10 text-[#986F09] px-2.5 py-0.5 rounded-full tracking-wide uppercase shrink-0 shadow-sm">
                       Featured Interview
                     </span>
-                    <span className="text-[9px] sm:text-[10px] font-bold text-[#C79116] uppercase tracking-wider block">
+                    <span className="text-[9px] sm:text-[10px] font-bold text-[#986F09] uppercase tracking-wider block">
                       {featuredStory.lawyer} • {featuredStory.specialization}
                     </span>
                   </div>
                   
-                  <h4 className="font-black text-[#2D2219] group-hover:text-[#C79116] transition-colors leading-tight text-sm sm:text-base lg:text-[17px] xl:text-[19px] line-clamp-2 mb-1 sm:mb-1.5">
+                  <h3 className="font-black text-[#2D2219] group-hover:text-[#986F09] transition-colors leading-tight text-sm sm:text-base lg:text-[17px] xl:text-[19px] line-clamp-2 mb-1 sm:mb-1.5">
                     {featuredStory.title}
-                  </h4>
+                  </h3>
                   
                   <p className="text-[10px] sm:text-[11.5px] lg:text-[12px] text-gray-500 font-medium line-clamp-2 leading-relaxed mb-1.5 max-w-lg hidden sm:block">
                     {truncateWords(cleanDescription(featuredStory.description), 30)}
@@ -219,7 +229,7 @@ export default function TopLawyerStories({
                     <span>{featuredStory.duration || "5 min read"}</span>
                   </div>
                   
-                  <span className="text-[10px] sm:text-xs font-bold text-[#E8A810] hover:text-[#C79116] transition-colors flex items-center gap-1 group-hover:translate-x-0.5 duration-300">
+                  <span className="text-[10px] sm:text-xs font-bold text-[#986F09] hover:text-[#986F09] transition-colors flex items-center gap-1 group-hover:translate-x-0.5 duration-300">
                     Watch Interview 
                     <svg className="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
@@ -236,12 +246,12 @@ export default function TopLawyerStories({
               <Link
                 href={`/interviews/${story.slug}`}
                 key={story._id}
-                className="bg-white/95 hover:bg-white border border-[#2D2219]/10 hover:border-[#E8A810]/40 rounded-2xl p-4 sm:p-5 lg:p-6 flex gap-4 transition-all duration-300 hover:shadow-[0_8px_20px_rgba(232,168,16,0.06)] hover:-translate-y-0.5 cursor-pointer group min-w-0 flex-1 h-[160px] items-stretch overflow-hidden"
+                className="bg-white/95 hover:bg-white border border-[#2D2219]/10 hover:border-[#986F09]/40 rounded-2xl p-4 sm:p-5 lg:p-6 flex gap-4 transition-all duration-300 hover:shadow-[0_8px_20px_rgba(152,111,9,0.06)] hover:-translate-y-0.5 cursor-pointer group min-w-0 flex-1 h-[160px] items-stretch overflow-hidden"
               >
                 {/* Sibling Thumbnail */}
                 <div className="self-center w-12 h-12 sm:w-16 sm:h-16 lg:w-[4.5rem] lg:h-[4.5rem] rounded-xl overflow-hidden shrink-0 bg-[#FDFBF0] relative flex items-center justify-center border border-[#2D2219]/5">
                   <img
-                    src={story.image || "/ashishbhay.png"}
+                    src={getOptimizedImageSrc(story.image, 200)}
                     alt={story.lawyer}
                     className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                   />
@@ -250,12 +260,12 @@ export default function TopLawyerStories({
                 {/* Sibling Details */}
                 <div className="flex flex-col min-w-0 justify-between py-1 pb-1 sm:pb-2 lg:pb-3 flex-1">
                   <div>
-                    <span className="text-[8px] sm:text-[9px] font-bold text-[#C79116] uppercase tracking-wider block mb-0.5 line-clamp-1">
+                    <span className="text-[8px] sm:text-[9px] font-bold text-[#986F09] uppercase tracking-wider block mb-0.5 line-clamp-1">
                       {story.lawyer} • {story.specialization}
                     </span>
-                    <h5 className="font-bold text-[#2D2219] group-hover:text-[#C79116] transition-colors leading-tight text-xs sm:text-[13px] lg:text-[14px] line-clamp-2">
+                    <h4 className="font-bold text-[#2D2219] group-hover:text-[#986F09] transition-colors leading-tight text-xs sm:text-[13px] lg:text-[14px] line-clamp-2">
                       {story.title}
-                    </h5>
+                    </h4>
                   </div>
                   <div className="text-[8px] sm:text-[9px] text-gray-400 font-semibold flex items-center gap-1 mt-auto">
                     <span>{formatDateToDDMMYYYY(story.date)}</span>
@@ -335,7 +345,7 @@ export default function TopLawyerStories({
           >
             <div className="relative w-full overflow-hidden transition-transform duration-500 group-hover:scale-[1.01] flex items-center justify-center shrink-0 aspect-[16/9] rounded-[2rem] mb-6 bg-[#FDFBF0]/85 border border-[#2D2219]/5 shadow-sm">
               <img
-                src={featured.image || "/ashishbhay.png"}
+                src={getOptimizedImageSrc(featured.image, 800)}
                 alt={featured.lawyer}
                 className="w-full h-full object-contain transform group-hover:scale-103 transition-transform duration-500"
               />
@@ -363,7 +373,7 @@ export default function TopLawyerStories({
             >
               <div className="flex-shrink-0 overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.03] w-24 h-20 min-[400px]:w-32 min-[400px]:h-24 sm:w-48 sm:h-24 md:w-56 md:h-28 rounded-2xl sm:rounded-[1.25rem] bg-[#FDFBF0]/85 border border-[#2D2219]/5 shadow-sm">
                 <img
-                  src={story.image || "/ashishbhay.png"}
+                  src={getOptimizedImageSrc(story.image, 200)}
                   alt={story.lawyer}
                   className="w-full h-full object-contain"
                 />

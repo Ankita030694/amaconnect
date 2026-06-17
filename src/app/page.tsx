@@ -53,16 +53,18 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
-      <Hero initialInterviews={interviews} />
-      <AskAMAFeature />
-      <LatestBlogs blogs={blogs} />
-      {/* <TopLawyerStories initialInterviews={interviews} /> */}
-      <CommunityShowcase />
-      {/* <LegalQA /> */}
-      {/* <LawyerInterviews /> */}
-      {/* <LegalCommunities /> */}
-      <CTASection />
-      <CourtroomExperiences />
+      <main className="flex-grow">
+        <Hero initialInterviews={interviews} />
+        <AskAMAFeature />
+        <LatestBlogs blogs={blogs} />
+        {/* <TopLawyerStories initialInterviews={interviews} /> */}
+        <CommunityShowcase />
+        {/* <LegalQA /> */}
+        {/* <LawyerInterviews /> */}
+        {/* <LegalCommunities /> */}
+        <CTASection />
+        <CourtroomExperiences />
+      </main>
       <Footer />
     </div>
   );

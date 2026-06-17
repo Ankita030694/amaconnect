@@ -155,7 +155,7 @@ function NewsCarousel() {
               )}
 
               <div className={`relative z-10 flex-1 flex flex-col justify-end p-5 sm:p-6 ${hasImage ? "text-white" : "text-[#2D241E]"}`}>
-                <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-2 ${hasImage ? "text-[#E8A810]" : "text-[#C79116]"}`}>
+                <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-2 ${hasImage ? "text-[#E8A810]" : "text-[#986F09]"}`}>
                   {art.source}
                 </span>
 
@@ -167,7 +167,7 @@ function NewsCarousel() {
                   <span className={`text-[10px] ${hasImage ? "text-gray-300" : "text-gray-500"} font-semibold`}>
                     {formatNewsDate(art.publishedAt)}
                   </span>
-                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${hasImage ? "text-[#FFC6B3] group-hover:text-white" : "text-[#D4AF37] group-hover:text-[#bca032]"}`}>
+                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${hasImage ? "text-[#FFC6B3] group-hover:text-white" : "text-[#986F09] group-hover:text-[#855D02]"}`}>
                     Read Article →
                   </span>
                 </div>
@@ -203,13 +203,13 @@ export default function NewsSection() {
       <div className="max-w-7xl mx-auto w-full flex flex-col gap-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start lg:items-end">
           <div className="lg:col-span-8 text-left">
-            <span className="text-[#C79116] font-bold uppercase tracking-[0.15em] text-xs sm:text-sm lg:text-[14px] mb-1.5 sm:mb-2 block opacity-90">
+            <span className="text-[#986F09] font-bold uppercase tracking-[0.15em] text-xs sm:text-sm lg:text-[14px] mb-1.5 sm:mb-2 block opacity-90">
               Live Court Updates
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-1.5 sm:mb-2">
               Supreme Court & High Court Rulings
             </h2>
-            <p className="text-gray-500 font-medium text-xs sm:text-sm lg:text-[13px] leading-relaxed max-w-xl">
+            <p className="text-gray-600 font-medium text-xs sm:text-sm lg:text-[13px] leading-relaxed max-w-xl">
               Get real-time insights on key judgments, regulatory guidelines, and landmark decisions across Indian courts.
             </p>
           </div>

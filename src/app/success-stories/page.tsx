@@ -20,11 +20,13 @@ export default function SuccessStoriesPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
-      <SuccessStoriesHero />
-      <SuccessStats />
-      <SuccessStoriesGrid />
-      <ShareStoryForm />
-      <CTASection />
+      <main className="flex-grow">
+        <SuccessStoriesHero />
+        <SuccessStats />
+        <SuccessStoriesGrid />
+        <ShareStoryForm />
+        <CTASection />
+      </main>
       <Footer />
     </div>
   );

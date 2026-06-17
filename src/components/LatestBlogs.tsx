@@ -29,7 +29,7 @@ export default function LatestBlogs({ blogs }: LatestBlogsProps) {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2D2219] tracking-tight">
             Blogs
           </h2>
-          <p className="text-gray-500 font-medium text-xs sm:text-sm max-w-xl mx-auto mt-2.5">
+          <p className="text-gray-600 font-medium text-xs sm:text-sm max-w-xl mx-auto mt-2.5">
             Stay informed with verified legal insights, news, and expert articles published by our team of professionals.
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function LatestBlogs({ blogs }: LatestBlogsProps) {
                       <>
                         {/* Blurred background filler */}
                         <img
-                          src={article.image}
+                          src={article.image.includes('/api/images/') ? `${article.image}?w=100` : article.image}
                           alt=""
                           className="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-30 select-none pointer-events-none z-0"
                         />
@@ -55,7 +55,7 @@ export default function LatestBlogs({ blogs }: LatestBlogsProps) {
                         <div className="absolute inset-0 bg-[#B8860B]/15 mix-blend-color select-none pointer-events-none z-0" />
                         {/* Foreground contained image */}
                         <img
-                          src={article.image}
+                          src={article.image.includes('/api/images/') ? `${article.image}?w=450` : article.image}
                           alt={article.title}
                           className="relative z-10 max-w-full max-h-full h-full w-auto object-contain transition-transform duration-500 group-hover:scale-103"
                           loading="lazy"
@@ -86,7 +86,7 @@ export default function LatestBlogs({ blogs }: LatestBlogsProps) {
                     )}
 
                     {/* Strip HTML tags from description for clean preview */}
-                    <p className="text-xs sm:text-sm text-gray-500 leading-relaxed font-normal line-clamp-3 mb-5 flex-grow">
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal line-clamp-3 mb-5 flex-grow">
                       {article.description ? article.description.replace(/<[^>]*>/g, ' ') : ''}
                     </p>
 

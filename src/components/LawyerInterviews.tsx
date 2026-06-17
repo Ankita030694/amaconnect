@@ -30,6 +30,16 @@ const formatDateToDDMMYYYY = (dateStr: string) => {
   return dateStr;
 };
 
+const getOptimizedImageSrc = (src: string | undefined | null, width: number, fallback: string = "/ashishbhay.png"): string => {
+  if (!src || src.trim() === "") {
+    return fallback;
+  }
+  if (src.includes("/api/images/")) {
+    return `${src}?w=${width}`;
+  }
+  return src;
+};
+
 interface FAQ {
   id?: string;
   question: string;
@@ -121,7 +131,7 @@ export default function LawyerInterviews() {
               {/* Left: Image with Background */}
               <div className={`relative w-full sm:w-[40%] min-h-[200px] sm:min-h-[250px] ${item.bgColor || 'bg-[#D4AF37]/10'} flex items-end justify-center pt-6 sm:pt-8 overflow-hidden`}>
                 <img
-                  src={item.image || "/ashishbhay.png"}
+                  src={getOptimizedImageSrc(item.image, 450)}
                   alt={item.lawyer}
                   className="object-contain h-full w-auto max-h-[220px] sm:max-h-none transform group-hover:scale-103 transition-transform duration-500"
                 />
@@ -212,7 +222,7 @@ export default function LawyerInterviews() {
                     <p className="text-slate-400 text-xs font-bold uppercase mt-4">{formatDateToDDMMYYYY(selectedInterview.date)} • {selectedInterview.duration || "5 min read"}</p>
                   </div>
                   <img 
-                    src={selectedInterview.image || "/ashishbhay.png"} 
+                    src={getOptimizedImageSrc(selectedInterview.image, 200)} 
                     alt={selectedInterview.lawyer}
                     className="w-32 h-32 object-contain rounded-2xl bg-white/40 p-2 border border-white/50 shadow-3xs flex-shrink-0"
                   />

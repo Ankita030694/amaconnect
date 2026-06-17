@@ -19,9 +19,10 @@ export default function CommunitiesPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
       {/* <Navbar /> */}
-      <CommunitiesHero />
-      <LegalCommunities />
-      <div className="relative w-full overflow-hidden rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+      <main className="flex-grow">
+        <CommunitiesHero />
+        <LegalCommunities />
+        <div className="relative w-full overflow-hidden rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
           <Image
             src="/Community.png"
             alt="AMA Legal Communities Network"
@@ -31,7 +32,8 @@ export default function CommunitiesPage() {
             priority
           />
         </div>
-      <CTASection />
+        <CTASection />
+      </main>
       <Footer />
     </div>
   );

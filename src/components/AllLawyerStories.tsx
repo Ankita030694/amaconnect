@@ -38,6 +38,9 @@ const getValidImageSrc = (imageSrc: string | undefined | null): string => {
   if (!imageSrc || imageSrc.trim() === '') {
     return '/ashishbhay.png'; // Fallback
   }
+  if (imageSrc.includes('/api/images/')) {
+    return `${imageSrc}?w=450`;
+  }
   return imageSrc;
 };
 

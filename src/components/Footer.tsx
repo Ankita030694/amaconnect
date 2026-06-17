@@ -18,16 +18,17 @@ const Footer = () => {
                 className="h-10 sm:h-12 w-auto object-contain"
               />
             </Link>
-            <p className="text-gray-500 font-medium text-xs sm:text-sm leading-relaxed mb-6">
+            <p className="text-gray-600 font-medium text-xs sm:text-sm leading-relaxed mb-6">
               Empowering citizens with India's first law firm-backed, pro-bono driven legal advice platform. Access verified expert consultations and legal drafting resources easily.
             </p>
-            <div className="flex items-center gap-4.5">
+            <div className="flex items-center gap-2">
               <a 
                 href="https://in.linkedin.com/company/ama-legal-solutions" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-1 hover:scale-110 active:scale-95"
+                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-3 hover:scale-110 active:scale-95"
                 title="LinkedIn"
+                aria-label="LinkedIn"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5.5 h-5.5">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -39,8 +40,9 @@ const Footer = () => {
                 href="https://www.facebook.com/amalegalsolutions/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-1 hover:scale-110 active:scale-95"
+                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-3 hover:scale-110 active:scale-95"
                 title="Facebook"
+                aria-label="Facebook"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5.5 h-5.5">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -50,8 +52,9 @@ const Footer = () => {
                 href="https://www.instagram.com/amalegalsolutions/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-1 hover:scale-110 active:scale-95"
+                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-3 hover:scale-110 active:scale-95"
                 title="Instagram"
+                aria-label="Instagram"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5.5 h-5.5">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -63,8 +66,9 @@ const Footer = () => {
                 href="https://www.youtube.com/@amalegalsolution" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-1 hover:scale-110 active:scale-95"
+                className="text-[#2D2219] hover:text-[#D4AF37] transition-all p-3 hover:scale-110 active:scale-95"
                 title="YouTube"
+                aria-label="YouTube"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5.5 h-5.5">
                   <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
@@ -82,6 +86,7 @@ const Footer = () => {
                 href="https://apps.apple.com/in/app/ama-legal-solutions/id6755156186" 
                 target="_blank" 
                 rel="noopener noreferrer" 
+                aria-label="Download AMA Connect on the Apple App Store"
                 className="inline-block transform transition-transform hover:scale-105"
               >
                 <Image 
@@ -96,6 +101,7 @@ const Footer = () => {
                 href="https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions&pcampaignid=web_share" 
                 target="_blank" 
                 rel="noopener noreferrer" 
+                aria-label="Download AMA Connect on the Google Play Store"
                 className="inline-block transform transition-transform hover:scale-105"
               >
                 <Image 
@@ -146,6 +152,7 @@ const Footer = () => {
                 href="https://www.barandbench.com/news/ama-legal-solutions-launches-indias-first-law-firm-backed-pro-bono-driven-mobile-app"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in Bar & Bench"
                 className="inline-block"
               >
                 <Image 
@@ -160,6 +167,7 @@ const Footer = () => {
                 href="https://www.livemint.com/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in Mint"
                 className="inline-block"
               >
                 <Image 
@@ -174,6 +182,7 @@ const Footer = () => {
                 href="https://medium.com/@amalegalsolutions"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in Medium"
                 className="inline-block"
               >
                 <Image 
@@ -188,6 +197,7 @@ const Footer = () => {
                 href="https://yourstory.com/companies/ama-legal-solutions"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in YourStory"
                 className="inline-block"
               >
                 <Image 
@@ -204,7 +214,7 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <div className="text-center pt-6 sm:pt-8 border-t border-gray-100">
-          <p className="text-gray-500 text-xs sm:text-sm">
+          <p className="text-gray-600 text-xs sm:text-sm">
             © 2026 AMA Connect. All rights reserved.
           </p>
         </div>

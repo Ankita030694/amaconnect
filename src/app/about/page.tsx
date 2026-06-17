@@ -27,12 +27,14 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
-      <AboutHero />
-      <AboutChallenge />
-      <AboutFeatures />
-      <AboutClients />
-      <AboutSteps />
-      <CTASection/>
+      <main className="flex-grow">
+        <AboutHero />
+        <AboutChallenge />
+        <AboutFeatures />
+        <AboutClients />
+        <AboutSteps />
+        <CTASection/>
+      </main>
       <Footer />
     </div>
   );

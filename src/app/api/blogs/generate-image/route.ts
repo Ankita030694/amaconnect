@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import dbConnect from "@/lib/dbConnect";
 import { ImageFile } from "@/lib/models";
+import sharp from "sharp";
 
 export async function POST(req: NextRequest) {
   // Validate NextAuth session tailored for this project
@@ -43,12 +44,40 @@ export async function POST(req: NextRequest) {
       contentType = imageFetchResponse.headers.get("content-type") || "image/png";
     }
 
+    let finalBuffer = buffer;
+    let finalContentType = contentType;
+
+    try {
+      let pipeline = sharp(buffer);
+      const metadata = await pipeline.metadata();
+
+      if (metadata.format === "jpeg" || metadata.format === "png") {
+        if (metadata.width && metadata.width > 1200) {
+          pipeline = pipeline.resize({
+            width: 1200,
+            fit: "inside",
+            withoutEnlargement: true
+          });
+        }
+
+        if (metadata.format === "png") {
+          finalBuffer = await pipeline.png({ quality: 80, compressionLevel: 9, palette: true }).toBuffer();
+          finalContentType = "image/png";
+        } else {
+          finalBuffer = await pipeline.jpeg({ quality: 80, mozjpeg: true }).toBuffer();
+          finalContentType = "image/jpeg";
+        }
+      }
+    } catch (sharpError) {
+      console.warn("Could not process dynamic generated image with sharp, saving raw file:", sharpError);
+    }
+
     const filename = `ai-generated-${Date.now()}.png`;
 
     const newImage = new ImageFile({
       filename,
-      contentType,
-      data: buffer,
+      contentType: finalContentType,
+      data: finalBuffer,
       created: new Date()
     });
 

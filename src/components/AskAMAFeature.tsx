@@ -67,7 +67,7 @@ export default function AskAMAFeature() {
                   </svg>
                 </div>
                 <h4 className="text-[#2D2219] text-base sm:text-lg font-bold mb-2">Expert Answers</h4>
-                <p className="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">
+                <p className="text-gray-600 text-xs sm:text-sm font-medium leading-relaxed">
                   Receive quick guidance and verified answers from experienced professionals.
                 </p>
               </div>
@@ -82,7 +82,7 @@ export default function AskAMAFeature() {
                   </svg>
                 </div>
                 <h4 className="text-[#2D2219] text-base sm:text-lg font-bold mb-2">Fast Responses</h4>
-                <p className="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">
+                <p className="text-gray-600 text-xs sm:text-sm font-medium leading-relaxed">
                   Get legal clarity within 45 minutes, directly through the AMA Connect app.
                 </p>
               </div>
@@ -155,7 +155,7 @@ export default function AskAMAFeature() {
         {/* Featured In Ribbon (Replicating footer styling & assets perfectly) */}
         <div className="w-full max-w-4xl">
           <div className="bg-[#F8F8F6] rounded-2xl sm:rounded-[1.5rem] p-6 sm:p-8 border border-gray-100 flex flex-col items-center">
-            <h4 className="text-sm sm:text-base font-bold text-gray-500 uppercase tracking-widest mb-6">
+            <h4 className="text-sm sm:text-base font-bold text-gray-600 uppercase tracking-widest mb-6">
               As Featured In
             </h4>
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12 w-full opacity-80 select-none">
@@ -163,6 +163,7 @@ export default function AskAMAFeature() {
                 href="https://www.barandbench.com/news/ama-legal-solutions-launches-indias-first-law-firm-backed-pro-bono-driven-mobile-app"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in Bar & Bench"
                 className="relative h-12 w-28 sm:w-36 grayscale hover:grayscale-0 transition-all duration-300 block"
               >
                 <Image 
@@ -176,6 +177,7 @@ export default function AskAMAFeature() {
                 href="https://www.livemint.com/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in Mint"
                 className="relative h-12 w-20 sm:w-28 grayscale hover:grayscale-0 transition-all duration-300 block"
               >
                 <Image 
@@ -189,6 +191,7 @@ export default function AskAMAFeature() {
                 href="https://medium.com/@amalegalsolutions"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in Medium"
                 className="relative h-12 w-24 sm:w-32 grayscale hover:grayscale-0 transition-all duration-300 block"
               >
                 <Image 
@@ -202,6 +205,7 @@ export default function AskAMAFeature() {
                 href="https://yourstory.com/companies/ama-legal-solutions"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Featured in YourStory"
                 className="relative h-12 w-24 sm:w-32 grayscale hover:grayscale-0 transition-all duration-300 block"
               >
                 <Image 

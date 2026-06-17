@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import dbConnect from "@/lib/dbConnect";
 import { ImageFile } from "@/lib/models";
+import sharp from "sharp";
 
 export async function POST(request: Request) {
   try {
@@ -25,11 +26,39 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
+    let finalBuffer = buffer;
+    let finalContentType = file.type || "image/png";
+
+    try {
+      let pipeline = sharp(buffer);
+      const metadata = await pipeline.metadata();
+
+      if (metadata.format === "jpeg" || metadata.format === "png") {
+        if (metadata.width && metadata.width > 1200) {
+          pipeline = pipeline.resize({
+            width: 1200,
+            fit: "inside",
+            withoutEnlargement: true
+          });
+        }
+
+        if (metadata.format === "png") {
+          finalBuffer = await pipeline.png({ quality: 80, compressionLevel: 9, palette: true }).toBuffer();
+          finalContentType = "image/png";
+        } else {
+          finalBuffer = await pipeline.jpeg({ quality: 80, mozjpeg: true }).toBuffer();
+          finalContentType = "image/jpeg";
+        }
+      }
+    } catch (sharpError) {
+      console.warn("Could not process uploaded image with sharp, saving raw file:", sharpError);
+    }
+
     // Save image directly to MongoDB Atlas
     const newImage = new ImageFile({
       filename: file.name || "uploaded-image.png",
-      contentType: file.type || "image/png",
-      data: buffer,
+      contentType: finalContentType,
+      data: finalBuffer,
       created: new Date()
     });
 
