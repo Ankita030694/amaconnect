@@ -75,7 +75,7 @@ export async function GET(
     }
 
     // Create a standard Response containing the binary buffer
-    return new Response(optimizedBuffer, {
+    return new Response(new Uint8Array(optimizedBuffer), {
       headers: {
         "Content-Type": contentType,
         "Cache-Control": "public, max-age=31536000, immutable", // Leverages browser/CDN cache
