@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       contentType = imageFetchResponse.headers.get("content-type") || "image/png";
     }
 
-    let finalBuffer = buffer;
+    let finalBuffer: any = buffer;
     let finalContentType = contentType;
 
     try {
