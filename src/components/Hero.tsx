@@ -88,14 +88,23 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
             Top <span className="text-[#986F09]">Lawyer Stories</span>
           </h1>
          
-          {/* Request an Interview CTA Button - Top Right of Heading Section */}
-          <div className="sm:absolute sm:top-2 sm:right-0 mt-4 sm:mt-0 flex justify-center">
+          {/* Request & View More CTAs */}
+          <div className="sm:absolute sm:top-2 sm:right-0 mt-4 sm:mt-0 flex items-center justify-center gap-3">
             <button 
               onClick={() => setIsModalOpen(true)}
               className="px-5 py-2.5 bg-[#2D2219] hover:bg-[#B8860B] text-white rounded-full text-xs font-bold transition-all shadow-3xs cursor-pointer select-none"
             >
               Request an interview
             </button>
+            <Link 
+              href="/interviews#all-interviews"
+              className="sm:hidden px-5 py-2.5 bg-[#B8860B] hover:bg-[#2D2219] text-white rounded-full text-xs font-bold transition-all select-none cursor-pointer flex items-center gap-1.5"
+            >
+              <span>View More</span>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
           </div>
         </div>
 
@@ -209,8 +218,8 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
               </Link>
             ))}
 
-            {/* View More Interviews Button below the cards in the right section */}
-            <div className="mt-2 w-full">
+            {/* View More Interviews Button below the cards in the right section - Desktop Only */}
+            <div className="mt-2 w-full hidden sm:block">
               <Link 
                 href="/interviews#all-interviews"
                 className="flex items-center justify-center gap-2 px-6 py-3 w-full bg-[#2D2219] hover:bg-[#B8860B] text-white rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5 cursor-pointer select-none text-center h-[50px]"
