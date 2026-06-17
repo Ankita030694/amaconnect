@@ -371,8 +371,18 @@ export default function AmaClient({ initialQuestions = [] }: { initialQuestions?
       
       {showModal && <DownloadModal onClose={() => setShowModal(false)} />}
 
+      {/* Page Header */}
+      <div className="pt-16 pb-6 text-center max-w-4xl mx-auto px-4 animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] leading-tight tracking-tight">
+          Ask Me <span className="text-[#D4AF37]">Anything</span>
+        </h1>
+        <p className="text-gray-600 font-medium text-xs sm:text-sm lg:text-base mt-2.5 max-w-xl mx-auto leading-relaxed">
+          Post your legal questions anonymously and receive trusted guidance from experienced advocates, quick, simple, and stress-free.
+        </p>
+      </div>
+
       {/* Sub-Header / Tool Bar */}
-      <div className="pt-[52px] pb-6 px-4 sm:px-6 lg:px-8">
+      <div className="pb-6 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
                <div className="bg-white/80 backdrop-blur-md border border-[#30261C]/5 rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row gap-4 items-center justify-between">
                    {/* Search */}

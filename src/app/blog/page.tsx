@@ -103,9 +103,9 @@ export default async function Page() {
       
       <div className="container mx-auto px-4 py-8">
         <h1 
-          className="text-[32px] md:text-[45px] font-medium text-center mb-[30px] mt-[20px] leading-[40px] md:leading-[65px] opacity-100 h1-seo-fix text-[#1A1A1A] font-sans"
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center mb-10 mt-6 leading-tight tracking-tight text-[#2D2219]"
         >
-          Legal Blogs & Expert Insights
+          Legal Blogs & <span className="text-[#D4AF37]">Expert Insights</span>
         </h1>
 
         <Suspense fallback={<BlogLoading />}>
