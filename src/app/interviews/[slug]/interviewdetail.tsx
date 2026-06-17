@@ -74,6 +74,7 @@ export interface LawyerInterview {
   created?: number;
   duration?: string;
   linkedinUrl?: string;
+  lawyerBio?: string;
 }
 
 interface InterviewDetailProps {
@@ -215,6 +216,46 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
   const [currentUrl, setCurrentUrl] = useState('');
   const [expandedFaqs, setExpandedFaqs] = useState<string[]>([]);
   
+  const AdvocateProfileCard = () => {
+    const bio = interview.lawyerBio || authorBios[interview.lawyer as keyof typeof authorBios]?.description || `Advocate specializing in ${interview.specialization || "direct mediation, arbitration, and civil representation"}. Registered legal counsel representing client interests.`;
+    const linkedin = interview.linkedinUrl || authorBios[interview.lawyer as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/";
+
+    return (
+      <>
+        <div className="flex items-center justify-between border-b border-slate-150 pb-1.5 mb-3">
+          <h3 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Advocate Profile</h3>
+        </div>
+        <div className="flex items-center mb-3">
+          <div className="w-13 h-13 rounded-xl overflow-hidden mr-3 bg-[#D4AF37]/10 flex items-center justify-center flex-shrink-0">
+            <img 
+              src="/advocate-icon.svg"
+              alt={interview.lawyer}
+              className="h-full w-auto object-contain"
+            />
+          </div>
+          <div className="text-left">
+            <h4 className="font-extrabold text-slate-955 text-xs sm:text-sm leading-snug">{interview.lawyer}</h4>
+            <span className="text-[8px] text-green-700 font-extrabold bg-green-50 border border-green-200/50 px-1.5 py-0.5 rounded mt-0.5 inline-block">Verified Advocate</span>
+          </div>
+        </div>
+        <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed mb-3 text-left">
+          {bio}
+        </p>
+        <a 
+          href={linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-1 w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2 rounded-xl text-[10px] font-extrabold transition-all shadow-3xs cursor-pointer"
+        >
+          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+          <span>Connect on LinkedIn</span>
+        </a>
+      </>
+    );
+  };
+
   // Process content for TOC and append Client Reviews & FAQs dynamically if present
   const { content: processedContent, sections: tocSections } = useMemo(() => {
     const { content, sections } = processContent(interview.description);
@@ -398,19 +439,11 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
             </span>
 
             <span className="flex items-center gap-2 bg-[#B8860B]/5 border border-[#B8860B]/15 text-slate-900 px-2.5 py-1 rounded-xl">
-              {authorBios[interview.lawyer as keyof typeof authorBios]?.image ? (
-                <img 
-                  src={authorBios[interview.lawyer as keyof typeof authorBios]?.image} 
-                  alt={interview.lawyer} 
-                  className="w-4 h-4 rounded-full object-cover border border-[#B8860B]/20" 
-                />
-              ) : (
-                <div className="w-4 h-4 rounded-full bg-[#B8860B]/10 flex items-center justify-center text-[#B8860B] border border-[#B8860B]/20">
-                  <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
-                </div>
-              )}
+              <img 
+                src="/advocate-icon.svg" 
+                alt={interview.lawyer} 
+                className="w-4 h-4 rounded-full object-cover border border-[#B8860B]/20" 
+              />
               <span className="font-extrabold text-[#B8860B]">{interview.lawyer}</span>
             </span>
           </div>
@@ -432,44 +465,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
           <div className="min-w-0">
             {/* Advocate Profile (Mobile Only) */}
             <div className="lg:hidden mb-6 bg-white p-5 rounded-2xl border border-slate-100 shadow-3xs">
-              <h3 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-50 pb-1.5">Advocate Profile</h3>
-              <div className="flex items-center mb-3">
-                <div className="w-13 h-13 rounded-xl overflow-hidden mr-3 bg-[#D4AF37]/10 flex items-center justify-center">
-                  {authorBios[interview.lawyer as keyof typeof authorBios]?.image ? (
-                    <div className="w-full h-full flex items-end justify-center pt-1.5">
-                      <img 
-                        src={authorBios[interview.lawyer as keyof typeof authorBios]?.image}
-                        alt={interview.lawyer}
-                        className="h-full w-auto object-contain"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[#B8860B]/70">
-                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <h4 className="font-extrabold text-slate-955 text-xs sm:text-sm leading-snug">{interview.lawyer}</h4>
-                  <span className="text-[8px] text-green-700 font-extrabold bg-green-50 border border-green-200/50 px-1.5 py-0.5 rounded mt-0.5 inline-block">Verified Advocate</span>
-                </div>
-              </div>
-              <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed mb-3">
-                {authorBios[interview.lawyer as keyof typeof authorBios]?.description || `Advocate specializing in ${interview.specialization || "direct mediation, arbitration, and civil representation"}. Registered legal counsel representing client interests.`}
-              </p>
-              <a 
-                href={interview.linkedinUrl || authorBios[interview.lawyer as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1 w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2 rounded-xl text-[10px] font-extrabold transition-all shadow-3xs cursor-pointer"
-              >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-                <span>Connect on LinkedIn</span>
-              </a>
+              <AdvocateProfileCard />
             </div>
 
             {/* TOC (Mobile) */}
@@ -599,44 +595,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
           <div className="space-y-6 sticky top-24">
               {/* Author Card */}
               <div className="hidden lg:block bg-white p-5 rounded-2xl border border-slate-100 shadow-3xs">
-                <h3 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-50 pb-1.5">Advocate Profile</h3>
-                <div className="flex items-center mb-3">
-                  <div className="w-13 h-13 rounded-xl overflow-hidden mr-3 bg-[#D4AF37]/10 flex items-center justify-center">
-                    {authorBios[interview.lawyer as keyof typeof authorBios]?.image ? (
-                      <div className="w-full h-full flex items-end justify-center pt-1.5">
-                        <img 
-                          src={authorBios[interview.lawyer as keyof typeof authorBios]?.image}
-                          alt={interview.lawyer}
-                          className="h-full w-auto object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-[#B8860B]/70">
-                        <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    <h4 className="font-extrabold text-slate-955 text-xs sm:text-sm leading-snug">{interview.lawyer}</h4>
-                    <span className="text-[8px] text-green-700 font-extrabold bg-green-50 border border-green-200/50 px-1.5 py-0.5 rounded mt-0.5 inline-block">Verified Advocate</span>
-                  </div>
-                </div>
-                <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed mb-3">
-                  {authorBios[interview.lawyer as keyof typeof authorBios]?.description || `Advocate specializing in ${interview.specialization || "direct mediation, arbitration, and civil representation"}. Registered legal counsel representing client interests.`}
-                </p>
-                <a 
-                  href={interview.linkedinUrl || authorBios[interview.lawyer as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1 w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2 rounded-xl text-[10px] font-extrabold transition-all shadow-3xs cursor-pointer"
-                >
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                  </svg>
-                  <span>Connect on LinkedIn</span>
-                </a>
+                <AdvocateProfileCard />
               </div>
 
               {/* Related Lawyer Insights Sidebar Card */}

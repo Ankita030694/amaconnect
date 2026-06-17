@@ -140,10 +140,14 @@ const LawyerInterviewSchema = new Schema({
   reviews: [ReviewSchema],
   created: { type: Number, default: Date.now },
   author: { type: String, default: "Anuj Anand Malik" },
-  linkedinUrl: { type: String, default: "" }
+  linkedinUrl: { type: String, default: "" },
+  lawyerBio: { type: String, default: "" }
 }, { collection: "lawyer_interviews" });
 
-export const LawyerInterview = mongoose.models.LawyerInterview || mongoose.model("LawyerInterview", LawyerInterviewSchema);
+if (mongoose.models.LawyerInterview) {
+  delete mongoose.models.LawyerInterview;
+}
+export const LawyerInterview = mongoose.model("LawyerInterview", LawyerInterviewSchema);
 
 // -------------------------------------------------------------
 // 7. PUBLIC IMAGE STORAGE (Atlas Binary blobs)

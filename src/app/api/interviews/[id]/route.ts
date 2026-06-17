@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/dbConnect";
 import { LawyerInterview } from "@/lib/models";
 
@@ -63,7 +64,8 @@ export async function PUT(
       faqs,
       reviews,
       author,
-      linkedinUrl
+      linkedinUrl,
+      lawyerBio
     } = body;
 
     // Validation
@@ -99,8 +101,18 @@ export async function PUT(
     interview.reviews = reviews || [];
     interview.author = author || "Anuj Anand Malik";
     interview.linkedinUrl = linkedinUrl || "";
+    interview.lawyerBio = lawyerBio || "";
 
     const updatedInterview = await interview.save();
+
+    // Trigger on-demand revalidation for frontend pages
+    try {
+      revalidatePath(`/interviews/${updatedInterview.slug}`);
+      revalidatePath(`/interviews`);
+    } catch (e) {
+      console.error("Failed to revalidate path:", e);
+    }
+
     return NextResponse.json(updatedInterview);
   } catch (error: any) {
     console.error(`Error updating lawyer interview:`, error);

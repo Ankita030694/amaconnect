@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/dbConnect";
 import { LawyerInterview } from "@/lib/models";
 
@@ -44,7 +45,8 @@ export async function POST(request: Request) {
       faqs,
       reviews,
       author,
-      linkedinUrl
+      linkedinUrl,
+      lawyerBio
     } = body;
 
     // Validation
@@ -79,10 +81,20 @@ export async function POST(request: Request) {
       reviews: reviews || [],
       author: author || "Anuj Anand Malik",
       linkedinUrl: linkedinUrl || "",
+      lawyerBio: lawyerBio || "",
       created: Date.now()
     });
 
     const savedInterview = await newInterview.save();
+
+    // Trigger on-demand revalidation for frontend pages
+    try {
+      revalidatePath(`/interviews/${savedInterview.slug}`);
+      revalidatePath(`/interviews`);
+    } catch (e) {
+      console.error("Failed to revalidate path:", e);
+    }
+
     return NextResponse.json(savedInterview, { status: 201 });
   } catch (error: any) {
     console.error("Error creating lawyer interview:", error);

@@ -57,6 +57,8 @@ interface LawyerInterview {
   lawyer: string;
   image: string;
   specialization: string;
+  linkedinUrl?: string;
+  lawyerBio?: string;
   date: string;
   bgColor: string;
   description: string;
@@ -67,7 +69,6 @@ interface LawyerInterview {
   reviews?: Review[];
   author: string;
   created?: number;
-  linkedinUrl?: string;
   duration?: string;
 }
 
@@ -90,6 +91,7 @@ const InterviewsDashboard = () => {
     reviews: [],
     author: 'Anuj Anand Malik',
     linkedinUrl: '',
+    lawyerBio: '',
     duration: '5 min read'
   });
 
@@ -617,6 +619,7 @@ const InterviewsDashboard = () => {
       reviews: [],
       author: 'Anuj Anand Malik',
       linkedinUrl: '',
+      lawyerBio: '',
       duration: '5 min read'
     });
     setImagePreview(null);
@@ -891,6 +894,17 @@ const InterviewsDashboard = () => {
                       className="w-full px-4 py-3 bg-white border border-slate-200 focus:border-[#B8860B] rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-50 text-slate-800 text-sm placeholder-slate-400"
                     />
                   </div>
+                </div>
+
+                <div className="mt-0">
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Advocate Bio (Optional)</label>
+                  <textarea
+                    name="lawyerBio"
+                    value={newInterview.lawyerBio || ''}
+                    onChange={handleInputChange}
+                    placeholder="Biography or professional description of the advocate..."
+                    className="w-full px-4 py-3 bg-white border border-slate-200 focus:border-[#B8860B] rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-50 text-slate-800 text-sm placeholder-slate-400 h-[100px] resize-y"
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
