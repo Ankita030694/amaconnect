@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import dbConnect from "@/lib/dbConnect";
 import { ImageFile } from "@/lib/models";
-import sharp from "sharp";
 
 export async function POST(request: Request) {
   try {
@@ -30,6 +29,7 @@ export async function POST(request: Request) {
     let finalContentType = file.type || "image/png";
 
     try {
+      const sharp = (await import("sharp")).default;
       let pipeline = sharp(buffer);
       const metadata = await pipeline.metadata();
 

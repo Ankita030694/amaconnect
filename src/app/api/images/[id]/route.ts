@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import { ImageFile } from "@/lib/models";
-import sharp from "sharp";
 
 export async function GET(
   request: Request,
@@ -42,6 +41,7 @@ export async function GET(
     let contentType: string = image.contentType || "image/png";
 
     try {
+      const sharp = (await import("sharp")).default;
       let pipeline = sharp(image.data);
       const metadata = await pipeline.metadata();
 
@@ -75,7 +75,7 @@ export async function GET(
         }
       }
     } catch (sharpError) {
-      console.warn("Sharp optimization failed in production, serving original image:", sharpError);
+      console.warn("Sharp optimization failed, serving original image:", sharpError);
       // optimizedBuffer defaults to image.data and contentType defaults to image.contentType
     }
 
