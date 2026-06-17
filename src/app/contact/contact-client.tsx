@@ -4,7 +4,7 @@ import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 // import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Phone, Mail, MapPin, CheckCircle, AlertCircle, Send } from "lucide-react";
+import { MapPin, CheckCircle, AlertCircle, Send } from "lucide-react";
 
 // List of Indian states and union territories (sorted alphabetically)
 const indianStatesAndUTs = [
@@ -279,39 +279,15 @@ export default function ContactClient() {
               {/* Detail Items */}
               <div className="flex flex-col gap-6 sm:gap-8">
 
-                {/* Phone */}
-                <div className="flex items-start gap-4">
-                  <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-[#D4AF37]">
-                    <Phone className="w-5 sm:w-6 h-5 sm:h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Call Us</h4>
-                    <p className="text-[#D4AF37] font-bold mt-1 text-sm sm:text-base">Coming Soon</p>
-                    {/* <p className="text-gray-500 text-xs sm:text-sm mt-0.5">Mon - Sat: 9:00 AM - 6:00 PM</p> */}
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-[#D4AF37]">
-                    <Mail className="w-5 sm:w-6 h-5 sm:h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Email Support</h4>
-                    <p className="text-[#D4AF37] font-bold mt-1 text-sm sm:text-base">Coming Soon</p>
-                    <p className="text-gray-500 text-xs sm:text-sm mt-0.5"></p>
-                  </div>
-                </div>
-
                 {/* Address */}
                 <div className="flex items-start gap-4">
                   <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-[#D4AF37]">
                     <MapPin className="w-5 sm:w-6 h-5 sm:h-6" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Our Headquarters</h4>
-                    <p className="text-[#D4AF37] font-bold mt-1 leading-relaxed text-sm sm:text-base">
-                      Coming Soon
+                    <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Address</h4>
+                    <p className="text-gray-600 font-medium mt-1 leading-relaxed text-sm sm:text-base">
+                      2493 ap sector 57 gurgaon
                     </p>
                   </div>
                 </div>
