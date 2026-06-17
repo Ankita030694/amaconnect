@@ -10,7 +10,16 @@ export async function GET() {
   try {
     await dbConnect();
     const interviewsList = await LawyerInterview.find({}).sort({ created: -1 }).exec();
-    return NextResponse.json(interviewsList);
+    
+    // Sort so that the featured interview is always at index 0
+    const sorted = JSON.parse(JSON.stringify(interviewsList));
+    const featuredIndex = sorted.findIndex((item: any) => item.isFeatured);
+    if (featuredIndex > 0) {
+      const [featuredItem] = sorted.splice(featuredIndex, 1);
+      sorted.unshift(featuredItem);
+    }
+    
+    return NextResponse.json(sorted);
   } catch (error: any) {
     console.error("Error fetching lawyer interviews:", error);
     return NextResponse.json({ error: error.message || "Failed to fetch interviews" }, { status: 500 });
@@ -46,7 +55,8 @@ export async function POST(request: Request) {
       reviews,
       author,
       linkedinUrl,
-      lawyerBio
+      lawyerBio,
+      isFeatured
     } = body;
 
     // Validation
@@ -82,8 +92,14 @@ export async function POST(request: Request) {
       author: author || "Anuj Anand Malik",
       linkedinUrl: linkedinUrl || "",
       lawyerBio: lawyerBio || "",
+      isFeatured: !!isFeatured,
       created: Date.now()
     });
+
+    if (isFeatured) {
+      // Set all other interviews' isFeatured to false
+      await LawyerInterview.updateMany({}, { isFeatured: false });
+    }
 
     const savedInterview = await newInterview.save();
 
@@ -91,6 +107,7 @@ export async function POST(request: Request) {
     try {
       revalidatePath(`/interviews/${savedInterview.slug}`);
       revalidatePath(`/interviews`);
+      revalidatePath(`/`);
     } catch (e) {
       console.error("Failed to revalidate path:", e);
     }

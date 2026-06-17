@@ -17,6 +17,7 @@ export interface LawyerInterview {
   duration?: string;
   videoUrl?: string;
   created?: number;
+  isFeatured?: boolean;
 }
 
 const cleanDescription = (html: string) => {
@@ -60,14 +61,16 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
 
   if (interviews.length === 0) return null;
 
-  // Sort interviews by date / created descending to ensure order
+  // Sort interviews: featured first, then by date / created descending to ensure order
   const sortedInterviews = [...interviews].sort((a, b) => {
+    if (a.isFeatured) return -1;
+    if (b.isFeatured) return 1;
     const timeA = a.created || (a.date ? new Date(a.date).getTime() : 0);
     const timeB = b.created || (b.date ? new Date(b.date).getTime() : 0);
     return timeB - timeA;
   });
 
-  // Featured story (latest one)
+  // Featured story (featured or latest one)
   const featuredStory = sortedInterviews[0];
   
   // Sidebar stories (next 4 latest stories)

@@ -70,6 +70,7 @@ interface LawyerInterview {
   author: string;
   created?: number;
   duration?: string;
+  isFeatured?: boolean;
 }
 
 const InterviewsDashboard = () => {
@@ -92,7 +93,8 @@ const InterviewsDashboard = () => {
     author: 'Anuj Anand Malik',
     linkedinUrl: '',
     lawyerBio: '',
-    duration: '5 min read'
+    duration: '5 min read',
+    isFeatured: false
   });
 
   const [uploading, setUploading] = useState(false);
@@ -381,6 +383,37 @@ const InterviewsDashboard = () => {
     }
   };
 
+  // Toggle featured status directly from dashboard table
+  const handleToggleFeatured = async (item: LawyerInterview) => {
+    if (!item._id) return;
+    setIsSubmitting(true);
+    try {
+      const updatedItem = {
+        ...item,
+        isFeatured: true
+      };
+      
+      const response = await fetch(`/api/interviews/${item._id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedItem)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update featured status");
+      }
+
+      alert(`"${item.title}" is now the featured interview.`);
+      fetchInterviews();
+    } catch (error: any) {
+      console.error(error);
+      alert(`Error updating featured status: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Autofill mock test data for testing
   const handleAutofillTestData = () => {
     // 1. Instantly populate all text/schema parameters in form
@@ -620,7 +653,8 @@ const InterviewsDashboard = () => {
       author: 'Anuj Anand Malik',
       linkedinUrl: '',
       lawyerBio: '',
-      duration: '5 min read'
+      duration: '5 min read',
+      isFeatured: false
     });
     setImagePreview(null);
     setFormMode('add');
@@ -950,6 +984,29 @@ const InterviewsDashboard = () => {
                   </div>
                 </div>
 
+                {/* Featured Interview Toggle */}
+                <div className="flex items-center gap-3 p-4 bg-amber-50/20 border border-amber-200/40 rounded-2xl shadow-3xs">
+                  <input
+                    type="checkbox"
+                    id="isFeatured"
+                    name="isFeatured"
+                    checked={newInterview.isFeatured || false}
+                    onChange={(e) => setNewInterview(prevState => ({
+                      ...prevState,
+                      isFeatured: e.target.checked
+                    }))}
+                    className="w-4.5 h-4.5 text-[#B8860B] border-slate-300 rounded focus:ring-[#B8860B] cursor-pointer"
+                  />
+                  <div>
+                    <label htmlFor="isFeatured" className="block text-xs font-bold text-slate-800 uppercase tracking-wider cursor-pointer">
+                      Featured Interview (Display at the top of Home and Interviews page)
+                    </label>
+                    <p className="text-[11px] text-slate-500 mt-0.5 normal-case">
+                      Only one interview can be marked as featured. If checked, any previously featured interview will automatically be unfeatured.
+                    </p>
+                  </div>
+                </div>
+
                 {/* Cover image uploader */}
                 <div className="p-5 border border-slate-150 bg-slate-50/50 rounded-2xl shadow-2xs">
                   <h3 className="text-slate-800 text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
@@ -1245,6 +1302,7 @@ const InterviewsDashboard = () => {
                       <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Article Title</th>
                       <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Expert Lawyer</th>
                       <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Category</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Featured</th>
                       <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
                     </tr>
                   </thead>
@@ -1262,6 +1320,24 @@ const InterviewsDashboard = () => {
                         </td>
                         <td className="px-6 py-4 text-xs text-[#B8860B] font-semibold max-w-[200px] truncate">
                           {item.specialization}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs">
+                          {item.isFeatured ? (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-100 text-[#B8860B] border border-amber-200">
+                              <FontAwesomeIcon icon={faStar} className="w-2.5 h-2.5 text-amber-500" />
+                              Featured
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => handleToggleFeatured(item)}
+                              disabled={isSubmitting}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold text-slate-400 hover:text-amber-600 hover:bg-amber-50 border border-slate-200 hover:border-amber-250 cursor-pointer transition-all disabled:opacity-50"
+                              title="Make Featured"
+                            >
+                              <FontAwesomeIcon icon={faStar} className="w-2.5 h-2.5 opacity-60" />
+                              Set Featured
+                            </button>
+                          )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-xs">
                           <div className="flex justify-end gap-2">

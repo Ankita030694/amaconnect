@@ -141,7 +141,8 @@ const LawyerInterviewSchema = new Schema({
   created: { type: Number, default: Date.now },
   author: { type: String, default: "Anuj Anand Malik" },
   linkedinUrl: { type: String, default: "" },
-  lawyerBio: { type: String, default: "" }
+  lawyerBio: { type: String, default: "" },
+  isFeatured: { type: Boolean, default: false }
 }, { collection: "lawyer_interviews" });
 
 if (mongoose.models.LawyerInterview) {

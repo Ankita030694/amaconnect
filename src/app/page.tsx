@@ -20,7 +20,15 @@ const getInterviews = async () => {
   try {
     await dbConnect();
     const list = await LawyerInterviewModel.find({}).sort({ created: -1 }).lean();
-    return JSON.parse(JSON.stringify(list));
+    
+    // Sort so that the featured interview is always at index 0
+    const sorted = JSON.parse(JSON.stringify(list));
+    const featuredIndex = sorted.findIndex((item: any) => item.isFeatured);
+    if (featuredIndex > 0) {
+      const [featuredItem] = sorted.splice(featuredIndex, 1);
+      sorted.unshift(featuredItem);
+    }
+    return sorted;
   } catch (error) {
     console.error("Error fetching lawyer interviews on server home page:", error);
     return [];

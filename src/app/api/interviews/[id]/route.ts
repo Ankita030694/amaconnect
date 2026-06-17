@@ -65,7 +65,8 @@ export async function PUT(
       reviews,
       author,
       linkedinUrl,
-      lawyerBio
+      lawyerBio,
+      isFeatured
     } = body;
 
     // Validation
@@ -102,6 +103,11 @@ export async function PUT(
     interview.author = author || "Anuj Anand Malik";
     interview.linkedinUrl = linkedinUrl || "";
     interview.lawyerBio = lawyerBio || "";
+    interview.isFeatured = !!isFeatured;
+
+    if (isFeatured) {
+      await LawyerInterview.updateMany({ _id: { $ne: id } }, { isFeatured: false });
+    }
 
     const updatedInterview = await interview.save();
 
@@ -109,6 +115,7 @@ export async function PUT(
     try {
       revalidatePath(`/interviews/${updatedInterview.slug}`);
       revalidatePath(`/interviews`);
+      revalidatePath(`/`);
     } catch (e) {
       console.error("Failed to revalidate path:", e);
     }
