@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState, useMemo, memo } from 'react';
 import Link from 'next/link';
+import { authorBios } from '@/lib/authorBios';
 
 // Custom inline SVG icons for premium rendering and absolute reliability
 const StarIcon = ({ filled }: { filled: boolean }) => (
@@ -88,16 +89,6 @@ const indianStatesAndUTs = [
   "Lakshadweep",
   "Puducherry"
 ].sort();
-
-const authorBios = {
-  "Anuj Anand Malik": {
-    name: "Anuj Anand Malik",
-    description: "Anuj Anand Malik, Founder of AMA Legal Solutions, is a trusted advocate, loan settlement expert, legal advisor, and banking lawyer. With over a decade of experience in loan settlement, corporate law, financial disputes, and compliance, he leads a result-driven law firm based in India that helps individuals, startups, and businesses achieve legal and financial stability.",
-    image: "/anujbhiya.png",
-    linkedInUrl: "https://www.linkedin.com/in/iamanujmalik/"
-  }
-};
-
 // Helper to encode download paths
 function encodeFilePath(filePath: string): string {
   return filePath

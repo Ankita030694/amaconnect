@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState, useMemo, memo } from 'react';
 import Link from 'next/link';
+import { authorBios } from '@/lib/authorBios';
 
 // Custom inline SVG icons for zero-dependency reliability and premium rendering
 const StarIcon = ({ filled }: { filled: boolean }) => (
@@ -75,28 +76,6 @@ interface BlogDetailProps {
   blog: Blog;
   relatedBlogs: Blog[];
 }
-
-const authorBios = {
-  "Anuj Anand Malik": {
-    name: "Anuj Anand Malik",
-    description: "Anuj Anand Malik, Founder of AMA Legal Solutions, is a trusted advocate, loan settlement expert, legal advisor, and banking lawyer. With over a decade of experience in loan settlement, corporate law, financial disputes, and compliance, he leads a result-driven law firm based in India that helps individuals, startups, and businesses achieve legal and financial stability.",
-    image: "/anujbhiya.png",
-    linkedInUrl: "https://www.linkedin.com/in/iamanujmalik/"
-  },
-  "Shrey Arora": {
-    name: "Shrey Arora",
-    description: "Legal professional specializing in corporate law and regulatory compliance. Brings a strategic approach to legal advisory with extensive experience in contract negotiation and business law.",
-    image: "/shreychad.svg",
-    linkedInUrl: "https://www.linkedin.com/in/shrey-arora-b0487b67/"
-  },
-  "Adv. Ashish Bhay": {
-    name: "Adv. Ashish Bhay",
-    description: "Advocate Ashish Bhay is a distinguished labor law practitioner, employment mediator, and veteran service rights expert. With over a decade of dedication at the Bar, he has represented hundreds of clients in employee wage settlements, industrial relationship negotiations, and high-stakes service tribunals.",
-    image: "/ashishbhay.png",
-    linkedInUrl: "https://www.linkedin.com/company/ama-legal-solutions/"
-  }
-};
-
 // Breadcrumbs component
 function Breadcrumbs({ items }: { items: { label: string; href: string }[] }) {
   return (

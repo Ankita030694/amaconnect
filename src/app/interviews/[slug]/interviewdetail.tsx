@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState, useMemo, memo } from 'react';
 import Link from 'next/link';
+import { authorBios } from '@/lib/authorBios';
 
 // Custom inline SVG icons for zero-dependency reliability and premium rendering
 const StarIcon = ({ filled }: { filled: boolean }) => (
@@ -79,34 +80,6 @@ interface InterviewDetailProps {
   interview: LawyerInterview;
   relatedInterviews: LawyerInterview[];
 }
-
-const authorBios = {
-  "Anuj Anand Malik": {
-    name: "Anuj Anand Malik",
-    description: "Anuj Anand Malik, Founder of AMA Legal Solutions, is a trusted advocate, loan settlement expert, legal advisor, and banking lawyer. With over a decade of experience in loan settlement, corporate law, financial disputes, and compliance, he leads a result-driven law firm based in India that helps individuals, startups, and businesses achieve legal and financial stability.",
-    image: "/anujbhiya.png",
-    linkedInUrl: "https://www.linkedin.com/in/iamanujmalik/"
-  },
-  "Shrey Arora": {
-    name: "Shrey Arora",
-    description: "Legal professional specializing in corporate law and regulatory compliance. Brings a strategic approach to legal advisory with extensive experience in contract negotiation and business law.",
-    image: "/shreychad.svg",
-    linkedInUrl: "https://www.linkedin.com/in/shrey-arora-b0487b67/"
-  },
-  "Adv. Ashish Bhay": {
-    name: "Adv. Ashish Bhay",
-    description: "Advocate Ashish Bhay is a distinguished labor law practitioner, employment mediator, and veteran service rights expert. With over a decade of dedication at the Bar, he has represented hundreds of clients in employee wage settlements, industrial relationship negotiations, and high-stakes service tribunals.",
-    image: "/ashishbhay.png",
-    linkedInUrl: "https://www.linkedin.com/company/ama-legal-solutions/"
-  },
-  "Lavanya Dhawan": {
-    name: "Lavanya Dhawan",
-    description: "Advocate specializing in direct mediation, arbitration, and civil representation. Registered with the Supreme Court bar.",
-    image: "", // Triggers generic blank user silhouette fallback
-    linkedInUrl: "https://www.linkedin.com/company/ama-legal-solutions/"
-  }
-};
-
 // Breadcrumbs component
 function Breadcrumbs({ items }: { items: { label: string; href: string }[] }) {
   return (
@@ -387,26 +360,63 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
         <Breadcrumbs items={breadcrumbItems} />
         
         {/* Header Content */}
-        <div className="text-center mb-10 max-w-3xl mx-auto mt-6">
-          <span className="px-3 py-1 bg-[#B8860B]/10 text-[#B8860B] rounded-full text-[10px] font-extrabold uppercase tracking-wider">
-            Verified Interview Guide
-          </span>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-5 mt-3">
+        <div className="relative max-w-4xl mx-auto mb-10 mt-5 p-5 sm:p-6 md:p-8 rounded-3xl bg-white/70 backdrop-blur-md border border-white/80 border-t-[#B8860B]/20 shadow-xs text-center overflow-hidden">
+          {/* Subtle background glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#B8860B]/5 rounded-full blur-3xl pointer-events-none -mt-24" />
+
+          {/* Specialization Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#B8860B]/10 border border-[#B8860B]/20 text-[#B8860B] rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wider mb-5 relative z-10">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B8860B] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#B8860B]"></span>
+            </span>
+            {interview.specialization}
+          </div>
+
+          <h1 className="relative z-10 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#2D2219] leading-tight tracking-tight mb-5 mt-1">
             {interview.title}
           </h1>
-          <p className="text-gray-600 font-medium text-xs sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed mb-5">
-            {interview.specialization}
-          </p>
-          <div className="flex justify-center items-center space-x-3 text-xs md:text-sm text-gray-500 font-medium">
-            <span>{interview.date}</span>
-            <span>•</span>
-            <span>{interview.duration || "5 min read"}</span>
-            <span>•</span>
-            <span className="text-[#B8860B] font-bold">{interview.lawyer}</span>
+
+          {/* Meta Information Bar */}
+          <div className="relative z-10 flex flex-wrap justify-center items-center gap-2.5 md:gap-3 text-slate-500 text-[10px] md:text-xs font-semibold mt-5">
+            <span className="flex items-center gap-1.5 bg-slate-100/90 border border-slate-200/50 px-2.5 py-1 rounded-xl">
+              <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              {interview.date}
+            </span>
+            
+            <span className="flex items-center gap-1.5 bg-slate-100/90 border border-slate-200/50 px-2.5 py-1 rounded-xl">
+              <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              {interview.duration || "5 min read"}
+            </span>
+
+            <span className="flex items-center gap-2 bg-[#B8860B]/5 border border-[#B8860B]/15 text-slate-900 px-2.5 py-1 rounded-xl">
+              {authorBios[interview.lawyer as keyof typeof authorBios]?.image ? (
+                <img 
+                  src={authorBios[interview.lawyer as keyof typeof authorBios]?.image} 
+                  alt={interview.lawyer} 
+                  className="w-4 h-4 rounded-full object-cover border border-[#B8860B]/20" 
+                />
+              ) : (
+                <div className="w-4 h-4 rounded-full bg-[#B8860B]/10 flex items-center justify-center text-[#B8860B] border border-[#B8860B]/20">
+                  <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                </div>
+              )}
+              <span className="font-extrabold text-[#B8860B]">{interview.lawyer}</span>
+            </span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-[176px_1fr_224px] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[176px_1fr_256px] gap-6 items-start">
           
           {/* Left Sidebar - TOC (Desktop) */}
           <div className="hidden lg:block sticky top-24">
@@ -572,7 +582,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
                   </div>
                 </div>
                 <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed mb-3">
-                  {authorBios[interview.lawyer as keyof typeof authorBios]?.description || "Advocate specializing in direct mediation, arbitration, and civil representation. Registered with the Supreme Court bar."}
+                  {authorBios[interview.lawyer as keyof typeof authorBios]?.description || `Advocate specializing in ${interview.specialization || "direct mediation, arbitration, and civil representation"}. Registered legal counsel representing client interests.`}
                 </p>
                 <a 
                   href={interview.linkedinUrl || authorBios[interview.lawyer as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
