@@ -448,13 +448,13 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
 
               {/* Tiptap Styles */}
               <style jsx global>{`
-                .tiptap-content h1 { font-size: 1.6em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #2D2219; }
-                .tiptap-content h2 { font-size: 1.4em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #2D2219; scroll-margin-top: 80px; }
-                .tiptap-content h3 { font-size: 1.2em; font-weight: 800; margin-top: 1em; margin-bottom: 0.5em; color: #2D2219; scroll-margin-top: 80px; }
-                .tiptap-content p { margin-bottom: 1em; line-height: 1.65; color: #334155; }
+                .tiptap-content h1 { font-size: 1.6em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #B8860B; }
+                .tiptap-content h2 { font-size: 1.4em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #B8860B; scroll-margin-top: 80px; }
+                .tiptap-content h3 { font-size: 1.2em; font-weight: 800; margin-top: 1em; margin-bottom: 0.5em; color: #B8860B; scroll-margin-top: 80px; }
+                .tiptap-content p { margin-bottom: 1em; line-height: 1.65; color: #334155; text-align: justify; }
                 .tiptap-content ul { list-style-type: disc; padding-left: 1.25em; margin-bottom: 1em; }
                 .tiptap-content ol { list-style-type: decimal; padding-left: 1.25em; margin-bottom: 1em; }
-                .tiptap-content li { margin-bottom: 0.4em; color: #334155; line-height: 1.65; }
+                .tiptap-content li { margin-bottom: 0.4em; color: #334155; line-height: 1.65; text-align: justify; }
                 .tiptap-content blockquote { border-left: 3px solid #D2A02A; padding-left: 1rem; font-style: italic; color: #475569; background: #fffaf0; padding: 1rem; border-radius: 0.5rem; }
                 .tiptap-content img { border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin: 1.5rem 0; max-width: 100%; height: auto; }
                 .tiptap-content a { color: #B8860B; text-decoration: underline; font-weight: 600; }

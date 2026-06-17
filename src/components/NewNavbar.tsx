@@ -47,8 +47,8 @@ export default function NewNavbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-[15px] font-medium transition-colors duration-200 ${isActive
-                    ? "text-[#D4AF37] font-semibold"
+                  className={`text-[15px] font-semibold transition-colors duration-200 ${isActive
+                    ? "text-[#D4AF37] font-bold"
                     : "text-[#2D2319]/90 hover:text-[#D4AF37]"
                     }`}
                 >
@@ -185,8 +185,8 @@ export default function NewNavbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-3 py-2.5 rounded-xl text-base font-medium transition-all ${isActive
-                    ? "bg-gray-50 text-[#D4AF37] font-semibold"
+                  className={`block px-3 py-2.5 rounded-xl text-base font-semibold transition-all ${isActive
+                    ? "bg-gray-50 text-[#D4AF37] font-bold"
                     : "text-[#2D2319]/90 hover:bg-gray-50 hover:text-[#D4AF37]"
                     }`}
                 >
