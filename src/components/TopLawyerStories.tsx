@@ -183,22 +183,12 @@ export default function TopLawyerStories({
               {/* Gold decorative radial glow */}
               <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-[#E8A810]/5 rounded-full blur-2xl pointer-events-none" />
 
-              {/* Left Side: Large Avatar Thumbnail with play hover overlay */}
               <div className="self-center relative w-24 h-24 sm:w-36 sm:h-36 lg:w-52 lg:h-52 rounded-2xl overflow-hidden shrink-0 bg-[#FDFBF0] border border-[#E8A810]/15 shadow-inner flex items-center justify-center">
                 <img
                   src={getOptimizedImageSrc(featuredStory.image, 800)}
                   alt={featuredStory.lawyer}
                   className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                 />
-                
-                {/* Play button hover overlay */}
-                <div className="absolute inset-0 bg-black/15 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-[#E8A810] text-[#2D2219] p-2.5 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
-                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
               </div>
 
               {/* Right Side: High-Impact Details */}

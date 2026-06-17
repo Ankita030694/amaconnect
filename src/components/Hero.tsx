@@ -115,15 +115,6 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
                   alt={featuredStory.lawyer}
                   className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-500"
                 />
-                
-                {/* Play Button Overlay on Hover (AMA Gold theme) */}
-                <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-[#986F09] text-white p-3 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
               </Link>
 
               {/* Bottom Content Area */}
@@ -217,21 +208,21 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
                 </div>
               </Link>
             ))}
+
+            {/* View More Interviews Button below the cards in the right section */}
+            <div className="mt-2 w-full">
+              <Link 
+                href="/interviews#all-interviews"
+                className="flex items-center justify-center gap-2 px-6 py-3 w-full bg-[#2D2219] hover:bg-[#B8860B] text-white rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5 cursor-pointer select-none text-center h-[50px]"
+              >
+                View More Interviews
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </div>
           </div>
 
-        </div>
-
-        {/* Slide Indicator Dots (Charcoal Neutral theme) */}
-        <div className="flex justify-center mt-8">
-          <Link 
-            href="/interviews#all-interviews"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#2D2219] hover:bg-[#B8860B] text-white rounded-full text-sm font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer select-none"
-          >
-            View More Interviews
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
         </div>
 
       </div>

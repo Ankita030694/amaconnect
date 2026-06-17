@@ -228,15 +228,6 @@ export default function   AllLawyerStories({ initialInterviews = [] }: AllLawyer
                         onError={handleImageError}
                       />
                       
-                      {/* Play Button Overlay on Hover */}
-                      <div className="absolute inset-0 bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="bg-[#D4AF37] text-white p-2.5 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
-                          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
-
                       {/* Date Badge */}
                       <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-[2px] rounded px-3 py-1 text-[10px] uppercase font-bold text-[#5A4C33] border border-[#5A4C33]/10 shadow-xs">
                         {article.date}
