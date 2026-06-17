@@ -78,19 +78,16 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
 
   return (
     <section 
-      className="relative w-full overflow-hidden pt-[52px] pb-4 sm:pb-12 px-4 sm:px-6 lg:px-8 bg-white flex flex-col items-center justify-center min-h-[480px] font-sans"
+      className="relative w-full overflow-hidden pt-[22px] pb-4 sm:pb-12 px-4 sm:px-6 lg:px-8 bg-white flex flex-col items-center justify-center min-h-[480px] font-sans"
     >
       <div className="max-w-6xl mx-auto w-full relative z-20 flex flex-col gap-5">
         
         {/* Centered Catchy Big Heading */}
-        <div className="text-center mb-5 sm:mb-8 relative">
+        <div className="text-center mb-2 sm:mb-4 relative">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2219] tracking-tight leading-tight">
             Top <span className="text-[#D4AF37]">Lawyer Stories</span>
           </h2>
-          <p className="text-gray-500 font-medium text-xs sm:text-xs lg:text-sm mt-3 max-w-2xl mx-auto">
-            Exclusive insights, professional milestones, and real-world courtroom experiences from verified legal advocates.
-          </p>
-          
+         
           {/* Request an Interview CTA Button - Top Right of Heading Section */}
           <div className="sm:absolute sm:top-2 sm:right-0 mt-4 sm:mt-0 flex justify-center">
             <button 
