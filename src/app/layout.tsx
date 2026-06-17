@@ -50,6 +50,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://firestore.googleapis.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
+      </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           {/* <Navbar /> */}

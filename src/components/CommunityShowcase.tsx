@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { communities } from "@/data/communities";
 
 const chatQuestions = [
@@ -367,9 +368,11 @@ export default function CommunityShowcase() {
                         key={index}
                         className="flex items-end gap-3 max-w-[85%] shrink-0 transition-all duration-300"
                       >
-                        <img
-                          src="/indian_man.jpg"
+                        <Image
+                          src="/indian_man.webp"
                           alt="User Avatar"
+                          width={36}
+                          height={36}
                           className="w-9 h-9 rounded-full object-cover border border-gray-200 shrink-0"
                         />
                         <div className="bg-[#4A4A4A] text-white rounded-2xl rounded-bl-none px-5 py-3.5 text-sm sm:text-[15px] leading-relaxed shadow-sm hover:bg-[#575757] transition-colors duration-300">

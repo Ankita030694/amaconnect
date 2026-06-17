@@ -38,40 +38,45 @@ export async function GET(
     const acceptHeader = request.headers.get("accept") || "";
     const supportsWebp = acceptHeader.includes("image/webp");
 
-    let pipeline = sharp(image.data);
-    const metadata = await pipeline.metadata();
+    let optimizedBuffer: Uint8Array | Buffer = image.data;
+    let contentType: string = image.contentType || "image/png";
 
-    // Resize logic: only resize if requested, or if the original is too large (>1200px)
-    if (width || height) {
-      pipeline = pipeline.resize({
-        width: width || undefined,
-        height: height || undefined,
-        fit: "inside",
-        withoutEnlargement: true
-      });
-    } else if (metadata.width && metadata.width > 1200) {
-      pipeline = pipeline.resize({
-        width: 1200,
-        fit: "inside",
-        withoutEnlargement: true
-      });
-    }
+    try {
+      let pipeline = sharp(image.data);
+      const metadata = await pipeline.metadata();
 
-    let optimizedBuffer: Buffer;
-    let contentType: string;
-
-    if (supportsWebp) {
-      optimizedBuffer = await pipeline.webp({ quality }).toBuffer();
-      contentType = "image/webp";
-    } else {
-      // Compress in original format
-      if (metadata.format === "png") {
-        optimizedBuffer = await pipeline.png({ quality, compressionLevel: 9, palette: true }).toBuffer();
-        contentType = "image/png";
-      } else {
-        optimizedBuffer = await pipeline.jpeg({ quality, mozjpeg: true }).toBuffer();
-        contentType = "image/jpeg";
+      // Resize logic: only resize if requested, or if the original is too large (>1200px)
+      if (width || height) {
+        pipeline = pipeline.resize({
+          width: width || undefined,
+          height: height || undefined,
+          fit: "inside",
+          withoutEnlargement: true
+        });
+      } else if (metadata.width && metadata.width > 1200) {
+        pipeline = pipeline.resize({
+          width: 1200,
+          fit: "inside",
+          withoutEnlargement: true
+        });
       }
+
+      if (supportsWebp) {
+        optimizedBuffer = await pipeline.webp({ quality }).toBuffer();
+        contentType = "image/webp";
+      } else {
+        // Compress in original format
+        if (metadata.format === "png") {
+          optimizedBuffer = await pipeline.png({ quality, compressionLevel: 9, palette: true }).toBuffer();
+          contentType = "image/png";
+        } else {
+          optimizedBuffer = await pipeline.jpeg({ quality, mozjpeg: true }).toBuffer();
+          contentType = "image/jpeg";
+        }
+      }
+    } catch (sharpError) {
+      console.warn("Sharp optimization failed in production, serving original image:", sharpError);
+      // optimizedBuffer defaults to image.data and contentType defaults to image.contentType
     }
 
     // Create a standard Response containing the binary buffer

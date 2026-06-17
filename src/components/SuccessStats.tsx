@@ -18,7 +18,7 @@ export default function SuccessStats() {
         {/* Top Right Profile */}
         <div className="absolute -top-4 sm:-top-8 right-0 sm:-right-12 w-16 h-16 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-lg">
           <Image 
-            src="/indian_man.jpg" 
+            src="/indian_man.webp" 
             alt="User solving legal problems" 
             fill 
             sizes="(max-width: 640px) 64px, 112px"
@@ -29,7 +29,7 @@ export default function SuccessStats() {
         {/* Middle Left Profile */}
         <div className="absolute top-[25%] sm:top-[22%] -left-6 sm:-left-20 w-16 h-16 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-lg">
           <Image 
-            src="/indian_man.jpg" 
+            src="/indian_man.webp" 
             alt="User solving legal problems" 
             fill 
             sizes="(max-width: 640px) 64px, 112px"
@@ -40,7 +40,7 @@ export default function SuccessStats() {
         {/* Middle Right Profile */}
         <div className="absolute top-[45%] sm:top-[42%] -right-4 sm:-right-24 w-16 h-16 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-lg">
           <Image 
-            src="/indian_man.jpg" 
+            src="/indian_man.webp" 
             alt="User solving legal problems" 
             fill 
             sizes="(max-width: 640px) 64px, 112px"
