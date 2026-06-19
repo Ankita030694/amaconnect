@@ -3,8 +3,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import dbConnect from "@/lib/dbConnect";
 import { ImageFile } from "@/lib/models";
-import sharp from "sharp";
-
 export const maxDuration = 300;
 
 export async function POST(req: NextRequest) {
@@ -50,6 +48,7 @@ export async function POST(req: NextRequest) {
     let finalContentType = contentType;
 
     try {
+      const sharp = (await import("sharp")).default;
       let pipeline = sharp(buffer);
       const metadata = await pipeline.metadata();
 
