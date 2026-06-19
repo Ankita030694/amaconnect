@@ -5,6 +5,8 @@ import dbConnect from "@/lib/dbConnect";
 import { ImageFile } from "@/lib/models";
 import sharp from "sharp";
 
+export const maxDuration = 300;
+
 export async function POST(req: NextRequest) {
   // Validate NextAuth session tailored for this project
   const session = await getServerSession(authOptions);

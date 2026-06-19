@@ -5,7 +5,7 @@ import {
   Search, Mail, Phone, MapPin, Download, ExternalLink, X, 
   ChevronLeft, ChevronRight, Copy, Check, FileText, 
   CreditCard, Calendar, User, Filter, AlertCircle, RefreshCw,
-  FolderSync
+  FolderSync, Trash2
 } from "lucide-react";
 
 interface Lead {
@@ -46,6 +46,7 @@ export default function LeadsDashboard() {
   // Selected Lead for Details Drawer/Modal
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const fetchLeads = async () => {
     setLoading(true);
@@ -76,6 +77,35 @@ export default function LeadsDashboard() {
     navigator.clipboard.writeText(text);
     setCopiedField(field);
     setTimeout(() => setCopiedField(null), 2000);
+  };
+
+  // Delete lead
+  const handleDeleteLead = async (id: string, type: string) => {
+    if (!window.confirm("Are you sure you want to delete this lead? This action cannot be undone.")) {
+      return;
+    }
+    
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/leads/${id}?type=${type}`, {
+        method: "DELETE",
+      });
+      
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete lead");
+      }
+      
+      // Update local state
+      setLeads((prev) => prev.filter((l) => l._id !== id));
+      if (selectedLead?._id === id) {
+        setSelectedLead(null);
+      }
+    } catch (err: any) {
+      alert(err.message || "An unexpected error occurred while deleting");
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   // Get unique states for filter list
@@ -495,13 +525,30 @@ export default function LeadsDashboard() {
                       </td>
 
                       {/* Actions */}
-                      <td className="px-6 py-4.5 text-right">
-                        <button
-                          onClick={() => setSelectedLead(lead)}
-                          className="bg-slate-50 hover:bg-amber-500 hover:text-white border border-slate-200 hover:border-amber-500 text-slate-600 font-bold px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer"
-                        >
-                          View Details
-                        </button>
+                      <td className="px-6 py-4.5">
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            onClick={() => setSelectedLead(lead)}
+                            className="bg-slate-50 hover:bg-amber-500 hover:text-white border border-slate-200 hover:border-amber-500 text-slate-600 font-bold px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer"
+                          >
+                            View Details
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteLead(lead._id, lead.type);
+                            }}
+                            disabled={deletingId === lead._id}
+                            className="bg-slate-50 hover:bg-red-500 hover:text-white border border-slate-200 hover:border-red-500 text-slate-600 font-bold p-1.5 rounded-lg transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                            title="Delete Lead"
+                          >
+                            {deletingId === lead._id ? (
+                              <RefreshCw className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="w-4 h-4" />
+                            )}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -751,7 +798,7 @@ export default function LeadsDashboard() {
             </div>
 
             {/* Bottom Actions Drawer */}
-            <div className="mt-8 pt-6 border-t border-slate-100 flex gap-3">
+            <div className="mt-8 pt-6 border-t border-slate-100 flex flex-wrap gap-3">
               <a 
                 href={`mailto:${selectedLead.email}`}
                 className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-[#B8860B] hover:from-amber-600 hover:to-[#9E730A] text-white font-bold py-3 rounded-xl text-sm transition-all shadow-xs cursor-pointer"
@@ -764,6 +811,19 @@ export default function LeadsDashboard() {
               >
                 <Phone className="w-4 h-4" /> Call Lead
               </a>
+              <button
+                onClick={() => handleDeleteLead(selectedLead._id, selectedLead.type)}
+                disabled={deletingId === selectedLead._id}
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-red-50 hover:bg-red-500 text-red-600 hover:text-white font-bold py-3 px-6 rounded-xl text-sm border border-red-200 hover:border-red-500 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deletingId === selectedLead._id ? (
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4" /> Delete
+                  </>
+                )}
+              </button>
             </div>
 
           </div>
