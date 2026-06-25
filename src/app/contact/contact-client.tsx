@@ -287,7 +287,7 @@ export default function ContactClient() {
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Address</h4>
                     <p className="text-gray-600 font-medium mt-1 leading-relaxed text-sm sm:text-base">
-                      2493 ap sector 57 gurgaon
+                      2493AP, Block G, Sushant Lok 2, Sector 57, Gurugram, Haryana 122001
                     </p>
                   </div>
                 </div>
