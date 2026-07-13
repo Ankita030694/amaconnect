@@ -85,7 +85,7 @@ export default function AboutClients() {
   return (
     <section className="w-full bg-white px-4 sm:px-6 lg:px-8 font-sans overflow-hidden relative">
       {/* CSS Stylesheet for Independent Centering and Wave Animations */}
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes float-wave {
           0%, 100% {
             transform: translateY(0px) scale(1);
@@ -109,7 +109,7 @@ export default function AboutClients() {
           box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
           z-index: 50;
         }
-      `}</style>
+      `}} />
 
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         {/* Dynamic Circular Orbit Arena */}

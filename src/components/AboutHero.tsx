@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import AboutFounders from "./AboutFounders";
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions&pcampaignid=web_share";
 const APP_STORE_URL =
@@ -31,6 +31,11 @@ export default function AboutHero() {
           From asking legal questions to connecting with lawyers, AMA Connect simplifies
           legal support through one powerful app.
         </p>
+
+        {/* Founders Cards */}
+        <div className="w-full mb-12 sm:mb-16 text-left">
+          <AboutFounders />
+        </div>
 
         {/* CTA — pill button with store icons */}
         <div className="inline-flex items-center bg-[#2D2219] text-white rounded-full py-3 sm:py-3.5 px-6 sm:px-8 shadow-[0_8px_28px_rgba(45,34,25,0.18)] hover:shadow-[0_12px_36px_rgba(45,34,25,0.26)] hover:scale-[1.02] transition-all duration-300 gap-3 sm:gap-4 select-none mb-12 sm:mb-14">
