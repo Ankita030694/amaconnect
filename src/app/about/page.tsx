@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import AboutHero from "@/components/AboutHero";
 import AboutChallenge from "@/components/AboutChallenge";
+import AboutFounders from "@/components/AboutFounders";
 import AboutFeatures from "@/components/AboutFeatures";
 import AboutClients from "@/components/AboutClients";
 import AboutSteps from "@/components/AboutSteps";
@@ -30,6 +31,7 @@ export default function AboutPage() {
       <main className="flex-grow">
         <AboutHero />
         <AboutChallenge />
+        <AboutFounders />
         <AboutFeatures />
         <AboutClients />
         <AboutSteps />
