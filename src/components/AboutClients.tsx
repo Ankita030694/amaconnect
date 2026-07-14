@@ -83,7 +83,7 @@ export default function AboutClients() {
   ];
 
   return (
-    <section className="w-full bg-white px-4 sm:px-6 lg:px-8 font-sans overflow-hidden relative">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden relative">
       {/* CSS Stylesheet for Independent Centering and Wave Animations */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes float-wave {

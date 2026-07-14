@@ -14,6 +14,7 @@ export async function generateStaticParams() {
   return [];
 }
 
+
 // Optimized function to fetch blog by slug
 const getBlogBySlug = async (slug: string) => {
   console.log(`[getBlogBySlug] Fetching blog for slug: "${slug}"`);
@@ -44,7 +45,7 @@ const getBlogBySlug = async (slug: string) => {
     if (blog) {
       // Serialize Mongo ID and properties safely
       const data = JSON.parse(JSON.stringify(blog));
-      
+
       const decodeEntities = (str: string): string => {
         if (!str) return '';
         return str

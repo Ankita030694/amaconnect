@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function AboutFounders() {
   return (
-    <section className="w-full bg-white py-4 px-4 sm:px-6 lg:px-8 font-sans -mt-4 sm:-mt-8 relative z-20">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 font-sans -mt-4 sm:-mt-8 relative z-20">
       <div className="max-w-4xl mx-auto flex justify-center">
 
         {/* Card: Anuj Anand Malik */}
         <div className="w-full rounded-2xl overflow-hidden flex flex-col sm:flex-row bg-white text-[#2D2219] shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
           {/* Image Side */}
-          <div className="w-full sm:w-[42%] relative min-h-[300px] sm:min-h-[440px] bg-[#1c1c1c]">
+          <div className="w-full sm:w-[42%] relative min-h-[300px] sm:min-h-[440px] bg-[#FDFBF7]">
             <Image
               src="/founder_new.png"
               alt="Anuj Anand Malik"
