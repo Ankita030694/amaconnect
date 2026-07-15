@@ -23,74 +23,7 @@ interface SitemapCategory {
 }
 
 export default async function SitemapPage() {
-  const categories: SitemapCategory[] = [
-    {
-      title: "Core Platform Navigation",
-      icon: "🌐",
-      description: "Quick links to navigate our primary platform pages and user community forums.",
-      links: [
-        { name: "Homepage", href: "/", description: "Access the primary portal, app features, and download details." },
-        { name: "About Us", href: "/about", description: "Learn about AMA's mission, values, and pro bono legal assistance." },
-        { name: "Communities", href: "/communities", description: "Connect and discuss legal queries with peers and advocates." },
-        { name: "AMA Q&A Portal", href: "/ask-me-anything", description: "Submit anonymous legal queries and view verified advocate responses." },
-        { name: "Expert Interviews", href: "/interviews", description: "Read insightful interviews with leading Indian legal minds." },
-        { name: "Blogs & News Hub", href: "/blog", description: "Browse updates on changing laws, regulatory updates, and legal articles." },
-        { name: "Contact Support", href: "/contact", description: "Get in touch for client assistance, firm support, and general queries." },
-        { name: "Success Stories", href: "/success-stories", description: "Explore details of how we resolved user disputes and inquiries." },
-      ],
-    },
-    {
-      title: "Solutions & Professional Services",
-      icon: "💼",
-      description: "Professional tools and consultation portals tailored for clients and advocates.",
-      links: [
-        { name: "Secure Online Consultation App", href: "/secure-online-legal-consultation-app", description: "Consult with verified legal advisors securely on mobile." },
-        { name: "Lawyer Branding & Growth", href: "/lawyer-branding-get-more-clients", description: "Branding, client acquisition, and lead intake tools for advocates." },
-        { name: "Pro Bono & Free Legal Aid", href: "/pro-bono-free-legal-aid", description: "Access free legal counseling, representation, and helpline resources." },
-      ],
-    },
-    {
-      title: "Comprehensive Legal Guides & Directories",
-      icon: "⚖️",
-      description: "Step-by-step statutory timelines, rights, and checklists for major Indian civil & criminal scenarios.",
-      links: [
-        { name: "Know Your Rights Legal Guide", href: "/know-your-rights-legal-guide", description: "A primer on basic civil rights, police custody guidelines, and consumer remedies." },
-        { name: "First Court Trial Preparation", href: "/how-to-prepare-for-first-trial-advocate-advice", description: "Practical advice on courtroom behavior, advocate interactions, and evidence management." },
-        { name: "Loan App Harassment Settlement", href: "/loan-app-debt-settlement-harassment-legal-help", description: "Legal resources, recovery helpline numbers, and debt settlement strategies." },
-        { name: "Mutual Consent Divorce Guide", href: "/how-to-file-divorce-india-legal-guide", description: "Understand separation periods, alimony laws, and petition drafting procedures." },
-        { name: "Startup Registration & Incorporation", href: "/startup-registration-incorporation-india-guide", description: "Company registration pathways, CA consulting, and DPIIT compliance." },
-        { name: "Property Dispute Resolution Remedies", href: "/property-dispute-resolution-india-legal-remedies", description: "Injunction suits, land registration trace searches, and mutation guidelines." },
-        { name: "Draft Legal Notice Guide", href: "/how-to-draft-legal-notice-india-guide", description: "Prerequisites, legal notice formats, and guidelines on sending replies." },
-        { name: "Patient Rights & Medical Negligence", href: "/patient-rights-medical-negligence-legal-help", description: "Informed consent rules, consumer court claims, and medical record request guidelines." },
-        { name: "Motor Accident Compensation Claims", href: "/motor-accident-claims-compensation-guide", description: "Filing MACT claims, police report procedures, and calculating claim payouts." },
-        { name: "Cyber Fraud & Online Scams Recourse", href: "/cyber-fraud-online-scams-legal-recourse", description: "Reporting transactions to Cyber Cell, financial refund freezes, and phishing helpline." },
-        { name: "Homebuyer RERA Builder Delay Remedies", href: "/homebuyer-rights-rera-builder-delay-remedies", description: "Form M/N filings, delay interest calculations, and developer enforcement actions." },
-        { name: "Workplace Safety & POSH Act Guide", href: "/posh-act-workplace-safety-employee-guide", description: "Internal Complaints Committee layout, harassment definition, and compliance checklist." },
-        { name: "Consumer Protection & Defective Goods", href: "/consumer-protection-ecommerce-defective-goods-guide", description: "Filing claims against sellers, refund policies, and unfair ecommerce practices." },
-        { name: "Tenant Eviction & Deposit Disputes", href: "/tenant-rights-eviction-security-deposit-disputes", description: "Filing eviction objections, rent control acts, and securing deposit refund releases." },
-        { name: "MSME Payment Recovery & Insolvency", href: "/ibc-msme-payment-recovery-insolvency-guide", description: "MSME Samadhaan filings, payment recovery limits, and insolvency procedures." },
-        { name: "Bail Procedure & Police Custody Rights", href: "/bail-procedure-arrest-rights-police-custody-guide", description: "Anticipatory bail details, arrest rights, and 24-hour magistrate appearance rule." },
-        { name: "Cheque Bounce Section 138 NI Act Guide", href: "/cheque-bounce-legal-notice-section-138-guide", description: "Demand notices, timeline limitation trackers, and criminal recovery options." },
-      ],
-    },
-    {
-      title: "Advocate Resources & Professional Growth",
-      icon: "📚",
-      description: "Pricing strategies, practice building guides, mental health advice, and tech guidelines for Indian lawyers.",
-      links: [
-        { name: "Alternative Legal Careers in India", href: "/alternative-legal-careers-india", description: "Careers in Legal Tech, Legal Operations, and Policy Research outside litigation." },
-        { name: "Transition Litigation & Corporate Law", href: "/transition-litigation-to-corporate-law", description: "Step-by-step strategies for switching practice areas between firms and independent litigation." },
-        { name: "Emerging Legal Fields in 2026", href: "/emerging-legal-fields-2026", description: "Futuristic specializations including Outer Space Agreements, AI Law, and ESG." },
-        { name: "Law Firm alternative Fee Models", href: "/alternative-fee-arrangements-law-firms", description: "Move away from hourly billing to fixed-fee and retainer pricing models." },
-        { name: "Ethical Social Media for Advocates", href: "/ethical-social-media-marketing-for-lawyers", description: "Compliant marketing guidelines under Bar Council of India Rule 36 rules." },
-        { name: "Managing Lawyer Burnout in India", href: "/managing-lawyer-burnout-india", description: "An analysis of mental health struggles in courts and stress management tips." },
-        { name: "Dealing with Difficult Legal Clients", href: "/managing-difficult-legal-clients", description: "Retainer guidelines, communication boundaries, and ethical case withdrawals." },
-        { name: "AI Prompting for Legal Drafting", href: "/ai-prompt-engineering-legal-drafting", description: "ChatGPT and Gemini prompts for contract drafting and research confidentiality." },
-        { name: "Grow Practice via Pro Bono Cases", href: "/how-pro-bono-grows-law-practice", description: "Use legal aid cases to build trial expertise and secure commercial referrals." },
-        { name: "Art of Court corridor Networking", href: "/offline-networking-for-indian-lawyers", description: "Corridor interactions and bar association networking for first-generation advocates." }
-      ]
-    }
-  ];
+  const categories: SitemapCategory[] = [];
 
   try {
     await dbConnect();
