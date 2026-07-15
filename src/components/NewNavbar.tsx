@@ -15,7 +15,6 @@ export default function NewNavbar() {
     { name: "Interviews", href: "/interviews" },
     { name: "AMA", href: "/ask-me-anything" },
     { name: "Communities", href: "/communities" },
-    { name: "Drafts", href: "/drafts" },
     { name: "Blogs", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];

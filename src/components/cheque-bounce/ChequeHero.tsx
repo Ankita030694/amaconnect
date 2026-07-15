@@ -17,10 +17,10 @@ export default function ChequeHero() {
         </p>
 
         <Link 
-          href="/drafts"
+          href="/contact"
           className="bg-[#D4AF37] text-[#2D2219] hover:bg-[#b8952f] rounded-full py-4 px-10 font-bold text-base sm:text-lg transition-all shadow-lg shadow-[#D4AF37]/20 hover:scale-[1.02]"
         >
-          Get Section 138 Notice Template
+          Request Notice Template
         </Link>
       </div>
     </section>

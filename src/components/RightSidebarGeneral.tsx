@@ -1,26 +1,29 @@
 import React from "react";
 import Link from "next/link";
 
-export default function LegalGuideSidebar() {
+export default function RightSidebarGeneral() {
   return (
     <div className="flex flex-col gap-4 font-sans">
       
-      {/* Widget 1: Lead Gen Hook (matches RightSidebarWidgets style) */}
+      {/* Widget 1: Support / Contact */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col">
-        <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-sm mb-3">
-          ?
-        </div>
-        <h3 className="text-lg font-bold text-[#2D2219] mb-2 leading-tight">
-          Have a specific question about your rights?
+        <h3 className="text-lg font-bold text-[#2D2219] mb-3 leading-tight">
+          Need Legal Advice?
         </h3>
         <p className="text-gray-600 text-xs mb-4 leading-relaxed">
-          Ask a pro bono lawyer on AMAConnect and get free, verified answers to your legal queries.
+          Connect with experienced advocates on AMAConnect for a strategic evaluation of your legal query.
         </p>
         <Link 
-          href="/ask-me-anything"
-          className="w-full bg-[#1A1A1A] text-white text-center font-bold py-2.5 rounded-xl hover:bg-black transition-colors text-xs"
+          href="/contact" 
+          className="w-full bg-[#1A1A1A] text-white text-center font-bold py-2.5 rounded-xl hover:bg-black transition-colors mb-2.5 text-xs"
         >
-          Ask on AMAConnect
+          Contact Our Advocates
+        </Link>
+        <Link 
+          href="/contact"
+          className="w-full bg-white border border-gray-200 text-[#1A1A1A] text-center font-bold py-2.5 rounded-xl hover:bg-gray-50 transition-colors text-xs"
+        >
+          Request a Callback
         </Link>
       </div>
 
@@ -30,7 +33,7 @@ export default function LegalGuideSidebar() {
           Download AMAConnect App
         </h3>
         <p className="text-gray-600 text-xs mb-4 leading-relaxed">
-          Access legal consultation, securely upload bills and evidence, and get real-time assistance on your mobile phone.
+          Manage your cases, consult with verified advocates, and track case updates in real time on our secure mobile application.
         </p>
         
         <div className="flex flex-col gap-3 w-full">
@@ -82,29 +85,6 @@ export default function LegalGuideSidebar() {
               <span className="font-bold text-xs block">App Store</span>
             </div>
           </a>
-        </div>
-      </div>
-
-      {/* Widget 3: Government Helplines */}
-      <div className="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col">
-        <h3 className="text-base font-bold text-[#2D2219] mb-3 leading-tight">
-          Government Helplines
-        </h3>
-        
-        <div className="space-y-3">
-          {[
-            { name: "National Consumer Helpline", number: "1915" },
-            { name: "Women's Helpline (Domestic Abuse)", number: "181 / 1091" },
-            { name: "Child Helpline", number: "1098" },
-            { name: "National Emergency Helpline", number: "112" }
-          ].map((helpline, idx) => (
-            <div key={idx} className="flex justify-between items-center py-1.5 border-b border-gray-50 last:border-0 last:pb-0">
-              <span className="text-gray-500 font-medium text-xs max-w-[70%]">{helpline.name}</span>
-              <a href={`tel:${helpline.number.split(" / ")[0]}`} className="text-[#D4AF37] font-black text-xs hover:underline">
-                {helpline.number}
-              </a>
-            </div>
-          ))}
         </div>
       </div>
       

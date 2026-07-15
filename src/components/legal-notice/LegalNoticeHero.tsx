@@ -19,10 +19,10 @@ export default function LegalNoticeHero() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link 
-            href="/drafts"
+            href="/contact"
             className="bg-[#D4AF37] text-[#2D2219] hover:bg-[#b8952f] rounded-full py-4 px-8 font-bold text-base sm:text-lg transition-all shadow-lg shadow-[#D4AF37]/20 hover:scale-[1.02]"
           >
-            Browse Notice Templates
+            Request Notice Template
           </Link>
           <Link 
             href="/pro-bono-free-legal-aid"

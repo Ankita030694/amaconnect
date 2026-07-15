@@ -1,7 +1,6 @@
 import { MetadataRoute } from "next";
 import dbConnect from "@/lib/dbConnect";
 import { Blog, LawyerInterview } from "@/lib/models";
-import { DRAFTS_DATA } from "@/data/drafts_data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://amaconnect.in";
@@ -34,31 +33,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/cheque-bounce-legal-notice-section-138-guide",
     "/lawyer-branding-get-more-clients",
     "/pro-bono-free-legal-aid",
-    "/drafts",
     "/blog",
     "/interviews",
+    "/alternative-legal-careers-india",
+    "/transition-litigation-to-corporate-law",
+    "/emerging-legal-fields-2026",
+    "/alternative-fee-arrangements-law-firms",
+    "/ethical-social-media-marketing-for-lawyers",
+    "/managing-lawyer-burnout-india",
+    "/managing-difficult-legal-clients",
+    "/ai-prompt-engineering-legal-drafting",
+    "/how-pro-bono-grows-law-practice",
+    "/offline-networking-for-indian-lawyers",
+    "/sitemap",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
-    changeFrequency: (route === "" || route === "/drafts" ? "daily" : "weekly") as "daily" | "weekly",
-    priority: route === "" ? 1.0 : route === "/drafts" ? 0.9 : 0.8,
+    changeFrequency: (route === "" ? "daily" : "weekly") as "daily" | "weekly",
+    priority: route === "" ? 1.0 : 0.8,
   }));
 
-  // 2. Drafts (from static precompiled array)
-  // Maps 2,165+ legal draft templates in O(N)
-  const draftPages = DRAFTS_DATA.map((draft) => {
-    const lastDot = draft.fileName.lastIndexOf('.');
-    const nameWithoutExt = lastDot !== -1 ? draft.fileName.substring(0, lastDot) : draft.fileName;
-    const slug = nameWithoutExt.toLowerCase().trim();
-    return {
-      url: `${baseUrl}/drafts/${slug}`,
-      lastModified: currentDate,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    };
-  });
-
-  // 3. Dynamic Blogs from MongoDB
+  // 2. Dynamic Blogs from MongoDB
   let blogPages: any[] = [];
   try {
     await dbConnect();
@@ -73,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("[Sitemap Generator] Failed to fetch dynamic blogs:", err);
   }
 
-  // 4. Dynamic Lawyer Interviews from MongoDB
+  // 3. Dynamic Lawyer Interviews from MongoDB
   let interviewPages: any[] = [];
   try {
     await dbConnect();
@@ -88,5 +83,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("[Sitemap Generator] Failed to fetch dynamic lawyer interviews:", err);
   }
 
-  return [...staticPages, ...draftPages, ...blogPages, ...interviewPages];
+  return [...staticPages, ...blogPages, ...interviewPages];
 }

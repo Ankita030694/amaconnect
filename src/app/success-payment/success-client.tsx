@@ -124,10 +124,10 @@ export default function SuccessClient() {
 
                 <div className="w-full space-y-3 max-w-sm">
                   <Link
-                    href="/drafts"
+                    href="/"
                     className="block w-full bg-[#1C1A17] hover:bg-[#C69214] text-white text-center py-3.5 rounded-xl font-bold text-sm shadow-md transition-all active:scale-[0.98]"
                   >
-                    Browse Legal Library
+                    Browse Homepage
                   </Link>
 
                   <Link
@@ -199,10 +199,10 @@ export default function SuccessClient() {
                   </button>
 
                   <Link
-                    href="/drafts"
+                    href="/"
                     className="block w-full border border-slate-200 hover:bg-slate-50 text-slate-700 text-center py-3.5 rounded-xl font-bold text-sm transition-all"
                   >
-                    Browse More Templates
+                    Browse More Services
                   </Link>
                 </div>
               </div>
@@ -230,10 +230,10 @@ export default function SuccessClient() {
 
                 <div className="w-full space-y-3 max-w-sm">
                   <Link
-                    href="/drafts"
+                    href="/"
                     className="block w-full bg-[#1C1A17] hover:bg-[#000] text-white text-center py-3.5 rounded-xl font-bold text-sm shadow-md transition-all active:scale-[0.98]"
                   >
-                    Back to Legal Library
+                    Back to Homepage
                   </Link>
 
                   <Link

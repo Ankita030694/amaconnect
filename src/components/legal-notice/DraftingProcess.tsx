@@ -109,7 +109,7 @@ export default function DraftingProcess({ id }: { id?: string }) {
               Advocate Tip: Drafting Template Library
             </h3>
             <p className="text-sm text-blue-900/80 leading-relaxed text-justify">
-              To browse standard pre-drafted legal notice formats, check our curated registry at <Link href="/drafts" className="underline font-bold text-blue-950">Drafts Catalog</Link>, which contains verified templates for contract breach, cheque bounce, and tenant eviction, designed by legal experts.
+              To request standard pre-drafted legal notice formats, <Link href="/contact" className="underline font-bold text-blue-950">contact our legal team</Link>, who can provide verified templates for contract breach, cheque bounce, and tenant eviction, designed by legal experts.
             </p>
           </div>
         </div>

@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="w-full bg-[#F8F9FA] border-t border-gray-200/80 pt-12 sm:pt-16 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Top Section: Links and Apps */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mb-10 sm:mb-16">
           {/* Logo Column */}
           <div className="flex flex-col items-start max-w-sm">
             <Link href="/" className="inline-block transition-opacity hover:opacity-80 mb-4">
@@ -125,43 +125,8 @@ const Footer = () => {
                 { name: "Communities", href: "/communities" },
                 { name: "AMA Q&A", href: "/ask-me-anything" },
                 { name: "Interviews", href: "/interviews" },
-                { name: "Drafts Library", href: "/drafts" },
+                { name: "Sitemap", href: "/sitemap" },
                 { name: "Contact Us", href: "/contact" }
-              ].map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href} 
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Queries Column */}
-          <div>
-            <h3 className="text-lg sm:text-xl font-medium text-gray-900 mb-4 sm:mb-6">Legal Queries</h3>
-            <ul className="flex flex-col gap-3">
-              {[
-                { name: "Know Your Rights", href: "/know-your-rights-legal-guide" },
-                { name: "First Trial Prep", href: "/how-to-prepare-for-first-trial-advocate-advice" },
-                { name: "Loan App Settlement", href: "/loan-app-debt-settlement-harassment-legal-help" },
-                { name: "File Divorce India", href: "/how-to-file-divorce-india-legal-guide" },
-                { name: "Register Startup India", href: "/startup-registration-incorporation-india-guide" },
-                { name: "Property Dispute Remedies", href: "/property-dispute-resolution-india-legal-remedies" },
-                { name: "Draft Legal Notice", href: "/how-to-draft-legal-notice-india-guide" },
-                { name: "Patient Rights Guide", href: "/patient-rights-medical-negligence-legal-help" },
-                { name: "Motor Accident Claims", href: "/motor-accident-claims-compensation-guide" },
-                { name: "Cyber Fraud Remedies", href: "/cyber-fraud-online-scams-legal-recourse" },
-                { name: "Homebuyer RERA Rights", href: "/homebuyer-rights-rera-builder-delay-remedies" },
-                { name: "Workplace Safety POSH", href: "/posh-act-workplace-safety-employee-guide" },
-                { name: "Consumer Protections", href: "/consumer-protection-ecommerce-defective-goods-guide" },
-                { name: "Tenant Protections", href: "/tenant-rights-eviction-security-deposit-disputes" },
-                { name: "MSME Debt Recovery", href: "/ibc-msme-payment-recovery-insolvency-guide" },
-                { name: "Bail & Arrest Rights", href: "/bail-procedure-arrest-rights-police-custody-guide" },
-                { name: "Cheque Bounce Remedies", href: "/cheque-bounce-legal-notice-section-138-guide" }
               ].map((link) => (
                 <li key={link.name}>
                   <Link 

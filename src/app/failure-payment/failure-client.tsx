@@ -84,10 +84,10 @@ export default function FailureClient() {
 
                 <div className="w-full space-y-3">
                   <Link
-                    href="/drafts"
+                    href="/"
                     className="block w-full bg-[#1C1A17] hover:bg-[#C69214] text-white text-center py-3.5 rounded-xl font-bold text-sm shadow-md transition-all active:scale-[0.98]"
                   >
-                    Browse Legal Library
+                    Browse Homepage
                   </Link>
 
                   <Link
@@ -121,10 +121,10 @@ export default function FailureClient() {
 
                 <div className="w-full space-y-3">
                   <Link
-                    href="/drafts"
+                    href="/"
                     className="block w-full bg-[#1C1A17] hover:bg-[#C69214] text-white text-center py-3.5 rounded-xl font-bold text-sm shadow-md transition-all active:scale-[0.98]"
                   >
-                    Retry from Legal Library
+                    Retry from Homepage
                   </Link>
 
                   <Link

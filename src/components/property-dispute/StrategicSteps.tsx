@@ -30,10 +30,10 @@ export default function StrategicSteps({ id }: { id?: string }) {
               Sending a formal legal notice to the opposite party is a standard prerequisite in civil disputes. You can access professional, courtroom tested templates for legal notices, cease and desist letters, and property sale agreements to prepare your case.
             </p>
             <Link 
-              href="/drafts"
+              href="/contact"
               className="text-xs font-bold text-yellow-800 hover:text-yellow-950 underline"
             >
-              Browse Legal Drafts Catalog
+              Request Legal Drafts
             </Link>
           </div>
         </div>

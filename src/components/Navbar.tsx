@@ -32,7 +32,6 @@ export default function Navbar() {
               { name: "About", href: "/about" },
               { name: "Interviews", href: "/interviews" },
               { name: "Communities", href: "/communities" },
-              { name: "Drafts", href: "/drafts" },
               { name: "Blogs", href: "/blog" },
               { name: "Contact", href: "/contact" }
             ].map((link) => (
@@ -75,7 +74,6 @@ export default function Navbar() {
               { name: "About", href: "/about" },
               { name: "Interviews", href: "/interviews" },
               { name: "Communities", href: "/communities" },
-              { name: "Drafts", href: "/drafts" },
               { name: "Blogs", href: "/blog" },
               { name: "Contact", href: "/contact" }
             ].map((link) => (

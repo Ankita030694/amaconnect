@@ -3,33 +3,33 @@ import Link from "next/link";
 
 export default function ChequeSidebar() {
   return (
-    <div className="flex flex-col gap-6 sticky top-32 font-sans">
+    <div className="flex flex-col gap-4 font-sans">
       
       {/* Widget 1: Lead Gen Hook */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 flex flex-col">
-        <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-sm mb-4">
+      <div className="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col">
+        <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-sm mb-3">
           📄
         </div>
-        <h3 className="text-xl font-bold text-[#2D2219] mb-3 leading-tight">
+        <h3 className="text-lg font-bold text-[#2D2219] mb-2 leading-tight">
           Need a Legal Notice Draft?
         </h3>
-        <p className="text-gray-600 text-xs mb-6 leading-relaxed">
+        <p className="text-gray-600 text-xs mb-4 leading-relaxed">
           Download our professionally structured Section 138 demand notice templates, designed by top banking advocates in India, to initiate your recovery process today.
         </p>
         <Link 
-          href="/drafts"
-          className="w-full bg-[#1A1A1A] text-white hover:bg-black text-center font-bold py-3.5 rounded-xl transition-all shadow-md hover:scale-[1.02]"
+          href="/contact"
+          className="w-full bg-[#1A1A1A] text-white hover:bg-black text-center font-bold py-2.5 rounded-xl transition-all shadow-md hover:scale-[1.02] text-xs"
         >
-          Browse Notice Templates
+          Request Notice Draft
         </Link>
       </div>
 
       {/* Widget 2: App Stores (Replaces QR Code and Author Bio) */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 flex flex-col">
-        <h3 className="text-lg font-bold text-[#2D2219] mb-2 leading-tight">
+      <div className="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col">
+        <h3 className="text-lg font-bold text-[#2D2219] mb-1.5 leading-tight">
           Download AMAConnect App
         </h3>
-        <p className="text-gray-600 text-xs mb-6 leading-relaxed">
+        <p className="text-gray-600 text-xs mb-4 leading-relaxed">
           Access legal consultation, securely upload dishonored cheques and notices, and get real-time assistance on your mobile phone.
         </p>
         

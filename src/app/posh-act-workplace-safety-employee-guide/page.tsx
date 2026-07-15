@@ -234,10 +234,10 @@ export default function POSHActGuidePage() {
                 </span>
                 <div className="flex flex-wrap gap-3 justify-center">
                   <Link 
-                    href="/drafts" 
+                    href="/contact" 
                     className="text-xs font-bold text-[#D4AF37] hover:underline"
                   >
-                    Create Legal Drafts
+                    Request Compliance Drafts
                   </Link>
                   <span className="text-gray-300">|</span>
                   <Link 

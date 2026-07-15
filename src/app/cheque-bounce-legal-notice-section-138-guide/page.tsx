@@ -233,7 +233,7 @@ export default function ChequeBounceGuidePage() {
                   Over 75 percent of financial disputes in metropolitan magistrate courts involve cheque dishonor complaints. Acting swiftly within the strict 30 day statutory timeline and issuing a flawless Section 138 demand notice is the only path to recovering outstanding debts and initiating criminal prosecution.
                 </p>
                 <p className="text-gray-600 text-xs mt-3 leading-relaxed">
-                  If you need immediate legal templates or formal notice formats, check our extensive <a href="/drafts" className="text-[#D4AF37] font-bold hover:underline">Drafts Catalog</a>. You can also get answers directly on our platform or consult banking experts.
+                  If you need immediate legal templates or formal notice formats, you can <a href="/contact" className="text-[#D4AF37] font-bold hover:underline">consult our legal support team</a>. You can also get answers directly on our platform or consult banking experts.
                 </p>
               </div>
 
