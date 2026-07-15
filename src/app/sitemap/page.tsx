@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import dbConnect from "@/lib/dbConnect";
+import { Blog, LawyerInterview } from "@/lib/models";
 
 export const metadata = {
   title: "Sitemap & Legal Guides Directory | AMAConnect",
@@ -20,7 +22,7 @@ interface SitemapCategory {
   links: SitemapLink[];
 }
 
-export default function SitemapPage() {
+export default async function SitemapPage() {
   const categories: SitemapCategory[] = [
     {
       title: "Core Platform Navigation",
@@ -89,6 +91,56 @@ export default function SitemapPage() {
       ]
     }
   ];
+
+  try {
+    await dbConnect();
+    
+    // Helper to strip HTML and truncate
+    const stripHtmlAndTruncate = (html: string, fallback: string) => {
+      if (!html) return fallback;
+      const stripped = html.replace(/<[^>]*>?/gm, '');
+      if (stripped.length > 140) {
+        return stripped.substring(0, 137) + "...";
+      }
+      return stripped;
+    };
+
+    // 1. Fetch Dynamic Blogs
+    const blogs = await Blog.find({}, { title: 1, slug: 1, description: 1, metaDescription: 1, subtitle: 1 }).lean();
+    if (blogs && blogs.length > 0) {
+      const blogLinks = blogs.map((blog: any) => ({
+        name: blog.title,
+        href: `/blog/${blog.slug}`,
+        description: blog.metaDescription || blog.subtitle || stripHtmlAndTruncate(blog.description, "Read our latest legal blog post on this topic.")
+      }));
+      
+      categories.push({
+        title: "Latest Legal Blogs & Articles",
+        icon: "📝",
+        description: "In-depth legal analysis, case studies, and updates on Indian laws.",
+        links: blogLinks
+      });
+    }
+
+    // 2. Fetch Dynamic Lawyer Interviews
+    const interviews = await LawyerInterview.find({}, { title: 1, slug: 1, description: 1, metaDescription: 1 }).lean();
+    if (interviews && interviews.length > 0) {
+      const interviewLinks = interviews.map((interview: any) => ({
+        name: interview.title,
+        href: `/interviews/${interview.slug}`,
+        description: interview.metaDescription || stripHtmlAndTruncate(interview.description, "Exclusive insights and experiences from top legal minds in India.")
+      }));
+      
+      categories.push({
+        title: "Exclusive Lawyer Interviews",
+        icon: "🎙️",
+        description: "In-depth discussions and career journeys of prominent advocates.",
+        links: interviewLinks
+      });
+    }
+  } catch (error) {
+    console.error("[Sitemap HTML] Error fetching dynamic pages:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#FDFCF7] flex flex-col font-sans">
