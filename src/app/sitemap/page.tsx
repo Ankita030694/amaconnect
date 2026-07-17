@@ -59,6 +59,11 @@ export default async function SitemapPage() {
     { name: "Continuing Legal Education & Upskilling", href: "/continuing-legal-education-skills-lawyers" },
     { name: "Registry & Court Etiquette Guide", href: "/courtroom-registry-etiquette-young-advocates" },
     { name: "Thought Leadership & Publishing", href: "/thought-leadership-publishing-lawyers" },
+    { name: "Essential Legal Tech Software", href: "/essential-legal-tech-software-indian-lawyers" },
+    { name: "Drafting Supreme Court SLPs", href: "/drafting-supreme-court-slp-article-136-guide" },
+    { name: "Advanced Legal Research & Case Briefing", href: "/effective-legal-research-case-briefing-advocates" },
+    { name: "Financial Management & Tax Planning", href: "/financial-management-tax-planning-law-firms-india" },
+    { name: "Transitioning to High Court Practice", href: "/transitioning-trial-court-to-high-court-practice" },
   ];
 
   let dynamicLinks: { name: string; href: string }[] = [];

@@ -55,6 +55,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/continuing-legal-education-skills-lawyers",
     "/courtroom-registry-etiquette-young-advocates",
     "/thought-leadership-publishing-lawyers",
+    "/essential-legal-tech-software-indian-lawyers",
+    "/drafting-supreme-court-slp-article-136-guide",
+    "/effective-legal-research-case-briefing-advocates",
+    "/financial-management-tax-planning-law-firms-india",
+    "/transitioning-trial-court-to-high-court-practice",
     "/sitemap",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
