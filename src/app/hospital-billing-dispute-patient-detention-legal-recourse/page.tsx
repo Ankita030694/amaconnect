@@ -43,25 +43,25 @@ export default function HospitalBillingPage() {
       author: "Dr. Sandeep Y.",
       rating: "5",
       text: "As a medical professional, I highly recommend this guide. It clearly explains that hospitals cannot withhold patients or deceased bodies for unpaid bills, protecting both patients and ethical medical practices.",
-      avatar: "👨‍⚕️"
+      avatar: "SY"
     },
     {
       author: "Meera T.",
       rating: "5",
       text: "When a private hospital refused to release my father body over a billing dispute, this guide helped us contact the police and cite high court rulings. The hospital released the body immediately.",
-      avatar: "👩"
+      avatar: "MT"
     },
     {
       author: "Rajesh G.",
       rating: "5",
       text: "Our family was overcharged by three lakh rupees for consumables. We used the itemized bill audit checklist from this guide and successfully negotiated a fair billing settlement.",
-      avatar: "👨"
+      avatar: "RG"
     },
     {
       author: "Saira K.",
       rating: "5",
       text: "Extremely informative guide on emergency stabilization. When a local clinic refused to admit my sister without an advance deposit, I cited Parmanand Katara and they started treatment immediately.",
-      avatar: "👩"
+      avatar: "SK"
     }
   ];
 
@@ -293,7 +293,7 @@ export default function HospitalBillingPage() {
                         &quot;{rev.text}&quot;
                       </p>
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center text-lg shadow-inner">
+                        <div className="w-10 h-10 rounded-full bg-[#F3ECE0] flex items-center justify-center font-bold text-xs text-[#B58E2F] shrink-0 select-none">
                           {rev.avatar}
                         </div>
                         <div>
