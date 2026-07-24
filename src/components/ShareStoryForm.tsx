@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 export default function ShareStoryForm() {
   return (
@@ -52,6 +53,9 @@ export default function ShareStoryForm() {
           </div>
 
           <div className="pt-4 text-center">
+            <div className="text-center text-xs text-gray-500 mb-4 px-2">
+              By clicking submit, you agree to share these details with us for the purpose of contacting you regarding our services. Please read our <Link href="/privacy-policy" className="text-[#D4AF37] hover:underline font-medium">Privacy Policy</Link> for more details.
+            </div>
             <button
               type="submit"
               className="bg-[#2E2822] text-white px-10 py-3.5 rounded-lg font-medium hover:bg-black transition-colors shadow-md"

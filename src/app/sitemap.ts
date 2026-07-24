@@ -90,6 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/effective-legal-research-case-briefing-advocates",
     "/financial-management-tax-planning-law-firms-india",
     "/transitioning-trial-court-to-high-court-practice",
+    "/privacy-policy",
     "/sitemap",
   ].map((route) => ({
     url: `${baseUrl}${route}`,

@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { CheckCircle2, AlertCircle, Send } from "lucide-react";
+import Link from "next/link";
 
 // List of Indian states and union territories (sorted alphabetically)
 const indianStatesAndUTs = [
@@ -485,6 +486,9 @@ export default function RequestDraftForm({
           </div>
 
           {/* Centered Submit Action Button */}
+          <div className="text-center text-xs text-gray-500 mt-4 px-2">
+            By clicking submit, you agree to share these details with us for the purpose of contacting you regarding our services. Please read our <Link href="/privacy-policy" className="text-[#C69214] hover:underline font-medium">Privacy Policy</Link> for more details.
+          </div>
           <div className={`flex justify-center ${isCompact ? "mt-3" : "mt-6"}`}>
             <button
               type="submit"

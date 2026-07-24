@@ -4,6 +4,7 @@ import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 // import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import { MapPin, CheckCircle, AlertCircle, Send } from "lucide-react";
 
 // List of Indian states and union territories (sorted alphabetically)
@@ -488,6 +489,9 @@ export default function ContactClient() {
                   </div>
 
                   {/* Submit Button */}
+                  <div className="text-center text-xs text-gray-500 mb-4 px-2">
+                    By clicking submit, you agree to share these details with us for the purpose of contacting you regarding our services. Please read our <Link href="/privacy-policy" className="text-[#D4AF37] hover:underline font-medium">Privacy Policy</Link> for more details.
+                  </div>
                   <button
                     type="submit"
                     disabled={isSubmitting}

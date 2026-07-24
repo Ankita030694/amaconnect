@@ -126,6 +126,7 @@ const Footer = () => {
                 { name: "AMA Q&A", href: "/ask-me-anything" },
                 { name: "Interviews", href: "/interviews" },
                 { name: "Sitemap", href: "/sitemap" },
+                { name: "Privacy Policy", href: "/privacy-policy" },
                 { name: "Contact Us", href: "/contact" }
               ].map((link) => (
                 <li key={link.name}>
