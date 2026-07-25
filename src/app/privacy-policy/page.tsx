@@ -39,9 +39,10 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc pl-6 mb-6 space-y-2">
               <li><strong>Full Name:</strong> To address you properly.</li>
               <li><strong>Email Address:</strong> To send you updates, drafts, and responses.</li>
-              <li><strong>Mobile Number:</strong> To contact you regarding urgent consultation updates or follow-ups.</li>
+              <li><strong>Phone Number:</strong> To contact you regarding urgent consultation updates or follow-ups.</li>
               <li><strong>State / Union Territory:</strong> To ensure we match you with the correct regional legal guidelines or experts.</li>
-              <li><strong>Legal Issue / Message:</strong> The specific details or context you provide so we can assist you effectively.</li>
+              <li><strong>Reason for Contact:</strong> The primary reason you are reaching out to us.</li>
+              <li><strong>Message:</strong> The specific details or context you provide so we can assist you effectively.</li>
             </ul>
 
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">3. How We Use Your Data</h2>
