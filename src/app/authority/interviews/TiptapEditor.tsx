@@ -300,6 +300,14 @@ const MenuBar = ({ editor }: { editor: any }) => {
         >
           →
         </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+          className={`p-1 px-2 rounded hover:bg-slate-200/60 ${editor.isActive({ textAlign: 'justify' }) ? 'bg-slate-200 text-[#B8860B] font-bold' : 'text-slate-600'}`}
+          title="Align Justify"
+        >
+          ≡
+        </button>
       </div>
 
       <span className="border-r border-slate-200 mx-1"></span>
@@ -492,7 +500,7 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ content, onChange, classNam
       }),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
-        alignments: ['left', 'center', 'right'],
+        alignments: ['left', 'center', 'right', 'justify'],
       }),
       Underline,
       TextStyle,
