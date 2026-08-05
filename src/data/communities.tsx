@@ -11,25 +11,6 @@ export type Community = {
 /** Community cards — shared by CommunityShowcase and Hero */
 export const communities: Community[] = [
   {
-    title: "Family Law Community",
-    shortTitle: "Family Law",
-    description: "Discuss divorce, custody, marriage disputes, and family-related legal questions.",
-    link: "https://chat.whatsapp.com/CRUjrhp0zYJ1wmO1Yvk65I?mode=gi_t",
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-        <path d="M24 8V38" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M14 38H34" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M24 12H8" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M24 12H40" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M8 12L4 24H12L8 12Z" fill="#D49B00" stroke="#D49B00" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M40 12L36 24H44L40 12Z" fill="#D49B00" stroke="#D49B00" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M4 6L6 4L8 6" stroke="#D49B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M7 6L9 4L11 6" stroke="#D49B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M10 6L12 4L14 6" stroke="#D49B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
     title: "IPR & Trademark Community",
     shortTitle: "IPR",
     description: "Discuss brand registration, trademark filings, copyrights, and intellectual property rights.",
@@ -39,20 +20,6 @@ export const communities: Community[] = [
         <path d="M24 6C30 6 38 8 38 8V24C38 33 29 39 24 42C19 39 10 33 10 24V8C10 8 18 6 24 6Z" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx="24" cy="22" r="7" stroke="#D49B00" strokeWidth="2.5" />
         <path d="M26 19.5C25 18.5 23 18.5 22 19.5C21 20.5 21 23.5 22 24.5C23 25.5 25 25.5 26 24.5" stroke="#D49B00" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    title: "Corporate Law Network",
-    shortTitle: "Corporate",
-    description: "Dedicated conversations around business structuring, corporate governance, and company compliance.",
-    link: "https://chat.whatsapp.com/LFys33bhoMcHzr1PaByDPS?mode=gi_t",
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-        <rect x="10" y="16" width="28" height="22" rx="4" stroke="#3B82F6" strokeWidth="2.5" />
-        <path d="M18 16V11C18 9.5 19.5 8 21 8H27C28.5 8 30 9.5 30 11V16" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="19" y1="24" x2="29" y2="24" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="19" y1="30" x2="29" y2="30" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -99,6 +66,39 @@ export const communities: Community[] = [
         <circle cx="24" cy="22" r="6" stroke="#D49B00" strokeWidth="2.5" />
         <path d="M16 36C20 38 28 38 32 36" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
         <path d="M24 28V40" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Corporate Law Network",
+    shortTitle: "Corporate",
+    description: "Dedicated conversations around business structuring, corporate governance, and company compliance.",
+    link: "https://chat.whatsapp.com/LFys33bhoMcHzr1PaByDPS?mode=gi_t",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
+        <rect x="10" y="16" width="28" height="22" rx="4" stroke="#3B82F6" strokeWidth="2.5" />
+        <path d="M18 16V11C18 9.5 19.5 8 21 8H27C28.5 8 30 9.5 30 11V16" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="19" y1="24" x2="29" y2="24" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="19" y1="30" x2="29" y2="30" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Family Law Community",
+    shortTitle: "Family Law",
+    description: "Discuss divorce, custody, marriage disputes, and family-related legal questions.",
+    link: "https://chat.whatsapp.com/CRUjrhp0zYJ1wmO1Yvk65I?mode=gi_t",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
+        <path d="M24 8V38" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M14 38H34" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M24 12H8" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M24 12H40" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M8 12L4 24H12L8 12Z" fill="#D49B00" stroke="#D49B00" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M40 12L36 24H44L40 12Z" fill="#D49B00" stroke="#D49B00" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M4 6L6 4L8 6" stroke="#D49B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7 6L9 4L11 6" stroke="#D49B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M10 6L12 4L14 6" stroke="#D49B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },

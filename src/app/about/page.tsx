@@ -1,12 +1,11 @@
 import { Metadata } from "next";
 import AboutHero from "@/components/AboutHero";
-import AboutChallenge from "@/components/AboutChallenge";
-import AboutFounders from "@/components/AboutFounders";
-import AboutFeatures from "@/components/AboutFeatures";
-import AboutClients from "@/components/AboutClients";
+import FounderStory from "@/components/FounderStory";
+import HowItHelps from "@/components/HowItHelps";
+import TrustedByGrid from "@/components/TrustedByGrid";
 import AboutSteps from "@/components/AboutSteps";
+import ClosingCTA from "@/components/ClosingCTA";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -27,15 +26,14 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans">
-      <main className="flex-grow">
+    <div className="flex flex-col min-h-screen bg-[#FDFBF7] font-sans">
+      <main className="flex-grow pt-4 sm:pt-6">
         <AboutHero />
-        <AboutChallenge />
-        <AboutFounders />
-        <AboutFeatures />
-        <AboutClients />
+        <HowItHelps />
+        <FounderStory />
+        <TrustedByGrid />
         <AboutSteps />
-        <CTASection/>
+        <ClosingCTA />
       </main>
       <Footer />
     </div>

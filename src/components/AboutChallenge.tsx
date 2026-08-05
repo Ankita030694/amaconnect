@@ -70,10 +70,12 @@ function Word({ word, progress, start, end }: WordProps) {
       {/* Foreground (Revealed) color: Elegant deep espresso brown */}
       <motion.span
         style={{ width }}
+        aria-hidden="true"
         className="absolute top-0 left-0 text-[#2D2219] font-extrabold overflow-hidden whitespace-nowrap select-none"
       >
         {word}
       </motion.span>
+      <span className="sr-only">{" "}</span>
     </span>
   );
 }

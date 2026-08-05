@@ -3,7 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import Navbar from "@/components/Navbar";
+import NewsFlashTicker from "@/components/NewsFlashTicker";
 import NewNavbar from "@/components/NewNavbar";
+import MobileBottomNav from "@/components/MobileBottomNav";
+import WhatsAppButton from "@/components/ Whatsappbutton";
 import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
@@ -64,11 +67,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://firestore.googleapis.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col pb-[72px] md:pb-0 bg-white text-gray-900">
         <AuthProvider>
-          {/* <Navbar /> */}
-          <NewNavbar />
+          <Navbar />
+          <NewsFlashTicker />
+          {/* <NewNavbar /> */}
+
           {children}
+          <WhatsAppButton />
+          <MobileBottomNav />
           <Analytics />
         </AuthProvider>
       </body>

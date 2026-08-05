@@ -1,101 +1,148 @@
+"use client";
+
 import Image from "next/image";
-const PLAY_STORE_URL =
-  "https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions&pcampaignid=web_share";
-const APP_STORE_URL =
-  "https://apps.apple.com/in/app/ama-legal-solutions/id6755156186";
+import { Clock, ShieldCheck, ShieldEllipsis } from "lucide-react";
+import TrustStatBadge from "./TrustStatBadge";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export default function AboutHero() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Use springs for smooth interpolation
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 25 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 25 });
+
+  // Map normalized mouse positions (-0.5 to 0.5) to rotation angles
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const xPct = (mouseX / rect.width) - 0.5;
+    const yPct = (mouseY / rect.height) - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <section className="relative w-full bg-white overflow-hidden font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[52px] pb-12 sm:pb-16 flex flex-col items-center text-center">
-        {/* Social proof / trust badge */}
-        <Image
-          src="/reviews.svg"
-          alt="4.6 out of 5 stars — 5K+ downloads"
-          width={275}
-          height={56}
-          className="h-[46px] sm:h-[56px] w-auto mb-6 sm:mb-8"
-          priority
-        />
+    <section className="w-full bg-[#FDFBF7] pt-6 pb-16 sm:pt-8 sm:pb-20 lg:pt-10 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 lg:gap-16">
+        
+        {/* Left Text Column */}
+        <div className="flex-1 flex flex-col items-center md:items-start w-full order-1 text-center md:text-left">
+          {/* Pill Badge */}
+          <div className="inline-flex items-center justify-center border border-[#EAE5D8] rounded-full px-4 py-1.5 mb-6">
+            <span className="text-[10px] sm:text-xs font-bold text-gray-800 tracking-wider uppercase">
+              Trusted by Thousands of People & Businesses Across India
+            </span>
+          </div>
 
-        {/* Main headline */}
-        <h1 className="text-[2rem] sm:text-5xl lg:text-[3.25rem] font-extrabold text-[#2D2219] leading-[1.12] tracking-tight mb-5 sm:mb-6 max-w-3xl">
-          India&apos;s Smarter Way to Get
-          <br />
-          Legal Help
-        </h1>
+          {/* Ratings & Downloads */}
+          <div className="mb-8">
+             <TrustStatBadge />
+          </div>
 
-        {/* Subheadline */}
-        <p className="text-gray-600 font-normal text-base sm:text-lg leading-relaxed max-w-2xl mb-8 sm:mb-10">
-          From asking legal questions to connecting with lawyers, AMA Connect simplifies
-          legal support through one powerful app.
-        </p>
+          {/* Headline */}
+          <h1 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[4rem] font-extrabold text-[#2D2219] leading-[1.05] mb-6 tracking-tight">
+            India's Smarter Way to Get Legal Help.
+          </h1>
 
-        {/* CTA — pill button with store icons */}
-        <div className="inline-flex items-center bg-[#2D2219] text-white rounded-full py-3 sm:py-3.5 px-6 sm:px-8 shadow-[0_8px_28px_rgba(45,34,25,0.18)] hover:shadow-[0_12px_36px_rgba(45,34,25,0.26)] hover:scale-[1.02] transition-all duration-300 gap-3 sm:gap-4 select-none mb-12 sm:mb-14">
-          <span className="font-bold text-sm sm:text-base tracking-wide whitespace-nowrap">
-            Get the App
-          </span>
+          <p className="text-lg sm:text-xl text-gray-600 font-medium mb-6">
+            One app. Verified lawyers. Real answers.
+          </p>
 
-          <div className="w-px h-5 sm:h-6 bg-white/25 shrink-0" aria-hidden />
+          {/* Powered by */}
+          <div className="flex items-center justify-center md:justify-start gap-2 mb-12">
+            <span className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">Powered by</span>
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-[#F8F5EE] border border-[#EAE5D8] rounded-md">
+               <ShieldCheck className="w-4 h-4 text-[#C9A227]" strokeWidth={2.5} />
+               <span className="text-xs sm:text-sm font-bold text-[#2D2219]">AMA Legal Solutions</span>
+            </div>
+          </div>
 
-          <a
-            href={PLAY_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-0.5 hover:scale-110 active:scale-95 transition-transform"
-            title="Download on Google Play"
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" aria-hidden>
-              <path
-                d="M3.25 1.55a1.73 1.73 0 0 0-.47 1.22v18.46a1.73 1.73 0 0 0 .47 1.22l.06.06L13.88 12v-.15L3.31 1.5z"
-                fill="#00F0FF"
-              />
-              <path
-                d="M17.41 15.58L13.88 12v-.15L17.41 8.3l.08.05 4.17 2.37c1.19.67 1.19 1.78 0 2.46l-4.17 2.37-.08.03z"
-                fill="#FFC700"
-              />
-              <path
-                d="M17.49 15.53L13.88 11.92L3.25 22.45a1.44 1.44 0 0 0 1.83.06l12.41-7.07"
-                fill="#FF003F"
-              />
-              <path
-                d="M17.49 8.35L5.08 1.28A1.44 1.44 0 0 0 3.25 1.34L13.88 11.93l3.61-3.58"
-                fill="#00E676"
-              />
-            </svg>
-          </a>
+          {/* Mission */}
+          <div className="mb-12 w-full flex flex-col items-center md:items-start">
+            <div className="w-12 h-1 bg-[#C9A227] rounded-full mb-4"></div>
+            <h2 className="text-xs font-bold text-[#C9A227] uppercase tracking-widest mb-2">Our Mission</h2>
+            <p className="text-2xl sm:text-3xl font-medium text-[#2D2219] leading-tight max-w-lg">
+              Making legal help simple, fast and accessible for everyone.
+            </p>
+          </div>
 
-          <div className="w-px h-5 sm:h-6 bg-white/25 shrink-0" aria-hidden />
+          {/* 3 Icons Row */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center md:justify-start gap-8 sm:gap-6 w-full pt-8 border-t border-[#EAE5D8]">
+            <div className="flex flex-col items-center md:items-start gap-3 flex-1">
+              <div className="w-12 h-12 rounded-full border-2 border-[#C9A227] flex items-center justify-center text-[#C9A227]">
+                <Clock className="w-6 h-6" strokeWidth={1.5} />
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="font-bold text-sm text-[#2D2219] mb-1">Fast Answers</h3>
+                <p className="text-xs text-gray-500 leading-relaxed">Get guidance within<br className="hidden sm:block" /> 45 minutes.</p>
+              </div>
+            </div>
 
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-0.5 hover:scale-110 active:scale-95 transition-transform text-white"
-            title="Download on the App Store"
-          >
-            <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 fill-white" aria-hidden>
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-.96.04-2.13.64-2.82 1.45-.6.69-1.12 1.83-.98 2.94 1.07.08 2.15-.52 2.81-1.33z" />
-            </svg>
-          </a>
+            <div className="flex flex-col items-center md:items-start gap-3 flex-1">
+              <div className="w-12 h-12 rounded-full border-2 border-[#C9A227] flex items-center justify-center text-[#C9A227]">
+                <ShieldCheck className="w-6 h-6" strokeWidth={1.5} />
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="font-bold text-sm text-[#2D2219] mb-1">Verified Experts</h3>
+                <p className="text-xs text-gray-500 leading-relaxed">Connect with trusted<br className="hidden sm:block" /> legal professionals.</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center md:items-start gap-3 flex-1">
+              <div className="w-12 h-12 rounded-full border-2 border-[#C9A227] flex items-center justify-center text-[#C9A227]">
+                <ShieldEllipsis className="w-6 h-6" strokeWidth={1.5} />
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="font-bold text-sm text-[#2D2219] mb-1">Secure & Private</h3>
+                <p className="text-xs text-gray-500 leading-relaxed">Your privacy and data<br className="hidden sm:block" /> are always protected.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Product mockup with warm glow */}
-        <div className="relative w-full max-w-[900px] sm:max-w-[1080px] lg:max-w-[1200px]">
-          <div
-            className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 w-[120%] h-[75%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,200,60,0.55)_0%,rgba(255,220,120,0.25)_45%,transparent_72%)] blur-2xl pointer-events-none -z-10"
-            aria-hidden
-          />
-          <Image
-            src="/about-phone.png"
-            alt="Hand holding a smartphone showing the AMA Connect app"
-            width={2400}
-            height={3000}
-            className="w-full h-auto relative z-10"
-            priority
-          />
+        {/* Right Phone Mockup (3D CSS Tilt) */}
+        <div 
+          className="flex-1 w-full order-2 flex justify-center md:justify-end relative min-h-[500px] sm:min-h-[600px] lg:min-h-[750px] mt-8 md:mt-0 [perspective:1200px]"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+           {/* Decorative background glow */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] bg-[#C9A227]/15 rounded-full blur-[100px] pointer-events-none"></div>
+           
+           <motion.div 
+             className="absolute -top-8 sm:-top-16 lg:-top-24 right-[-10%] sm:right-[-20%] lg:right-[-30%] w-[120%] sm:w-[130%] lg:w-[150%] h-[110%] origin-center drop-shadow-2xl"
+             style={{
+               rotateX,
+               rotateY,
+               transformStyle: "preserve-3d"
+             }}
+           >
+             {/* The initial 4deg rotation is applied to a child div so the framer-motion container can freely handle dynamic tilt */}
+             <div className="relative w-full h-full transform rotate-[4deg]">
+               <Image
+                 src="/about-phone.png"
+                 alt="AMA Connect App"
+                 fill
+                 className="object-contain object-center md:object-right pointer-events-none"
+                 priority
+               />
+             </div>
+           </motion.div>
         </div>
+
       </div>
     </section>
   );

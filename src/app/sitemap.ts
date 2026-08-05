@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/success-stories",
     "/secure-online-legal-consultation-app",
     "/know-your-rights-legal-guide",
+    "/suicide-note-naming-abetment-charge-legal-defense",
     "/how-to-prepare-for-first-trial-advocate-advice",
     "/loan-app-debt-settlement-harassment-legal-help",
     "/how-to-file-divorce-india-legal-guide",
