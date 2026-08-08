@@ -11,7 +11,23 @@ export type Community = {
 /** Community cards — shared by CommunityShowcase and Hero */
 export const communities: Community[] = [
   {
-    title: "IPR & Trademark Community",
+    title: "Loan Settlement & Debt Relief Support India",
+    shortTitle: "Debt Relief",
+    description: "Professional legal guidance on loan restructuring, bank negotiations, and debt resolution.",
+    link: "https://chat.whatsapp.com/KS4wL8xEVsI1skDuRJCa4q?mode=gi_t",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
+        <path d="M14 22H34" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M18 16L14 22L18 28" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M30 16L34 22L30 28" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="24" cy="22" r="6" stroke="#D49B00" strokeWidth="2.5" />
+        <path d="M16 36C20 38 28 38 32 36" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M24 28V40" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "IPR, Trademark & Copyright Legal Community",
     shortTitle: "IPR",
     description: "Discuss brand registration, trademark filings, copyrights, and intellectual property rights.",
     link: "https://chat.whatsapp.com/KhhmwpBnXQ05njEpChZFPN?mode=gi_t",
@@ -24,21 +40,7 @@ export const communities: Community[] = [
     ),
   },
   {
-    title: "Property Law Support",
-    shortTitle: "Property",
-    description: "Get advice on property disputes, land registration, leasing agreements, and inheritance.",
-    link: "https://chat.whatsapp.com/H4SrztIjgt9GqU3ej9rXiC?mode=gi_t",
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-        <path d="M10 21V38C10 39.5 11.5 41 13 41H35C36.5 41 38 39.5 38 38V21" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M6 22L24 7L42 22" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="24" cy="27" r="4" stroke="#D49B00" strokeWidth="2.5" />
-        <path d="M24 31V37" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    title: "Legal Drafting & Contracts",
+    title: "Legal Drafting - Agreements, Contracts & Wills",
     shortTitle: "Drafting",
     description: "Support on drafting legal agreements, contracts, deeds, and reviewing legal notices.",
     link: "https://chat.whatsapp.com/CRUjrhp0zYJ1wmO1Yvk65I?mode=gi_t",
@@ -54,18 +56,16 @@ export const communities: Community[] = [
     ),
   },
   {
-    title: "Loan & Debt Relief Support",
-    shortTitle: "Debt Relief",
-    description: "Professional legal guidance on loan restructuring, bank negotiations, and debt resolution.",
-    link: "https://chat.whatsapp.com/KS4wL8xEVsI1skDuRJCa4q?mode=gi_t",
+    title: "Property Law & Real Estate Legal Help",
+    shortTitle: "Property",
+    description: "Get advice on property disputes, land registration, leasing agreements, and inheritance.",
+    link: "https://chat.whatsapp.com/H4SrztIjgt9GqU3ej9rXiC?mode=gi_t",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-        <path d="M14 22H34" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M18 16L14 22L18 28" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M30 16L34 22L30 28" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="24" cy="22" r="6" stroke="#D49B00" strokeWidth="2.5" />
-        <path d="M16 36C20 38 28 38 32 36" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M24 28V40" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M10 21V38C10 39.5 11.5 41 13 41H35C36.5 41 38 39.5 38 38V21" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M6 22L24 7L42 22" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="24" cy="27" r="4" stroke="#D49B00" strokeWidth="2.5" />
+        <path d="M24 31V37" stroke="#D49B00" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     ),
   },

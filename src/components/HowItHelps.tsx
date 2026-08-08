@@ -94,7 +94,7 @@ export default function HowItHelps() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
             
             {/* Card 1: Ask AMA */}
-            <div className="bg-[#141414] rounded-3xl p-6 sm:p-8 flex flex-col text-left overflow-hidden h-[360px] sm:h-[400px] relative border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group shadow-lg shadow-black/50">
+            <div className="bg-gradient-to-br from-[#2D2219] to-[#0F0A06] rounded-3xl p-6 sm:p-8 flex flex-col text-left overflow-hidden h-[360px] sm:h-[400px] relative border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group shadow-lg shadow-black/50">
               
               <div className="relative z-10 flex flex-col h-full w-[60%] sm:w-[55%]">
                 {/* Icon */}
@@ -124,7 +124,7 @@ export default function HowItHelps() {
             </div>
 
             {/* Card 2: Case Desk */}
-            <div className="bg-[#141414] rounded-3xl p-6 sm:p-8 flex flex-col text-left overflow-hidden h-[360px] sm:h-[400px] relative border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group shadow-lg shadow-black/50">
+            <div className="bg-gradient-to-br from-[#2D2219] to-[#0F0A06] rounded-3xl p-6 sm:p-8 flex flex-col text-left overflow-hidden h-[360px] sm:h-[400px] relative border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group shadow-lg shadow-black/50">
               
               <div className="relative z-10 flex flex-col h-full w-[60%] sm:w-[55%]">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4 border border-[#D4AF37]/50 bg-[#D4AF37]/10">
@@ -152,7 +152,7 @@ export default function HowItHelps() {
             </div>
 
             {/* Card 3: Ask Your Lawyer */}
-            <div className="bg-[#141414] rounded-3xl p-6 sm:p-8 flex flex-col text-left overflow-hidden h-[360px] sm:h-[400px] relative border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group shadow-lg shadow-black/50">
+            <div className="bg-gradient-to-br from-[#2D2219] to-[#0F0A06] rounded-3xl p-6 sm:p-8 flex flex-col text-left overflow-hidden h-[360px] sm:h-[400px] relative border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group shadow-lg shadow-black/50">
               
               <div className="relative z-10 flex flex-col h-full w-[60%] sm:w-[55%]">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4 border border-[#D4AF37]/50 bg-[#D4AF37]/10">

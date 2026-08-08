@@ -51,6 +51,8 @@ export async function PUT(
     const {
       title,
       lawyer,
+      designation,
+      companyName,
       image,
       specialization,
       date,
@@ -88,6 +90,8 @@ export async function PUT(
     // Update fields
     interview.title = title.trim();
     interview.lawyer = lawyer.trim();
+    interview.designation = designation ? designation.trim() : "";
+    interview.companyName = companyName ? companyName.trim() : "";
     interview.image = image;
     interview.specialization = specialization.trim();
     interview.date = date;

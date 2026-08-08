@@ -55,6 +55,8 @@ interface LawyerInterview {
   _id?: string;
   title: string;
   lawyer: string;
+  designation?: string;
+  companyName?: string;
   image: string;
   specialization: string;
   linkedinUrl?: string;
@@ -80,6 +82,8 @@ const InterviewsDashboard = () => {
   const [newInterview, setNewInterview] = useState<LawyerInterview>({
     title: '',
     lawyer: '',
+    designation: '',
+    companyName: '',
     image: '',
     specialization: '',
     date: new Date().toISOString().split('T')[0], // Format as YYYY-MM-DD
@@ -903,6 +907,33 @@ const InterviewsDashboard = () => {
                       className="w-full px-4 py-3 bg-white border border-slate-200 focus:border-[#B8860B] rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-50 text-slate-800 text-sm placeholder-slate-400"
                     />
                   </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Designation</label>
+                    <input
+                      type="text"
+                      name="designation"
+                      value={newInterview.designation || ''}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Vice President, Partner, etc."
+                      className="w-full px-4 py-3 bg-white border border-slate-200 focus:border-[#B8860B] rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-50 text-slate-800 text-sm placeholder-slate-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Company / Firm Name</label>
+                    <input
+                      type="text"
+                      name="companyName"
+                      value={newInterview.companyName || ''}
+                      onChange={handleInputChange}
+                      placeholder="e.g. DFPCL, Legal Firm LLP"
+                      className="w-full px-4 py-3 bg-white border border-slate-200 focus:border-[#B8860B] rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-50 text-slate-800 text-sm placeholder-slate-400"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
 
                   <div>
                     <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Legal Specializations <span className="text-red-500">*</span></label>

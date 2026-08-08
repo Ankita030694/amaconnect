@@ -54,9 +54,11 @@ interface Review {
 }
 
 interface LawyerInterview {
-  _id?: string;
+  _id: string;
   title: string;
   lawyer: string;
+  designation?: string;
+  companyName?: string;
   image: string;
   specialization: string;
   date: string;

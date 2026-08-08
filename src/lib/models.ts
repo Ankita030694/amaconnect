@@ -127,6 +127,8 @@ const LawyerInterviewSchema = new Schema({
   title: { type: String, required: true },
   headline: { type: String, default: "" },
   lawyer: { type: String, required: true },
+  designation: { type: String, default: "" },
+  companyName: { type: String, default: "" },
   image: { type: String, required: true },
   specialization: { type: String, required: true },
   date: { type: String, required: true },
@@ -185,6 +187,9 @@ const BlogSchema = new Schema({
   image: { type: String, required: true },
   slug: { type: String, required: true },
   author: { type: String, default: "Anuj Anand Malik" },
+  authorTitle: { type: String, default: "" },
+  authorPhoto: { type: String, default: "" },
+  category: { type: String, default: "" },
   metaTitle: { type: String, default: "" },
   metaDescription: { type: String, default: "" },
   faqs: [BlogFAQSchema],
@@ -194,4 +199,33 @@ const BlogSchema = new Schema({
 
 export const Blog = mongoose.models.Blog || mongoose.model("Blog", BlogSchema);
 
+// -------------------------------------------------------------
+// 9. CUSTOM NEWS (ADMIN MANAGED)
+// -------------------------------------------------------------
+const CustomNewsSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  url: { type: String, default: "" }, // Made optional for internal news
+  slug: { type: String, default: "" },
+  content: { type: String, default: "" },
+  urlToImage: { type: String, required: true },
+  publishedAt: { type: String, required: true },
+  source: { type: String, required: true },
+  author: { type: String, required: true },
+  categories: [{ type: String }],
+  isPinned: { type: Boolean, default: false },
+  order: { type: Number, default: 0 },
+  createdAt: { type: Date, default: Date.now }
+}, { collection: "custom_news" });
 
+export const CustomNews = mongoose.models.CustomNews || mongoose.model("CustomNews", CustomNewsSchema);
+
+// -------------------------------------------------------------
+// 10. NEWSLETTER SUBSCRIBERS
+// -------------------------------------------------------------
+const SubscriberSchema = new Schema({
+  email: { type: String, required: true, unique: true },
+  subscribedAt: { type: Date, default: Date.now }
+}, { collection: "subscribers" });
+
+export const Subscriber = mongoose.models.Subscriber || mongoose.model("Subscriber", SubscriberSchema);

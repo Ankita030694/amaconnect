@@ -4,6 +4,14 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   serverExternalPackages: ["sharp"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+      },
+    ],
+  },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [

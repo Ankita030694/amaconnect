@@ -28,7 +28,7 @@ export default function LiveActivityTicker() {
   }, []);
 
   return (
-    <div className="w-full mt-5 bg-[#FDF9F2] rounded-[1.25rem] border border-[#EAE5D8] px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between overflow-hidden shadow-sm">
+    <div className="w-full bg-[#FDF9F2] rounded-[1.25rem] border border-[#EAE5D8] px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between overflow-hidden shadow-sm">
       <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
         {/* Pulsing Green Dot */}
         <span className="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0">

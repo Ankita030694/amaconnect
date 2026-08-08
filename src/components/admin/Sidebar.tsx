@@ -10,7 +10,8 @@ import {
   Tv, 
   LogOut, 
   User,
-  ClipboardList
+  ClipboardList,
+  Newspaper
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -20,6 +21,7 @@ export default function Sidebar() {
     { name: "Dashboard", href: "/authority", icon: LayoutDashboard },
     { name: "Manage Leads", href: "/authority/leads", icon: ClipboardList },
     { name: "Manage Blogs", href: "/authority/blogs", icon: FileText },
+    { name: "Manage News", href: "/authority/news", icon: Newspaper },
     { name: "Lawyer Interviews", href: "/authority/interviews", icon: Tv },
   ];
 

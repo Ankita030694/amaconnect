@@ -1,14 +1,23 @@
 import { NextResponse } from "next/server";
+import dbConnect from "@/lib/dbConnect";
+import { CustomNews } from "@/lib/models";
 
 export const dynamic = "force-dynamic";
 
 // Simple in-memory cache to prevent exceeding NewsAPI developer plan rate limits (100 reqs/day)
-let cachedArticles: any[] | null = null;
-let lastFetchedTime: number = 0;
+let cachedArticles: Record<string, any[]> = {};
+let lastFetchedTime: Record<string, number> = {};
 const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes
 
-// Strict list of allowed court types (must appear in title or description)
-const COURT_KEYWORDS = ["supreme court", "high court", "district court"];
+// Strict list of allowed keywords by category
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  "All": ["supreme court", "high court", "district court", "law", "legal", "legislation", "court"],
+  "Supreme Court": ["supreme court", "sc"],
+  "High Court": ["high court", "hc"],
+  "Legislation": ["legislation", "parliament", "bill", "act", "amendment"],
+  "Corporate": ["corporate", "nclt", "nclat", "company", "insolvency", "business"],
+  "Criminal": ["criminal", "ipc", "crpc", "bns", "bnss", "bail", "murder", "rape", "police"]
+};
 
 // Strict list of noise keywords to exclude (must NOT appear in title or description)
 const NOISE_KEYWORDS = [
@@ -17,6 +26,22 @@ const NOISE_KEYWORDS = [
   "gossip", "romance", "fashion", "song", "album", "pop star", "premiere", "tennis",
   "wrestling", "olympics"
 ];
+
+// Helper to inject custom news based on absolute pinning order
+function mergeNewsFeed(customNews: any[], externalNews: any[]) {
+  const pinnedNews = customNews.filter(n => n.isPinned);
+  const unpinnedNews = customNews.filter(n => !n.isPinned);
+  
+  let combined = [...unpinnedNews, ...externalNews];
+  
+  // Insert pinned news at exact requested indices (1-indexed)
+  pinnedNews.forEach(article => {
+    const targetIndex = Math.max(0, (article.order || 1) - 1);
+    combined.splice(targetIndex, 0, article);
+  });
+  
+  return combined;
+}
 
 // Curated realistic mock fallback articles focusing strictly on Supreme Court, High Court, and District Court decisions
 // Generated dynamically so dates are accurate relative to request time
@@ -73,32 +98,63 @@ function getFallbackArticles() {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get("page") || "1", 10);
+  const category = searchParams.get("category") || "All";
   const pageSize = 10;
 
   const apiKey = process.env.NEWS_API_KEY;
+
+  let customNewsArticles: any[] = [];
+  try {
+    await dbConnect();
+    customNewsArticles = await CustomNews.find({}).sort({ isPinned: -1, order: 1, createdAt: -1 }).lean();
+  } catch (e) {
+    console.error("Error fetching custom news from DB", e);
+  }
 
   // If there's no API key, serve from static fallbacks
   if (!apiKey) {
     console.warn("NEWS_API_KEY environment variable is not defined. Using local court news fallbacks.");
     const fallbackArticles = getFallbackArticles();
+    
+    // Filter custom news by category
+    const filteredCustomNews = customNewsArticles.filter(news => {
+      if (!news.categories || news.categories.length === 0) return true;
+      return news.categories.includes("All") || news.categories.includes(category);
+    });
+
+    let combinedFallback = [];
+    if (page === 1) {
+      combinedFallback = mergeNewsFeed(filteredCustomNews, fallbackArticles);
+    } else {
+      combinedFallback = fallbackArticles;
+    }
+
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
-    const paginated = fallbackArticles.slice(start, end);
+    const paginated = combinedFallback.slice(start, end);
     return NextResponse.json({ 
       articles: paginated, 
-      hasMore: end < fallbackArticles.length,
+      hasMore: end < combinedFallback.length,
       source: "fallback" 
     });
   }
 
   const now = Date.now();
-  let articlesToUse = cachedArticles;
+  let articlesToUse = cachedArticles[category];
+  const lastFetched = lastFetchedTime[category] || 0;
 
-  // Fetch from NewsAPI if cache is expired, empty, or missing
-  if (!articlesToUse || (now - lastFetchedTime >= CACHE_DURATION)) {
+  // Fetch from NewsAPI if cache is expired, empty, or missing for this category
+  if (!articlesToUse || (now - lastFetched >= CACHE_DURATION)) {
     try {
-      // Build a strict query exclusively targeting "Supreme Court", "High Court", and "District Court"
-      const queryStr = '("Supreme Court" OR "High Court" OR "District Court") AND India -Bollywood -cricket -sports -entertainment -movie -actor -actress -match -game -film -celeb';
+      // Build a strict query exclusively targeting the chosen category
+      let queryStr = '("Supreme Court" OR "High Court" OR "District Court" OR "Law") AND India -Bollywood -cricket -sports -entertainment -movie -actor -actress -match -game -film -celeb';
+      
+      if (category === "Supreme Court") queryStr = '"Supreme Court" AND India -Bollywood -cricket -sports';
+      else if (category === "High Court") queryStr = '"High Court" AND India -Bollywood -cricket -sports';
+      else if (category === "Legislation") queryStr = '("Legislation" OR "Parliament" OR "Bill" OR "Act") AND Law AND India -Bollywood -cricket -sports';
+      else if (category === "Corporate") queryStr = '("Corporate Law" OR "NCLT" OR "NCLAT" OR "Company Law" OR "Insolvency") AND India -Bollywood -cricket -sports';
+      else if (category === "Criminal") queryStr = '("Criminal Law" OR "IPC" OR "CrPC" OR "BNS" OR "BNSS" OR "Bail") AND Court AND India -Bollywood -cricket -sports';
+      
       const query = encodeURIComponent(queryStr);
       
       // Fetch up to 100 articles to slice on the server without spamming requests to NewsAPI
@@ -125,8 +181,9 @@ export async function GET(request: Request) {
             const titleLower = art.title.toLowerCase();
             const descLower = art.description.toLowerCase();
 
-            // 1. Must contain at least one court type keyword
-            const hasCourtTerm = COURT_KEYWORDS.some(word => 
+            // 1. Must contain at least one keyword relevant to the category
+            const relevantKeywords = CATEGORY_KEYWORDS[category] || CATEGORY_KEYWORDS["All"];
+            const hasRelevantTerm = relevantKeywords.some(word => 
               titleLower.includes(word) || descLower.includes(word)
             );
 
@@ -135,7 +192,7 @@ export async function GET(request: Request) {
               titleLower.includes(word) || descLower.includes(word)
             );
 
-            return hasCourtTerm && !hasNoiseTerm;
+            return hasRelevantTerm && !hasNoiseTerm;
           })
           .map((art: any) => {
             const rawSource = art.source?.name || "News Source";
@@ -176,8 +233,8 @@ export async function GET(request: Request) {
               art.publishedAt = new Date(originalTime + timeDiff).toISOString();
             });
           }
-          cachedArticles = validArticles;
-          lastFetchedTime = now;
+          cachedArticles[category] = validArticles;
+          lastFetchedTime[category] = now;
           articlesToUse = validArticles;
         }
       }
@@ -189,21 +246,51 @@ export async function GET(request: Request) {
   // Fallback if NewsAPI failed and there are no cached articles
   if (!articlesToUse || articlesToUse.length === 0) {
     const fallbackArticles = getFallbackArticles();
+    
+    // Filter custom news by category
+    const filteredCustomNews = customNewsArticles.filter(news => {
+      if (!news.categories || news.categories.length === 0) return true;
+      return news.categories.includes("All") || news.categories.includes(category);
+    });
+
+    let combinedFallback = [];
+    if (page === 1) {
+      combinedFallback = mergeNewsFeed(filteredCustomNews, fallbackArticles);
+    } else {
+      combinedFallback = fallbackArticles;
+    }
+
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
-    const paginated = fallbackArticles.slice(start, end);
+    const paginated = combinedFallback.slice(start, end);
     return NextResponse.json({ 
       articles: paginated, 
-      hasMore: end < fallbackArticles.length,
+      hasMore: end < combinedFallback.length,
       source: "fallback" 
     });
   }
 
-  // Slice cached pool and return
+  // Filter custom news by category
+  const filteredCustomNews = customNewsArticles.filter(news => {
+    if (!news.categories || news.categories.length === 0) return true;
+    return news.categories.includes("All") || news.categories.includes(category);
+  });
+
+  // Combine custom news with fetched news
+  let combinedArticles = [];
+  
+  if (page === 1) {
+    // Only inject custom news on the first page
+    combinedArticles = mergeNewsFeed(filteredCustomNews, articlesToUse);
+  } else {
+    combinedArticles = articlesToUse;
+  }
+
+  // Slice combined pool and return
   const start = (page - 1) * pageSize;
   const end = start + pageSize;
-  const paginated = articlesToUse.slice(start, end);
-  const hasMore = end < articlesToUse.length;
+  const paginated = combinedArticles.slice(start, end);
+  const hasMore = end < combinedArticles.length;
 
   return NextResponse.json({ 
     articles: paginated, 

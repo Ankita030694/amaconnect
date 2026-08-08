@@ -41,6 +41,8 @@ export async function POST(request: Request) {
     const {
       title,
       lawyer,
+      designation,
+      companyName,
       image,
       specialization,
       date,
@@ -77,6 +79,8 @@ export async function POST(request: Request) {
     const newInterview = new LawyerInterview({
       title: title.trim(),
       lawyer: lawyer.trim(),
+      designation: designation ? designation.trim() : "",
+      companyName: companyName ? companyName.trim() : "",
       image,
       specialization: specialization.trim(),
       date,

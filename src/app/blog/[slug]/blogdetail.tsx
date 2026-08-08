@@ -97,7 +97,7 @@ function Breadcrumbs({ items }: { items: { label: string; href: string }[] }) {
 }
 
 // Table of Contents component
-function TableOfContents({ sections, orientation = "horizontal" }: { sections: { id: string; title: string }[]; orientation?: "horizontal" | "vertical" }) {
+function TableOfContents({ sections, orientation = "horizontal", activeId }: { sections: { id: string; title: string }[]; orientation?: "horizontal" | "vertical"; activeId?: string }) {
   if (!sections || sections.length === 0) return null;
 
   if (orientation === "vertical") {
@@ -105,16 +105,19 @@ function TableOfContents({ sections, orientation = "horizontal" }: { sections: {
       <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-3xs">
         <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-4 border-b border-slate-50 pb-2">On This Page</h4>
         <ul className="space-y-3">
-          {sections.map((section, idx) => (
-            <li key={idx}>
-              <a
-                href={`#${section.id}`}
-                className="text-xs font-bold text-slate-500 hover:text-[#B8860B] transition-colors block leading-snug"
-              >
-                {section.title}
-              </a>
-            </li>
-          ))}
+          {sections.map((section, idx) => {
+            const isActive = activeId === section.id;
+            return (
+              <li key={idx}>
+                <a
+                  href={`#${section.id}`}
+                  className={`text-xs font-bold transition-colors block leading-snug ${isActive ? "text-[#B8860B]" : "text-slate-500 hover:text-[#B8860B]"}`}
+                >
+                  {section.title}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
@@ -124,15 +127,18 @@ function TableOfContents({ sections, orientation = "horizontal" }: { sections: {
     <div className="bg-[#FDFBF7] p-5 rounded-2xl border border-[#D4AF37]/20 shadow-3xs mb-8">
       <h4 className="text-xs font-extrabold text-[#B8860B] uppercase tracking-wider mb-3">On This Page</h4>
       <div className="flex flex-wrap gap-x-4 gap-y-2">
-        {sections.map((section, idx) => (
-          <a
-            key={idx}
-            href={`#${section.id}`}
-            className="text-xs font-bold text-slate-600 hover:text-[#B8860B] transition-colors"
-          >
-            # {section.title}
-          </a>
-        ))}
+        {sections.map((section, idx) => {
+          const isActive = activeId === section.id;
+          return (
+            <a
+              key={idx}
+              href={`#${section.id}`}
+              className={`text-xs font-bold transition-colors ${isActive ? "text-[#B8860B]" : "text-slate-600 hover:text-[#B8860B]"}`}
+            >
+              # {section.title}
+            </a>
+          );
+        })}
       </div>
     </div>
   );
@@ -162,9 +168,66 @@ const processContent = (html: string) => {
   return { content: modifiedContent, sections };
 };
 
+const statsData = [
+  {
+    icon: (
+      <svg className="w-10 h-10 mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.93 2.05C2.61 2.37 2.45 2.85 2.45 3.5V20.5C2.45 21.15 2.61 21.63 2.93 21.95L3.03 22.05L13.88 11.2V10.8L3.03 1.95L2.93 2.05Z" fill="#3B82F6"/>
+        <path d="M17.48 14.8L13.88 11.2V10.8L17.48 7.2L17.62 7.28L21.87 9.71C23.09 10.4 23.09 11.55 21.87 12.24L17.62 14.72L17.48 14.8Z" fill="#FBBF24"/>
+        <path d="M17.62 14.72L13.88 11.05L2.93 21.95C3.34 22.37 4.02 22.42 4.78 21.99L17.62 14.72Z" fill="#EF4444"/>
+        <path d="M17.62 7.28L4.78 2.01C4.02 1.58 3.34 1.63 2.93 2.05L13.88 10.95L17.62 7.28Z" fill="#10B981"/>
+      </svg>
+    ),
+    value: "1K+",
+    label: "App Downloads",
+  },
+  {
+    icon: null,
+    value: "5,000+",
+    label: "Queries Answered",
+  },
+  {
+    icon: null,
+    value: "< 24 Hrs",
+    label: "Legal Advice",
+  },
+  {
+    icon: (
+      <div className="flex items-center gap-0.5 mr-2">
+        {[1, 2, 3, 4].map(i => (
+          <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+        ))}
+        <svg className="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="half-star">
+              <stop offset="50%" stopColor="currentColor" />
+              <stop offset="50%" stopColor="rgba(255,255,255,0.2)" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#half-star)" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      </div>
+    ),
+    value: "4.5/5",
+    label: "Rating",
+  }
+];
+
 const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
   const [currentUrl, setCurrentUrl] = useState('');
   const [expandedFaqs, setExpandedFaqs] = useState<string[]>([]);
+  const [activeId, setActiveId] = useState<string>('');
+  const [activeStatIndex, setActiveStatIndex] = useState(0);
+
+  // Rotate stats on mobile
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStatIndex(prev => (prev + 1) % 2);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Process content for TOC
   const { content: processedContent, sections: tocSections } = useMemo(() => {
@@ -174,6 +237,45 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
   useEffect(() => {
     setCurrentUrl(window.location.href);
   }, []);
+
+  // Track active section on scroll
+  useEffect(() => {
+    if (tocSections.length === 0) return;
+
+    const handleScroll = () => {
+      const headingElements = tocSections.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+      
+      let currentActiveId = "";
+      // Offset accounts for sticky navs and visual padding
+      const offset = 150; 
+      
+      for (const el of headingElements) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= offset) {
+          currentActiveId = el.id;
+        } else {
+          break;
+        }
+      }
+      
+      // Default to first section if at the top
+      if (!currentActiveId && headingElements.length > 0 && window.scrollY < 300) {
+         currentActiveId = headingElements[0].id;
+      }
+      
+      if (currentActiveId && currentActiveId !== activeId) {
+        setActiveId(currentActiveId);
+      }
+    };
+
+    const timeoutId = setTimeout(handleScroll, 100);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [tocSections, activeId]);
 
   const toggleFaq = (faqId: string) => {
     setExpandedFaqs(prev =>
@@ -210,62 +312,140 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
 
   return (
     <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16">
-      {/* Full Screen Banner with Blurred Background Filler */}
-      {blog.image && (
-        <div className="w-full h-[280px] sm:h-[380px] md:h-[500px] lg:h-[550px] relative bg-[#2D2219] flex items-center justify-center overflow-hidden border-b border-slate-200/40 shadow-xs">
-          {/* Blurred Background Filler */}
-          <img
-            src={getValidImageSrc(blog.image)}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-30 select-none pointer-events-none z-0"
-          />
-          {/* Golden tint overlay */}
-          <div className="absolute inset-0 bg-[#B8860B]/15 mix-blend-color select-none pointer-events-none z-0" />
-          {/* Foreground Contained Image */}
-          <img
-            src={getValidImageSrc(blog.image)}
-            alt={blog.title}
-            className="relative z-10 max-w-full max-h-full h-full w-auto object-contain"
-            onError={handleImageError}
-          />
-        </div>
-      )}
+      {/* New Hero Section based on image */}
+      <div className="w-full bg-white pt-12 lg:pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-b border-slate-100">
+        <div className="max-w-[1200px] mx-auto">
+          <Breadcrumbs items={breadcrumbItems} />
+          
+          <div className="flex flex-col lg:flex-row gap-10 items-center mt-6">
+            {/* Left Content */}
+            <div className="flex-1 flex flex-col items-start text-left">
 
-      <div className="container mx-auto px-4 max-w-[1600px] py-8">
-        <Breadcrumbs items={breadcrumbItems} />
 
-        {/* Header Content */}
-        <div className="text-center mb-8 max-w-4xl mx-auto mt-8">
-          <span className="px-3.5 py-1.5 bg-[#B8860B]/10 text-[#B8860B] rounded-full text-xs font-extrabold uppercase tracking-wider">
-            Verified Legal Insight
-          </span>
-          <h1 className="text-3xl md:text-5xl font-black mb-6 leading-tight text-gray-900 mt-4">
-            {blog.title}
-          </h1>
-          {blog.subtitle && (
-            <p className="text-xl md:text-2xl mb-6 text-slate-500 font-semibold italic">
-              {blog.subtitle}
-            </p>
-          )}
-          <div className="flex justify-center items-center space-x-4 text-sm md:text-base text-gray-500 font-medium">
-            <span>{blog.date}</span>
-            <span>•</span>
-            <span className="text-[#B8860B] font-bold">By {blog.author}</span>
+              {/* Title */}
+              <h1 className="text-[32px] md:text-[42px] lg:text-[48px] font-extrabold leading-[1.2] text-[#0d3b66] mb-6">
+                {blog.title}
+              </h1>
+
+              {/* Excerpt */}
+              {blog.subtitle && (
+                <p className="text-[16px] md:text-[18px] text-gray-600 mb-8 leading-relaxed">
+                  {blog.subtitle}
+                </p>
+              )}
+
+              {/* Author & Meta Data */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mt-2">
+                {/* Author */}
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-[#0d3b66] flex items-center justify-center text-white font-bold text-[16px]">
+                    {blog.author ? blog.author.substring(0, 2).toUpperCase() : "FI"}
+                  </div>
+                  <div>
+                    <div className="text-[16px] font-bold text-[#0d3b66]">{blog.author || "FREED India"}</div>
+                    <div className="text-[12px] text-gray-500">Reviewed by {blog.author || "FREED India"}, Debt Resolution Specialists</div>
+                  </div>
+                </div>
+
+                {/* Badges */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 text-[13px] text-gray-600 font-medium bg-white whitespace-nowrap">
+                    <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {blog.date || "6th August 2026"}
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 text-[13px] text-gray-600 font-medium bg-white whitespace-nowrap">
+                    <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    12 Min Read
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div className="flex-1 w-full max-w-[600px] lg:max-w-none lg:pl-10">
+              <div className="relative w-full aspect-[4/3] sm:aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-100">
+                {blog.image && (
+                  <img 
+                    src={getValidImageSrc(blog.image)} 
+                    alt={blog.title} 
+                    className="w-full h-full object-cover"
+                    onError={handleImageError}
+                  />
+                )}
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Stats Banner */}
+      <div className="w-full bg-[#413832] pt-8 pb-4 border-b border-black/5 overflow-hidden relative">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Desktop Grid View */}
+          <div className="hidden md:grid grid-cols-4 divide-x divide-white/10">
+            {statsData.map((stat, idx) => (
+              <div key={idx} className="flex flex-col items-center justify-center text-center px-4">
+                <div className="flex items-center gap-2 mb-2">
+                  {stat.icon && stat.icon}
+                  <span className="text-[36px] font-bold text-white">{stat.value}</span>
+                </div>
+                <div className="text-[14px] text-white/80 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Carousel View */}
+          <div className="md:hidden relative min-h-[110px]">
+            {[0, 1].map((slideIndex) => (
+              <div 
+                key={slideIndex}
+                className={`absolute inset-0 flex justify-center items-center transition-all duration-500 ease-in-out ${activeStatIndex === slideIndex ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 pointer-events-none'}`}
+              >
+                {[statsData[slideIndex * 2], statsData[slideIndex * 2 + 1]].map((stat, idx) => (
+                  <div key={idx} className="flex flex-col items-center justify-center text-center w-1/2 px-1">
+                    <div className="flex items-center gap-1.5 mb-1 [&>svg]:w-5 [&>svg]:h-5">
+                      {stat.icon && stat.icon}
+                      <span className="text-[22px] sm:text-[24px] font-bold text-white leading-none">{stat.value}</span>
+                    </div>
+                    <div className="text-[11px] sm:text-[12px] text-white/80 font-medium leading-tight px-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          
+          {/* Mobile dots indicator */}
+          <div className="md:hidden flex justify-center gap-2 mt-2">
+            {[0, 1].map((idx) => (
+              <div 
+                key={idx} 
+                className={`w-2 h-2 rounded-full transition-colors ${activeStatIndex === idx ? 'bg-white' : 'bg-white/20'}`}
+              />
+            ))}
+          </div>
+
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 max-w-[1600px] pt-4 pb-8">
 
         <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr_280px] gap-8 items-start">
 
           {/* Left Sidebar - TOC (Desktop) */}
           <div className="hidden lg:block sticky top-24">
-            <TableOfContents sections={tocSections} orientation="vertical" />
+            <TableOfContents sections={tocSections} orientation="vertical" activeId={activeId} />
           </div>
 
           {/* Main Content Area */}
           <div className="min-w-0">
             {/* TOC (Mobile) */}
             <div className="lg:hidden mb-8">
-              <TableOfContents sections={tocSections} />
+              <TableOfContents sections={tocSections} activeId={activeId} />
             </div>
 
             <div className="bg-white p-6 md:p-12 rounded-3xl border border-slate-100 shadow-3xs space-y-12">
@@ -444,56 +624,79 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
             </div>
           </div>
 
-          {/* Right Sidebar - Author & CTA */}
-          <div className="space-y-8 sticky top-24">
-            {/* Author Card */}
-            <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-3xs">
-              <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-50 pb-2">Author Profile</h3>
-              <div className="flex items-center mb-4">
-                <div className="w-16 h-16 rounded-2xl overflow-hidden mr-4 bg-[#D4AF37]/10 flex items-center justify-center">
-                  <img
-                    src="/advocate-icon.svg"
-                    alt={blog.author}
-                    className="h-full w-auto object-contain"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-extrabold text-slate-950 text-sm sm:text-base leading-snug">{blog.author}</h4>
-                  <span className="text-[10px] text-green-700 font-extrabold bg-green-50 border border-green-200/50 px-1.5 py-0.5 rounded-md mt-1 inline-block">Verified Expert</span>
-                </div>
+          {/* Right Sidebar - CTA & Trust Cards */}
+          <div className="space-y-5 sticky top-24">
+            {/* CTA Card */}
+            <div className="bg-[#413832] rounded-[20px] p-5 text-center shadow-lg relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#D4AF37]/10 rounded-full blur-2xl -mr-6 -mt-6 pointer-events-none" />
+              <div className="flex justify-center mb-3 relative z-10">
+                <svg className="w-6 h-6 text-white transform -rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                </svg>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
-                {authorBios[blog.author as keyof typeof authorBios]?.description || "Advocate specializing in direct mediation, arbitration, and civil representation. Registered with the Supreme Court bar."}
-              </p>
-              <a
-                href={authorBios[blog.author as keyof typeof authorBios]?.linkedInUrl || "https://www.linkedin.com/company/ama-legal-solutions/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] hover:bg-[#B8860B]/3 text-center py-2.5 rounded-xl text-xs font-extrabold transition-all shadow-3xs cursor-pointer"
-              >
-                Connect on LinkedIn
-              </a>
-            </div>
-
-            {/* Contact Card */}
-            <div className="bg-[#413832] p-6 rounded-3xl shadow-md text-white border border-[#D4AF37]/20 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/10 rounded-full -mr-8 -mt-8 pointer-events-none" />
-              <h3 className="text-lg font-black mb-3">Need Legal Advice?</h3>
-              <p className="text-slate-300 mb-6 text-xs sm:text-sm leading-relaxed">
-                Get specialized, strategic advocate counsel directly from verified experts at AMA Legal Solutions.
+              <h3 className="text-white text-base font-bold mb-2 relative z-10">Talk to a Legal Expert Free !</h3>
+              <p className="text-slate-300 text-xs mb-4 leading-relaxed relative z-10">
+                Get a personal legal assessment.<br />One call. No pressure.<br />Clear answers.
               </p>
               <a
                 href="tel:+918700343611"
-                className="block w-full bg-[#B8860B] hover:bg-[#9E7307] text-white text-center py-3 rounded-xl font-bold text-xs sm:text-sm transition-colors mb-4 shadow-3xs cursor-pointer"
+                className="inline-flex w-full items-center justify-center gap-2 bg-[#B8860B] hover:bg-[#9E7307] text-white py-2.5 rounded-xl font-bold text-xs transition-colors relative z-10 shadow-[0_4px_14px_rgba(184,134,11,0.4)]"
               >
-                Call +91-8700343611
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg>
+                Book My Free Call
               </a>
-              <Link
-                href="/contact"
-                className="block w-full border border-white/20 hover:bg-white hover:text-[#413832] text-white text-center py-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer"
-              >
-                Request Callback
-              </Link>
+            </div>
+
+            {/* Trust Signals Card */}
+            <div className="bg-white rounded-[20px] p-5 border border-[#D4AF37]/20 shadow-sm">
+              <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">
+                WHY PEOPLE TRUST AMA LEGAL
+              </h3>
+              <div className="space-y-3">
+                
+                {/* Item 1 */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-[#413832] text-xs">10,000+ Clients Helped</span>
+                </div>
+
+                {/* Item 2 */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-[#413832] text-xs">Verified Expert Advocates</span>
+                </div>
+
+                {/* Item 3 */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-[#413832] text-xs">No Hidden Fees</span>
+                </div>
+
+                {/* Item 4 */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-[#413832] text-xs">100% Confidential</span>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>

@@ -2,8 +2,9 @@ import { Metadata } from "next";
 import AboutHero from "@/components/AboutHero";
 import FounderStory from "@/components/FounderStory";
 import HowItHelps from "@/components/HowItHelps";
+import AboutMediaPlatform from "@/components/AboutMediaPlatform";
 import TrustedByGrid from "@/components/TrustedByGrid";
-import AboutSteps from "@/components/AboutSteps";
+import ReviewsSection from "@/components/ReviewsSection";
 import ClosingCTA from "@/components/ClosingCTA";
 import Footer from "@/components/Footer";
 
@@ -27,12 +28,13 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#FDFBF7] font-sans">
-      <main className="flex-grow pt-4 sm:pt-6">
+      <main className="flex-grow pt-0">
+        <AboutMediaPlatform />
+        <TrustedByGrid />
         <AboutHero />
         <HowItHelps />
         <FounderStory />
-        <TrustedByGrid />
-        <AboutSteps />
+        <ReviewsSection />
         <ClosingCTA />
       </main>
       <Footer />

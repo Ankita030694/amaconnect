@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Info, Mic, MessageSquare, Users, FileText, Newspaper, Phone } from "lucide-react";
+import { Home, Info, Mic, Newspaper, Phone } from "lucide-react";
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
@@ -11,9 +11,6 @@ export default function MobileBottomNav() {
     { name: "Home", href: "/", icon: Home },
     { name: "About", href: "/about", icon: Info },
     { name: "Interviews", href: "/interviews", icon: Mic },
-    { name: "Legal Q&A", href: "/ask-me-anything", icon: MessageSquare },
-    { name: "Communities", href: "/communities", icon: Users },
-    { name: "Blogs", href: "/blog", icon: FileText },
     { name: "News", href: "/news", icon: Newspaper },
     { name: "Contact", href: "/contact", icon: Phone },
   ];

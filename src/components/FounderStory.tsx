@@ -21,12 +21,12 @@ export default function FounderStory() {
             <div className="w-12 h-1 bg-[#C9A227] rounded-full mb-2"></div>
             
             <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start">
-              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-lg relative bg-[#FDFBF7]">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-lg relative bg-[#FDFBF7] flex items-center justify-center">
                 <Image
-                  src="/founder_new.png"
-                  alt="Anuj Anand Malik"
+                  src="/logo2.svg"
+                  alt="AMA Connect"
                   fill
-                  className="object-cover object-top"
+                  className="object-contain p-4"
                 />
               </div>
               <div className="flex-1 flex flex-col">

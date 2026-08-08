@@ -1,19 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { Copyright, Briefcase, Home, FileText } from "lucide-react";
+import { Copyright, Home, FileText, Landmark } from "lucide-react";
 
 const getIcon = (type: string) => {
   const baseClass = "w-7 h-7 sm:w-8 sm:h-8";
 
   switch (type) {
-    case "corporate":
-      return <Briefcase className={`${baseClass} text-[#1A73E8]`} strokeWidth={1.5} />;
-    case "startups":
-      return <Copyright className={`${baseClass} text-[#D4AF37]`} strokeWidth={1.5} />;
+    case "loan":
+      return <Landmark className={`${baseClass} text-[#1A73E8]`} strokeWidth={1.5} />;
     case "ip":
+      return <Copyright className={`${baseClass} text-[#D4AF37]`} strokeWidth={1.5} />;
+    case "drafting":
       return <FileText className={`${baseClass} text-[#D93025]`} strokeWidth={1.5} />;
-    case "employment":
+    case "property":
       return <Home className={`${baseClass} text-[#0277BD]`} strokeWidth={1.5} />;
     default:
       return <Copyright className={`${baseClass} text-[#D4AF37]`} strokeWidth={1.5} />;
@@ -24,31 +24,31 @@ export default function CommunitiesRow() {
   const cards = [
     {
       id: 1,
-      title: "Corporate Law Circle",
-      link: "https://chat.whatsapp.com/KhhmwpBnXQ05njEpChZFPN?mode=gi_t",
-      icon: "corporate",
-      members: "1.3K"
+      title: "Loan Settlement & Debt Relief Support India",
+      link: "https://chat.whatsapp.com/KS4wL8xEVsI1skDuRJCa4q?mode=gi_t",
+      icon: "loan",
+      members: "1.5K"
     },
     {
       id: 2,
-      title: "Startups & Founders",
-      link: "https://chat.whatsapp.com/LFys33bhoMcHzr1PaByDPS?mode=gi_t",
-      icon: "startups",
-      members: "980"
+      title: "IPR, Trademark & Copyright Legal Community",
+      link: "https://chat.whatsapp.com/KhhmwpBnXQ05njEpChZFPN?mode=gi_t",
+      icon: "ip",
+      members: "1.2K"
     },
     {
       id: 3,
-      title: "IP & Trademarks",
-      link: "https://chat.whatsapp.com/H4SrztIjgt9GqU3ej9rXiC?mode=gi_t",
-      icon: "ip",
-      members: "1.1K"
+      title: "Legal Drafting - Agreements, Contracts & Wills",
+      link: "https://chat.whatsapp.com/CRUjrhp0zYJ1wmO1Yvk65I?mode=gi_t",
+      icon: "drafting",
+      members: "980"
     },
     {
       id: 4,
-      title: "Employment Law",
-      link: "https://chat.whatsapp.com/CRUjrhp0zYJ1wmO1Yvk65I?mode=gi_t",
-      icon: "employment",
-      members: "870"
+      title: "Property Law & Real Estate Legal Help",
+      link: "https://chat.whatsapp.com/H4SrztIjgt9GqU3ej9rXiC?mode=gi_t",
+      icon: "property",
+      members: "1.1K"
     }
   ];
 

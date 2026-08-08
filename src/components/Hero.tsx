@@ -8,6 +8,8 @@ export interface LawyerInterview {
   _id: string;
   title: string;
   lawyer: string;
+  designation?: string;
+  companyName?: string;
   image: string;
   specialization: string;
   date: string;
@@ -70,8 +72,12 @@ export default function Hero({ initialInterviews = [] }: { initialInterviews?: L
     return timeB - timeA;
   });
 
-  const featuredStory = sortedInterviews[0];
-  const sidebarStories = sortedInterviews.slice(1, 5);
+  // Find the first story that is not Abhijit for the hero section
+  const featuredIndex = sortedInterviews.findIndex(story => !story.lawyer.toLowerCase().includes("abhijit"));
+  const actualFeaturedIndex = featuredIndex !== -1 ? featuredIndex : 0;
+  
+  const featuredStory = sortedInterviews[actualFeaturedIndex];
+  const sidebarStories = sortedInterviews.filter((_, index) => index !== actualFeaturedIndex).slice(0, 4);
 
   return (
     <section

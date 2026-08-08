@@ -60,6 +60,8 @@ export interface LawyerInterview {
   _id: string;
   title: string;
   lawyer: string;
+  designation?: string;
+  companyName?: string;
   image: string;
   specialization: string;
   date: string;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 interface NewsItem {
   title: string;
@@ -21,6 +22,7 @@ export default function NewsFlashTicker() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     async function fetchTicker() {
@@ -55,12 +57,12 @@ export default function NewsFlashTicker() {
 
   // Don't render anything (not even an empty bar) if there's no real
   // data yet or the user has dismissed it — no placeholder/fake content.
-  if (!isVisible || items.length === 0) return null;
+  if (!isVisible || items.length === 0 || pathname?.startsWith("/authority")) return null;
 
   const current = items[activeIndex];
 
   return (
-    <div className="w-full bg-[#1E1712] border-b border-[#3A2D23]/50 px-4 sm:px-6 lg:px-8 py-2">
+    <div className="w-full mt-6 bg-[#FAF8F3] border-b border-gray-200/60 px-4 sm:px-6 lg:px-8 py-2 transform-gpu shadow-sm">
       <div className="max-w-7xl mx-auto flex items-center gap-3 sm:gap-4">
         {/* LIVE badge */}
         <div className="flex items-center gap-1.5 shrink-0">
@@ -73,7 +75,7 @@ export default function NewsFlashTicker() {
           </span>
         </div>
 
-        <div className="h-4 w-px bg-white/15 shrink-0" />
+        <div className="h-4 w-px bg-black/15 shrink-0" />
 
         {/* Rotating headline */}
         <a
@@ -86,9 +88,9 @@ export default function NewsFlashTicker() {
             key={activeIndex}
             className="animate-in fade-in slide-in-from-bottom-1 duration-500"
           >
-            <p className="text-white text-xs sm:text-sm font-semibold truncate hover:underline">
+            <p className="text-black text-xs sm:text-sm font-semibold truncate hover:underline">
               {current.title}
-              <span className="text-white/40 font-medium ml-2 hidden sm:inline">
+              <span className="text-black/40 font-medium ml-2 hidden sm:inline">
                 — {current.source}
               </span>
             </p>
@@ -101,7 +103,7 @@ export default function NewsFlashTicker() {
             <span
               key={i}
               className={`h-1 rounded-full transition-all duration-300 ${
-                i === activeIndex % 5 ? "w-4 bg-[#D4AF37]" : "w-1 bg-white/20"
+                i === activeIndex % 5 ? "w-4 bg-[#D4AF37]" : "w-1 bg-black/20"
               }`}
             />
           ))}
@@ -110,7 +112,7 @@ export default function NewsFlashTicker() {
         {/* Dismiss */}
         <button
           onClick={() => setIsVisible(false)}
-          className="shrink-0 text-white/40 hover:text-white/80 transition-colors p-1"
+          className="shrink-0 text-black/40 hover:text-black/80 transition-colors p-1"
           aria-label="Dismiss news ticker"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

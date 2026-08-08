@@ -12,31 +12,31 @@ export default function FeaturedIn() {
             href: "https://www.barandbench.com/news/ama-legal-solutions-launches-indias-first-law-firm-backed-pro-bono-driven-mobile-app",
             src: "/media/barandbench.png",
             alt: "Bar & Bench",
-            widthClass: "w-28 sm:w-36",
+            widthClass: "w-36 sm:w-48",
         },
         {
             href: "https://www.livemint.com/",
             src: "/media/livemint.png",
             alt: "Mint",
-            widthClass: "w-20 sm:w-28",
+            widthClass: "w-28 sm:w-40",
         },
         {
             href: "https://medium.com/@amalegalsolutions",
             src: "/media/medium.png",
             alt: "Medium",
-            widthClass: "w-24 sm:w-32",
+            widthClass: "w-32 sm:w-44",
         },
         {
             href: "https://yourstory.com/companies/ama-legal-solutions",
             src: "/media/yourstory.png",
             alt: "YourStory",
-            widthClass: "w-24 sm:w-32",
+            widthClass: "w-32 sm:w-44",
         },
         {
             href: "https://www.mid-day.com/",
             src: "/media/mid_day.png",
             alt: "Mid-Day",
-            widthClass: "w-24 sm:w-32",
+            widthClass: "w-32 sm:w-44",
         },
     ];
 
@@ -44,9 +44,7 @@ export default function FeaturedIn() {
         <section className="w-full bg-white py-6 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
                 <div className="bg-[#F8F8F6] rounded-2xl sm:rounded-[1.5rem] py-6 sm:py-8 border border-gray-100 flex flex-col items-center overflow-hidden">
-                    <h4 className="text-sm sm:text-base font-bold text-gray-600 uppercase tracking-widest mb-6 px-6 text-center">
-                        As Featured In
-                    </h4>
+                    {/* As Featured In heading removed as requested */}
                     
                     <div className="w-full relative flex overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
                         <style dangerouslySetInnerHTML={{__html: `
@@ -71,7 +69,7 @@ export default function FeaturedIn() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`Featured in ${logo.alt}`}
-                                    className={`relative h-12 ${logo.widthClass} grayscale hover:grayscale-0 transition-all duration-300 block flex-shrink-0`}
+                                    className={`relative h-20 sm:h-24 ${logo.widthClass} grayscale hover:grayscale-0 transition-all duration-300 block flex-shrink-0`}
                                 >
                                     <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
                                 </a>

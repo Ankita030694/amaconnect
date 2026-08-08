@@ -4,7 +4,7 @@ import {
   ShieldCheck, Users, Clock, HelpCircle, UserCheck, CheckCircle, 
   Apple, Play, Menu, Bell, CheckCircle2, BadgeCheck, 
   ThumbsUp, Share2, Lock, Home, MessageSquarePlus, MessageCircle, 
-  Users2, User 
+  Users2, User, Sun, Moon
 } from "lucide-react";
 import QRCode from "react-qr-code";
 import { useState, useEffect } from "react";
@@ -22,6 +22,7 @@ const LIVE_ACTIVITIES = [
 
 export default function AppDownloadBridge() {
     const [activityIndex, setActivityIndex] = useState(0);
+    const [isDarkMode, setIsDarkMode] = useState(true);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -32,271 +33,255 @@ export default function AppDownloadBridge() {
 
     return (
         <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-16 xl:pt-6 xl:pb-24 font-sans">
-            
-            {/* Top White Bar (Trusted Bar) - Moved above the dark block */}
-            <div className="mb-8 bg-[#FDFBF0] rounded-2xl border border-[#EAE5D8] p-5 sm:p-6 lg:p-7 flex flex-col xl:flex-row items-center justify-between gap-8 shadow-sm relative z-0 max-w-[1300px] mx-auto">
+            <div className="flex flex-col gap-8">
                 
-                {/* Left: Trusted By */}
-                <div className="flex items-center gap-4 shrink-0">
-                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center border border-[#C9A227]/20 shadow-sm shrink-0">
-                        <svg className="w-6 h-6 text-[#C9A227]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h4 className="font-extrabold text-[17px] text-[#0A0A0A]">Trusted by Thousands</h4>
-                        <p className="text-[10px] text-gray-500 font-medium leading-relaxed mt-0.5">Real people. Real legal challenges.<br/>Real verified experts.</p>
-                    </div>
-                </div>
-
-                {/* Middle: Stats */}
-                <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 flex-1 xl:border-x border-[#EAE5D8]/50 px-4">
-                    <div className="text-center">
-                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">150K+</div>
-                        <div className="text-[9px] text-[#0A0A0A] font-bold mt-2 uppercase tracking-widest">Questions Answered</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">{APP_STATS.RATING}/5</div>
-                        <div className="text-[9px] text-[#0A0A0A] font-bold mt-2 uppercase tracking-widest">App Rating</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">97%</div>
-                        <div className="text-[9px] text-[#0A0A0A] font-bold mt-2 uppercase tracking-widest">User Satisfaction</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">24/7</div>
-                        <div className="text-[9px] text-[#0A0A0A] font-bold mt-2 uppercase tracking-widest">Support</div>
-                    </div>
-                </div>
-
-                {/* Right: Live Activity Block */}
-                <div className="bg-white border border-[#EAE5D8] rounded-xl p-3.5 flex flex-col gap-2 min-w-[220px] shadow-sm shrink-0">
-                    <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse shadow-[0_0_8px_rgba(37,211,102,0.5)]"></span>
-                        <span className="text-[11px] font-bold text-gray-800 tracking-wide">Live Activity</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 mt-1">
-                        <div className="flex -space-x-1.5 shrink-0">
-                            <div className="w-6 h-6 rounded-full border-2 border-white bg-gray-200 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[1.5]" /></div>
-                            <div className="w-6 h-6 rounded-full border-2 border-white bg-gray-200 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[2]" /></div>
-                            <div className="w-6 h-6 rounded-full border-2 border-white bg-gray-200 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[2.5]" /></div>
-                        </div>
-                        <div className="flex flex-col relative w-[120px] h-[30px] overflow-hidden ml-1">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={activityIndex}
-                                    initial={{ y: 15, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    exit={{ y: -15, opacity: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="absolute inset-0 flex flex-col justify-center"
-                                >
-                                    <p className="text-[10px] text-gray-500 font-medium leading-tight truncate">
-                                        <span className="text-gray-900 font-bold">{LIVE_ACTIVITIES[activityIndex].title}</span><br/>{LIVE_ACTIVITIES[activityIndex].sub}
-                                    </p>
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* The Outer Container - Strict CSS Grid for precise column boundaries */}
-            <div className="relative rounded-[2rem] p-8 md:p-12 xl:p-12 text-white grid grid-cols-1 xl:grid-cols-[1.4fr_1fr_1.2fr_0.8fr] gap-12 xl:gap-6 items-center xl:items-start shadow-[0_30px_100px_-20px_rgba(0,0,0,0.8)] border border-[#2D2219] z-10">
-                
-                {/* Background Layer with Glows */}
-                <div className="absolute inset-0 bg-[#0A0A0A] rounded-[2rem] overflow-hidden -z-10">
-                    <div className="absolute top-1/2 left-[15%] -translate-y-1/2 w-[600px] h-[600px] bg-[#C9A227]/10 rounded-full blur-[140px] pointer-events-none" />
-                </div>
-
-                {/* Left Column (1fr) */}
-                <div className="flex flex-col gap-5 relative z-10 xl:pr-4">
-                    <span className="text-[#C9A227] font-bold tracking-widest text-xs uppercase">AMA Connect App</span>
-                    <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-tight tracking-tight">
-                        Ask a legal question.<br />Get a verified answer.<br />
-                        <span className="text-[#C9A227]">All in one app.</span>
-                    </h2>
-                    <p className="text-gray-400 text-[15px] sm:text-base leading-relaxed mt-2">
-                        Connect with verified lawyers, get instant advice, and resolve your legal issues with confidence.
-                    </p>
+                {/* Top Block: Text + Stats + How it works */}
+                <div className="relative rounded-[2rem] p-8 md:p-10 xl:p-12 text-white bg-[#0A0A0A] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.8)] border border-[#2D2219] z-10 overflow-hidden">
+                    {/* Expanded background glows using the exact requested dark brown */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[900px] bg-[#2D2219] rounded-full blur-[160px] pointer-events-none -z-10" />
+                    <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#2D2219] rounded-full blur-[120px] pointer-events-none -z-10" />
                     
-                    {/* Simplified Horizontal Stats Row */}
-                    <div className="flex flex-col sm:flex-row xl:flex-col gap-x-5 gap-y-3 mt-4">
-                        <div className="flex items-center gap-2">
-                            <ShieldCheck className="text-[#C9A227] w-4 h-4 shrink-0" />
-                            <span className="text-[11px] sm:text-xs text-gray-300 font-medium whitespace-nowrap">Backed by <span className="text-white font-bold">AMA Legal Solutions</span></span>
-                        </div>
-                        <div className="hidden sm:block xl:hidden w-[1px] h-3 bg-white/20"></div>
-                        <div className="flex items-center gap-2">
-                            <Users className="text-[#C9A227] w-4 h-4 shrink-0" />
-                            <span className="text-[11px] sm:text-xs text-gray-300 font-medium whitespace-nowrap"><span className="text-white font-bold">200+</span> Verified Lawyers</span>
-                        </div>
-                        <div className="hidden sm:block xl:hidden w-[1px] h-3 bg-white/20"></div>
-                        <div className="flex items-center gap-2">
-                            <Clock className="text-[#C9A227] w-4 h-4 shrink-0" />
-                            <span className="text-[11px] sm:text-xs text-gray-300 font-medium whitespace-nowrap">Avg. response: <span className="text-white font-bold">45 min</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Middle Column (1fr) - How it works timeline */}
-                <div className="flex flex-col gap-5 relative z-10 w-full max-w-[340px] mx-auto">
-                    <h3 className="text-[#C9A227] font-bold tracking-widest text-xs uppercase mb-1">How it works</h3>
-                    
-                    <div className="flex flex-col gap-6 relative">
+                    <div className="max-w-4xl mx-auto w-full">
                         
-                        {/* Step 1 */}
-                        <div className="flex items-start gap-4 relative">
-                            {/* Segment connecting to Step 2 */}
-                            <div className="absolute left-[19.5px] top-[20px] bottom-[-44px] w-[1px] bg-gradient-to-b from-[#C9A227] to-[#C9A227]/60 z-0"></div>
-                            <div className="w-10 h-10 rounded-full bg-[#C9A227] text-[#0A0A0A] flex items-center justify-center font-bold text-base shrink-0 z-10 shadow-[0_0_15px_rgba(201,162,39,0.3)]">1</div>
-                            <div className="bg-[#121212] border border-[#2D2219] rounded-2xl p-4 flex gap-3.5 w-full shadow-lg z-10 relative">
-                                <div className="w-10 h-10 rounded-full bg-[#C9A227]/10 flex items-center justify-center shrink-0">
-                                    <MessageSquarePlus className="text-[#C9A227] w-4 h-4" />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-[13px] mb-1 text-white">Ask Your Question</h4>
-                                    <p className="text-[11px] text-gray-400 leading-relaxed">Post your legal question anonymously in simple steps.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Step 2 */}
-                        <div className="flex items-start gap-4 relative">
-                            {/* Segment connecting to Step 3 */}
-                            <div className="absolute left-[19.5px] top-[20px] bottom-[-44px] w-[1px] bg-gradient-to-b from-[#C9A227]/60 to-[#C9A227]/10 z-0"></div>
-                            <div className="w-10 h-10 rounded-full bg-[#C9A227] text-[#0A0A0A] flex items-center justify-center font-bold text-base shrink-0 z-10 shadow-[0_0_15px_rgba(201,162,39,0.3)]">2</div>
-                            <div className="bg-[#121212] border border-[#2D2219] rounded-2xl p-4 flex gap-3.5 w-full shadow-lg z-10 relative">
-                                <div className="w-10 h-10 rounded-full bg-[#C9A227]/10 flex items-center justify-center shrink-0">
-                                    <UserCheck className="text-[#C9A227] w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-[13px] mb-1 text-white">Verified Lawyers Respond</h4>
-                                    <p className="text-[11px] text-gray-400 leading-relaxed">Our verified experts review and respond with clarity.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Step 3 */}
-                        <div className="flex items-start gap-4 relative">
-                            <div className="w-10 h-10 rounded-full bg-[#C9A227] text-[#0A0A0A] flex items-center justify-center font-bold text-base shrink-0 z-10 shadow-[0_0_15px_rgba(201,162,39,0.3)]">3</div>
-                            <div className="bg-[#121212] border border-[#2D2219] rounded-2xl p-4 flex gap-3.5 w-full shadow-lg z-10 relative">
-                                <div className="w-10 h-10 rounded-full bg-[#C9A227]/10 flex items-center justify-center shrink-0">
-                                    <CheckCircle className="text-[#C9A227] w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-[13px] mb-1 text-white">Get Clarity. Resolve Confidently.</h4>
-                                    <p className="text-[11px] text-gray-400 leading-relaxed">Use the advice to make informed decisions.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Phone Column (1.2fr) - Custom HTML/CSS Phone Render */}
-                <div className="w-full max-w-[380px] mx-auto overflow-visible flex items-center justify-center relative z-20 xl:pl-6">
-                    
-                    {/* CUSTOM CSS FLOATING PHONE MOCKUP */}
-                    <div className="transform rotate-[-8deg] hover:rotate-[-6deg] hover:-translate-y-2 transition-all duration-700 ease-out xl:-mt-10 xl:-mb-10 drop-shadow-[20px_40px_60px_rgba(0,0,0,0.8)] scale-90 xl:scale-95 origin-center">
-                        
-                        <div className="relative w-[280px] sm:w-[300px] h-[600px] sm:h-[640px] bg-[#050505] rounded-[3rem] border-8 border-[#333] shadow-inner overflow-hidden flex flex-col font-sans">
-                            {/* Dynamic Island / Notch */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[110px] h-[28px] bg-black rounded-b-[1.2rem] z-50"></div>
+                        {/* Left Side: Text and Stats */}
+                        <div className="flex flex-col gap-10">
                             
-                            {/* Screen Content - Dark Mode */}
-                            <div className="w-full h-full bg-[#151515] text-white flex flex-col pt-12">
-                                {/* Top Bar */}
-                                <div className="pb-3 px-5 flex items-center justify-between border-b border-white/5">
-                                   <Menu className="w-5 h-5 text-gray-400" />
-                                   <div className="font-bold tracking-widest text-[10px] uppercase flex items-center gap-1.5 text-gray-200">
-                                       <div className="w-3.5 h-3.5 bg-[#C9A227] rounded-sm flex items-center justify-center"><ShieldCheck className="w-2.5 h-2.5 text-black" /></div>
-                                       AMA Connect
-                                   </div>
-                                   <div className="relative">
-                                       <Bell className="w-5 h-5 text-gray-400" />
-                                       <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#C9A227] border border-[#151515] rounded-full"></div>
-                                   </div>
-                                </div>
-
-                                {/* Chat Content */}
-                                <div className="flex-1 px-4 py-5 overflow-hidden flex flex-col gap-4">
-                                   {/* User Question */}
-                                   <div className="flex flex-col gap-1.5 self-end w-[85%]">
-                                      <div className="flex justify-between items-end px-1">
-                                         <span className="text-[9px] text-[#C9A227] font-semibold">Your Question</span>
-                                         <span className="text-[9px] text-gray-500">2:35 PM</span>
-                                      </div>
-                                      <div className="bg-[#2D2219] border border-[#C9A227]/30 rounded-2xl rounded-tr-sm p-3.5 shadow-sm">
-                                         <p className="text-[12px] leading-snug">Can my landlord increase the rent without my consent?</p>
-                                      </div>
-                                      <div className="text-[9px] text-gray-500 mt-0.5 ml-1">
-                                         Posted in <span className="text-[#C9A227]">Landlord & Tenant</span>
-                                      </div>
-                                   </div>
-
-                                   {/* System Match Message */}
-                                   <div className="flex items-center justify-center gap-1.5 my-1">
-                                      <CheckCircle2 className="w-3.5 h-3.5 text-[#25D366]" />
-                                      <span className="text-[10px] text-[#25D366] font-medium">Matched with a verified lawyer</span>
-                                   </div>
-
-                                   {/* Lawyer Reply Card */}
-                                   <div className="bg-[#1E1E1E] border border-white/10 rounded-2xl p-4 shadow-sm relative mt-2">
-                                       <span className="absolute top-3 right-3 text-[9px] text-gray-500">2:58 PM</span>
-                                       <div className="flex items-center gap-3 mb-3">
-                                           <div className="w-10 h-10 rounded-full bg-gray-600 overflow-hidden shrink-0 border border-white/10">
-                                              <img src="/peoples.png" className="w-full h-full object-cover scale-[2]" alt="Lawyer profile" />
-                                           </div>
-                                           <div className="flex flex-col">
-                                               <div className="flex items-center gap-1">
-                                                   <span className="font-bold text-[13px]">Rohit Sharma</span>
-                                                   <BadgeCheck className="w-3.5 h-3.5 text-[#C9A227] fill-[#C9A227] text-black" />
-                                               </div>
-                                               <span className="text-[9px] text-gray-400 leading-tight mt-0.5">Senior Associate<br/>8+ Years Experience</span>
-                                           </div>
-                                       </div>
-                                       
-                                       <p className="text-[12px] text-gray-200 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5">
-                                           Rent cannot be increased without your consent during the agreed period. Please share your agreement.
-                                       </p>
-                                       
-                                       <div className="flex items-center gap-4 mt-3 pt-3 border-t border-white/5">
-                                           <button className="flex items-center gap-1.5 text-[10px] font-medium text-gray-400 hover:text-white transition-colors">
-                                               <ThumbsUp className="w-3.5 h-3.5" /> Helpful
-                                           </button>
-                                           <button className="flex items-center gap-1.5 text-[10px] font-medium text-gray-400 hover:text-white transition-colors">
-                                               <Share2 className="w-3.5 h-3.5" /> Share
-                                           </button>
-                                       </div>
-                                   </div>
-                                </div>
+                            {/* Text Section */}
+                            <div className="flex flex-col items-center text-center gap-5 relative z-10">
+                                <span className="text-[#C9A227] font-bold tracking-widest text-xs uppercase">AMA Connect App</span>
+                                <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-tight tracking-tight">
+                                    Ask a legal question. Get a verified answer.<br />
+                                    <span className="text-[#C9A227]">All in one app.</span>
+                                </h2>
+                                <p className="text-gray-400 text-[15px] sm:text-base leading-relaxed mt-2 max-w-xl mx-auto">
+                                    Connect with verified lawyers, get instant advice, and resolve your legal issues with confidence.
+                                </p>
                                 
-                                {/* Secure Line */}
-                                <div className="flex items-center justify-center gap-1.5 py-3 border-t border-white/5">
-                                    <Lock className="w-3 h-3 text-[#25D366]" />
-                                    <span className="text-[9px] font-medium text-[#25D366]">Your conversation is 100% secure</span>
+                                {/* Features List */}
+                                <div className="flex flex-col sm:flex-row justify-center gap-x-6 gap-y-3 mt-2">
+                                    <div className="flex items-center gap-2">
+                                        <ShieldCheck className="text-[#C9A227] w-4 h-4 shrink-0" />
+                                        <span className="text-[12px] text-gray-300 font-medium">Backed by <span className="text-white font-bold">AMA Legal Solutions</span></span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Users className="text-[#C9A227] w-4 h-4 shrink-0" />
+                                        <span className="text-[12px] text-gray-300 font-medium"><span className="text-white font-bold">200+</span> Verified Lawyers</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Clock className="text-[#C9A227] w-4 h-4 shrink-0" />
+                                        <span className="text-[12px] text-gray-300 font-medium">Avg. response: <span className="text-white font-bold">45 min</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Stats Section (Joined) */}
+                            <div className="bg-[#121212] rounded-2xl border border-white/10 p-6 flex flex-col gap-6 shadow-lg">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-[#1A1A1A] rounded-xl flex items-center justify-center border border-[#C9A227]/30 shadow-sm shrink-0">
+                                            <svg className="w-6 h-6 text-[#C9A227]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-extrabold text-[17px] text-white">Trusted by Thousands</h4>
+                                            <p className="text-[11px] text-gray-400 font-medium leading-relaxed">Real people. Real legal challenges.<br/>Real verified experts.</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Live Activity Block inside Stats */}
+                                    <div className="bg-[#1A1A1A] border border-white/10 rounded-xl p-3 flex flex-col gap-2 min-w-[200px] shadow-sm shrink-0 w-full sm:w-auto">
+                                        <div className="flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse shadow-[0_0_8px_rgba(37,211,102,0.5)]"></span>
+                                            <span className="text-[11px] font-bold text-white tracking-wide">Live Activity</span>
+                                        </div>
+                                        <div className="flex items-center gap-2.5 mt-1">
+                                            <div className="flex -space-x-1.5 shrink-0">
+                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[1.5]" /></div>
+                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[2]" /></div>
+                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[2.5]" /></div>
+                                            </div>
+                                            <div className="flex flex-col relative w-[120px] h-[30px] overflow-hidden ml-1">
+                                                <AnimatePresence mode="wait">
+                                                    <motion.div
+                                                        key={activityIndex}
+                                                        initial={{ y: 15, opacity: 0 }}
+                                                        animate={{ y: 0, opacity: 1 }}
+                                                        exit={{ y: -15, opacity: 0 }}
+                                                        transition={{ duration: 0.3 }}
+                                                        className="absolute inset-0 flex flex-col justify-center"
+                                                    >
+                                                        <p className="text-[10px] text-gray-400 font-medium leading-tight truncate">
+                                                            <span className="text-white font-bold">{LIVE_ACTIVITIES[activityIndex].title}</span><br/>{LIVE_ACTIVITIES[activityIndex].sub}
+                                                        </p>
+                                                    </motion.div>
+                                                </AnimatePresence>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                {/* Bottom Nav */}
-                                <div className="bg-[#0A0A0A] border-t border-white/5 pt-3 pb-6 px-6 flex justify-between items-center relative z-10">
-                                    <div className="flex flex-col items-center gap-1 opacity-40"><Home className="w-5 h-5"/><span className="text-[8px] font-medium">Home</span></div>
-                                    <div className="flex flex-col items-center gap-1 opacity-40"><MessageSquarePlus className="w-5 h-5"/><span className="text-[8px] font-medium">Ask</span></div>
-                                    <div className="flex flex-col items-center gap-1 text-[#C9A227]"><MessageCircle className="w-5 h-5 fill-current"/><span className="text-[8px] font-bold">Chats</span></div>
-                                    <div className="flex flex-col items-center gap-1 opacity-40"><Users2 className="w-5 h-5"/><span className="text-[8px] font-medium">Communities</span></div>
-                                    <div className="flex flex-col items-center gap-1 opacity-40"><User className="w-5 h-5"/><span className="text-[8px] font-medium">Profile</span></div>
+                                <div className="flex flex-wrap items-center justify-around sm:justify-between gap-6 pt-6 border-t border-white/10 px-2">
+                                    <div className="text-center">
+                                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">150K+</div>
+                                        <div className="text-[9px] text-gray-300 font-bold mt-2 uppercase tracking-widest">Questions Answered</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">{APP_STATS.RATING}/5</div>
+                                        <div className="text-[9px] text-gray-300 font-bold mt-2 uppercase tracking-widest">App Rating</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">97%</div>
+                                        <div className="text-[9px] text-gray-300 font-bold mt-2 uppercase tracking-widest">User Satisfaction</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl sm:text-3xl font-black text-[#C9A227] leading-none">24/7</div>
+                                        <div className="text-[9px] text-gray-300 font-bold mt-2 uppercase tracking-widest">Support</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Bottom Block: Phone and Download */}
+                <div className="relative rounded-[2rem] p-8 md:p-12 xl:p-14 text-white bg-[#2D2219] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.8)] border border-[#4A382A] z-10 overflow-hidden flex flex-col xl:flex-row items-center justify-center xl:justify-around gap-12">
+                    {/* Glowing Accents */}
+                    <div className="absolute top-[-20%] right-[-10%] w-[350px] h-[350px] bg-[#C9A227]/20 rounded-full blur-[120px] pointer-events-none -z-10" />
+                    <div className="absolute bottom-[-30%] left-[-10%] w-[500px] h-[500px] bg-black/60 rounded-full blur-[150px] pointer-events-none -z-10" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#C9A227]/5 rounded-full blur-[100px] pointer-events-none -z-10" />
                     
-                {/* Download Section (0.8fr) */}
-                <div className="flex flex-col items-center xl:items-start justify-center gap-5 shrink-0 z-20 w-full xl:pl-4">
-                        <p className="font-bold text-[14px] text-center leading-snug text-white hidden lg:block px-2">Continue your legal journey on the AMA Connect app.</p>
+                    {/* Subtle Grid Pattern Overlay */}
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10" />
+                    
+                    {/* Smooth Vignette/Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#C9A227]/10 via-transparent to-black/40 pointer-events-none -z-10" />
+                    
+                    {/* Phone Column - Custom HTML/CSS Phone Render */}
+                    <div className="w-full max-w-[380px] mx-auto overflow-visible flex items-center justify-center relative z-20">
+                        {/* CUSTOM CSS FLOATING PHONE MOCKUP */}
+                        <div className="transform rotate-[-6deg] hover:rotate-[-4deg] hover:-translate-y-2 transition-all duration-700 ease-out drop-shadow-[20px_40px_60px_rgba(0,0,0,0.8)] scale-90 sm:scale-95 xl:scale-100 origin-center">
+                            
+                            <div className={`relative w-[280px] sm:w-[300px] h-[600px] sm:h-[640px] rounded-[3rem] border-8 ${isDarkMode ? 'border-[#333] bg-[#050505]' : 'border-black bg-white'} shadow-inner overflow-hidden flex flex-col font-sans transition-colors duration-500`}>
+                                {/* Dynamic Island / Notch */}
+                                <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-[14px] h-[14px] bg-black rounded-full z-50"></div>
+                                
+                                {/* Screen Content - Themed */}
+                                <div className={`w-full h-full flex flex-col pt-12 transition-colors duration-500 ${isDarkMode ? "bg-[#151515] text-white" : "bg-[#F8F7F6] text-[#2D2219]"}`}>
+                                    {/* Top Bar */}
+                                    <div className={`pb-3 px-5 flex items-center justify-between border-b transition-colors duration-500 ${isDarkMode ? "border-white/5" : "border-[#2D2219]/10"}`}>
+                                       <Menu className={`w-5 h-5 transition-colors duration-500 ${isDarkMode ? "text-gray-400" : "text-[#2D2219]"}`} />
+                                       <div className={`font-bold tracking-widest text-[10px] uppercase flex items-center gap-1.5 transition-colors duration-500 ${isDarkMode ? "text-gray-200" : "text-[#2D2219]"}`}>
+                                           <div className="w-3.5 h-3.5 bg-[#C9A227] rounded-sm flex items-center justify-center"><ShieldCheck className="w-2.5 h-2.5 text-black" /></div>
+                                           AMA Connect
+                                       </div>
+                                       <div className="flex items-center gap-2.5">
+                                           <button onClick={() => setIsDarkMode(!isDarkMode)} className="outline-none">
+                                               {isDarkMode ? <Sun className="w-4 h-4 text-gray-400 hover:text-white transition-colors" /> : <Moon className="w-4 h-4 text-[#2D2219] hover:text-[#C9A227] transition-colors" />}
+                                           </button>
+                                           <div className="relative">
+                                               <Bell className={`w-4 h-4 transition-colors duration-500 ${isDarkMode ? "text-gray-400" : "text-[#2D2219]"}`} />
+                                               <div className={`absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#C9A227] border rounded-full transition-colors duration-500 ${isDarkMode ? "border-[#151515]" : "border-[#F8F7F6]"}`}></div>
+                                           </div>
+                                       </div>
+                                    </div>
+
+                                    {/* How It Works Inside Phone */}
+                                    <div className="flex-1 px-5 py-6 overflow-hidden flex flex-col justify-center gap-8">
+                                        <div className="text-center mb-2">
+                                            <h3 className={`font-extrabold text-[16px] transition-colors duration-500 ${isDarkMode ? "text-white" : "text-[#2D2219]"}`}>How it works</h3>
+                                            <p className={`text-[10px] mt-1 transition-colors duration-500 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>Simple steps to resolve your legal queries</p>
+                                        </div>
+                                        
+                                        <div className="flex flex-col gap-6 relative px-2">
+                                            {/* Step 1 */}
+                                            <div className="flex items-start gap-4 relative">
+                                                {/* Segment connecting to Step 2 */}
+                                                <div className="absolute left-[15.5px] top-[24px] bottom-[-24px] w-[1px] bg-gradient-to-b from-[#C9A227] to-[#C9A227]/60 z-0"></div>
+                                                <div className="w-8 h-8 rounded-full bg-[#C9A227] text-black flex items-center justify-center font-bold text-xs shrink-0 z-10 shadow-[0_0_10px_rgba(201,162,39,0.4)]">1</div>
+                                                <div className="flex flex-col pt-1">
+                                                    <h4 className={`font-bold text-[13px] mb-0.5 transition-colors duration-500 ${isDarkMode ? "text-white" : "text-[#2D2219]"}`}>Ask Your Question</h4>
+                                                    <p className={`text-[11px] leading-relaxed transition-colors duration-500 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>Post your legal question anonymously.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* Step 2 */}
+                                            <div className="flex items-start gap-4 relative">
+                                                {/* Segment connecting to Step 3 */}
+                                                <div className="absolute left-[15.5px] top-[24px] bottom-[-24px] w-[1px] bg-gradient-to-b from-[#C9A227]/60 to-[#C9A227]/10 z-0"></div>
+                                                <div className="w-8 h-8 rounded-full bg-[#C9A227] text-black flex items-center justify-center font-bold text-xs shrink-0 z-10 shadow-[0_0_10px_rgba(201,162,39,0.4)]">2</div>
+                                                <div className="flex flex-col pt-1">
+                                                    <h4 className={`font-bold text-[13px] mb-0.5 transition-colors duration-500 ${isDarkMode ? "text-white" : "text-[#2D2219]"}`}>Verified Lawyers Respond</h4>
+                                                    <p className={`text-[11px] leading-relaxed transition-colors duration-500 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>Our experts review and respond with clarity.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* Step 3 */}
+                                            <div className="flex items-start gap-4 relative">
+                                                <div className="w-8 h-8 rounded-full bg-[#C9A227] text-black flex items-center justify-center font-bold text-xs shrink-0 z-10 shadow-[0_0_10px_rgba(201,162,39,0.4)]">3</div>
+                                                <div className="flex flex-col pt-1">
+                                                    <h4 className={`font-bold text-[13px] mb-0.5 transition-colors duration-500 ${isDarkMode ? "text-white" : "text-[#2D2219]"}`}>Get Clarity. Resolve.</h4>
+                                                    <p className={`text-[11px] leading-relaxed transition-colors duration-500 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>Use the advice to make informed decisions.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Secure Line */}
+                                    <div className={`flex items-center justify-center gap-1.5 py-3 border-t transition-colors duration-500 ${isDarkMode ? "border-white/5" : "border-[#2D2219]/10"}`}>
+                                        <Lock className="w-3 h-3 text-[#25D366]" />
+                                        <span className="text-[9px] font-medium text-[#25D366]">Your conversation is 100% secure</span>
+                                    </div>
+
+                                    {/* Bottom Nav */}
+                                    <div className={`border-t pt-3 pb-6 px-8 flex justify-between items-center relative z-10 rounded-b-[1.2rem] transition-colors duration-500 ${isDarkMode ? "bg-gradient-to-b from-[#1E1E1E] to-[#121212] border-white/5" : "bg-[#2D2219] border-[#2D2219]"}`}>
+                                        
+                                        {/* Home (Active) */}
+                                        <div className="flex flex-col items-center gap-1.5 text-[#C9A227]">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[22px] h-[22px]">
+                                                <path d="M4 10 L12 3.5 L20 10 V20 A2 2 0 0 1 18 22 H6 A2 2 0 0 1 4 20 Z" />
+                                                <circle cx="12" cy="14" r="2.5" />
+                                            </svg>
+                                            <span className="text-[10px] font-bold tracking-wide">Home</span>
+                                        </div>
+
+                                        {/* Services */}
+                                        <div className={`flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100 transition-all cursor-pointer ${isDarkMode ? "text-gray-400 hover:text-white" : "text-white/50 hover:text-[#C9A227]"}`}>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[22px] h-[22px]">
+                                                <circle cx="6" cy="6" r="1.5" />
+                                                <circle cx="6" cy="12" r="1.5" />
+                                                <circle cx="6" cy="18" r="1.5" />
+                                                <rect x="10.5" y="5" width="8.5" height="2" rx="1" fill="currentColor" stroke="none" />
+                                                <rect x="10.5" y="11" width="8.5" height="2" rx="1" fill="currentColor" stroke="none" />
+                                                <rect x="10.5" y="17" width="8.5" height="2" rx="1" fill="currentColor" stroke="none" />
+                                            </svg>
+                                            <span className="text-[10px] font-medium tracking-wide">Services</span>
+                                        </div>
+
+                                        {/* AMA */}
+                                        <div className={`flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100 transition-all cursor-pointer ${isDarkMode ? "text-gray-400 hover:text-white" : "text-white/50 hover:text-[#C9A227]"}`}>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[22px] h-[22px]">
+                                                <path d="M20 15a2 2 0 0 1-2 2H7.5l-3.5 3.5V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                                <rect x="8" y="9" width="8" height="2" rx="1" fill="currentColor" stroke="none" />
+                                                <rect x="8" y="13" width="5" height="2" rx="1" fill="currentColor" stroke="none" />
+                                            </svg>
+                                            <span className="text-[10px] font-medium tracking-wide">AMA</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    {/* Download Section */}
+                    <div className="flex flex-col items-center xl:items-start justify-center gap-5 shrink-0 z-20 w-full max-w-[300px]">
+                        <h3 className="font-extrabold text-[28px] leading-tight text-white hidden xl:block mb-2">Get the<br/>AMA Connect App</h3>
+                        <p className="font-bold text-[14px] text-center xl:text-left leading-snug text-gray-300 px-2 xl:px-0">Experience faster legal solutions directly on your phone.</p>
                         
                         {/* Premium QR Code */}
                         <div className="bg-[#121212] p-2.5 rounded-2xl border border-white/10 shadow-xl hidden lg:block">
-                            <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center p-2">
+                            <div className="w-24 h-24 bg-white rounded-xl flex items-center justify-center p-2">
                                 <QRCode value="https://amaconnect.in/get" size={100} style={{ height: "auto", maxWidth: "100%", width: "100%" }} />
                             </div>
                         </div>
@@ -310,16 +295,16 @@ export default function AppDownloadBridge() {
                         
                         {/* Stacked App Buttons */}
                         <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto lg:w-full">
-                           <a href="https://apps.apple.com/in/app/ama-legal-solutions/id6755156186" target="_blank" rel="noopener noreferrer" className="bg-[#121212] border border-white/10 rounded-xl px-4 py-2.5 flex items-center justify-center gap-3 hover:bg-white/10 transition-all group w-full">
+                           <a href="https://apps.apple.com/in/app/ama-legal-solutions/id6755156186" target="_blank" rel="noopener noreferrer" className="bg-[#121212] border border-white/10 rounded-xl px-4 py-3 flex items-center justify-center gap-3 hover:bg-white/10 transition-all group w-full shadow-lg">
                              <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white shrink-0">
                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-.96.04-2.13.64-2.82 1.45-.6.69-1.12 1.83-.98 2.94 1.07.08 2.15-.52 2.81-1.33z" />
                              </svg>
                              <div className="flex flex-col items-start">
                                <span className="text-[8px] text-gray-400 uppercase leading-none mb-0.5 tracking-wide">Download on the</span>
-                               <span className="text-[13px] font-bold text-white leading-none tracking-wide">App Store</span>
+                               <span className="text-[14px] font-bold text-white leading-none tracking-wide">App Store</span>
                              </div>
                            </a>
-                           <a href="https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions" target="_blank" rel="noopener noreferrer" className="bg-[#121212] border border-white/10 rounded-xl px-4 py-2.5 flex items-center justify-center gap-3 hover:bg-white/10 transition-all group w-full">
+                           <a href="https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions" target="_blank" rel="noopener noreferrer" className="bg-[#121212] border border-white/10 rounded-xl px-4 py-3 flex items-center justify-center gap-3 hover:bg-white/10 transition-all group w-full shadow-lg">
                              <svg viewBox="0 0 24 24" className="w-6 h-6 shrink-0 ml-0.5">
                                <path d="M3.25 1.55a1.73 1.73 0 0 0-.47 1.22v18.46a1.73 1.73 0 0 0 .47 1.22l.06.06L13.88 12v-.15L3.31 1.5z" fill="#00F0FF" />
                                <path d="M17.41 15.58L13.88 12v-.15L17.41 8.3l.08.05 4.17 2.37c1.19.67 1.19 1.78 0 2.46l-4.17 2.37-.08.03z" fill="#FFC700" />
@@ -328,14 +313,14 @@ export default function AppDownloadBridge() {
                              </svg>
                              <div className="flex flex-col items-start">
                                <span className="text-[8px] text-gray-400 uppercase leading-none mb-0.5 tracking-wide">GET IT ON</span>
-                               <span className="text-[13px] font-bold text-white leading-none tracking-wide">Google Play</span>
+                               <span className="text-[14px] font-bold text-white leading-none tracking-wide">Google Play</span>
                              </div>
                            </a>
                         </div>
                     </div>
                 </div>
 
-
+            </div>
         </section>
     );
 }

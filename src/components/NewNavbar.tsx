@@ -12,10 +12,10 @@ export default function NewNavbar() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Interviews", href: "/interviews" },
-    { name: "Legal Q&A", href: "/ask-me-anything" },
+    { name: "News", href: "/news" },
     { name: "Communities", href: "/communities" },
     { name: "Blogs", href: "/blog" },
-    { name: "News", href: "/news" },
+    { name: "Legal Q&A", href: "/ask-me-anything" },
     { name: "Contact", href: "/contact" },
   ];
 

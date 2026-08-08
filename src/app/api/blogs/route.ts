@@ -39,7 +39,10 @@ export async function POST(request: Request) {
       metaDescription,
       faqs,
       reviews,
-      author
+      author,
+      authorTitle,
+      authorPhoto,
+      category
     } = body;
 
     // Validation
@@ -69,6 +72,9 @@ export async function POST(request: Request) {
       faqs: faqs || [],
       reviews: reviews || [],
       author: author || "Anuj Anand Malik",
+      authorTitle: authorTitle || "",
+      authorPhoto: authorPhoto || "",
+      category: category || "",
       created: Date.now()
     });
 
