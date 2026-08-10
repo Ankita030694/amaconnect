@@ -10,7 +10,7 @@ export default function HowItHelps() {
       {/* Golden Wavy Light Trails */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         {/* Bottom-left to center */}
-        <svg className="absolute w-full h-[120%] top-[-10%] left-0 opacity-[0.25] motion-safe:animate-[waveFloat_25s_ease-in-out_infinite_alternate]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <svg className="absolute w-full h-[120%] top-[-10%] left-0 opacity-[0.25] motion-safe:animate-[waveFloat_25s_ease-in-out_infinite_alternate] blur-3xl md:blur-[80px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <defs>
             <linearGradient id="gold-wave-1" x1="0%" y1="100%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#FFD54A" stopOpacity="0" />
@@ -18,22 +18,18 @@ export default function HowItHelps() {
               <stop offset="70%" stopColor="#B8860B" stopOpacity="0.8" />
               <stop offset="100%" stopColor="#FFD54A" stopOpacity="0" />
             </linearGradient>
-            <filter id="blur-1" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="80" />
-            </filter>
           </defs>
           <path 
             d="M-100,1100 C 200,900 300,500 800,600 C 1200,700 1100,200 1300,100" 
             fill="none" 
             stroke="url(#gold-wave-1)" 
             strokeWidth="120" 
-            filter="url(#blur-1)" 
             strokeLinecap="round"
           />
         </svg>
 
         {/* Top-right fading behind heading */}
-        <svg className="absolute w-full h-[100%] top-[-10%] right-0 opacity-[0.20] motion-safe:animate-[waveFloat_35s_ease-in-out_infinite_alternate_reverse]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <svg className="absolute w-full h-[100%] top-[-10%] right-0 opacity-[0.20] motion-safe:animate-[waveFloat_35s_ease-in-out_infinite_alternate_reverse] blur-3xl md:blur-[100px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <defs>
             <linearGradient id="gold-wave-2" x1="100%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#B8860B" stopOpacity="0" />
@@ -41,38 +37,30 @@ export default function HowItHelps() {
               <stop offset="80%" stopColor="#F5C542" stopOpacity="0.8" />
               <stop offset="100%" stopColor="#B8860B" stopOpacity="0" />
             </linearGradient>
-            <filter id="blur-2" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="100" />
-            </filter>
           </defs>
           <path 
             d="M1200,-100 C 900,100 700,400 400,300 C 100,200 -100,600 -200,700" 
             fill="none" 
             stroke="url(#gold-wave-2)" 
             strokeWidth="160" 
-            filter="url(#blur-2)"
             strokeLinecap="round"
           />
         </svg>
 
         {/* Subtle smaller wave across middle */}
-        <svg className="absolute w-[120%] h-[80%] top-[20%] left-[-10%] opacity-[0.15] motion-safe:animate-[waveFloat_45s_ease-in-out_infinite_alternate]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <svg className="absolute w-[120%] h-[80%] top-[20%] left-[-10%] opacity-[0.15] motion-safe:animate-[waveFloat_45s_ease-in-out_infinite_alternate] blur-2xl md:blur-[60px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <defs>
             <linearGradient id="gold-wave-3" x1="0%" y1="50%" x2="100%" y2="50%">
               <stop offset="0%" stopColor="#F5C542" stopOpacity="0" />
               <stop offset="50%" stopColor="#FFD54A" stopOpacity="0.8" />
               <stop offset="100%" stopColor="#B8860B" stopOpacity="0" />
             </linearGradient>
-            <filter id="blur-3" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="60" />
-            </filter>
           </defs>
           <path 
             d="M-200,500 C 200,300 600,700 1200,400" 
             fill="none" 
             stroke="url(#gold-wave-3)" 
             strokeWidth="90" 
-            filter="url(#blur-3)"
             strokeLinecap="round"
           />
         </svg>
@@ -119,7 +107,7 @@ export default function HowItHelps() {
 
               {/* Image */}
               <div className="absolute -bottom-6 -right-6 w-[200px] h-[280px] sm:w-[240px] sm:h-[320px] z-0 group-hover:scale-105 transition-transform duration-500 origin-bottom-right rotate-[15deg]">
-                <Image src="/phone.png" alt="Ask AMA mockup" fill className="object-top object-contain drop-shadow-2xl" priority sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image src="/phone.png" alt="Ask AMA mockup" fill className="object-top object-contain drop-shadow-md md:drop-shadow-2xl" priority sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
             </div>
 
@@ -147,7 +135,7 @@ export default function HowItHelps() {
               </div>
 
               <div className="absolute -bottom-6 -right-6 w-[200px] h-[280px] sm:w-[240px] sm:h-[320px] z-0 group-hover:scale-105 transition-transform duration-500 origin-bottom-right rotate-[15deg]">
-                <Image src="/casedesk.png" alt="Case Desk mockup" fill className="object-top object-contain drop-shadow-2xl" priority sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image src="/casedesk.png" alt="Case Desk mockup" fill className="object-top object-contain drop-shadow-md md:drop-shadow-2xl" priority sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
             </div>
 
@@ -175,7 +163,7 @@ export default function HowItHelps() {
               </div>
 
               <div className="absolute -bottom-6 -right-6 w-[200px] h-[280px] sm:w-[240px] sm:h-[320px] z-0 group-hover:scale-105 transition-transform duration-500 origin-bottom-right rotate-[15deg]">
-                <Image src="/Chat.svg" alt="Ask Your Lawyer mockup" fill className="object-top object-contain drop-shadow-2xl" priority sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image src="/Chat.svg" alt="Ask Your Lawyer mockup" fill className="object-top object-contain drop-shadow-md md:drop-shadow-2xl" priority sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
             </div>
 

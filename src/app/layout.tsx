@@ -61,9 +61,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#FAF8F3]`}
     >
-      <body className="min-h-full flex flex-col pb-[72px] md:pb-0 bg-[#FAF8F3] text-gray-900">
+      <body className="min-h-dvh flex flex-col pb-[72px] md:pb-0 bg-[#FAF8F3] text-gray-900">
         <AuthProvider>
           <Navbar />
           <NewsFlashTicker />

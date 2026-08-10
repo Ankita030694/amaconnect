@@ -43,8 +43,8 @@ export default function AppDownloadBridge() {
                 {/* Top Block: Text + Stats + How it works */}
                 <div className="relative rounded-[2rem] p-8 md:p-10 xl:p-12 text-white bg-[#0A0A0A] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.8)] border border-[#2D2219] z-10 overflow-hidden">
                     {/* Expanded background glows using the exact requested dark brown */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[900px] bg-[#2D2219] rounded-full blur-[160px] pointer-events-none -z-10" />
-                    <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#2D2219] rounded-full blur-[120px] pointer-events-none -z-10" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] md:w-[1400px] h-[100%] md:h-[900px] bg-[#2D2219] rounded-full blur-3xl md:blur-[160px] pointer-events-none -z-10" />
+                    <div className="hidden md:block absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#2D2219] rounded-full blur-[120px] pointer-events-none -z-10" />
                     
                     <div className="max-w-4xl mx-auto w-full">
                         
@@ -143,9 +143,9 @@ export default function AppDownloadBridge() {
                 {/* Bottom Block: Phone and Download */}
                 <div className="relative rounded-[2rem] p-8 md:p-12 xl:p-14 text-white bg-[#2D2219] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.8)] border border-[#4A382A] z-10 overflow-hidden flex flex-col xl:flex-row items-center justify-center xl:justify-around gap-12">
                     {/* Glowing Accents */}
-                    <div className="absolute top-[-20%] right-[-10%] w-[350px] h-[350px] bg-[#C9A227]/20 rounded-full blur-[120px] pointer-events-none -z-10" />
-                    <div className="absolute bottom-[-30%] left-[-10%] w-[500px] h-[500px] bg-black/60 rounded-full blur-[150px] pointer-events-none -z-10" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#C9A227]/5 rounded-full blur-[100px] pointer-events-none -z-10" />
+                    <div className="absolute top-[-10%] right-[-10%] w-[200px] md:w-[350px] h-[200px] md:h-[350px] bg-[#C9A227]/20 rounded-full blur-3xl md:blur-[120px] pointer-events-none -z-10" />
+                    <div className="hidden md:block absolute bottom-[-30%] left-[-10%] w-[500px] h-[500px] bg-black/60 rounded-full blur-[150px] pointer-events-none -z-10" />
+                    <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#C9A227]/5 rounded-full blur-[100px] pointer-events-none -z-10" />
                     
                     {/* Subtle Grid Pattern Overlay */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10" />
@@ -156,9 +156,9 @@ export default function AppDownloadBridge() {
                     {/* Phone Column - Custom HTML/CSS Phone Render */}
                     <div className="w-full max-w-[380px] mx-auto overflow-visible flex items-center justify-center relative z-20">
                         {/* CUSTOM CSS FLOATING PHONE MOCKUP */}
-                        <div className="transform rotate-[-6deg] hover:rotate-[-4deg] hover:-translate-y-2 transition-all duration-700 ease-out drop-shadow-[20px_40px_60px_rgba(0,0,0,0.8)] scale-90 sm:scale-95 xl:scale-100 origin-center">
+                        <div className="transform md:rotate-[-6deg] md:hover:rotate-[-4deg] md:hover:-translate-y-2 transition-transform duration-700 ease-out scale-90 sm:scale-95 xl:scale-100 origin-center">
                             
-                            <div className={`relative w-[280px] sm:w-[300px] h-[600px] sm:h-[640px] rounded-[3rem] border-8 ${isDarkMode ? 'border-[#333] bg-[#050505]' : 'border-black bg-white'} shadow-inner overflow-hidden flex flex-col font-sans transition-colors duration-500`}>
+                            <div className={`relative w-[280px] sm:w-[300px] h-[600px] sm:h-[640px] rounded-[3rem] border-8 ${isDarkMode ? 'border-[#333] bg-[#050505]' : 'border-black bg-white'} shadow-[0_20px_50px_rgba(0,0,0,0.7)] shadow-inner overflow-hidden flex flex-col font-sans transition-colors duration-500`}>
                                 {/* Dynamic Island / Notch */}
                                 <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-[14px] h-[14px] bg-black rounded-full z-50"></div>
                                 

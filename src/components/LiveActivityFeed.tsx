@@ -15,13 +15,14 @@ export default function LiveActivityFeed() {
       <style>{`
         .animate-marquee-vertical {
           animation: marqueeVertical 30s linear infinite;
+          will-change: transform;
         }
         .animate-marquee-vertical:hover {
           animation-play-state: paused;
         }
         @keyframes marqueeVertical {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-50%); }
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(0, -50%, 0); }
         }
       `}</style>
       
@@ -44,17 +45,18 @@ export default function LiveActivityFeed() {
           style={{
             backgroundImage: 'url("https://w0.peakpx.com/wallpaper/818/148/HD-wallpaper-whatsapp-background-solid-color-whatsapp-profiles-backgrounds-whatsapp-bg-whatsapp-dark-solid-colors-whatsapp-background.jpg")',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundBlendMode: 'overlay',
-            backgroundColor: 'rgba(239, 234, 226, 0.85)'
+            backgroundPosition: 'center'
           }}
         >
+          {/* Solid Color Overlay (Replaces backgroundBlendMode for GPU performance) */}
+          <div className="absolute inset-0 bg-[#EFEAE2]/85 pointer-events-none z-0" />
+
           {/* Top and Bottom Fading Gradients */}
           <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-[#EFEAE2] to-transparent z-10 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-[#EFEAE2] to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling Container */}
-          <div className="animate-marquee-vertical absolute inset-x-0 top-0 flex flex-col gap-4 py-4 w-full">
+          <div className="animate-marquee-vertical absolute inset-x-0 top-0 flex flex-col gap-4 py-4 w-full z-10">
             {[...CHAT_MESSAGES, ...CHAT_MESSAGES].map((msg, i) => {
               const isAma = msg.type === 'green';
               return (

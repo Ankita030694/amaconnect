@@ -20,7 +20,7 @@ export default function MobileBottomNav() {
       className="md:hidden fixed bottom-0 left-0 right-0 bg-[#FDFBF0]/95 backdrop-blur-md border-t border-[#D4AF37]/25 z-50 shadow-[0_-4px_20px_rgba(212,175,55,0.08)]"
       style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 0.5rem)' }}
     >
-      <div className="flex items-center overflow-x-auto hide-scrollbar px-2 py-2 gap-1.5 snap-x snap-mandatory">
+      <div className="grid grid-cols-5 items-center w-full px-1 sm:px-2 py-2">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
           const Icon = link.icon;
@@ -28,7 +28,7 @@ export default function MobileBottomNav() {
             <Link
               key={link.name}
               href={link.href}
-              className={`snap-center flex flex-col items-center justify-center min-w-[72px] px-1 py-1.5 rounded-xl transition-all duration-300 ${
+              className={`flex flex-col items-center justify-center px-1 py-1.5 rounded-xl transition-all duration-300 ${
                 isActive
                   ? "text-[#D4AF37] bg-[#D4AF37]/10 scale-105"
                   : "text-[#2D2319]/60 hover:text-[#D4AF37] hover:bg-[#D4AF37]/5 active:scale-95"

@@ -122,9 +122,9 @@ export default function ReviewsSection() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(30,30,30,0.5)_0%,rgba(13,13,13,1)_100%)] pointer-events-none" />
       
       {/* Flowing golden mesh waves & radial gradients */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[radial-gradient(circle,rgba(212,175,55,0.06)_0%,transparent_70%)] blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-[radial-gradient(circle,rgba(212,175,55,0.08)_0%,transparent_70%)] blur-[120px] pointer-events-none" />
-      <div className="absolute top-[30%] right-[20%] w-[30%] h-[30%] bg-[radial-gradient(circle,rgba(212,175,55,0.04)_0%,transparent_70%)] blur-[80px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[radial-gradient(circle,rgba(212,175,55,0.06)_0%,transparent_70%)] blur-3xl md:blur-[100px] pointer-events-none" />
+      <div className="hidden md:block absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-[radial-gradient(circle,rgba(212,175,55,0.08)_0%,transparent_70%)] blur-[120px] pointer-events-none" />
+      <div className="hidden md:block absolute top-[30%] right-[20%] w-[30%] h-[30%] bg-[radial-gradient(circle,rgba(212,175,55,0.04)_0%,transparent_70%)] blur-[80px] pointer-events-none" />
       
       {/* Faint dotted decorative patterns */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#D4AF37 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
@@ -142,10 +142,10 @@ export default function ReviewsSection() {
       </div>
       
       {/* Tiny floating particles / light streaks */}
-      <div className="absolute left-[20%] top-[25%] w-1.5 h-1.5 bg-[#D4AF37] rounded-full blur-[1px] opacity-30 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
-      <div className="absolute right-[25%] top-[15%] w-2 h-2 bg-[#D4AF37] rounded-full blur-[1px] opacity-20 animate-[ping_5s_cubic-bezier(0,0,0.2,1)_infinite_1s]" />
-      <div className="absolute left-[15%] bottom-[25%] w-1 h-1 bg-[#D4AF37] rounded-full blur-[1px] opacity-40 animate-[pulse_6s_ease-in-out_infinite]" />
-      <div className="absolute right-[10%] bottom-[20%] w-1 h-1 bg-white rounded-full blur-[1px] opacity-20 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite_2s]" />
+      <div className="absolute left-[20%] top-[25%] w-1.5 h-1.5 bg-[#D4AF37] rounded-full opacity-30 md:blur-[1px] md:animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
+      <div className="absolute right-[25%] top-[15%] w-2 h-2 bg-[#D4AF37] rounded-full opacity-20 md:blur-[1px] md:animate-[ping_5s_cubic-bezier(0,0,0.2,1)_infinite_1s]" />
+      <div className="absolute left-[15%] bottom-[25%] w-1 h-1 bg-[#D4AF37] rounded-full opacity-40 md:blur-[1px] md:animate-[pulse_6s_ease-in-out_infinite]" />
+      <div className="absolute right-[10%] bottom-[20%] w-1 h-1 bg-white rounded-full opacity-20 md:blur-[1px] md:animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite_2s]" />
 
       <div className="max-w-6xl mx-auto flex flex-col items-center relative z-10" ref={containerRef}>
         
