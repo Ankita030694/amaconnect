@@ -63,8 +63,6 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head>
-      </head>
       <body className="min-h-full flex flex-col pb-[72px] md:pb-0 bg-[#FAF8F3] text-gray-900">
         <AuthProvider>
           <Navbar />
