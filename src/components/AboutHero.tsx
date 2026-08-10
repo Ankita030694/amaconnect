@@ -178,10 +178,10 @@ export default function AboutHero() {
           onMouseLeave={handleMouseLeave}
         >
            {/* Decorative background glow */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] bg-[#C9A227]/15 rounded-full blur-[100px] pointer-events-none"></div>
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] bg-[#C9A227]/15 rounded-full blur-3xl md:blur-[100px] pointer-events-none"></div>
            
            <motion.div 
-             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-full h-full origin-center drop-shadow-2xl z-20 pointer-events-none sm:pointer-events-auto"
+             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-full h-full origin-center drop-shadow-md md:drop-shadow-2xl z-20 pointer-events-none sm:pointer-events-auto"
              style={{
                rotateX,
                rotateY,
