@@ -61,6 +61,8 @@ export default function Navbar() {
                     alt="AMA CONNECTS"
                     width={110}
                     height={40}
+                    priority
+                    fetchPriority="high"
                     className="h-11 w-auto object-contain"
                   />
                 </motion.div>

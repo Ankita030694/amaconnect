@@ -1,8 +1,7 @@
 import dynamic from "next/dynamic";
 import TopStatsBar from "@/components/TopStatsBar";
 import HeroFeatured from "@/components/HeroFeatured";
-import HomepageNewsGlassCards from "@/components/HomepageNewsGlassCards";
-
+const HomepageNewsGlassCards = dynamic(() => import("@/components/HomepageNewsGlassCards"));
 const CommunitiesRow = dynamic(() => import("@/components/CommunitiesRow"));
 const LiveActivityTicker = dynamic(() => import("@/components/LiveActivityTicker"));
 const LiveActivityFeed = dynamic(() => import("@/components/LiveActivityFeed"));
