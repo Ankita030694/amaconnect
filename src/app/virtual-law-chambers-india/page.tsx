@@ -107,7 +107,7 @@ export default function VirtualChambersPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-dvh bg-white">
       <Script id="article-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Script id="rating-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }} />

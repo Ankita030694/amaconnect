@@ -49,7 +49,7 @@ export default async function NewsArticlePage(props: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-[#FDFBF7] pt-28">
+    <main className="min-h-dvh bg-[#FDFBF7] pt-28">
       <Navbar />
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8">

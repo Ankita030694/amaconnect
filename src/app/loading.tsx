@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="w-full min-h-screen bg-[#FAF8F3] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div className="w-full min-h-dvh bg-[#FAF8F3] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       <div className="max-w-7xl mx-auto flex flex-col gap-8 animate-pulse">
         {/* Top Stats Bar Skeleton */}
         <div className="w-full h-16 sm:h-20 bg-gray-200/60 rounded-2xl"></div>

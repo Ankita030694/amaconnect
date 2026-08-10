@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function CommunitiesPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-transparent font-sans">
+    <div className="flex flex-col min-h-dvh bg-transparent font-sans">
       {/* <Navbar /> */}
       <main className="flex-grow">
         <CommunitiesHero />

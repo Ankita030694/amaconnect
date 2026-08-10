@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#FDFBF7] font-sans">
+    <div className="flex flex-col min-h-dvh bg-[#FDFBF7] font-sans">
       <main className="flex-grow pt-0">
         <AboutMediaPlatform />
         <TrustedByGrid />

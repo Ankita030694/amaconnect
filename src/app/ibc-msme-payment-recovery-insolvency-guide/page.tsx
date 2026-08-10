@@ -178,7 +178,7 @@ export default function IbcMsmePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-dvh bg-white">
       {/* Schema Injection */}
       <Script
         id="ibc-msme-article-schema"

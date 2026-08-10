@@ -23,7 +23,7 @@ export default async function AuthorityLayout({
   }
 
   return (
-    <div className="flex h-screen bg-[#F8FAFC] overflow-hidden text-slate-800 font-sans w-full">
+    <div className="flex h-dvh bg-[#F8FAFC] overflow-hidden text-slate-800 font-sans w-full">
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden h-full">
         {/* Main scrollable body */}

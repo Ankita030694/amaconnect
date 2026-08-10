@@ -608,7 +608,7 @@ export default function BlogsDashboard() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto bg-slate-50 min-h-screen text-slate-800 font-sans">
+    <div className="p-6 max-w-7xl mx-auto bg-slate-50 min-h-dvh text-slate-800 font-sans">
       <AnimatePresence>
         {!showForm ? (
           <motion.div

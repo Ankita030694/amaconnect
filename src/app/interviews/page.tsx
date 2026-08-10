@@ -93,7 +93,7 @@ export default async function InterviewsPage() {
           background-color: #31261C !important;
         }
       `}</style>
-      <div className="flex flex-col min-h-screen bg-[#31261C] text-[#F5F3EE] font-sans selection:bg-[#C9A227] selection:text-[#31261C] overflow-x-hidden">
+      <div className="flex flex-col min-h-dvh bg-[#31261C] text-[#F5F3EE] font-sans selection:bg-[#C9A227] selection:text-[#31261C] overflow-x-hidden">
         <main className="flex-grow pt-[72px]">
         
         {/* HERO SECTION */}

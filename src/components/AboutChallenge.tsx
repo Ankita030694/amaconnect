@@ -20,7 +20,7 @@ export default function AboutChallenge() {
   return (
     <section ref={containerRef} className="relative w-full h-[220vh] bg-white">
       {/* Sticky Content Viewport: Pins the text in the screen center while scrolling */}
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
+      <div className="sticky top-0 h-dvh w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
         
 
 

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#1E1B18]">
+      <div className="min-h-dvh flex items-center justify-center bg-[#1E1B18]">
         <div className="w-10 h-10 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin"></div>
       </div>
     }>

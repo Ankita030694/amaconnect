@@ -311,7 +311,7 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16">
+    <div className="min-h-dvh bg-[#F5F2EB] text-gray-800 pb-16">
       {/* New Hero Section based on image */}
       <div className="w-full bg-white pt-12 lg:pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-b border-slate-100">
         <div className="max-w-[1200px] mx-auto">
