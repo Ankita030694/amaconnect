@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import QRCode from "react-qr-code";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 import { APP_STATS } from "@/lib/appStats";
@@ -23,11 +22,16 @@ const LIVE_ACTIVITIES = [
 
 export default function AppDownloadBridge() {
     const [activityIndex, setActivityIndex] = useState(0);
+    const [isFading, setIsFading] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(true);
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setActivityIndex((prev) => (prev + 1) % LIVE_ACTIVITIES.length);
+            setIsFading(true);
+            setTimeout(() => {
+                setActivityIndex((prev) => (prev + 1) % LIVE_ACTIVITIES.length);
+                setIsFading(false);
+            }, 300);
         }, 4000);
         return () => clearInterval(timer);
     }, []);
@@ -103,20 +107,11 @@ export default function AppDownloadBridge() {
                                                 <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden relative"><Image src="/peoples.png" alt="Users" fill className="object-cover scale-[2.5]" /></div>
                                             </div>
                                             <div className="flex flex-col relative w-[120px] h-[30px] overflow-hidden ml-1">
-                                                <AnimatePresence mode="wait">
-                                                    <motion.div
-                                                        key={activityIndex}
-                                                        initial={{ y: 15, opacity: 0 }}
-                                                        animate={{ y: 0, opacity: 1 }}
-                                                        exit={{ y: -15, opacity: 0 }}
-                                                        transition={{ duration: 0.3 }}
-                                                        className="absolute inset-0 flex flex-col justify-center"
-                                                    >
-                                                        <p className="text-[10px] text-gray-400 font-medium leading-tight truncate">
-                                                            <span className="text-white font-bold">{LIVE_ACTIVITIES[activityIndex].title}</span><br/>{LIVE_ACTIVITIES[activityIndex].sub}
-                                                        </p>
-                                                    </motion.div>
-                                                </AnimatePresence>
+                                                <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-300 ${isFading ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"}`}>
+                                                    <p className="text-[10px] text-gray-400 font-medium leading-tight truncate">
+                                                        <span className="text-white font-bold">{LIVE_ACTIVITIES[activityIndex].title}</span><br/>{LIVE_ACTIVITIES[activityIndex].sub}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
