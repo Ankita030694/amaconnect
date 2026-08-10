@@ -69,7 +69,8 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
   const featuredStory = sortedInterviews[actualFeaturedIndex];
   const sidebarStories = sortedInterviews.filter((_, index) => index !== actualFeaturedIndex).slice(0, 3); // top 3 for the right sidebar
 
-  const featuredImage = featuredStory.image ? (featuredStory.image.includes('/api/images/') ? `${featuredStory.image}?w=800` : featuredStory.image) : "/man.png";
+  const featuredImage = featuredStory.image || "/man.png";
+  // We removed the manual ?w=800 hack because we are letting Next.js optimize it now.
 
   return (
     <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-0 lg:pt-2 font-sans">
@@ -90,7 +91,7 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
                   fill
                   priority
                   fetchPriority="high"
-                  unoptimized
+                  sizes="(max-width: 768px) 100vw, 60vw"
                   className="object-contain object-center bg-zinc-900 transform-gpu will-change-transform group-hover:scale-105 transition-transform duration-700"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "/man.png";
