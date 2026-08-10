@@ -54,7 +54,9 @@ export default function AboutHero() {
       }
     };
     
-    sequence();
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
+      sequence();
+    }
 
     return () => {
       isActive = false;

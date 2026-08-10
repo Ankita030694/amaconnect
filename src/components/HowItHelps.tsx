@@ -10,7 +10,7 @@ export default function HowItHelps() {
       {/* Golden Wavy Light Trails */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         {/* Bottom-left to center */}
-        <svg className="absolute w-full h-[120%] top-[-10%] left-0 opacity-[0.25] motion-safe:animate-[waveFloat_25s_ease-in-out_infinite_alternate] blur-3xl md:blur-[80px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <svg className="absolute w-full h-[120%] top-[-10%] left-0 opacity-[0.25] md:motion-safe:animate-[waveFloat_25s_ease-in-out_infinite_alternate] blur-3xl md:blur-[80px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <defs>
             <linearGradient id="gold-wave-1" x1="0%" y1="100%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#FFD54A" stopOpacity="0" />
@@ -29,7 +29,7 @@ export default function HowItHelps() {
         </svg>
 
         {/* Top-right fading behind heading */}
-        <svg className="absolute w-full h-[100%] top-[-10%] right-0 opacity-[0.20] motion-safe:animate-[waveFloat_35s_ease-in-out_infinite_alternate_reverse] blur-3xl md:blur-[100px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <svg className="absolute w-full h-[100%] top-[-10%] right-0 opacity-[0.20] md:motion-safe:animate-[waveFloat_35s_ease-in-out_infinite_alternate_reverse] blur-3xl md:blur-[100px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <defs>
             <linearGradient id="gold-wave-2" x1="100%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#B8860B" stopOpacity="0" />
@@ -48,7 +48,7 @@ export default function HowItHelps() {
         </svg>
 
         {/* Subtle smaller wave across middle */}
-        <svg className="absolute w-[120%] h-[80%] top-[20%] left-[-10%] opacity-[0.15] motion-safe:animate-[waveFloat_45s_ease-in-out_infinite_alternate] blur-2xl md:blur-[60px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <svg className="absolute w-[120%] h-[80%] top-[20%] left-[-10%] opacity-[0.15] md:motion-safe:animate-[waveFloat_45s_ease-in-out_infinite_alternate] blur-2xl md:blur-[60px]" viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <defs>
             <linearGradient id="gold-wave-3" x1="0%" y1="50%" x2="100%" y2="50%">
               <stop offset="0%" stopColor="#F5C542" stopOpacity="0" />
