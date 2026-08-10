@@ -153,10 +153,13 @@ export default async function InterviewsPage() {
                 <div className="mb-8">
                   <h2 className={`${inter.className} text-[#F5F3EE] text-[14px] lg:text-[16px] font-medium tracking-[0.1em] uppercase mb-2`}>{interviews[0].lawyer}</h2>
                   <p className={`${inter.className} text-[#9C958C] text-[16px] leading-[1.6]`}>
-                    {(interviews[0].designation || interviews[0].companyName) ? 
-                      `${interviews[0].designation || ''}${interviews[0].designation && interviews[0].companyName ? ', ' : ''}${interviews[0].companyName || ''}` :
-                      interviews[0].specialization
-                    }
+                    {(() => {
+                      const displayDesignation = interviews[0].designation || interviews[0].lawyerBio;
+                      if (displayDesignation || interviews[0].companyName) {
+                        return `${displayDesignation || ''}${displayDesignation && interviews[0].companyName ? ', ' : ''}${interviews[0].companyName || ''}`;
+                      }
+                      return interviews[0].specialization;
+                    })()}
                   </p>
                 </div>
 

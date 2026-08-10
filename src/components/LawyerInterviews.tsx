@@ -72,6 +72,7 @@ interface LawyerInterview {
   author: string;
   created?: number;
   duration?: string;
+  lawyerBio?: string;
 }
 
 export default function LawyerInterviews() {
@@ -145,8 +146,17 @@ export default function LawyerInterviews() {
                   <h4 className="text-lg sm:text-2xl font-bold text-[#B8860B] mb-3 sm:mb-4 leading-snug group-hover:text-[#9E7307] transition-colors">
                     {item.title}
                   </h4>
-                  <div className="flex flex-col gap-1 mb-3 sm:mb-4">
+                  <div className="flex flex-col gap-1.5 mb-3 sm:mb-4">
                     <span className="text-base sm:text-lg font-bold text-gray-900">{item.lawyer}</span>
+                    {(() => {
+                      const displayDesignation = item.designation || item.lawyerBio;
+                      if (!displayDesignation) return null;
+                      return (
+                        <span className="inline-flex items-center px-2.5 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#B8860B] text-[10px] font-extrabold uppercase tracking-widest rounded w-fit">
+                          {displayDesignation}
+                        </span>
+                      );
+                    })()}
                     <div className="flex items-center gap-1.5 sm:gap-2 text-green-600 font-semibold text-xs sm:text-sm">
                       <svg width="14" height="14" className="sm:w-[16px] sm:h-[16px]" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -218,7 +228,18 @@ export default function LawyerInterviews() {
                 {/* Visual Banner Block */}
                 <div className={`rounded-3xl p-6 ${selectedInterview.bgColor || 'bg-[#D4AF37]/10'} flex flex-col md:flex-row items-center gap-6 border border-slate-200/40 relative overflow-hidden shadow-3xs`}>
                   <div className="flex-1">
-                    <span className="px-2.5 py-1 bg-white/80 border border-slate-200 text-green-700 rounded-lg text-xs font-extrabold shadow-3xs">Verified Advocate</span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-1 bg-white/80 border border-slate-200 text-green-700 rounded-lg text-xs font-extrabold shadow-3xs">Verified Advocate</span>
+                      {(() => {
+                        const displayDesignation = selectedInterview.designation || selectedInterview.lawyerBio;
+                        if (!displayDesignation) return null;
+                        return (
+                          <span className="px-2.5 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#B8860B] rounded-lg text-xs font-extrabold shadow-3xs uppercase tracking-wider">
+                            {displayDesignation}
+                          </span>
+                        );
+                      })()}
+                    </div>
                     <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-3 leading-snug">{selectedInterview.title}</h2>
                     <p className="text-slate-600 text-sm mt-2 font-medium">{selectedInterview.specialization}</p>
                     <p className="text-slate-400 text-xs font-bold uppercase mt-4">{formatDateToDDMMYYYY(selectedInterview.date)} • {selectedInterview.duration || "5 min read"}</p>

@@ -21,6 +21,7 @@ export interface LawyerInterview {
   created?: number;
   isFeatured?: boolean;
   author?: string;
+  lawyerBio?: string;
 }
 
 const cleanDescription = (html: string) => {
@@ -97,7 +98,7 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
               {/* Text Content - Slim Bottom Banner */}
               <div className="relative md:absolute md:bottom-0 md:left-0 md:right-0 z-10 w-full bg-[#0a0a0a] md:bg-[#0a0a0a]/80 md:backdrop-blur-md border-t border-white/10 p-3 md:p-1.5 flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-1.5">
                 <div className="flex flex-col flex-1 md:mr-3">
-                  <div className="flex flex-wrap items-center gap-1.5 mb-0">
+                  <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
                     <span className="text-[#D4AF37] text-[8px] sm:text-[9px] font-bold tracking-widest uppercase whitespace-nowrap">
                       FEATURED INTERVIEW
                     </span>
@@ -105,6 +106,15 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
                     <span className="text-gray-300 text-[8px] sm:text-[9px] font-medium tracking-wide uppercase break-words">
                       {featuredStory.lawyer}
                     </span>
+                    {(() => {
+                      const displayDesignation = featuredStory.designation || featuredStory.lawyerBio;
+                      if (!displayDesignation) return null;
+                      return (
+                        <span className="px-1.5 py-0.5 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-[7px] sm:text-[8px] font-extrabold uppercase tracking-widest rounded ml-1">
+                          {displayDesignation}
+                        </span>
+                      );
+                    })()}
                   </div>
 
                   <h2 className="text-xs sm:text-sm lg:text-base font-extrabold text-white leading-tight tracking-tight line-clamp-2">

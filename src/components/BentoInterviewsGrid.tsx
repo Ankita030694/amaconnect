@@ -165,11 +165,24 @@ export default function BentoInterviewsGrid({ interviews, theme = "dark", embedd
                         {card.lawyer}
                       </h3>
 
-                      {(card.designation || card.companyName) && (
-                        <p className={`font-sans text-[#A39E98] text-[10px] sm:text-[11px] font-medium ${isCompact ? 'mb-1 sm:mb-1.5' : 'mb-1.5 sm:mb-2'} uppercase tracking-wide line-clamp-1`}>
-                          {card.designation}{card.designation && card.companyName ? ' @ ' : ''}{card.companyName}
-                        </p>
-                      )}
+                      {(() => {
+                        const displayDesignation = card.designation || card.lawyerBio;
+                        if (!displayDesignation && !card.companyName) return null;
+                        return (
+                          <div className="flex flex-wrap items-center gap-1.5 mb-2 mt-1">
+                            {displayDesignation && (
+                              <span className="inline-flex px-1.5 py-0.5 bg-[#C9A227]/10 border border-[#C9A227]/30 text-[#C9A227] text-[8px] sm:text-[9px] font-extrabold uppercase tracking-widest rounded">
+                                {displayDesignation}
+                              </span>
+                            )}
+                            {card.companyName && (
+                              <span className="text-[#A39E98] text-[9px] sm:text-[10px] font-bold uppercase tracking-wide">
+                                @ {card.companyName}
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })()}
 
                       <p className={`font-sans text-[#F5F3EE] ${embedded ? 'text-[11px] sm:text-[12px] lg:text-[13px]' : (isCompact ? 'text-[13px] lg:text-[14px]' : 'text-[14px]')} font-medium ${isCompact ? 'line-clamp-1' : 'line-clamp-2'} leading-snug`}>
                         {card.title}
