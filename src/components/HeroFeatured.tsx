@@ -89,6 +89,7 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
                   alt={featuredStory.lawyer}
                   fill
                   priority
+                  fetchPriority="high"
                   unoptimized
                   className="object-contain object-center bg-zinc-900 transform group-hover:scale-105 transition-transform duration-700"
                   onError={(e) => {
