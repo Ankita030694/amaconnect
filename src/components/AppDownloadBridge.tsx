@@ -9,6 +9,7 @@ import {
 import QRCode from "react-qr-code";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 import { APP_STATS } from "@/lib/appStats";
 
@@ -97,9 +98,9 @@ export default function AppDownloadBridge() {
                                         </div>
                                         <div className="flex items-center gap-2.5 mt-1">
                                             <div className="flex -space-x-1.5 shrink-0">
-                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[1.5]" /></div>
-                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[2]" /></div>
-                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden"><img src="/peoples.png" alt="Users" className="w-full h-full object-cover scale-[2.5]" /></div>
+                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden relative"><Image src="/peoples.png" alt="Users" fill className="object-cover scale-[1.5]" /></div>
+                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden relative"><Image src="/peoples.png" alt="Users" fill className="object-cover scale-[2]" /></div>
+                                                <div className="w-6 h-6 rounded-full border-2 border-[#1A1A1A] bg-gray-600 overflow-hidden relative"><Image src="/peoples.png" alt="Users" fill className="object-cover scale-[2.5]" /></div>
                                             </div>
                                             <div className="flex flex-col relative w-[120px] h-[30px] overflow-hidden ml-1">
                                                 <AnimatePresence mode="wait">

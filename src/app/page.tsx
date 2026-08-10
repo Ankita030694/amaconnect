@@ -1,12 +1,14 @@
+import dynamic from "next/dynamic";
 import TopStatsBar from "@/components/TopStatsBar";
 import HeroFeatured from "@/components/HeroFeatured";
-import CommunitiesRow from "@/components/CommunitiesRow";
-import LiveActivityTicker from "@/components/LiveActivityTicker";
-import LiveActivityFeed from "@/components/LiveActivityFeed";
-import LatestArticles from "@/components/LatestArticles";
 import HomepageNewsGlassCards from "@/components/HomepageNewsGlassCards";
-import AppDownloadBridge from "@/components/AppDownloadBridge";
-import Footer from "@/components/Footer";
+
+const CommunitiesRow = dynamic(() => import("@/components/CommunitiesRow"));
+const LiveActivityTicker = dynamic(() => import("@/components/LiveActivityTicker"));
+const LiveActivityFeed = dynamic(() => import("@/components/LiveActivityFeed"));
+const LatestArticles = dynamic(() => import("@/components/LatestArticles"));
+const AppDownloadBridge = dynamic(() => import("@/components/AppDownloadBridge"));
+const Footer = dynamic(() => import("@/components/Footer"));
 import dbConnect from "@/lib/dbConnect";
 import { LawyerInterview as LawyerInterviewModel, Blog as BlogModel } from "@/lib/models";
 
