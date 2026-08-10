@@ -51,15 +51,20 @@ export default function NewsContent() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [brokenImages, setBrokenImages] = useState<Record<number, boolean>>({});
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchNews() {
       try {
         setIsLoading(true);
+        setPage(1);
         const res = await fetch(`/api/news?page=1&category=${encodeURIComponent(activeCategory)}`);
         if (res.ok) {
           const data = await res.json();
           setArticles(data.articles || []);
+          setHasMore(data.hasMore || false);
         }
       } catch (err) {
         console.error("Error loading news:", err);
@@ -70,12 +75,34 @@ export default function NewsContent() {
     fetchNews();
   }, [activeCategory]);
 
+  const handleLoadMore = async () => {
+    if (isLoadingMore || !hasMore) return;
+    try {
+      setIsLoadingMore(true);
+      const nextPage = page + 1;
+      const res = await fetch(`/api/news?page=${nextPage}&category=${encodeURIComponent(activeCategory)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setArticles(prev => [...prev, ...(data.articles || [])]);
+        setHasMore(data.hasMore || false);
+        setPage(nextPage);
+      }
+    } catch (err) {
+      console.error("Error loading more news:", err);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+
   const handleImageError = (index: number) => {
     setBrokenImages((prev) => ({ ...prev, [index]: true }));
   };
 
   const topStory = articles.length > 0 ? articles[0] : null;
-  const topStories = articles.length > 1 ? articles.slice(1, 4) : [];
+  const topStories = [
+    ...(articles.length > 1 ? articles.slice(1, 4) : []),
+    ...(articles.length > 9 ? articles.slice(9) : [])
+  ];
   const trendingStories = articles.length > 4 ? articles.slice(4, 9) : [];
 
   return (
@@ -225,6 +252,18 @@ export default function NewsContent() {
                     )
                   })}
                 </div>
+                {hasMore && (
+                  <div className="mt-8 flex justify-center">
+                    <button
+                      onClick={handleLoadMore}
+                      disabled={isLoadingMore}
+                      className="px-8 py-3 bg-[#C9A227] text-[#FFFFFF] rounded-[8px] font-medium text-[14px] hover:bg-[#b08d22] transition-colors duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
+                      {isLoadingMore ? "Loading..." : "Load More"}
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
