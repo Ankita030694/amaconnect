@@ -1,11 +1,21 @@
 import dynamic from "next/dynamic";
 import TopStatsBar from "@/components/TopStatsBar";
 import HeroFeatured from "@/components/HeroFeatured";
-const HomepageNewsGlassCards = dynamic(() => import("@/components/HomepageNewsGlassCards"));
-const CommunitiesRow = dynamic(() => import("@/components/CommunitiesRow"));
-const LiveActivityTicker = dynamic(() => import("@/components/LiveActivityTicker"));
-const LiveActivityFeed = dynamic(() => import("@/components/LiveActivityFeed"));
-const LatestArticles = dynamic(() => import("@/components/LatestArticles"));
+const HomepageNewsGlassCards = dynamic(() => import("@/components/HomepageNewsGlassCards"), {
+  loading: () => <div className="w-full h-48 bg-gray-100 animate-pulse rounded-3xl my-6"></div>
+});
+const CommunitiesRow = dynamic(() => import("@/components/CommunitiesRow"), {
+  loading: () => <div className="w-full h-64 bg-gray-100 animate-pulse rounded-3xl"></div>
+});
+const LiveActivityTicker = dynamic(() => import("@/components/LiveActivityTicker"), {
+  loading: () => <div className="w-full h-12 bg-gray-100 animate-pulse rounded-xl mb-4"></div>
+});
+const LiveActivityFeed = dynamic(() => import("@/components/LiveActivityFeed"), {
+  loading: () => <div className="w-full h-96 bg-gray-100 animate-pulse rounded-3xl"></div>
+});
+const LatestArticles = dynamic(() => import("@/components/LatestArticles"), {
+  loading: () => <div className="w-full h-96 bg-gray-100 animate-pulse rounded-3xl"></div>
+});
 const AppDownloadBridge = dynamic(() => import("@/components/AppDownloadBridge"));
 const Footer = dynamic(() => import("@/components/Footer"));
 import dbConnect from "@/lib/dbConnect";
