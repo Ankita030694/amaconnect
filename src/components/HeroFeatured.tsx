@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import BentoInterviewsGrid from "@/components/BentoInterviewsGrid";
@@ -83,10 +84,13 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
             <div className="bg-[#0a0a0a] rounded-3xl overflow-hidden flex flex-col relative group shadow-2xl flex-1 border border-gray-800">
               {/* Full Background Image */}
               <div className="relative md:absolute inset-0 z-0 w-full aspect-video md:aspect-auto md:h-full shrink-0">
-                <img
+                <Image
                   src={featuredImage}
                   alt={featuredStory.lawyer}
-                  className="w-full h-full object-contain object-center bg-zinc-900 transform group-hover:scale-105 transition-transform duration-700"
+                  fill
+                  priority
+                  unoptimized
+                  className="object-contain object-center bg-zinc-900 transform group-hover:scale-105 transition-transform duration-700"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "/man.png";
                   }}

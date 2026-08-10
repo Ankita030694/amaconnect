@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FadeIn } from "@/components/FadeIn";
 
 const gridConfigFull = [
@@ -194,13 +195,21 @@ export default function BentoInterviewsGrid({ interviews, theme = "dark", embedd
                   <div className={`relative shrink-0 bg-black overflow-hidden flex items-center justify-center border-white/5 ${assignedConfig.imageClass || 'flex-1 min-h-[120px]'}`}>
                     {/* Blurred background to fill space */}
                     <div className="absolute inset-0 z-0">
-                      <img src={getOptimizedImageSrc(card.image, 100)} alt="" className="w-full h-full object-cover blur-xl opacity-40 scale-125" />
+                      <Image 
+                        src={getOptimizedImageSrc(card.image, 100)} 
+                        alt="" 
+                        fill
+                        unoptimized
+                        className="object-cover blur-xl opacity-40 scale-125" 
+                      />
                     </div>
                     {/* Actual image */}
-                    <img
+                    <Image
                       src={getOptimizedImageSrc(card.image, 600)}
                       alt={card.lawyer}
-                      className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-400 ease-out p-1"
+                      fill
+                      unoptimized
+                      className="relative z-10 object-contain group-hover:scale-105 transition-transform duration-400 ease-out p-1"
                     />
                   </div>
 
