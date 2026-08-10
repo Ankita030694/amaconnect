@@ -33,4 +33,12 @@ body {
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+  
+  /* Fix for iPhone/WebKit rendering lag on elements with blur or backdrop-filter */
+  [class*="blur-"],
+  [class*="backdrop-blur"] {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+  }
 }
