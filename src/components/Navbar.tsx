@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import QRCode from "react-qr-code";
 import { Menu, X } from "lucide-react";
 
@@ -51,11 +50,7 @@ export default function Navbar() {
             {/* Logo */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center gap-2">
-                <motion.div 
-                  initial={{ opacity: 0, x: -8 }} 
-                  animate={{ opacity: 1, x: 0 }} 
-                  transition={{ duration: 0.4, type: "tween" }}
-                >
+                <div className="animate-in fade-in slide-in-from-left-2 duration-500">
                   <Image
                     src="/logo2.svg"
                     alt="AMA CONNECTS"
@@ -65,7 +60,7 @@ export default function Navbar() {
                     fetchPriority="high"
                     className="h-11 w-auto object-contain"
                   />
-                </motion.div>
+                </div>
               </Link>
             </div>
 
@@ -124,15 +119,8 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Dropdown */}
-          <AnimatePresence>
             {isMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                animate={{ opacity: 1, height: "auto", marginTop: 12 }}
-                exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                transition={{ duration: 0.3 }}
-                className="lg:hidden w-full overflow-hidden"
-              >
+              <div className="lg:hidden w-full overflow-hidden animate-in slide-in-from-top-4 fade-in duration-300 mt-3">
                 <div className="bg-white border border-gray-200 rounded-[16px] shadow-lg p-4 flex flex-col gap-2">
                   {navLinks.map((link) => {
                     const isActive = pathname === link.href;
@@ -164,29 +152,21 @@ export default function Navbar() {
                     Get the App
                   </button>
                 </div>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
 
         </div>
       </nav>
 
       {/* App Download Modal */}
-      <AnimatePresence>
         {showAppModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              exit={{ opacity: 0 }} 
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
+            <div 
               onClick={() => setShowAppModal(false)}
               className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
             />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }} 
-              animate={{ opacity: 1, scale: 1, y: 0 }} 
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+            <div 
+              className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
             >
               <button 
                 onClick={() => setShowAppModal(false)}
@@ -228,10 +208,9 @@ export default function Navbar() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         )}
-      </AnimatePresence>
     </>
   );
 }

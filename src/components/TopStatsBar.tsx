@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { UserCheck, MessageSquare, Clock, Star } from "lucide-react";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const LIVE_ACTIVITIES = [
   { title: "27 Questions", sub: "Asked in last 15 mins" },
@@ -15,10 +14,15 @@ const LIVE_ACTIVITIES = [
 
 export default function TopStatsBar() {
   const [activityIndex, setActivityIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActivityIndex((prev) => (prev + 1) % LIVE_ACTIVITIES.length);
+      setIsFading(true);
+      setTimeout(() => {
+        setActivityIndex((prev) => (prev + 1) % LIVE_ACTIVITIES.length);
+        setIsFading(false);
+      }, 300);
     }, 4000);
     return () => clearInterval(timer);
   }, []);
@@ -29,24 +33,32 @@ export default function TopStatsBar() {
       {/* Featured In Section */}
       <div className="flex items-center justify-center w-full xl:w-auto bg-gray-50 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 border border-gray-100 shrink-0">
         <div className="flex items-center justify-center flex-wrap gap-4 sm:gap-6 md:gap-8">
-          <img 
+          <Image 
             src="/media/barandbench.png" 
             alt="Bar & Bench" 
+            width={120}
+            height={48}
             className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
           />
-          <img 
+          <Image 
             src="/media/livemint.png" 
             alt="Mint" 
+            width={120}
+            height={48}
             className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
           />
-          <img 
+          <Image 
             src="/media/medium.png" 
             alt="Medium" 
+            width={120}
+            height={48}
             className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
           />
-          <img 
+          <Image 
             src="/media/yourstory.png" 
             alt="YourStory" 
+            width={120}
+            height={48}
             className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
           />
         </div>
@@ -100,23 +112,18 @@ export default function TopStatsBar() {
           </div>
           
           <div className="flex flex-col relative w-[180px] h-[40px] overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activityIndex}
-                initial={{ y: 15, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -15, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 flex flex-col justify-center"
-              >
-                <span className="text-sm sm:text-base font-extrabold text-gray-900 truncate leading-tight">
-                  {LIVE_ACTIVITIES[activityIndex].title}
-                </span>
-                <span className="text-[10px] sm:text-xs text-gray-500 font-medium truncate leading-tight mt-0.5">
-                  {LIVE_ACTIVITIES[activityIndex].sub}
-                </span>
-              </motion.div>
-            </AnimatePresence>
+            <div
+              className={`absolute inset-0 flex flex-col justify-center transition-all duration-300 ${
+                isFading ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"
+              }`}
+            >
+              <span className="text-sm sm:text-base font-extrabold text-gray-900 truncate leading-tight">
+                {LIVE_ACTIVITIES[activityIndex].title}
+              </span>
+              <span className="text-[10px] sm:text-xs text-gray-500 font-medium truncate leading-tight mt-0.5">
+                {LIVE_ACTIVITIES[activityIndex].sub}
+              </span>
+            </div>
           </div>
           
         </div>
