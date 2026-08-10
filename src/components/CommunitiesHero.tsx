@@ -122,8 +122,8 @@ export default function CommunitiesHero() {
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100">
-                        <Image src="https://i.pravatar.cc/100?img=60" width={40} height={40} alt="Arjun Mehta" className="object-cover w-full h-full" />
+                      <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 border border-gray-200">
+                        <Image src="/arjun_avatar.png" width={40} height={40} alt="Arjun Mehta" className="object-cover w-full h-full" />
                       </div>
                       <div>
                         <h4 className="text-[15px] font-bold text-[#2B2118]">Arjun Mehta</h4>
@@ -152,13 +152,13 @@ export default function CommunitiesHero() {
                     
                     <div className="flex -space-x-2 ml-2">
                       <div className="w-6 h-6 rounded-full border-2 border-white overflow-hidden bg-gray-200">
-                         <Image src="https://i.pravatar.cc/100?img=33" width={24} height={24} alt="Avatar" />
+                         <Image src="https://i.pravatar.cc/100?img=33" width={24} height={24} alt="Avatar" className="object-cover w-full h-full" />
                       </div>
                       <div className="w-6 h-6 rounded-full border-2 border-white overflow-hidden bg-gray-200">
-                         <Image src="https://i.pravatar.cc/100?img=12" width={24} height={24} alt="Avatar" />
+                         <Image src="https://i.pravatar.cc/100?img=12" width={24} height={24} alt="Avatar" className="object-cover w-full h-full" />
                       </div>
                       <div className="w-6 h-6 rounded-full border-2 border-white overflow-hidden bg-gray-200">
-                         <Image src="https://i.pravatar.cc/100?img=47" width={24} height={24} alt="Avatar" />
+                         <Image src="https://i.pravatar.cc/100?img=47" width={24} height={24} alt="Avatar" className="object-cover w-full h-full" />
                       </div>
                       <div className="w-6 h-6 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-500">
                          +8
@@ -173,8 +173,8 @@ export default function CommunitiesHero() {
                 <div className="p-6 bg-gray-50/50 rounded-b-[24px]">
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100">
-                        <Image src="https://i.pravatar.cc/100?img=42" width={40} height={40} alt="Adv. Neha Sharma" className="object-cover w-full h-full" />
+                      <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 border border-gray-200 shadow-sm">
+                        <Image src="/neha_lawyer_avatar.png" width={40} height={40} alt="Adv. Neha Sharma" className="object-cover w-full h-full" />
                       </div>
                       <div>
                         <div className="flex items-center gap-1.5">
