@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import QRCode from "react-qr-code";
+import dynamic from "next/dynamic";
+const QRCode = dynamic(() => import("react-qr-code"), { ssr: false });
 import { Menu, X } from "lucide-react";
 
 
