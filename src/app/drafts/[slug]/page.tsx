@@ -101,7 +101,7 @@ export default async function Page({
 
   if (!draft) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#F5F2EB]">
+      <div className="min-h-dvh flex flex-col bg-[#F5F2EB]">
         {/* <Navbar /> */}
         <div className="flex-grow flex items-center justify-center py-24 px-4 text-center">
           <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-3xs max-w-md">
@@ -137,7 +137,7 @@ export default async function Page({
   const combinedSchema = generateDraftSchema(draft, faqs, reviews, slug);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
+    <div className="flex flex-col min-h-dvh bg-[#F8FAFC]">
       {/* <Navbar /> */}
 
       {/* Schema Script for Search Engine Indexation */}

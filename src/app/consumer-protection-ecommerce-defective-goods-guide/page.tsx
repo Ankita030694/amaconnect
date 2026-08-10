@@ -233,7 +233,7 @@ export default function ConsumerProtectionPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-dvh bg-white">
       {/* Schema Injection */}
       <Script
         id="article-schema"

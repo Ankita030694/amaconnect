@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function NewsPage() {
   return (
-    <main className="flex-1 flex flex-col min-h-screen bg-[#F5F3EE]">
+    <main className="flex-1 flex flex-col min-h-dvh bg-[#F5F3EE]">
       <NewsContent />
       <Footer />
       <style dangerouslySetInnerHTML={{__html: `

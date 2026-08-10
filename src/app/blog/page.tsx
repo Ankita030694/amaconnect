@@ -120,7 +120,7 @@ export default function BlogsPage() {
   };
 
   return (
-    <div className={`min-h-screen bg-[#F5F3EE] text-[#1E1E1E] ${inter.className}`}>
+    <div className={`min-h-dvh bg-[#F5F3EE] text-[#1E1E1E] ${inter.className}`}>
       {/* 1. SEARCH BAR */}
       <section className="pt-[24px] lg:pt-[100px] pb-[24px] lg:pb-[40px] px-6 max-w-[1280px] mx-auto">
         <div className="max-w-[640px] mx-auto relative group/search">

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function DraftsPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans">
+    <div className="flex flex-col min-h-dvh bg-white font-sans">
       {/* <Navbar /> */}
       <main className="flex-grow">
         <DraftsHero />

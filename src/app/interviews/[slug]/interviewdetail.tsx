@@ -377,7 +377,7 @@ const InterviewDetail = memo(function InterviewDetail({ interview, relatedInterv
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-12 font-sans">
+    <div className="min-h-dvh bg-[#F5F2EB] text-gray-800 pb-12 font-sans">
       {/* Full Screen Banner with Blurred Background Filler */}
       {interview.image && (
         <div className={`w-full h-[224px] sm:h-[304px] md:h-[400px] lg:h-[440px] relative ${interview.bgColor || 'bg-[#2D2219]'} flex items-center justify-center overflow-hidden border-b border-slate-200/40 shadow-xs`}>

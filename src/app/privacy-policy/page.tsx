@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans">
+    <div className="flex flex-col min-h-dvh bg-white font-sans">
       <main className="flex-grow">
         {/* Header Section */}
         <section className="bg-[#F8F9FA] pt-32 pb-16 px-6 lg:px-8 border-b border-gray-100">

@@ -95,7 +95,7 @@ export default function ProBonoPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-dvh bg-white">
       <Script
         id="pro-bono-article-schema"
         type="application/ld+json"
@@ -107,7 +107,7 @@ export default function ProBonoPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       
-      <main className="min-h-screen bg-[#FAF8F5] pb-24">
+      <main className="min-h-dvh bg-[#FAF8F5] pb-24">
         <ProBonoHero />
 
         {/* Container for the 3-column layout matching the global design system */}

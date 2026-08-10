@@ -155,7 +155,7 @@ export default function ContactClient() {
         .font-playfair { font-family: 'Playfair Display', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
       `}} />
-      <div className="flex flex-col min-h-screen bg-[#F5F3EE] font-inter">
+      <div className="flex flex-col min-h-dvh bg-[#F5F3EE] font-inter">
         <main className="flex-grow pt-[24px] lg:pt-[120px] pb-[40px] lg:pb-[60px] px-4 sm:px-6 lg:px-8 relative w-full max-w-[1200px] mx-auto">
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[24px] lg:gap-[48px] items-start">

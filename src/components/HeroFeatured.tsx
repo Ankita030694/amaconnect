@@ -91,7 +91,7 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
                   priority
                   fetchPriority="high"
                   unoptimized
-                  className="object-contain object-center bg-zinc-900 transform group-hover:scale-105 transition-transform duration-700"
+                  className="object-contain object-center bg-zinc-900 transform-gpu will-change-transform group-hover:scale-105 transition-transform duration-700"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "/man.png";
                   }}

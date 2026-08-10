@@ -392,7 +392,7 @@ const DraftDetail = memo(function DraftDetail({ draft, content, preview, faqs, r
 
 
   return (
-    <div className="min-h-screen bg-[#F5F2EB] text-gray-800 pb-16">
+    <div className="min-h-dvh bg-[#F5F2EB] text-gray-800 pb-16">
       {/* Toast Notification */}
       {downloadToast && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#1C1A17] text-white px-5 py-4 rounded-[14px] shadow-2xl flex items-center gap-3 border border-[#3D3830] animate-in fade-in slide-in-from-bottom-5 duration-300 max-w-sm">

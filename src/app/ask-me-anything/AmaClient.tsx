@@ -354,7 +354,7 @@ export default function AmaClient({ initialQuestions = [] }: { initialQuestions?
   ];
 
   return (
-    <div className="min-h-screen bg-[#F9F7F2] font-[family-name:var(--font-polysans)]">
+    <div className="min-h-dvh bg-[#F9F7F2] font-[family-name:var(--font-polysans)]">
       
       {showModal && <DownloadModal onClose={() => setShowModal(false)} />}
 

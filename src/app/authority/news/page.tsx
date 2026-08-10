@@ -324,7 +324,7 @@ export default function CustomNewsDashboard() {
   const availableCategories = ["All", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto bg-slate-50 min-h-screen text-slate-800 font-sans">
+    <div className="p-6 max-w-7xl mx-auto bg-slate-50 min-h-dvh text-slate-800 font-sans">
       <AnimatePresence>
         {!showForm ? (
           <motion.div
@@ -522,7 +522,7 @@ export default function CustomNewsDashboard() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6 max-h-[calc(100dvh-200px)] overflow-y-auto">
               
               {/* AI Writeup Generator Card */}
               {formMode === 'add' && (

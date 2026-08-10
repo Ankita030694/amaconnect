@@ -47,7 +47,7 @@ export default function NullifyClient() {
   };
 
   return (
-    <main className="min-h-screen w-full flex items-center justify-center bg-[#1E1B18] px-4 relative overflow-hidden font-sans">
+    <main className="min-h-dvh w-full flex items-center justify-center bg-[#1E1B18] px-4 relative overflow-hidden font-sans">
       
       {/* Decorative Brand Light Glows */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#D4AF37]/5 rounded-full blur-[120px]" />

@@ -90,7 +90,7 @@ export default async function SitemapPage() {
   const allLinks = [...staticLinks, ...dynamicLinks];
 
   return (
-    <div className="min-h-screen bg-[#FDFCF7] flex flex-col font-sans">
+    <div className="min-h-dvh bg-[#FDFCF7] flex flex-col font-sans">
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <h1 className="text-3xl font-black text-[#2D2319] mb-8 border-b border-gray-200 pb-4">
           Sitemap

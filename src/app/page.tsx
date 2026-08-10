@@ -62,7 +62,7 @@ export default async function Home() {
   const blogs = await getLatestBlogs();
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans">
+    <div className="flex flex-col min-h-dvh bg-white font-sans">
       <main className="flex-grow flex flex-col gap-8 pb-16">
         
         <div className="flex flex-col gap-2">

@@ -200,7 +200,7 @@ export default async function Page({
 
   if (!blogData) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-dvh flex flex-col bg-gray-50">
         {/* <Navbar /> */}
         <div className="flex-grow flex items-center justify-center py-24">
           <div className="text-center">
@@ -214,7 +214,7 @@ export default async function Page({
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
+    <div className="flex flex-col min-h-dvh bg-[#F8FAFC]">
       {/* <Navbar /> */}
 
       {/* Combined Schema */}
