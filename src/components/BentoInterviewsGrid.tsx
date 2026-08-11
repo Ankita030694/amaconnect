@@ -40,11 +40,11 @@ const gridConfigFull = [
 ];
 
 const gridConfigEmbedded = [
-  { grid: "col-span-2 md:col-span-2 lg:col-span-2 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse sm:flex-row", textClass: "h-[50%] sm:h-full sm:w-[60%]", imageClass: "h-[50%] sm:h-full sm:w-[40%]" },
-  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "h-[50%]", imageClass: "h-[50%]", isCompact: true },
-  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "h-[50%]", imageClass: "h-[50%]", isCompact: true },
-  { grid: "col-span-2 md:col-span-2 lg:col-span-2 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse sm:flex-row", textClass: "h-[50%] sm:h-full sm:w-[60%]", imageClass: "h-[50%] sm:h-full sm:w-[40%]" },
-  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "h-[50%]", imageClass: "h-[50%]", isCompact: true }
+  { grid: "col-span-2 md:col-span-2 lg:col-span-2 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse sm:flex-row", textClass: "flex-1 sm:h-full sm:w-[60%]", imageClass: "h-[140px] sm:h-full sm:w-[40%]" },
+  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[140px]", isCompact: true },
+  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[140px]", isCompact: true },
+  { grid: "col-span-2 md:col-span-2 lg:col-span-2 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse sm:flex-row", textClass: "flex-1 sm:h-full sm:w-[60%]", imageClass: "h-[140px] sm:h-full sm:w-[40%]" },
+  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[140px]", isCompact: true }
 ];
 
 const formatDate = (dateStr: string) => {
@@ -151,8 +151,8 @@ export default function BentoInterviewsGrid({ interviews, theme = "dark", embedd
                 <Link href={`/interviews/${card.slug}`} className={`flex ${assignedConfig.flex} relative w-full h-full overflow-hidden border border-[#3A3530] hover:border-[#C9A227] hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(201,162,39,0.15)] transition-all duration-400 ease-out group rounded-3xl bg-[#1E1C19]`}>
 
                   {/* Text Content */}
-                  <div className={`flex flex-col justify-center shrink-0 ${assignedConfig.textClass || 'flex-1'} ${embedded || isCompact ? 'p-4' : (assignedConfig.textClass?.includes('p-[') ? '' : 'p-[24px] lg:p-[32px]')} relative z-10 bg-[#1E1C19]`}>
-                    <div className="flex flex-col relative z-10 w-full h-full justify-center">
+                  <div className={`flex flex-col justify-start shrink-0 ${assignedConfig.textClass || 'flex-1'} ${embedded || isCompact ? 'p-4' : (assignedConfig.textClass?.includes('p-[') ? '' : 'p-[24px] lg:p-[32px]')} relative z-10 bg-[#1E1C19]`}>
+                    <div className="flex flex-col relative z-10 w-full h-full justify-start">
                       <div className={`flex items-center gap-2 ${isCompact ? 'mb-1 sm:mb-2' : 'mb-2 sm:mb-3'} flex-wrap`}>
                         <span className={`font-sans text-[#C9A227] ${embedded || isCompact ? 'text-[9px] sm:text-[10px]' : 'text-[12px]'} font-bold tracking-[0.15em] uppercase border border-[#C9A227] bg-[#1E1C19] px-1.5 sm:px-2 py-0.5 rounded-sm shrink-0`}>
                           INTERVIEW
@@ -162,7 +162,7 @@ export default function BentoInterviewsGrid({ interviews, theme = "dark", embedd
                         </span>
                       </div>
 
-                      <h3 className={`font-serif italic font-semibold ${embedded ? 'text-[14px] sm:text-[16px] lg:text-[18px]' : (isCompact ? 'text-[20px] lg:text-[22px]' : 'text-[22px] lg:text-[26px]')} text-[#C9A227] line-clamp-1 mb-0.5`}>
+                      <h3 className={`font-serif italic font-semibold ${embedded ? 'text-[15px] sm:text-[17px] lg:text-[19px]' : (isCompact ? 'text-[20px] lg:text-[22px]' : 'text-[22px] lg:text-[26px]')} text-[#C9A227] truncate shrink-0 w-full mb-1`}>
                         {card.lawyer}
                       </h3>
 
@@ -185,7 +185,7 @@ export default function BentoInterviewsGrid({ interviews, theme = "dark", embedd
                         );
                       })()}
 
-                      <p className={`font-sans text-[#F5F3EE] ${embedded ? 'text-[11px] sm:text-[12px] lg:text-[13px]' : (isCompact ? 'text-[13px] lg:text-[14px]' : 'text-[14px]')} font-medium ${isCompact ? 'line-clamp-1' : 'line-clamp-2'} leading-snug`}>
+                      <p className={`font-sans text-[#F5F3EE] ${embedded ? 'text-[11px] sm:text-[12px] lg:text-[13px]' : (isCompact ? 'text-[13px] lg:text-[14px]' : 'text-[14px]')} font-medium ${isCompact ? 'line-clamp-1' : 'line-clamp-2'} leading-snug shrink-0 w-full mt-1`}>
                         {card.title}
                       </p>
                     </div>
@@ -206,7 +206,7 @@ export default function BentoInterviewsGrid({ interviews, theme = "dark", embedd
                     {/* Actual image */}
                     <Image
                       src={getOptimizedImageSrc(card.image, 600)}
-                      alt={card.lawyer}
+                      alt={card.lawyer || "Unknown"}
                       fill
                       unoptimized
                       className="relative z-10 object-contain group-hover:scale-105 transition-transform duration-400 ease-out p-1"

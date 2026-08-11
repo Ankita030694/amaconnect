@@ -162,7 +162,7 @@ export default function HowItHelps() {
                 </div>
               </div>
 
-              <div className="absolute -bottom-6 -right-6 w-[200px] h-[280px] sm:w-[240px] sm:h-[320px] z-0 group-hover:scale-105 transition-transform duration-500 origin-bottom-right rotate-[15deg]">
+              <div className="absolute -bottom-6 -right-6 w-[200px] h-[280px] sm:w-[240px] sm:h-[320px] z-0 group-hover:scale-105 transition-transform duration-500 origin-bottom-right rotate-[15deg] translate-y-[70px] translate-x-[10px]">
                 <Image src="/Chat.svg" alt="Ask Your Lawyer mockup" fill className="object-top object-contain drop-shadow-md md:drop-shadow-2xl" priority sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
             </div>

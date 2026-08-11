@@ -252,7 +252,7 @@ export default async function InterviewsPage() {
           </div>
 
           {/* Bottom Beige Section */}
-          <div className="w-full bg-[#F5F2EB] relative pb-[80px]">
+          <div className="w-full bg-[#31261C] relative pb-[80px]">
             <div className="max-w-[900px] mx-auto px-6 relative z-20 -mt-[300px] md:-mt-[360px]">
               {/* Form Container */}
               <div className="w-full bg-[#FCFBF9] rounded-[24px] p-6 md:p-10 lg:p-12 shadow-xl border border-[#E5E0D8]">
