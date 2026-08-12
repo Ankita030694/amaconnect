@@ -11,7 +11,7 @@ import { useState } from "react";
  * in international format, no + or spaces (e.g. "919876543210").
  */
 
-const WHATSAPP_NUMBER = "919876543210"; // <-- replace with real number
+const WHATSAPP_NUMBER = "918700343611"; // <-- replace with real number
 const PREFILLED_MESSAGE = "Hi, I have a legal question for AMA Connect.";
 
 export default function WhatsAppButton() {
