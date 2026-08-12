@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "Learn about legal remedies, statutory rights under the Clinical Establishments Act, and consumer commission procedures for patient malpractice claims in India.",
   keywords: "patient rights India, medical negligence IPC 304A, consumer protection act medical, Jacob Mathew guidelines, Bolam test medical negligence, clinical establishments charter, informed medical consent",
   alternates: {
-    canonical: "https://amaconnect.in/patient-rights-medical-negligence-legal-help",
+    canonical: "https://www.amaconnect.in/patient-rights-medical-negligence-legal-help",
   },
   openGraph: {
     title: "Patient Rights & Medical Negligence Guide in India",
     description:
       "Learn about legal remedies, statutory rights under the Clinical Establishments Act, and consumer commission procedures for patient malpractice claims in India.",
-    url: "https://amaconnect.in/patient-rights-medical-negligence-legal-help",
+    url: "https://www.amaconnect.in/patient-rights-medical-negligence-legal-help",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function PatientRightsPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/patient-rights-medical-negligence-legal-help`;
 
   // 1. Article Schema

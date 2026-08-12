@@ -15,6 +15,6 @@ export default function robots(): MetadataRoute.Robots {
         "/api/",
       ],
     },
-    sitemap: "https://amaconnect.in/sitemap.xml",
+    sitemap: "https://www.amaconnect.in/sitemap.xml",
   };
 }

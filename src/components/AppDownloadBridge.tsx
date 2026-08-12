@@ -278,7 +278,7 @@ export default function AppDownloadBridge() {
                         {/* Premium QR Code */}
                         <div className="bg-[#121212] p-2.5 rounded-2xl border border-white/10 shadow-xl hidden lg:block">
                             <div className="w-24 h-24 bg-white rounded-xl flex items-center justify-center p-2">
-                                <QRCode value="https://amaconnect.in/get" size={100} style={{ height: "auto", maxWidth: "100%", width: "100%" }} />
+                                <QRCode value="https://www.amaconnect.in/get" size={100} style={{ height: "auto", maxWidth: "100%", width: "100%" }} />
                             </div>
                         </div>
                         <span className="text-[#C9A227] font-bold text-[10px] tracking-widest uppercase hidden lg:block mt-1">Scan to Download</span>

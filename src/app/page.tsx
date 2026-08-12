@@ -27,12 +27,15 @@ const getInterviews = async () => {
   try {
     await dbConnect();
 
-    const featured = await LawyerInterviewModel.findOne({ isFeatured: true }).lean();
+    const featured = await LawyerInterviewModel.findOne({ isFeatured: true })
+      .select("-description -faqs -reviews")
+      .lean();
 
     const limit = featured ? 9 : 10;
     const query = featured ? { _id: { $ne: featured._id } } : {};
 
     const latest = await LawyerInterviewModel.find(query)
+      .select("-description -faqs -reviews")
       .sort({ created: -1 })
       .limit(limit)
       .lean();
@@ -49,7 +52,11 @@ const getInterviews = async () => {
 const getLatestBlogs = async () => {
   try {
     await dbConnect();
-    const blogs = await BlogModel.find({}).sort({ created: -1 }).limit(4).lean();
+    const blogs = await BlogModel.find({})
+      .select("-description -faqs -reviews")
+      .sort({ created: -1 })
+      .limit(4)
+      .lean();
     return JSON.parse(JSON.stringify(blogs));
   } catch (error) {
     console.error("Error fetching latest blogs on server home page:", error);

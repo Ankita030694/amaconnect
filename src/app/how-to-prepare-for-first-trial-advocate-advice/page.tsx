@@ -23,20 +23,20 @@ export const metadata: Metadata = {
     "Courtroom-tested advice, etiquette guidelines, mock trial systems, and cross-examination strategies from senior advocates to help junior lawyers navigate their first trial.",
   keywords: "prepare for first trial, advocate tips for beginners, junior lawyer advice, courtroom etiquette, trial preparation, litigation strategy, witness examination, court dressing code, legal mentorship",
   alternates: {
-    canonical: "https://amaconnect.in/how-to-prepare-for-first-trial-advocate-advice",
+    canonical: "https://www.amaconnect.in/how-to-prepare-for-first-trial-advocate-advice",
   },
   openGraph: {
     title: "How to Prepare for Your First Trial: Advice from Seasoned Advocates",
     description:
       "Courtroom-tested advice, etiquette guidelines, mock trial systems, and cross-examination strategies from senior advocates to help junior lawyers navigate their first trial.",
-    url: "https://amaconnect.in/how-to-prepare-for-first-trial-advocate-advice",
+    url: "https://www.amaconnect.in/how-to-prepare-for-first-trial-advocate-advice",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function TrialGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/how-to-prepare-for-first-trial-advocate-advice`;
 
   // 1. Article Schema

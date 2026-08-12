@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "What are the legal rights of pet owners, AWBI guidelines for residential societies, and statutory protections against animal cruelty in India.",
   keywords: "AWBI guidelines RWA pet ban, Article 51A(g) compassion, Prevention of Cruelty to Animals Act 1960, elevator access pets, pet fine notice reply, stray dog feeding rules, Section 428 IPC poisoning strays, pet owner bite liability Section 289, dog breeding rules 2017, Order 39 stay RWA",
   alternates: {
-    canonical: "https://amaconnect.in/animal-rights-pet-owner-laws-street-animal-protection-guide",
+    canonical: "https://www.amaconnect.in/animal-rights-pet-owner-laws-street-animal-protection-guide",
   },
   openGraph: {
     title: "Animal Rights & Pet Owner Laws Guide",
     description:
       "What are the legal rights of pet owners, AWBI guidelines for residential societies, and statutory protections against animal cruelty in India.",
-    url: "https://amaconnect.in/animal-rights-pet-owner-laws-street-animal-protection-guide",
+    url: "https://www.amaconnect.in/animal-rights-pet-owner-laws-street-animal-protection-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function AnimalRightsPetLawsPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/animal-rights-pet-owner-laws-street-animal-protection-guide`;
 
   const reviews = [

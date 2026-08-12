@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "What are the legal remedies, statutory consumer rights, and court protections available against hospital overcharging and illegal detention of patients or bodies?",
   keywords: "hospital overcharging legal options, illegal patient detention IPC, withholding deceased body, Clinical Establishments Act complaint, emergency stabilization Parmanand Katara, medical bill audit, e-Daakhil medical dispute, professional misconduct Medical Council, writ of Habeas Corpus patient",
   alternates: {
-    canonical: "https://amaconnect.in/hospital-billing-dispute-patient-detention-legal-recourse",
+    canonical: "https://www.amaconnect.in/hospital-billing-dispute-patient-detention-legal-recourse",
   },
   openGraph: {
     title: "Hospital Billing Disputes & Patient Confinement Guide",
     description:
       "What are the legal remedies, statutory consumer rights, and court protections available against hospital overcharging and illegal detention of patients or bodies?",
-    url: "https://amaconnect.in/hospital-billing-dispute-patient-detention-legal-recourse",
+    url: "https://www.amaconnect.in/hospital-billing-dispute-patient-detention-legal-recourse",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function HospitalBillingPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/hospital-billing-dispute-patient-detention-legal-recourse`;
 
   // Define static reviews data

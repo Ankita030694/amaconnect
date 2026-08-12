@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "What are the legal defense rights of suspects under the NDPS Act, the difference between drug quantities, and statutory options to seek rehabilitation instead of prosecution?",
   keywords: "NDPS Act Section 50 search rights, commercial quantity drug bail NDPS, Section 64A rehab immunity prosecution, Tofan Singh Section 67 statement inadmissible, NDPS bail application procedure, Chapter VA property forfeiture drugs, Section 57 arrest report police, small vs commercial quantity narcotics",
   alternates: {
-    canonical: "https://amaconnect.in/ndps-act-drug-possession-quantities-rehabilitation-legal-guide",
+    canonical: "https://www.amaconnect.in/ndps-act-drug-possession-quantities-rehabilitation-legal-guide",
   },
   openGraph: {
     title: "NDPS Act Legal Defense, Drug Quantities & Rehab Guide",
     description:
       "What are the legal defense rights of suspects under the NDPS Act, the difference between drug quantities, and statutory options to seek rehabilitation instead of prosecution?",
-    url: "https://amaconnect.in/ndps-act-drug-possession-quantities-rehabilitation-legal-guide",
+    url: "https://www.amaconnect.in/ndps-act-drug-possession-quantities-rehabilitation-legal-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function NDPSDefensePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/ndps-act-drug-possession-quantities-rehabilitation-legal-guide`;
 
   // Define static reviews data with initials-based avatars

@@ -20,19 +20,19 @@ export const metadata: Metadata = {
   description: "Learn how victims of UPI, banking, or credit card fraud recover lost money and file cyber crime complaints under Indian law. Zero liability guidelines and quick action plans.",
   keywords: "cyber fraud India, recover banking fraud money, UPI fraud refund, credit card scam legal help, file cyber cell complaint, cybercrime.gov.in, RBI customer liability guidelines",
   alternates: {
-    canonical: "https://amaconnect.in/cyber-fraud-online-scams-legal-recourse",
+    canonical: "https://www.amaconnect.in/cyber-fraud-online-scams-legal-recourse",
   },
   openGraph: {
     title: "Cyber Fraud & Online Scams Legal Recourse Guide",
     description: "Learn how victims of UPI, banking, or credit card fraud recover lost money and file cyber crime complaints under Indian law.",
-    url: "https://amaconnect.in/cyber-fraud-online-scams-legal-recourse",
+    url: "https://www.amaconnect.in/cyber-fraud-online-scams-legal-recourse",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function CyberFraudPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/cyber-fraud-online-scams-legal-recourse`;
 
   // 1. Article & AggregateRating Schema

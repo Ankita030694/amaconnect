@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "What are the legal rights, maintenance claims, and tribunal routes available to parents and senior citizens facing abandonment or property disputes in India.",
   keywords: "senior citizens maintenance act 2007, parents welfare legislation, maintenance tribunal claim, section 23 property revocation, evicting abusive children, section 125 CrPC parents, geriatric health care, recovery of maintenance, senior citizen support police, old age homes",
   alternates: {
-    canonical: "https://amaconnect.in/senior-citizens-maintenance-welfare-legal-rights-guide",
+    canonical: "https://www.amaconnect.in/senior-citizens-maintenance-welfare-legal-rights-guide",
   },
   openGraph: {
     title: "Senior Citizens Maintenance & Welfare Rights Guide",
     description:
       "What are the legal rights, maintenance claims, and tribunal routes available to parents and senior citizens facing abandonment or property disputes in India.",
-    url: "https://amaconnect.in/senior-citizens-maintenance-welfare-legal-rights-guide",
+    url: "https://www.amaconnect.in/senior-citizens-maintenance-welfare-legal-rights-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function SeniorCitizensWelfarePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/senior-citizens-maintenance-welfare-legal-rights-guide`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author: "AMA Legal Solutions", image: "/cta-bg.jpg")

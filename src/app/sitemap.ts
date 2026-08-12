@@ -3,7 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 import { Blog, LawyerInterview } from "@/lib/models";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const currentDate = new Date();
 
   // 1. Static Pages

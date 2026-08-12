@@ -20,19 +20,19 @@ export const metadata: Metadata = {
   description: "Learn about cheque dishonor, Section 138 legal notice rules, timelines, magistrate complaints, interim compensation, and legal defenses in India.",
   keywords: "cheque bounce India, Section 138 Negotiable Instruments Act, legal notice for cheque bounce, demand notice timeline, summary suit Order 37 CPC, interim compensation Section 143A",
   alternates: {
-    canonical: "https://amaconnect.in/cheque-bounce-legal-notice-section-138-guide",
+    canonical: "https://www.amaconnect.in/cheque-bounce-legal-notice-section-138-guide",
   },
   openGraph: {
     title: "Cheque Bounce Legal Notice Section 138 Guide",
     description: "Learn about cheque dishonor, Section 138 legal notice rules, timelines, magistrate complaints, interim compensation, and legal defenses in India.",
-    url: "https://amaconnect.in/cheque-bounce-legal-notice-section-138-guide",
+    url: "https://www.amaconnect.in/cheque-bounce-legal-notice-section-138-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function ChequeBounceGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/cheque-bounce-legal-notice-section-138-guide`;
 
   // 1. Article Schema

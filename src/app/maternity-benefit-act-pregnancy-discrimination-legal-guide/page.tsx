@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "What are the legal rights of female employees regarding maternity leave, and how to contest pregnancy discrimination under Indian labor laws.",
   keywords: "Maternity Benefit Act 1961, paid maternity leave 26 weeks, 80 day working rule, surrogacy adoption leave, Section 12 dismissal ban, constructive dismissal pregnancy, labor inspector Section 17, Section 11A creche facilities, medical bonus Section 8, wrongful termination labor court",
   alternates: {
-    canonical: "https://amaconnect.in/maternity-benefit-act-pregnancy-discrimination-legal-guide",
+    canonical: "https://www.amaconnect.in/maternity-benefit-act-pregnancy-discrimination-legal-guide",
   },
   openGraph: {
     title: "Maternity Benefit Act & Pregnancy Discrimination Guide",
     description:
       "What are the legal rights of female employees regarding maternity leave, and how to contest pregnancy discrimination under Indian labor laws.",
-    url: "https://amaconnect.in/maternity-benefit-act-pregnancy-discrimination-legal-guide",
+    url: "https://www.amaconnect.in/maternity-benefit-act-pregnancy-discrimination-legal-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function MaternityBenefitRightsPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/maternity-benefit-act-pregnancy-discrimination-legal-guide`;
 
   const reviews = [

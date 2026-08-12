@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   description: "AMAConnect's Pro Bono initiative connects marginalized communities and victims of injustice with top-tier advocates willing to work for free. Apply for free legal aid or pledge your hours today.",
   keywords: "free legal aid India, pro bono lawyers, free legal advice online, access to justice, NALSA legal aid, pro bono advocate India",
   alternates: {
-    canonical: "https://amaconnect.in/pro-bono-free-legal-aid",
+    canonical: "https://www.amaconnect.in/pro-bono-free-legal-aid",
   },
   openGraph: {
     title: "Access to Justice: The AMAConnect Free Legal Aid Initiative",
     description: "Democratizing legal support in India. Connecting marginalized communities with verified pro bono advocates.",
-    url: "https://amaconnect.in/pro-bono-free-legal-aid",
+    url: "https://www.amaconnect.in/pro-bono-free-legal-aid",
     siteName: "AMAConnect",
     images: [
       {
@@ -50,21 +50,21 @@ export default function ProBonoPage() {
     "@type": "Article",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://amaconnect.in/pro-bono-free-legal-aid"
+      "@id": "https://www.amaconnect.in/pro-bono-free-legal-aid"
     },
     "headline": "Access to Justice: The AMAConnect Free Legal Aid Initiative",
     "description": "A comprehensive guide to AMAConnect's pro bono legal aid initiative in India, detailing eligibility, mission, and how to apply for free legal representation.",
     "author": {
       "@type": "Organization",
       "name": "AMAConnect",
-      "url": "https://amaconnect.in"
+      "url": "https://www.amaconnect.in"
     },
     "publisher": {
       "@type": "Organization",
       "name": "AMAConnect",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://amaconnect.in/logo.png"
+        "url": "https://www.amaconnect.in/logo.png"
       }
     },
     "datePublished": "2026-07-14T00:00:00+05:30",

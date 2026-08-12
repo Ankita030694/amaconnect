@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How citizens file complaints against public nuisance, unauthorized waste dumping, and noise pollution under Indian environmental and criminal laws.",
   keywords: "public nuisance Section 268 IPC, noise pollution rules 2000, residential zone decibel limits, Section 133 CrPC petition, SDM nuisance complaint, State Pollution Control Board, loudspeaker restrictions police, Solid Waste Management rules, National Green Tribunal NGT, environmental damages notice",
   alternates: {
-    canonical: "https://amaconnect.in/public-nuisance-noise-pollution-environmental-complaint-guide",
+    canonical: "https://www.amaconnect.in/public-nuisance-noise-pollution-environmental-complaint-guide",
   },
   openGraph: {
     title: "Noise Pollution & Public Nuisance Environmental Guide",
     description:
       "How citizens file complaints against public nuisance, unauthorized waste dumping, and noise pollution under Indian environmental and criminal laws.",
-    url: "https://amaconnect.in/public-nuisance-noise-pollution-environmental-complaint-guide",
+    url: "https://www.amaconnect.in/public-nuisance-noise-pollution-environmental-complaint-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function PublicNuisanceWelfarePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/public-nuisance-noise-pollution-environmental-complaint-guide`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author: "AMA Legal Solutions", image: "/cta-bg.jpg")

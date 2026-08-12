@@ -82,7 +82,7 @@ export async function generateMetadata(
   let image = "";
   let author = "AMA Legal Solutions";
 
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
 
   try {
     const interviewData = await getInterviewBySlug(slug);
@@ -206,7 +206,7 @@ export default async function Page({
 }
 
 function generateCombinedSchema(interviewData: any) {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const interviewUrl = `${baseUrl}/interviews/${interviewData.slug}`;
   const faqs = interviewData.faqs || [];
   const reviews = interviewData.reviews || [];

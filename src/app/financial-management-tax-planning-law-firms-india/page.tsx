@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 export default function FinancialManagementGuidePage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/financial-management-tax-planning-law-firms-india`;
 
   const metadata = {

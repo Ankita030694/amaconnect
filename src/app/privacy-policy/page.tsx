@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy | AMA Connect",
   description: "Privacy Policy for AMA Connect. Learn how we collect, use, and protect your data.",
   alternates: {
-    canonical: "https://amaconnect.in/privacy-policy",
+    canonical: "https://www.amaconnect.in/privacy-policy",
   },
 };
 

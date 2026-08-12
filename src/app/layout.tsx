@@ -26,14 +26,11 @@ export const metadata: Metadata = {
     template: "%s | AMA Connect",
   },
   description: "Join AMA Connect for professional lawyer interviews and posts. Engage with our exclusive legal communities and get answers to your legal queries in our Ask Me Anything (AMA) section of our AMA Connect application.",
-  metadataBase: new URL("https://amaconnect.in"),
-  alternates: {
-    canonical: "./",
-  },
+  metadataBase: new URL("https://www.amaconnect.in"),
   openGraph: {
     title: "AMA Connect | Lawyer Interviews, Legal Community & AMA Sessions",
     description: "Join AMA Connect for professional lawyer interviews and guest posts. Engage with our exclusive WhatsApp legal communities and get answers to your legal queries in our Ask Me Anything (AMA) sessions.",
-    url: "https://amaconnect.in",
+    url: "https://www.amaconnect.in",
     siteName: "AMA Legal Solutions",
     locale: "en_US",
     type: "website",

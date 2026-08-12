@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "A comprehensive legal guide on consumer rights, product defects, e-commerce rules, misleading advertisements, and e-Daakhil court filings in India.",
   keywords: "consumer protection act 2019, e-commerce rules 2020, product liability India, e-daakhil filing, pecuniary jurisdiction consumer court, misleading advertisements, consumer rights India, unfair trade practices",
   alternates: {
-    canonical: "https://amaconnect.in/consumer-protection-ecommerce-defective-goods-guide",
+    canonical: "https://www.amaconnect.in/consumer-protection-ecommerce-defective-goods-guide",
   },
   openGraph: {
     title: "Consumer Protection & E-Commerce Defective Goods Guide",
     description:
       "A comprehensive legal guide on consumer rights, product defects, e-commerce rules, misleading advertisements, and e-Daakhil court filings in India.",
-    url: "https://amaconnect.in/consumer-protection-ecommerce-defective-goods-guide",
+    url: "https://www.amaconnect.in/consumer-protection-ecommerce-defective-goods-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function ConsumerProtectionPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/consumer-protection-ecommerce-defective-goods-guide`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author Person: "AMA Legal Solutions", image: "/cta-bg.jpg")

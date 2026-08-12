@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How do citizens lock/unlock Aadhaar biometrics, handle chronic data mismatch errors, and enforce digital privacy rights under the Aadhaar Act?",
   keywords: "lock Aadhaar biometrics online, AEPS fingerprint cloning scam, correct Aadhaar date of birth error, pension biometric matching failure, Aadhaar mandatory vs voluntary, file UIDAI complaint portal, Aadhaar card deactivation rules, generate Aadhaar Virtual ID, Information Technology Act Section 43A compensation",
   alternates: {
-    canonical: "https://amaconnect.in/aadhaar-card-data-privacy-correction-biometric-lock-guide",
+    canonical: "https://www.amaconnect.in/aadhaar-card-data-privacy-correction-biometric-lock-guide",
   },
   openGraph: {
     title: "Aadhaar Card Privacy, Biometric Lock & Correction Guide",
     description:
       "How do citizens lock/unlock Aadhaar biometrics, handle chronic data mismatch errors, and enforce digital privacy rights under the Aadhaar Act?",
-    url: "https://amaconnect.in/aadhaar-card-data-privacy-correction-biometric-lock-guide",
+    url: "https://www.amaconnect.in/aadhaar-card-data-privacy-correction-biometric-lock-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function AadhaarPrivacyPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/aadhaar-card-data-privacy-correction-biometric-lock-guide`;
 
   // Define static reviews data

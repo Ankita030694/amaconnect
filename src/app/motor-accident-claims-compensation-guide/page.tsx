@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     "A comprehensive legal guide outlining the step-by-step procedure, documents required, and tribunal path to claim compensation under the Motor Vehicles Act in India.",
   keywords: "motor accident claim India, MACT procedure, third party insurance, own damage claim, multiplier method calculation, accident claim documents, accident claim timeline",
   alternates: {
-    canonical: "https://amaconnect.in/motor-accident-claims-compensation-guide",
+    canonical: "https://www.amaconnect.in/motor-accident-claims-compensation-guide",
   },
   openGraph: {
     title: "Motor Accident Claims Compensation Guide: Legal MACT Procedure",
     description:
       "A comprehensive legal guide outlining the step-by-step procedure, documents required, and tribunal path to claim compensation under the Motor Vehicles Act in India.",
-    url: "https://amaconnect.in/motor-accident-claims-compensation-guide",
+    url: "https://www.amaconnect.in/motor-accident-claims-compensation-guide",
     siteName: "AMA Legal Solutions",
     type: "article",
     authors: ["Anuj Anand Malik"],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export default function MotorAccidentClaimsGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/motor-accident-claims-compensation-guide`;
 
   // 1. Article Schema

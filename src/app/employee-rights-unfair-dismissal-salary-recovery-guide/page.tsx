@@ -12,20 +12,20 @@ export const metadata: Metadata = {
     "What are the legal rights of private sector employees in India against wrongful termination, salary delays, and hostile work environments?",
   keywords: "employee rights india, wrongful termination lawyer, salary recovery legal notice, hostile work environment india, maternity benefit act, payment of gratuity act, non compete clause india, forced resignation legal action, labor court complaint",
   alternates: {
-    canonical: "https://amaconnect.in/employee-rights-unfair-dismissal-salary-recovery-guide",
+    canonical: "https://www.amaconnect.in/employee-rights-unfair-dismissal-salary-recovery-guide",
   },
   openGraph: {
     title: "Employee Rights, Unfair Dismissal & Salary Recovery Guide",
     description:
       "What are the legal rights of private sector employees in India against wrongful termination, salary delays, and hostile work environments?",
-    url: "https://amaconnect.in/employee-rights-unfair-dismissal-salary-recovery-guide",
+    url: "https://www.amaconnect.in/employee-rights-unfair-dismissal-salary-recovery-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function EmployeeRightsPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/employee-rights-unfair-dismissal-salary-recovery-guide`;
 
   // 1. Article Schema

@@ -23,20 +23,20 @@ export const metadata: Metadata = {
     "Understand your rights during arrest, police versus judicial custody limits, anticipatory bail filing, and remedies for illegal detention under Indian laws.",
   keywords: "bail procedure, arrest rights, police custody, judicial custody, anticipatory bail, default bail, illegal detention, India, legal rights, CrPC, BNSS",
   alternates: {
-    canonical: "https://amaconnect.in/bail-procedure-arrest-rights-police-custody-guide",
+    canonical: "https://www.amaconnect.in/bail-procedure-arrest-rights-police-custody-guide",
   },
   openGraph: {
     title: "Bail and Arrest Rights Guide: Police Custody & Bail Procedures",
     description:
       "Understand your rights during arrest, police versus judicial custody limits, anticipatory bail filing, and remedies for illegal detention under Indian laws.",
-    url: "https://amaconnect.in/bail-procedure-arrest-rights-police-custody-guide",
+    url: "https://www.amaconnect.in/bail-procedure-arrest-rights-police-custody-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function BailProcedurePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/bail-procedure-arrest-rights-police-custody-guide`;
 
   // 1. Article Schema

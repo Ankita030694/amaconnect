@@ -12,20 +12,20 @@ export const metadata: Metadata = {
     "A helpful guide explaining how traffic e-challans are generated, the legal grounds to contest wrongful virtual challans, the Virtual Court system, and driving license rules.",
   keywords: "check e challan online India, contest traffic challan, driving license renewal rules, new traffic rules fines, virtual court challan dispute, motor vehicles act rules",
   alternates: {
-    canonical: "https://amaconnect.in/traffic-challan-dispute-driving-license-laws-guide",
+    canonical: "https://www.amaconnect.in/traffic-challan-dispute-driving-license-laws-guide",
   },
   openGraph: {
     title: "Contest Traffic E-Challans & Driving License Laws",
     description:
       "A helpful guide explaining how traffic e-challans are generated, the legal grounds to contest wrongful virtual challans, the Virtual Court system, and driving license rules.",
-    url: "https://amaconnect.in/traffic-challan-dispute-driving-license-laws-guide",
+    url: "https://www.amaconnect.in/traffic-challan-dispute-driving-license-laws-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function TrafficChallanGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/traffic-challan-dispute-driving-license-laws-guide`;
 
   // 1. Article Schema

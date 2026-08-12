@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     "Facing intimidation from illegal 7-day lending apps? Learn how to settle your debt, invoke RBI guidelines against recovery harassment, and protect your privacy.",
   keywords: "loan app harassment, 7 day loan app settlement, RBI recovery agent rules, digital lending fraud, stop loan app blackmail, cyber cell complaint, debt settlement India",
   alternates: {
-    canonical: "https://amaconnect.in/loan-app-debt-settlement-harassment-legal-help",
+    canonical: "https://www.amaconnect.in/loan-app-debt-settlement-harassment-legal-help",
   },
   openGraph: {
     title: "Loan App Debt Settlement Guide & Harassment Help",
     description:
       "Facing intimidation from illegal 7-day lending apps? Learn how to settle your debt, invoke RBI guidelines against recovery harassment, and protect your privacy.",
-    url: "https://amaconnect.in/loan-app-debt-settlement-harassment-legal-help",
+    url: "https://www.amaconnect.in/loan-app-debt-settlement-harassment-legal-help",
     siteName: "AMA Legal Solutions",
     type: "article",
     images: [
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export default function LoanSettlePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/loan-app-debt-settlement-harassment-legal-help`;
 
   // 1. Article Schema

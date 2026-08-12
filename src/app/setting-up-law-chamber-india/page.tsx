@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 export default function ChamberSetupPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/setting-up-law-chamber-india`;
 
   const metadata = {

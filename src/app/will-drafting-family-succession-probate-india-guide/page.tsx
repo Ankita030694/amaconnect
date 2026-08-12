@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How to draft, execute, and register a legal Will in India under the Indian Succession Act, and navigate the court probate process.",
   keywords: "will drafting India, legal will registration, intestate succession, probate court process, succession certificate, letter of administration, Hindu Succession Act, Muslim Sharia Will, family succession planning, executor appointment",
   alternates: {
-    canonical: "https://amaconnect.in/will-drafting-family-succession-probate-india-guide",
+    canonical: "https://www.amaconnect.in/will-drafting-family-succession-probate-india-guide",
   },
   openGraph: {
     title: "Will Drafting & Succession Probate India Guide",
     description:
       "How to draft, execute, and register a legal Will in India under the Indian Succession Act, and navigate the court probate process.",
-    url: "https://amaconnect.in/will-drafting-family-succession-probate-india-guide",
+    url: "https://www.amaconnect.in/will-drafting-family-succession-probate-india-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function WillSuccessionPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/will-drafting-family-succession-probate-india-guide`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author: "AMA Legal Solutions", image: "/cta-bg.jpg")

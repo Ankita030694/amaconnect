@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "What is the step-by-step legal procedure, required police FIR, and RTO filings to successfully claim insurance for a stolen vehicle in India?",
   keywords: "stolen vehicle insurance claim, police untraced report, Section 173 CrPC, RTO theft endorsement, RTO Form 28, car theft claim keys, vehicle recovery superdari, IDV calculation, IRDAI dispute claim delay",
   alternates: {
-    canonical: "https://amaconnect.in/vehicle-theft-insurance-claim-police-untraced-report-guide",
+    canonical: "https://www.amaconnect.in/vehicle-theft-insurance-claim-police-untraced-report-guide",
   },
   openGraph: {
     title: "Vehicle Theft Insurance Claim Guide | Police Untraced Report",
     description:
       "What is the step-by-step legal procedure, required police FIR, and RTO filings to successfully claim insurance for a stolen vehicle in India?",
-    url: "https://amaconnect.in/vehicle-theft-insurance-claim-police-untraced-report-guide",
+    url: "https://www.amaconnect.in/vehicle-theft-insurance-claim-police-untraced-report-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function VehicleTheftInsuranceClaimPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/vehicle-theft-insurance-claim-police-untraced-report-guide`;
 
   // 1. Article Schema

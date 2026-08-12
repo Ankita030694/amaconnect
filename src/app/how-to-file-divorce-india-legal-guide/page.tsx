@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     "A comprehensive legal guide outlining the step-by-step procedure, timeline, and document checklist to file for mutual or contested divorce in India under family court jurisdiction.",
   keywords: "how to file divorce in India, mutual consent divorce procedure, contested divorce grounds, divorce document checklist, alimony calculation India, child custody laws India, family court jurisdiction",
   alternates: {
-    canonical: "https://amaconnect.in/how-to-file-divorce-india-legal-guide",
+    canonical: "https://www.amaconnect.in/how-to-file-divorce-india-legal-guide",
   },
   openGraph: {
     title: "Step-by-Step Guide to Filing for Divorce in India: Legal Procedure",
     description:
       "A comprehensive legal guide outlining the step-by-step procedure, timeline, and document checklist to file for mutual or contested divorce in India under family court jurisdiction.",
-    url: "https://amaconnect.in/how-to-file-divorce-india-legal-guide",
+    url: "https://www.amaconnect.in/how-to-file-divorce-india-legal-guide",
     siteName: "AMA Legal Solutions",
     type: "article",
     authors: ["Anuj Anand Malik"],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 export default function DivorceLegalGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/how-to-file-divorce-india-legal-guide`;
 
   // 1. Article Schema

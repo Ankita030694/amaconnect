@@ -22,20 +22,20 @@ export const metadata: Metadata = {
     "Learn how to incorporate a company in India, apply for DPIIT recognition and Section 80-IAC tax holiday, understand costs, and manage compliance.",
   keywords: "startup registration India, company incorporation India, DPIIT recognition, Section 80-IAC tax holiday, Private Limited vs LLP, OPC solo founder, SPICe plus form, company compliance checklist",
   alternates: {
-    canonical: "https://amaconnect.in/startup-registration-incorporation-india-guide",
+    canonical: "https://www.amaconnect.in/startup-registration-incorporation-india-guide",
   },
   openGraph: {
     title: "Startup Registration & DPIIT Incorporation Guide",
     description:
       "Learn how to incorporate a company in India, apply for DPIIT recognition and Section 80-IAC tax holiday, understand costs, and manage compliance.",
-    url: "https://amaconnect.in/startup-registration-incorporation-india-guide",
+    url: "https://www.amaconnect.in/startup-registration-incorporation-india-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function StartupRegistrationGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/startup-registration-incorporation-india-guide`;
 
   // 1. Article Schema

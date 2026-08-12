@@ -23,20 +23,20 @@ export const metadata: Metadata = {
     "Learn your basic legal rights in India. A comprehensive free guide covering tenant rights, consumer protection, employee rights, arrest guidelines, criminal defense, privacy, and women's rights.",
   keywords: "know your rights India, basic legal rights, consumer rights, employee rights guide, legal rights in India, free legal guide, criminal defense rights, cyber privacy laws, senior citizen protection",
   alternates: {
-    canonical: "https://amaconnect.in/know-your-rights-legal-guide",
+    canonical: "https://www.amaconnect.in/know-your-rights-legal-guide",
   },
   openGraph: {
     title: "Know Your Rights: A Free Legal Guide for Everyday Citizens",
     description:
       "Learn your basic legal rights in India. A comprehensive free guide covering tenant rights, consumer protection, employee rights, arrest guidelines, criminal defense, privacy, and women's rights.",
-    url: "https://amaconnect.in/know-your-rights-legal-guide",
+    url: "https://www.amaconnect.in/know-your-rights-legal-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function KnowYourRightsPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/know-your-rights-legal-guide`;
 
   // 1. Article Schema

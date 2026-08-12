@@ -125,7 +125,7 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
       },
       {
         question: "How can I contact AMA Legal Solutions for legal consultation?",
-        answer: "You can contact AMA Legal Solutions through our website at https://amaconnect.in, email us at notify@amaconnect.in, or call our office directly."
+        answer: "You can contact AMA Legal Solutions through our website at https://www.amaconnect.in, email us at notify@amaconnect.in, or call our office directly."
       }
     ];
 
@@ -134,7 +134,7 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
       "@type": "WebPage",
       "name": "Legal Blog - AMA Legal Solutions | Legal Insights & Articles India",
       "description": `Stay informed with the latest legal insights and developments in India. AMA Legal Solutions blog provides expert legal articles on ${blogsData.slice(0, 3).map(blog => blog.title.toLowerCase()).join(', ')} and more.`,
-      "url": "https://amaconnect.in/blog",
+      "url": "https://www.amaconnect.in/blog",
       "mainEntity": {
         "@type": "FAQPage",
         "mainEntity": blogFaqs.map(faq => ({
@@ -406,8 +406,8 @@ export default function Page({ initialBlogs = [] }: BlogPageProps) {
         <div className="text-[#5A4C33]/80 text-xs leading-relaxed space-y-4 font-normal text-justify">
           <p>
             The information provided on this website{" "}
-            <a href="https://amaconnect.in" className="text-[#D2A02A] hover:underline hover:text-[#5A4C33] transition-colors">
-              https://amaconnect.in
+            <a href="https://www.amaconnect.in" className="text-[#D2A02A] hover:underline hover:text-[#5A4C33] transition-colors">
+              https://www.amaconnect.in
             </a>{" "}
             is for general informational purposes only and should not be considered legal, financial, or professional advice. 
             While we strive to ensure that the content is accurate and up to date, we do not guarantee the completeness, 

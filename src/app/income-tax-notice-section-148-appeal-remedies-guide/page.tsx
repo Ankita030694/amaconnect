@@ -12,20 +12,20 @@ export const metadata: Metadata = {
     "A step-by-step guide on handling tax scrutiny notices, drafting responses to Section 143(1) discrepancies or Section 148 reassessments, and filing online appeals.",
   keywords: "income tax notice section 148 India, reply to section 143 1 notice, income tax appeal online process, reassessment notice time limit, tax scrutiny reply format, faceless assessment scheme",
   alternates: {
-    canonical: "https://amaconnect.in/income-tax-notice-section-148-appeal-remedies-guide",
+    canonical: "https://www.amaconnect.in/income-tax-notice-section-148-appeal-remedies-guide",
   },
   openGraph: {
     title: "Income Tax Notice Help: Section 143(1) & 148 Remedies",
     description:
       "A step-by-step guide on handling tax scrutiny notices, drafting responses to Section 143(1) discrepancies or Section 148 reassessments, and filing online appeals.",
-    url: "https://amaconnect.in/income-tax-notice-section-148-appeal-remedies-guide",
+    url: "https://www.amaconnect.in/income-tax-notice-section-148-appeal-remedies-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function IncomeTaxNoticeGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/income-tax-notice-section-148-appeal-remedies-guide`;
 
   // 1. Article Schema

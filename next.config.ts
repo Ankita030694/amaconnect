@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    optimizeCss: true,
+    optimizeCss: process.env.NODE_ENV === 'production',
     optimizePackageImports: [
       "@fortawesome/react-fontawesome",
       "@fortawesome/free-solid-svg-icons",

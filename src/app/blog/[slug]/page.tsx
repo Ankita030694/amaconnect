@@ -123,7 +123,7 @@ export async function generateMetadata(
   let image = "";
   let author = "AMA Legal Solutions";
 
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
 
   try {
     const blogData = await getBlogBySlug(slug);
@@ -247,7 +247,7 @@ export default async function Page({
 }
 
 function generateCombinedSchema(blogData: any) {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const blogUrl = `${baseUrl}/blog/${blogData.slug}`;
   const faqs = blogData.faqs || [];
   const reviews = blogData.reviews || [];

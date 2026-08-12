@@ -335,7 +335,7 @@ export default function BlogsPage() {
               <h3 className="text-[#C9A227] text-[13px] uppercase tracking-[0.15em] font-bold ml-2">DISCLAIMER</h3>
             </div>
             <p className="text-[#A0A2A8] text-[15px] leading-[1.8] max-w-[900px]">
-              The information provided on this website https://amaconnect.in is for general informational purposes only and should not be considered legal, financial, or professional advice. While we strive to ensure that the content is accurate and up to date, we do not guarantee the completeness, reliability, or accuracy of any information. Any reliance you place on the information provided is strictly at your own risk. AMA Legal Solutions, its founders, employees, or affiliates shall not be held liable for any losses, damages, or legal consequences arising from the use of this website or any linked resources. The content on this website does not establish a client-attorney relationship.
+              The information provided on this website https://www.amaconnect.in is for general informational purposes only and should not be considered legal, financial, or professional advice. While we strive to ensure that the content is accurate and up to date, we do not guarantee the completeness, reliability, or accuracy of any information. Any reliance you place on the information provided is strictly at your own risk. AMA Legal Solutions, its founders, employees, or affiliates shall not be held liable for any losses, damages, or legal consequences arising from the use of this website or any linked resources. The content on this website does not establish a client-attorney relationship.
             </p>
           </div>
         </div>

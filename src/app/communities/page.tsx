@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Legal Communities & Practice Forums",
   description: "Join active legal discussion groups, connect with professional legal networks, share courtroom experiences, and participate in peer Q&A.",
   alternates: {
-    canonical: "https://amaconnect.in/communities",
+    canonical: "https://www.amaconnect.in/communities",
   },
 };
 

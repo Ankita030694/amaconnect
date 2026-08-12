@@ -184,7 +184,7 @@ export default function Navbar() {
                 <p className="text-gray-500 text-sm mb-6">Scan the QR code to download the app and connect with verified legal experts instantly.</p>
                 
                 <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm mb-6">
-                  <QRCode value="https://amaconnect.in/get" size={140} style={{ height: "auto", maxWidth: "100%", width: "100%" }} />
+                  <QRCode value="https://www.amaconnect.in/get" size={140} style={{ height: "auto", maxWidth: "100%", width: "100%" }} />
                 </div>
                 
                 <div className="flex gap-3 w-full">
