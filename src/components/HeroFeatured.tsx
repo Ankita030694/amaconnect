@@ -62,9 +62,7 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
     return timeB - timeA;
   });
 
-  // Find the first story that is not Abhijit for the hero section
-  const featuredIndex = sortedInterviews.findIndex(story => !story.lawyer.toLowerCase().includes("abhijit"));
-  const actualFeaturedIndex = featuredIndex !== -1 ? featuredIndex : 0;
+  const actualFeaturedIndex = 0;
 
   const featuredStory = sortedInterviews[actualFeaturedIndex];
   const sidebarStories = sortedInterviews.filter((_, index) => index !== actualFeaturedIndex).slice(0, 3); // top 3 for the right sidebar

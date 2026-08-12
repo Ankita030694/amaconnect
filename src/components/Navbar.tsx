@@ -4,15 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
-const QRCode = dynamic(() => import("react-qr-code"), { ssr: false });
+
 import { Menu, X } from "lucide-react";
 
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showAppModal, setShowAppModal] = useState(false);
+
   
   const pathname = usePathname();
 
@@ -88,12 +87,19 @@ export default function Navbar() {
               
               <div className="hidden lg:block w-[1px] h-6 bg-gray-200 mr-2"></div>
               
-              <button 
-                onClick={() => setShowAppModal(true)}
-                className="hidden sm:block bg-[#D4AF37] text-white px-5 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-[13px] sm:text-[14px] shadow-sm hover:bg-[#C09F32] hover:shadow-md transition-all active:scale-95 text-center tracking-tight"
-              >
-                Get the App
-              </button>
+              <div className="flex items-center gap-1.5">
+                <a href="https://apps.apple.com/in/app/ama-legal-solutions/id6755156186" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-black/5 hover:bg-black/10 backdrop-blur-md border border-black/5 transition-all flex items-center justify-center active:scale-95 shadow-sm" aria-label="Download on the App Store">
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-black"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-.96.04-2.13.64-2.82 1.45-.6.69-1.12 1.83-.98 2.94 1.07.08 2.15-.52 2.81-1.33z" /></svg>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-black/5 hover:bg-black/10 backdrop-blur-md border border-black/5 transition-all flex items-center justify-center active:scale-95 shadow-sm" aria-label="Get it on Google Play">
+                  <svg viewBox="0 0 24 24" className="w-5 h-5">
+                    <path d="M3.25 1.55a1.73 1.73 0 0 0-.47 1.22v18.46a1.73 1.73 0 0 0 .47 1.22l.06.06L13.88 12v-.15L3.31 1.5z" fill="#00F0FF" />
+                    <path d="M17.41 15.58L13.88 12v-.15L17.41 8.3l.08.05 4.17 2.37c1.19.67 1.19 1.78 0 2.46l-4.17 2.37-.08.03z" fill="#FFC700" />
+                    <path d="M17.49 15.53L13.88 11.92L3.25 22.45a1.44 1.44 0 0 0 1.83.06l12.41-7.07" fill="#FF003F" />
+                    <path d="M17.49 8.35L5.08 1.28A1.44 1.44 0 0 0 3.25 1.34L13.88 11.93l3.61-3.58" fill="#00E676" />
+                  </svg>
+                </a>
+              </div>
 
               {/* Mobile WhatsApp Button */}
               <a 
@@ -140,18 +146,7 @@ export default function Navbar() {
                       </Link>
                     );
                   })}
-                  
-                  <div className="h-px bg-gray-100 my-2 w-full"></div>
-                  
-                  <button 
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setShowAppModal(true);
-                    }}
-                    className="sm:hidden w-full bg-[#D4AF37] text-white px-5 py-3.5 rounded-xl font-bold text-[15px] shadow-sm hover:bg-[#C09F32] active:scale-[0.98] transition-all text-center tracking-tight"
-                  >
-                    Get the App
-                  </button>
+
                 </div>
               </div>
             )}
@@ -159,59 +154,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* App Download Modal */}
-        {showAppModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
-            <div 
-              onClick={() => setShowAppModal(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
-            />
-            <div 
-              className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
-            >
-              <button 
-                onClick={() => setShowAppModal(false)}
-                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full transition-colors z-10"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
-              </button>
-              
-              <div className="p-8 flex flex-col items-center text-center bg-[#FDFBF0]">
-                <div className="w-16 h-16 bg-[#D4AF37]/20 rounded-2xl flex items-center justify-center mb-4 border border-[#D4AF37]/30">
-                  <Image src="/logo2.svg" alt="AMA Connect" width={40} height={40} className="object-contain opacity-80" />
-                </div>
-                <h3 className="text-2xl font-black text-gray-900 mb-2">Get AMA Connect App</h3>
-                <p className="text-gray-500 text-sm mb-6">Scan the QR code to download the app and connect with verified legal experts instantly.</p>
-                
-                <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm mb-6">
-                  <QRCode value="https://www.amaconnect.in/get" size={140} style={{ height: "auto", maxWidth: "100%", width: "100%" }} />
-                </div>
-                
-                <div className="flex gap-3 w-full">
-                  <a href="https://apps.apple.com/in/app/ama-legal-solutions/id6755156186" target="_blank" rel="noopener noreferrer" className="flex-1 bg-black text-white rounded-xl py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-.96.04-2.13.64-2.82 1.45-.6.69-1.12 1.83-.98 2.94 1.07.08 2.15-.52 2.81-1.33z" /></svg>
-                    <div className="text-left flex flex-col leading-none">
-                      <span className="text-[9px] text-gray-300">Download on the</span>
-                      <span className="text-[13px] font-bold">App Store</span>
-                    </div>
-                  </a>
-                  <a href="https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions" target="_blank" rel="noopener noreferrer" className="flex-1 bg-black text-white rounded-xl py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
-                    <svg viewBox="0 0 24 24" className="w-5 h-5">
-                      <path d="M3.25 1.55a1.73 1.73 0 0 0-.47 1.22v18.46a1.73 1.73 0 0 0 .47 1.22l.06.06L13.88 12v-.15L3.31 1.5z" fill="#00F0FF" />
-                      <path d="M17.41 15.58L13.88 12v-.15L17.41 8.3l.08.05 4.17 2.37c1.19.67 1.19 1.78 0 2.46l-4.17 2.37-.08.03z" fill="#FFC700" />
-                      <path d="M17.49 15.53L13.88 11.92L3.25 22.45a1.44 1.44 0 0 0 1.83.06l12.41-7.07" fill="#FF003F" />
-                      <path d="M17.49 8.35L5.08 1.28A1.44 1.44 0 0 0 3.25 1.34L13.88 11.93l3.61-3.58" fill="#00E676" />
-                    </svg>
-                    <div className="text-left flex flex-col leading-none">
-                      <span className="text-[9px] text-gray-300">GET IT ON</span>
-                      <span className="text-[13px] font-bold">Google Play</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+
     </>
   );
 }
