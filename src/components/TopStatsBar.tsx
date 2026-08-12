@@ -33,34 +33,42 @@ export default function TopStatsBar() {
       {/* Featured In Section */}
       <div className="flex items-center justify-center w-full xl:w-auto bg-gray-50 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 border border-gray-100 shrink-0">
         <div className="flex items-center justify-center flex-wrap gap-4 sm:gap-6 md:gap-8">
-          <Image 
-            src="/media/barandbench.png" 
-            alt="Bar & Bench" 
-            width={120}
-            height={48}
-            className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
-          />
-          <Image 
-            src="/media/livemint.png" 
-            alt="Mint" 
-            width={120}
-            height={48}
-            className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
-          />
-          <Image 
-            src="/media/medium.png" 
-            alt="Medium" 
-            width={120}
-            height={48}
-            className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
-          />
-          <Image 
-            src="/media/yourstory.png" 
-            alt="YourStory" 
-            width={120}
-            height={48}
-            className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
-          />
+          <a href="https://www.barandbench.com/news/ama-legal-solutions-launches-indias-first-law-firm-backed-pro-bono-driven-mobile-app" target="_blank" rel="noopener noreferrer">
+            <Image 
+              src="/media/barandbench.png" 
+              alt="Bar & Bench" 
+              width={120}
+              height={48}
+              className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
+            />
+          </a>
+          <a href="https://www.livemint.com/" target="_blank" rel="noopener noreferrer">
+            <Image 
+              src="/media/livemint.png" 
+              alt="Mint" 
+              width={120}
+              height={48}
+              className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
+            />
+          </a>
+          <a href="https://medium.com/@amalegalsolutions" target="_blank" rel="noopener noreferrer">
+            <Image 
+              src="/media/medium.png" 
+              alt="Medium" 
+              width={120}
+              height={48}
+              className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
+            />
+          </a>
+          <a href="https://yourstory.com/companies/ama-legal-solutions" target="_blank" rel="noopener noreferrer">
+            <Image 
+              src="/media/yourstory.png" 
+              alt="YourStory" 
+              width={120}
+              height={48}
+              className="h-8 sm:h-12 w-auto object-contain grayscale opacity-50 cursor-pointer hover:grayscale-0 hover:opacity-100 hover:scale-110 active:scale-90 transition-all duration-300" 
+            />
+          </a>
         </div>
       </div>
 
