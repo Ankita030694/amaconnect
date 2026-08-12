@@ -22,20 +22,20 @@ export const metadata: Metadata = {
     "A comprehensive guide to drafting, sending, and replying to a legal notice in India. Learn about CPC Section 80, Section 138 notices, and standard formatting.",
   keywords: "legal notice India, how to draft legal notice, Section 80 CPC, cheque bounce notice, eviction notice, reply to legal notice, drafting fees",
   alternates: {
-    canonical: "https://amaconnect.in/how-to-draft-legal-notice-india-guide",
+    canonical: "https://www.amaconnect.in/how-to-draft-legal-notice-india-guide",
   },
   openGraph: {
     title: "How to Draft a Legal Notice in India: Legal Framework & Formats",
     description:
       "A comprehensive guide to drafting, sending, and replying to a legal notice in India. Learn about CPC Section 80, Section 138 notices, and standard formatting.",
-    url: "https://amaconnect.in/how-to-draft-legal-notice-india-guide",
+    url: "https://www.amaconnect.in/how-to-draft-legal-notice-india-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function LegalNoticePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/how-to-draft-legal-notice-india-guide`;
 
   // 1. Article & AggregateRating Schema

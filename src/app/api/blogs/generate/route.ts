@@ -75,7 +75,7 @@ Return ONLY a JSON object with this exact structure:
 
     // STEP 2: Generate Description (Complete body in HTML)
     const step2SystemPrompt = `
-You are a professional legal content writer and SEO expert. Write a fully human-written, SEO-optimized, exhaustive legal article body for AMA Connect (https://amaconnect.in/).
+You are a professional legal content writer and SEO expert. Write a fully human-written, SEO-optimized, exhaustive legal article body for AMA Connect (https://www.amaconnect.in/).
 Target Primary Keyword: ${primaryKeyword}
 Secondary Keywords: ${secondaryKeyword || ""}
 Title: ${step1Result.title}
@@ -90,15 +90,15 @@ The content MUST be extremely detailed and exceed 3500 words. To achieve this, e
 - **Tone**: Professional, authoritative, human. Use Indian context (Rupees ₹, RBI, etc.) naturally.
 - **No Markdown**: Do NOT use markdown headers (like ## or ###) or markdown bold (like **text**). Use HTML tags instead (like <h2>, <h3>, <strong>).
 - **Internal Linking**: You MUST naturally integrate links to the following AMA Connect pages:
-  - https://amaconnect.in/
-  - https://amaconnect.in/about
-  - https://amaconnect.in/blog
-  - https://amaconnect.in/drafts
-  - https://amaconnect.in/interviews
-  - https://amaconnect.in/communities
-  - https://amaconnect.in/success-stories
-  - https://amaconnect.in/ask-me-anything
-  - https://amaconnect.in/contact
+  - https://www.amaconnect.in/
+  - https://www.amaconnect.in/about
+  - https://www.amaconnect.in/blog
+  - https://www.amaconnect.in/drafts
+  - https://www.amaconnect.in/interviews
+  - https://www.amaconnect.in/communities
+  - https://www.amaconnect.in/success-stories
+  - https://www.amaconnect.in/ask-me-anything
+  - https://www.amaconnect.in/contact
 - **Do NOT** include any title (H1) or subtitle, as they are already generated. Start directly with the introduction paragraphs.
 - **Do NOT** include any FAQs or Reviews in this content.
 - **Do NOT** wrap the response in markdown code blocks like \`\`\`html or \`\`\`. Output RAW HTML only. Start directly with the first HTML tag (e.g. <h2> or <p>).

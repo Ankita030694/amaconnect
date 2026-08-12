@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Legal Drafts & Document Templates",
   description: "Browse 2,100+ premium, professionally formatted legal drafts, agreements, contracts, and deeds. Pick, customize, and download instantly.",
   alternates: {
-    canonical: "https://amaconnect.in/drafts",
+    canonical: "https://www.amaconnect.in/drafts",
   },
 };
 

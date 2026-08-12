@@ -12,20 +12,20 @@ export const metadata: Metadata = {
     "A step-by-step guide to the mutual consent divorce process, the 6-month cooling period waiver, drafting settlement agreements, and calculating alimony in India.",
   keywords: "mutual consent divorce timeline, calculate alimony amount India, child support laws Hindu, mutual divorce cost and papers, waiver of cooling period, one time alimony settlement",
   alternates: {
-    canonical: "https://amaconnect.in/mutual-consent-divorce-alimony-child-support-guide",
+    canonical: "https://www.amaconnect.in/mutual-consent-divorce-alimony-child-support-guide",
   },
   openGraph: {
     title: "Mutual Divorce & Alimony Guide India",
     description:
       "A step-by-step guide to the mutual consent divorce process, the 6-month cooling period waiver, drafting settlement agreements, and calculating alimony in India.",
-    url: "https://amaconnect.in/mutual-consent-divorce-alimony-child-support-guide",
+    url: "https://www.amaconnect.in/mutual-consent-divorce-alimony-child-support-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function MutualDivorceGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/mutual-consent-divorce-alimony-child-support-guide`;
 
   // 1. Article Schema

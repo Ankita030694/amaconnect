@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "What are the legal remedies, statutory protections, and filing procedures available to Indian women under the Domestic Violence Act.",
   keywords: "domestic violence act 2005, PWDVA, shared household rights, maintenance under section 20, protection orders section 18, child custody section 21, domestic incident report, section 498a cruelty, streedhan rights Hindu law, Arnesh Kumar guidelines",
   alternates: {
-    canonical: "https://amaconnect.in/domestic-violence-protection-women-rights-legal-guide",
+    canonical: "https://www.amaconnect.in/domestic-violence-protection-women-rights-legal-guide",
   },
   openGraph: {
     title: "Domestic Violence & Women Rights Legal Guide",
     description:
       "What are the legal remedies, statutory protections, and filing procedures available to Indian women under the Domestic Violence Act.",
-    url: "https://amaconnect.in/domestic-violence-protection-women-rights-legal-guide",
+    url: "https://www.amaconnect.in/domestic-violence-protection-women-rights-legal-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function DomesticViolencePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/domestic-violence-protection-women-rights-legal-guide`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author: "AMA Legal Solutions", image: "/cta-bg.jpg")

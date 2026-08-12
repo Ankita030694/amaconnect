@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Client Success Stories & Testimonials | AMA Legal Solutions",
   description: "Read real stories from our clients who found the right legal help, custom contract templates, and expert lawyer advice, achieving successful legal outcomes.",
   alternates: {
-    canonical: "https://amaconnect.in/success-stories",
+    canonical: "https://www.amaconnect.in/success-stories",
   },
 };
 

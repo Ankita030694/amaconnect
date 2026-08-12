@@ -12,20 +12,20 @@ export const metadata: Metadata = {
     "A comprehensive guide covering the CARA adoption framework, legal requirements for single parents, and navigating child custody, visitation rights, and legal guardianship disputes in family courts.",
   keywords: "child adoption process India, cara registration guide, child custody laws Hindu, legal guardian certificate, family court disputes, single parent adoption India, visitation rights, guardianship laws",
   alternates: {
-    canonical: "https://amaconnect.in/child-adoption-custody-guardianship-india-guide",
+    canonical: "https://www.amaconnect.in/child-adoption-custody-guardianship-india-guide",
   },
   openGraph: {
     title: "Child Adoption, Custody & Guardianship Guide India",
     description:
       "A comprehensive guide covering the CARA adoption framework, legal requirements for single parents, and navigating child custody, visitation rights, and legal guardianship disputes in family courts.",
-    url: "https://amaconnect.in/child-adoption-custody-guardianship-india-guide",
+    url: "https://www.amaconnect.in/child-adoption-custody-guardianship-india-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function ChildAdoptionPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/child-adoption-custody-guardianship-india-guide`;
 
   // 1. Article Schema

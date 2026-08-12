@@ -22,20 +22,20 @@ export const metadata: Metadata = {
   keywords:
     "gst registration compliance India, input tax credit itc disputes, gst audit show cause notice reply, gst appeal online process",
   alternates: {
-    canonical: "https://amaconnect.in/understanding-gst-goods-services-tax-compliance-guide",
+    canonical: "https://www.amaconnect.in/understanding-gst-goods-services-tax-compliance-guide",
   },
   openGraph: {
     title: "Understanding GST: A Practical Legal Guide to Tax Compliance and Disputes in India",
     description:
       "Master GST compliance in India. Learn about registration mandates, claiming Input Tax Credit (ITC), dealing with Section 17(5) blocked credits, responding to show cause notices (SCN), and filing online appeals.",
-    url: "https://amaconnect.in/understanding-gst-goods-services-tax-compliance-guide",
+    url: "https://www.amaconnect.in/understanding-gst-goods-services-tax-compliance-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function GstCompliancePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/understanding-gst-goods-services-tax-compliance-guide`;
 
   // Define static reviews data

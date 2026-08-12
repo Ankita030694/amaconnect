@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How property owners respond to municipal demolition notices, secure court stay orders, and challenge illegal construction under local town planning rules.",
   keywords: "municipal demolition notice, stay order construction, illegal encroachment remedy, compoundable deviations, municipal appellate tribunal appeal, article 300a property rights, specific relief act possession, mandamus petition high court, demolition damages compensation, town planning rules",
   alternates: {
-    canonical: "https://amaconnect.in/illegal-construction-local-authority-demolition-notice-guide",
+    canonical: "https://www.amaconnect.in/illegal-construction-local-authority-demolition-notice-guide",
   },
   openGraph: {
     title: "Municipal Demolition Notices & Construction Legal Guide",
     description:
       "How property owners respond to municipal demolition notices, secure court stay orders, and challenge illegal construction under local town planning rules.",
-    url: "https://amaconnect.in/illegal-construction-local-authority-demolition-notice-guide",
+    url: "https://www.amaconnect.in/illegal-construction-local-authority-demolition-notice-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function MunicipalDemolitionsWelfarePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/illegal-construction-local-authority-demolition-notice-guide`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author: "AMA Legal Solutions", image: "/cta-bg.jpg")

@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "Learn the legal remedies, statutory options, and Insurance Ombudsman procedures available to contest denied claims in India.",
   keywords: "insurance claim rejection, contest denied claim, Insurance Ombudsman India, Section 45 Insurance Act, deficiency of service, GRO appeal, Bima Bharosa portal, legal notice insurer",
   alternates: {
-    canonical: "https://amaconnect.in/insurance-claim-rejection-dispute-resolution-guide",
+    canonical: "https://www.amaconnect.in/insurance-claim-rejection-dispute-resolution-guide",
   },
   openGraph: {
     title: "Insurance Claim Rejection Dispute Resolution Guide",
     description:
       "Learn the legal remedies, statutory options, and Insurance Ombudsman procedures available to contest denied claims in India.",
-    url: "https://amaconnect.in/insurance-claim-rejection-dispute-resolution-guide",
+    url: "https://www.amaconnect.in/insurance-claim-rejection-dispute-resolution-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function InsuranceDisputePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/insurance-claim-rejection-dispute-resolution-guide`;
 
   // 1. Article Schema

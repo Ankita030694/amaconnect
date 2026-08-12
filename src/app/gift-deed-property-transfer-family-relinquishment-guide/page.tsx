@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How family members transfer property titles using Gift Deeds, Relinquishment Deeds, and Partition Deeds under Indian property law.",
   keywords: "gift deed drafting, property transfer family, relinquishment deed, partition deed ancestral, stamp duty concessions, minor property transfer, tax exemption gifts, Section 122 Transfer of Property Act",
   alternates: {
-    canonical: "https://amaconnect.in/gift-deed-property-transfer-family-relinquishment-guide",
+    canonical: "https://www.amaconnect.in/gift-deed-property-transfer-family-relinquishment-guide",
   },
   openGraph: {
     title: "Gift Deeds and Family Property Transfers Guide",
     description:
       "How family members transfer property titles using Gift Deeds, Relinquishment Deeds, and Partition Deeds under Indian property law.",
-    url: "https://amaconnect.in/gift-deed-property-transfer-family-relinquishment-guide",
+    url: "https://www.amaconnect.in/gift-deed-property-transfer-family-relinquishment-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function FamilyPropertyTransfersPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/gift-deed-property-transfer-family-relinquishment-guide`;
 
   // 1. Article Schema

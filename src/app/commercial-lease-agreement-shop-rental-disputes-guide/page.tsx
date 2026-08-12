@@ -12,20 +12,20 @@ export const metadata: Metadata = {
     "A dedicated manual for small business owners and commercial landlords explaining commercial leases, lock-in period breaches, and legal eviction procedures.",
   keywords: "commercial lease agreement India, shop rent agreement template, security deposit recovery commercial, eviction commercial tenant, lock in period breach, commercial rent dispute",
   alternates: {
-    canonical: "https://amaconnect.in/commercial-lease-agreement-shop-rental-disputes-guide",
+    canonical: "https://www.amaconnect.in/commercial-lease-agreement-shop-rental-disputes-guide",
   },
   openGraph: {
     title: "Commercial Lease Disputes & Shop Rental Guide",
     description:
       "A dedicated manual for small business owners and commercial landlords explaining commercial leases, lock-in period breaches, and legal eviction procedures.",
-    url: "https://amaconnect.in/commercial-lease-agreement-shop-rental-disputes-guide",
+    url: "https://www.amaconnect.in/commercial-lease-agreement-shop-rental-disputes-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function CommercialLeaseGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/commercial-lease-agreement-shop-rental-disputes-guide`;
 
   // 1. Article Schema

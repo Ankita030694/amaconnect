@@ -55,7 +55,7 @@ export async function generateMetadata(
   const title = getOptimalDraftTitle(draft.title, cleanTitle);
   const cleanName = cleanTitle(draft.title);
   const description = `Get a fully formatted, legally compliant ${cleanName}. Professional legal draft with execution checklist, stamp duty rules, and immediate download.`;
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const draftUrl = `${baseUrl}/drafts/${slug}`;
 
   return {
@@ -174,7 +174,7 @@ export default async function Page({
 
 // Generate complete structured schema graphs for Google E-E-A-T
 function generateDraftSchema(draft: any, faqs: any[], reviews: any[], slug: string) {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const draftUrl = `${baseUrl}/drafts/${slug}`;
   const cleanName = cleanTitle(draft.title);
 

@@ -19,20 +19,20 @@ export const metadata: Metadata = {
   description:
     "Download the AMAConnect mobile law app for secure lawyer chat and virtual legal advice. Get confidential document sharing and private video calls today.",
   alternates: {
-    canonical: "https://amaconnect.in/secure-online-legal-consultation-app",
+    canonical: "https://www.amaconnect.in/secure-online-legal-consultation-app",
   },
   openGraph: {
     title: "Secure Legal Consultations | AMA Connect App",
     description:
       "Get virtual legal advice with our mobile law app featuring end-to-end encrypted chat, HD video calls, and a secure document vault.",
-    url: "https://amaconnect.in/secure-online-legal-consultation-app",
+    url: "https://www.amaconnect.in/secure-online-legal-consultation-app",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function SecureAppPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/secure-online-legal-consultation-app`;
 
   // 1. Article Schema

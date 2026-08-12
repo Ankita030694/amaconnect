@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 export default function CaseRecordManagementPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/case-record-management-indian-advocates`;
 
   const metadata = {

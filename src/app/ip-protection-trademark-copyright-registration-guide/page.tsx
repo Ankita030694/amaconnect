@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How creators, brand owners, and developers register and protect trademarks and copyrights under Indian IP law, and resolve infringement disputes.",
   keywords: "intellectual property India, trademark registration, copyright protection, patent filing, cease and desist notice, DMCA takedown, Indian copyright act, passing off, commercial mediation, work for hire",
   alternates: {
-    canonical: "https://amaconnect.in/ip-protection-trademark-copyright-registration-guide",
+    canonical: "https://www.amaconnect.in/ip-protection-trademark-copyright-registration-guide",
   },
   openGraph: {
     title: "Intellectual Property and Creator Rights Guide",
     description:
       "How creators, brand owners, and developers register and protect trademarks and copyrights under Indian IP law, and resolve infringement disputes.",
-    url: "https://amaconnect.in/ip-protection-trademark-copyright-registration-guide",
+    url: "https://www.amaconnect.in/ip-protection-trademark-copyright-registration-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function IntellectualPropertyPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/ip-protection-trademark-copyright-registration-guide`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author: "AMA Legal Solutions", image: "/cta-bg.jpg")

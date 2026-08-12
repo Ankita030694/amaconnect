@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How students and parents enforce rights against university ragging, resolve school admission disputes under RTE, and seek remedies for exam disqualifications.",
   keywords: "RTE Act 2009 Article 21A, EWS category admissions, UGC anti ragging guidelines, school fee hike high court, UGC fake universities list, withheld marksheet degree, UMC exam cheating defense, student rustication show cause, educational loan interest subsidy, Writ of Mandamus education",
   alternates: {
-    canonical: "https://amaconnect.in/student-educational-rights-anti-ragging-admission-disputes-guide",
+    canonical: "https://www.amaconnect.in/student-educational-rights-anti-ragging-admission-disputes-guide",
   },
   openGraph: {
     title: "Student Rights & Education Laws Guide",
     description:
       "How students and parents enforce rights against university ragging, resolve school admission disputes under RTE, and seek remedies for exam disqualifications.",
-    url: "https://amaconnect.in/student-educational-rights-anti-ragging-admission-disputes-guide",
+    url: "https://www.amaconnect.in/student-educational-rights-anti-ragging-admission-disputes-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function StudentEducationalRightsPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/student-educational-rights-anti-ragging-admission-disputes-guide`;
 
   const reviews = [

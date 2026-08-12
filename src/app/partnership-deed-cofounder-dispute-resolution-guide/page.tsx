@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How to draft registered partnership deeds and co-founder agreements, and resolve commercial disputes in business partnerships.",
   keywords: "partnership deed drafting, cofounder agreement, cofounder disputes, commercial arbitration, partnership dissolution, joint and several liability, LLP asset protection, exit strategy business",
   alternates: {
-    canonical: "https://amaconnect.in/partnership-deed-cofounder-dispute-resolution-guide",
+    canonical: "https://www.amaconnect.in/partnership-deed-cofounder-dispute-resolution-guide",
   },
   openGraph: {
     title: "Co-Founder Disputes and Partnership Deed Guide",
     description:
       "How to draft registered partnership deeds and co-founder agreements, and resolve commercial disputes in business partnerships.",
-    url: "https://amaconnect.in/partnership-deed-cofounder-dispute-resolution-guide",
+    url: "https://www.amaconnect.in/partnership-deed-cofounder-dispute-resolution-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function PartnershipDisputePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/partnership-deed-cofounder-dispute-resolution-guide`;
 
   // 1. Article Schema

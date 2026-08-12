@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     "A comprehensive legal guide outlining the Prevention of Sexual Harassment, or POSH, Act in India, internal complaint procedures, ICC board structures, and employee protection rights.",
   keywords: "POSH Act India, workplace harassment laws, internal complaints committee composition, filing POSH complaint, sexual harassment inquiry process, employee protection rights, Vishaka guidelines",
   alternates: {
-    canonical: "https://amaconnect.in/posh-act-workplace-safety-employee-guide",
+    canonical: "https://www.amaconnect.in/posh-act-workplace-safety-employee-guide",
   },
   openGraph: {
     title: "Employee Guide to Workplace Safety and POSH Act in India",
     description:
       "A comprehensive legal guide outlining the Prevention of Sexual Harassment, or POSH, Act in India, internal complaint procedures, ICC board structures, and employee protection rights.",
-    url: "https://amaconnect.in/posh-act-workplace-safety-employee-guide",
+    url: "https://www.amaconnect.in/posh-act-workplace-safety-employee-guide",
     siteName: "AMA Legal Solutions",
     type: "article",
     authors: ["Anuj Anand Malik"],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 export default function POSHActGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/posh-act-workplace-safety-employee-guide`;
 
   // 1. Article Schema

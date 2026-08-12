@@ -70,7 +70,7 @@ Return ONLY a JSON object with this exact structure:
 
     // STEP 2: Generate Full News Article
     const step2SystemPrompt = `
-You are a professional legal journalist and editor for AMA Connect (https://amaconnect.in/). 
+You are a professional legal journalist and editor for AMA Connect (https://www.amaconnect.in/). 
 Write a high-quality, factual, and concise legal news article based on the provided context.
 
 Title: ${step1Result.title}

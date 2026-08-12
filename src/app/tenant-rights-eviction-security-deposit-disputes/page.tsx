@@ -22,20 +22,20 @@ export const metadata: Metadata = {
   keywords:
     "tenant rights India, illegal eviction defense, security deposit dispute, arbitrary rent hike, Rent Control Act India, Model Tenancy Act registration, Rent Authority complaint, landlord maintenance obligations",
   alternates: {
-    canonical: "https://amaconnect.in/tenant-rights-eviction-security-deposit-disputes",
+    canonical: "https://www.amaconnect.in/tenant-rights-eviction-security-deposit-disputes",
   },
   openGraph: {
     title: "Tenant Rights, Eviction Defense & Security Deposit Disputes Guide",
     description:
       "Understand your protections against illegal evictions, arbitrary rent hikes, and withheld security deposits under rent control acts and the Model Tenancy Act.",
-    url: "https://amaconnect.in/tenant-rights-eviction-security-deposit-disputes",
+    url: "https://www.amaconnect.in/tenant-rights-eviction-security-deposit-disputes",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function TenantRightsPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/tenant-rights-eviction-security-deposit-disputes`;
 
   // 1. Article Schema

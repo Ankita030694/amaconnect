@@ -22,20 +22,20 @@ export const metadata: Metadata = {
     "Learn about the specific legal actions, court procedures, and evidence requirements for resolving land and property ownership disputes in India.",
   keywords: "property dispute resolution, land dispute India, specific relief act, declaration of title, permanent injunction, adverse possession law, court case timeline, records of rights, partition suit",
   alternates: {
-    canonical: "https://amaconnect.in/property-dispute-resolution-india-legal-remedies",
+    canonical: "https://www.amaconnect.in/property-dispute-resolution-india-legal-remedies",
   },
   openGraph: {
     title: "Resolving Property Disputes in India: Legal Remedies & Court Procedures",
     description:
       "Learn about the specific legal actions, court procedures, and evidence requirements for resolving land and property ownership disputes in India.",
-    url: "https://amaconnect.in/property-dispute-resolution-india-legal-remedies",
+    url: "https://www.amaconnect.in/property-dispute-resolution-india-legal-remedies",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function PropertyDisputePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/property-dispute-resolution-india-legal-remedies`;
 
   // 1. Article Schema

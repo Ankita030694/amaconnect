@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "Contact Our Legal Experts",
   description: "Have questions about legal templates, custom drafting services, or lawyer interviews? Write to us, and our legal aid team will connect with you within 24 hours.",
   alternates: {
-    canonical: "https://amaconnect.in/contact",
+    canonical: "https://www.amaconnect.in/contact",
   },
   openGraph: {
     title: "Contact Our Legal Experts",
     description: "Have questions about legal templates, custom drafting services, or lawyer interviews? Write to us, and our legal aid team will connect with you within 24 hours.",
-    url: "https://amaconnect.in/contact",
+    url: "https://www.amaconnect.in/contact",
     siteName: "AMA Legal Solutions",
     type: "website",
   },

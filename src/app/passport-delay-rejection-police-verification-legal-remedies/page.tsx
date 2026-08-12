@@ -12,20 +12,20 @@ export const metadata: Metadata = {
     "A guide to navigating passport application delays, resolving adverse police verification status, handling show-cause notices, and filing appeals under the Passports Act.",
   keywords: "passport delay complaint online, passport police verification status adverse, passport impounded legal help, passport act appeal process, regional passport office show cause notice",
   alternates: {
-    canonical: "https://amaconnect.in/passport-delay-rejection-police-verification-legal-remedies",
+    canonical: "https://www.amaconnect.in/passport-delay-rejection-police-verification-legal-remedies",
   },
   openGraph: {
     title: "Passport Delays & Police Verification Issues Guide",
     description:
       "A guide to navigating passport application delays, resolving adverse police verification status, handling show-cause notices, and filing appeals under the Passports Act.",
-    url: "https://amaconnect.in/passport-delay-rejection-police-verification-legal-remedies",
+    url: "https://www.amaconnect.in/passport-delay-rejection-police-verification-legal-remedies",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function PassportRemediesPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/passport-delay-rejection-police-verification-legal-remedies`;
 
   // 1. Article Schema

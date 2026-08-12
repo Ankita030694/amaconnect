@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   description:
     "India's smarter way to get legal help. Download AMA Connect to ask legal questions, connect with lawyers, and access trusted legal support in one app.",
   alternates: {
-    canonical: "https://amaconnect.in/about",
+    canonical: "https://www.amaconnect.in/about",
   },
   openGraph: {
     title: "About Us",
     description:
       "India's smarter way to get legal help. Download AMA Connect to ask legal questions, connect with lawyers, and access trusted legal support in one app.",
-    url: "https://amaconnect.in/about",
+    url: "https://www.amaconnect.in/about",
     siteName: "AMA Legal Solutions",
     type: "website",
   },

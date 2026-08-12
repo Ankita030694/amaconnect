@@ -20,20 +20,20 @@ export const metadata: Metadata = {
   description:
     "Learn lawyer marketing strategies to get more legal clients in 2026. Claim your free online profile for advocates on AMAConnect to build your law practice.",
   alternates: {
-    canonical: "https://amaconnect.in/lawyer-branding-get-more-clients",
+    canonical: "https://www.amaconnect.in/lawyer-branding-get-more-clients",
   },
   openGraph: {
     title: "Build Your Legal Brand | AMA Connect",
     description:
       "Claim your free professional profile and act as a marketing engine for your law practice.",
-    url: "https://amaconnect.in/lawyer-branding-get-more-clients",
+    url: "https://www.amaconnect.in/lawyer-branding-get-more-clients",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function LawyerBrandingPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/lawyer-branding-get-more-clients`;
 
   // 1. Article Schema

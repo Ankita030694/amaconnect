@@ -17,14 +17,17 @@ export const metadata: Metadata = {
   title: "Lawyer Interviews",
   description: "Read exclusive interviews with prominent legal professionals.",
   alternates: {
-    canonical: "https://amaconnect.in/interviews",
+    canonical: "https://www.amaconnect.in/interviews",
   },
 };
 
 const getInterviews = async () => {
   try {
     await dbConnect();
-    const list = await LawyerInterviewModel.find({}).sort({ created: -1 }).lean();
+    const list = await LawyerInterviewModel.find({})
+      .select("-description -faqs -reviews")
+      .sort({ created: -1 })
+      .lean();
     
     // Sort so that the featured interview is always at index 0
     const sorted = JSON.parse(JSON.stringify(list));

@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "How victims of cyber defamation, digital trolling, and online harassment secure legal remedies and file complaints under Indian law.",
   keywords: "cyber defamation India, online harassment, digital trolling, libel and slander, section 66c identity theft, section 66d impersonation, cyber crime cell complaint, section 65b certificate, intermediary liability section 79, john doe orders",
   alternates: {
-    canonical: "https://amaconnect.in/cyber-defamation-online-harassment-legal-recourse",
+    canonical: "https://www.amaconnect.in/cyber-defamation-online-harassment-legal-recourse",
   },
   openGraph: {
     title: "Cyber Defamation & Online Harassment Legal Guide",
     description:
       "How victims of cyber defamation, digital trolling, and online harassment secure legal remedies and file complaints under Indian law.",
-    url: "https://amaconnect.in/cyber-defamation-online-harassment-legal-recourse",
+    url: "https://www.amaconnect.in/cyber-defamation-online-harassment-legal-recourse",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function CyberDefamationPage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/cyber-defamation-online-harassment-legal-recourse`;
 
   // 1. Article Schema (Publisher: "AMA Legal Solutions", Author: "AMA Legal Solutions", image: "/cta-bg.jpg")

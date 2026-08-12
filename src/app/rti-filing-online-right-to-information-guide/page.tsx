@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     "Learn the legal procedure, drafting formats, fees, and appeals processes to successfully file a Right to Information (RTI) application under Indian law.",
   keywords: "RTI filing online, right to information guide, how to file RTI, Section 8 exemptions, first appeal, second appeal, Indian postal order, public information officer",
   alternates: {
-    canonical: "https://amaconnect.in/rti-filing-online-right-to-information-guide",
+    canonical: "https://www.amaconnect.in/rti-filing-online-right-to-information-guide",
   },
   openGraph: {
     title: "Right to Information (RTI) Online Filing Guide",
     description:
       "Learn the legal procedure, drafting formats, fees, and appeals processes to successfully file a Right to Information (RTI) application under Indian law.",
-    url: "https://amaconnect.in/rti-filing-online-right-to-information-guide",
+    url: "https://www.amaconnect.in/rti-filing-online-right-to-information-guide",
     siteName: "AMA Legal Solutions",
     type: "website",
   },
 };
 
 export default function RTIFilingGuidePage() {
-  const baseUrl = "https://amaconnect.in";
+  const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/rti-filing-online-right-to-information-guide`;
 
   // 1. Article Schema
