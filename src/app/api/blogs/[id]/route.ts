@@ -51,11 +51,14 @@ export async function PUT(
       title,
       subtitle,
       image,
+      infographic,
       date,
       description,
       slug,
       metaTitle,
       metaDescription,
+      keyTakeaways,
+      popularSearches,
       faqs,
       reviews,
       author
@@ -81,11 +84,14 @@ export async function PUT(
     blog.title = title.trim();
     blog.subtitle = subtitle ? subtitle.trim() : "";
     blog.image = image;
+    blog.infographic = infographic || "";
     blog.date = date;
     blog.description = description || "";
     blog.slug = slug;
     blog.metaTitle = metaTitle || "";
     blog.metaDescription = metaDescription || "";
+    blog.keyTakeaways = keyTakeaways || [];
+    blog.popularSearches = popularSearches || [];
     blog.faqs = faqs || [];
     blog.reviews = reviews || [];
     blog.author = author || "Anuj Anand Malik";
