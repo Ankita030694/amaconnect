@@ -185,6 +185,7 @@ const BlogSchema = new Schema({
   description: { type: String, default: "" },
   date: { type: String, required: true },
   image: { type: String, required: true },
+  infographic: { type: String, default: "" },
   slug: { type: String, required: true },
   author: { type: String, default: "Anuj Anand Malik" },
   authorTitle: { type: String, default: "" },
@@ -192,12 +193,17 @@ const BlogSchema = new Schema({
   category: { type: String, default: "" },
   metaTitle: { type: String, default: "" },
   metaDescription: { type: String, default: "" },
+  keyTakeaways: [{ type: String }],
+  popularSearches: [{ type: String }],
   faqs: [BlogFAQSchema],
   reviews: [BlogReviewSchema],
   created: { type: Number, default: Date.now }
 }, { collection: "blogs" });
 
-export const Blog = mongoose.models.Blog || mongoose.model("Blog", BlogSchema);
+if (mongoose.models.Blog) {
+  delete mongoose.models.Blog;
+}
+export const Blog = mongoose.model("Blog", BlogSchema);
 
 // -------------------------------------------------------------
 // 9. CUSTOM NEWS (ADMIN MANAGED)

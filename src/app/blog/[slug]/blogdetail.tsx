@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useMemo, memo } from 'react';
+import React, { useEffect, useState, useRef, useMemo, memo } from 'react';
 import Link from 'next/link';
 import { authorBios } from '@/lib/authorBios';
 
@@ -61,16 +61,104 @@ export interface Blog {
   title: string;
   subtitle?: string;
   image: string;
+  infographic?: string;
   date: string;
   description: string;
   slug: string;
   author: string;
   metaTitle?: string;
   metaDescription?: string;
+  keyTakeaways?: string[];
+  popularSearches?: string[];
   faqs?: FAQ[];
   reviews?: Review[];
   created?: number;
 }
+
+const AnimatedCounter = ({
+  end,
+  decimals = 0,
+  duration = 1800,
+  prefix = '',
+  suffix = '',
+  useLocale = false,
+}: {
+  end: number;
+  decimals?: number;
+  duration?: number;
+  prefix?: string;
+  suffix?: string;
+  useLocale?: boolean;
+}) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let startTimestamp: number | null = null;
+    let animationFrameId: number;
+
+    const easeOutCubic = (x: number): number => 1 - Math.pow(1 - x, 3);
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const elapsed = timestamp - startTimestamp;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+      
+      const current = easedProgress * end;
+      setCount(current);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      } else {
+        setCount(end);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [hasStarted, end, duration]);
+
+  const displayValue = () => {
+    if (decimals > 0) {
+      return count.toFixed(decimals);
+    }
+    const val = Math.floor(count);
+    if (useLocale) {
+      return val.toLocaleString('en-IN');
+    }
+    return val.toString();
+  };
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {prefix}
+      {displayValue()}
+      {suffix}
+    </span>
+  );
+};
 
 interface BlogDetailProps {
   blog: Blog;
@@ -234,6 +322,25 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
     return processContent(blog.description);
   }, [blog.description]);
 
+  // Split content at middle heading to embed infographic
+  const { part1, part2 } = useMemo(() => {
+    if (!processedContent || !blog.infographic) {
+      return { part1: processedContent, part2: '' };
+    }
+    const h2Matches = Array.from(processedContent.matchAll(/<h2[^>]*>/gi));
+    if (h2Matches.length >= 2) {
+      const midIndex = Math.floor(h2Matches.length / 2);
+      const splitPosition = h2Matches[midIndex].index;
+      if (splitPosition !== undefined) {
+        return {
+          part1: processedContent.substring(0, splitPosition),
+          part2: processedContent.substring(splitPosition)
+        };
+      }
+    }
+    return { part1: processedContent, part2: '' };
+  }, [processedContent, blog.infographic]);
+
   useEffect(() => {
     setCurrentUrl(window.location.href);
   }, []);
@@ -321,7 +428,6 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
             {/* Left Content */}
             <div className="flex-1 flex flex-col items-start text-left">
 
-
               {/* Title */}
               <h1 className="text-[32px] md:text-[42px] lg:text-[48px] font-extrabold leading-[1.2] text-[#0d3b66] mb-6">
                 {blog.title}
@@ -339,11 +445,11 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                 {/* Author */}
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-[#0d3b66] flex items-center justify-center text-white font-bold text-[16px]">
-                    {blog.author ? blog.author.substring(0, 2).toUpperCase() : "FI"}
+                    {blog.author ? blog.author.substring(0, 2).toUpperCase() : "AM"}
                   </div>
                   <div>
-                    <div className="text-[16px] font-bold text-[#0d3b66]">{blog.author || "FREED India"}</div>
-                    <div className="text-[12px] text-gray-500">Reviewed by {blog.author || "FREED India"}, Debt Resolution Specialists</div>
+                    <div className="text-[16px] font-bold text-[#0d3b66]">{blog.author || "Anuj Anand Malik"}</div>
+                    <div className="text-[12px] text-gray-500">Reviewed by {blog.author || "Anuj Anand Malik"}, Senior Legal Strategist</div>
                   </div>
                 </div>
 
@@ -353,13 +459,13 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                     <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    {blog.date || "6th August 2026"}
+                    {blog.date || "August 2026"}
                   </div>
                   <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 text-[13px] text-gray-600 font-medium bg-white whitespace-nowrap">
                     <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    12 Min Read
+                    10-12 Min Read
                   </div>
                 </div>
               </div>
@@ -382,51 +488,67 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
         </div>
       </div>
 
-      {/* Stats Banner */}
-      <div className="w-full bg-[#413832] pt-8 pb-4 border-b border-black/5 overflow-hidden relative">
+      {/* Stats Banner with Animated Counters */}
+      <div className="w-full bg-[#413832] pt-8 pb-6 border-b border-black/5 overflow-hidden relative">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Desktop Grid View */}
           <div className="hidden md:grid grid-cols-4 divide-x divide-white/10">
-            {statsData.map((stat, idx) => (
-              <div key={idx} className="flex flex-col items-center justify-center text-center px-4">
-                <div className="flex items-center gap-2 mb-2">
-                  {stat.icon && stat.icon}
-                  <span className="text-[36px] font-bold text-white">{stat.value}</span>
-                </div>
-                <div className="text-[14px] text-white/80 font-medium">{stat.label}</div>
+            <div className="flex flex-col items-center justify-center text-center px-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-yellow-400 text-2xl">★</span>
+                <span className="text-[36px] font-bold text-white">
+                  <AnimatedCounter end={4.8} decimals={1} suffix="/5" duration={1500} />
+                </span>
               </div>
-            ))}
+              <div className="text-[14px] text-white/80 font-medium">Client Rating</div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center text-center px-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[#D4AF37] text-2xl">⚖</span>
+                <span className="text-[36px] font-bold text-white">
+                  <AnimatedCounter end={10000} useLocale suffix="+" duration={1800} />
+                </span>
+              </div>
+              <div className="text-[14px] text-white/80 font-medium">Cases Resolved</div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center text-center px-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[#D4AF37] text-2xl">👥</span>
+                <span className="text-[36px] font-bold text-white">
+                  <AnimatedCounter end={500} useLocale suffix="+" duration={1800} />
+                </span>
+              </div>
+              <div className="text-[14px] text-white/80 font-medium">Expert Advocates</div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center text-center px-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[#D4AF37] text-2xl">🛡</span>
+                <span className="text-[36px] font-bold text-white">
+                  <AnimatedCounter end={100} suffix="%" duration={1600} />
+                </span>
+              </div>
+              <div className="text-[14px] text-white/80 font-medium">Confidential & Legal</div>
+            </div>
           </div>
 
-          {/* Mobile Carousel View */}
-          <div className="md:hidden relative min-h-[110px]">
-            {[0, 1].map((slideIndex) => (
-              <div 
-                key={slideIndex}
-                className={`absolute inset-0 flex justify-center items-center transition-all duration-500 ease-in-out ${activeStatIndex === slideIndex ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 pointer-events-none'}`}
-              >
-                {[statsData[slideIndex * 2], statsData[slideIndex * 2 + 1]].map((stat, idx) => (
-                  <div key={idx} className="flex flex-col items-center justify-center text-center w-1/2 px-1">
-                    <div className="flex items-center gap-1.5 mb-1 [&>svg]:w-5 [&>svg]:h-5">
-                      {stat.icon && stat.icon}
-                      <span className="text-[22px] sm:text-[24px] font-bold text-white leading-none">{stat.value}</span>
-                    </div>
-                    <div className="text-[11px] sm:text-[12px] text-white/80 font-medium leading-tight px-1">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-          
-          {/* Mobile dots indicator */}
-          <div className="md:hidden flex justify-center gap-2 mt-2">
-            {[0, 1].map((idx) => (
-              <div 
-                key={idx} 
-                className={`w-2 h-2 rounded-full transition-colors ${activeStatIndex === idx ? 'bg-white' : 'bg-white/20'}`}
-              />
-            ))}
+          {/* Mobile View */}
+          <div className="md:hidden grid grid-cols-2 gap-4">
+            <div className="flex flex-col items-center text-center">
+              <span className="text-[24px] font-bold text-white">
+                <AnimatedCounter end={4.8} decimals={1} suffix="/5" duration={1500} />
+              </span>
+              <div className="text-[12px] text-white/80 font-medium">Client Rating</div>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <span className="text-[24px] font-bold text-white">
+                <AnimatedCounter end={10000} useLocale suffix="+" duration={1800} />
+              </span>
+              <div className="text-[12px] text-white/80 font-medium">Cases Resolved</div>
+            </div>
           </div>
 
         </div>
@@ -448,12 +570,67 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
               <TableOfContents sections={tocSections} activeId={activeId} />
             </div>
 
-            <div className="bg-white p-6 md:p-12 rounded-3xl border border-slate-100 shadow-3xs space-y-12">
-              {/* Article Content */}
+            <div className="bg-white p-6 md:p-12 rounded-3xl border border-slate-100 shadow-3xs space-y-10">
+
+              {/* Key Takeaways Section */}
+              {blog.keyTakeaways && blog.keyTakeaways.length > 0 && (
+                <div className="rounded-[18px] bg-[#FAF6EC] border border-[#E9DFCA] p-6 md:p-8 shadow-xs">
+                  <div className="flex items-center gap-2.5 mb-4">
+                    <span className="w-8 h-8 rounded-full bg-[#B8860B]/15 text-[#B8860B] flex items-center justify-center font-bold">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
+                    <h2 className="text-xl md:text-2xl font-black text-[#413832]">
+                      Key Takeaways
+                    </h2>
+                  </div>
+                  <ul className="space-y-3">
+                    {blog.keyTakeaways.map((takeaway, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-slate-700 text-sm md:text-base leading-relaxed">
+                        <span className="w-5 h-5 rounded-full bg-[#B8860B]/10 text-[#B8860B] flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+                          ✓
+                        </span>
+                        <span>{takeaway}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Main Article Body - Part 1 */}
               <div
                 className="prose prose-lg max-w-none text-slate-700 leading-relaxed tiptap-content"
-                dangerouslySetInnerHTML={{ __html: processedContent }}
+                dangerouslySetInnerHTML={{ __html: part1 || processedContent }}
               />
+
+              {/* Infographic Section */}
+              {blog.infographic && (
+                <div className="my-8 rounded-2xl bg-[#FAF6EC] p-4 md:p-6 border border-[#E9DFCA] shadow-xs">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-base font-bold text-[#B8860B]">📊</span>
+                    <h3 className="text-xs font-black uppercase tracking-wider text-[#413832]">
+                      VISUAL PROCEDURE & INFOGRAPHIC
+                    </h3>
+                  </div>
+                  <div className="relative w-full overflow-hidden rounded-xl bg-white border border-[#E9DFCA] flex justify-center p-2">
+                    <img
+                      src={getValidImageSrc(blog.infographic)}
+                      alt={`${blog.title} Infographic`}
+                      className="w-full h-auto object-contain max-h-[700px] rounded-lg"
+                      onError={handleImageError}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Main Article Body - Part 2 */}
+              {part2 && (
+                <div
+                  className="prose prose-lg max-w-none text-slate-700 leading-relaxed tiptap-content"
+                  dangerouslySetInnerHTML={{ __html: part2 }}
+                />
+              )}
 
               {/* Tiptap Styles */}
               <style jsx global>{`
@@ -467,10 +644,61 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                 .tiptap-content blockquote { border-left: 4px solid #D2A02A; padding-left: 1.2em; font-style: italic; color: #475569; background: #fffaf0; padding: 1.25rem; border-radius: 0.75rem; }
                 .tiptap-content img { border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin: 2rem 0; max-width: 100%; height: auto; }
                 .tiptap-content a { color: #B8860B; text-decoration: underline; font-weight: 600; }
-                .tiptap-content table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.95em; }
-                .tiptap-content th { background: #f8fafc; padding: 0.85rem; text-align: left; font-weight: 700; border: 1px solid #e2e8f0; color: #0f172a; }
-                .tiptap-content td { padding: 0.85rem; border: 1px solid #e2e8f0; color: #334155; }
+                .tiptap-content table { 
+                  width: 100%; 
+                  border-collapse: separate !important; 
+                  border-spacing: 0 !important; 
+                  border: 1px solid #CBD5E1 !important; 
+                  border-radius: 12px !important; 
+                  overflow: hidden !important; 
+                  margin: 2rem 0; 
+                  font-size: 0.95em; 
+                }
+                .tiptap-content th { 
+                  background: #F8FAFC; 
+                  padding: 0.85rem 1rem; 
+                  text-align: left; 
+                  font-weight: 700; 
+                  border-bottom: 1px solid #CBD5E1; 
+                  border-right: 1px solid #E2E8F0; 
+                  color: #0F172A; 
+                }
+                .tiptap-content th:last-child { border-right: none; }
+                .tiptap-content td { 
+                  padding: 0.85rem 1rem; 
+                  border-bottom: 1px solid #E2E8F0; 
+                  border-right: 1px solid #E2E8F0; 
+                  color: #334155; 
+                }
+                .tiptap-content td:last-child { border-right: none; }
+                .tiptap-content tr:last-child td { border-bottom: none; }
               `}</style>
+
+              {/* Popular Searches Section */}
+              {blog.popularSearches && blog.popularSearches.length > 0 && (
+                <div className="border-t border-slate-100 pt-8">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-base">🔍</span>
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                      Popular Searches & Legal Resources
+                    </h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2.5">
+                    {blog.popularSearches.map((term, idx) => (
+                      <Link
+                        key={idx}
+                        href={`/blog?search=${encodeURIComponent(term)}`}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF6EC] hover:bg-[#F2E8D2] border border-[#E9DFCA] text-xs md:text-sm font-semibold text-[#413832] transition-colors group shadow-3xs"
+                      >
+                        <span>{term}</span>
+                        <svg className="w-3.5 h-3.5 text-[#B8860B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Share Section */}
               <div className="border-t border-slate-100 pt-8 mt-8">
@@ -627,11 +855,11 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
           {/* Right Sidebar - CTA & Trust Cards */}
           <div className="space-y-5 sticky top-24">
             {/* CTA Card */}
-            <div className="bg-[#413832] rounded-[20px] p-5 text-center shadow-lg relative overflow-hidden">
+            <div className="bg-[#413832] rounded-[20px] p-5 text-center shadow-lg relative overflow-hidden flex flex-col items-center">
               <div className="absolute top-0 right-0 w-20 h-20 bg-[#D4AF37]/10 rounded-full blur-2xl -mr-6 -mt-6 pointer-events-none" />
-              <div className="flex justify-center mb-3 relative z-10">
-                <svg className="w-6 h-6 text-white transform -rotate-12" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+              <div className="w-10 h-10 mb-2.5 rounded-full bg-white/10 border border-white/15 flex items-center justify-center shadow-inner relative z-10">
+                <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
                 </svg>
               </div>
               <h3 className="text-white text-base font-bold mb-2 relative z-10">Talk to a Legal Expert Free !</h3>
