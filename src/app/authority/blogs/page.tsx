@@ -346,8 +346,8 @@ export default function BlogsDashboard() {
   // Generate cover image via AI
   const handleGenerateAIImage = async () => {
     const defaultPrompt = newBlog.title 
-      ? `A professional, high-quality legal illustration or premium blog banner representing: ${newBlog.title}`
-      : "A professional legal illustration with a modern scales of justice, gold and deep charcoal colors, premium high-quality digital art";
+      ? `A professional, high-quality legal editorial illustration representing: ${newBlog.title}. Theme colors MUST strictly be Dark Mocha Brown (#382E26 / #2D2219) and Regal Ochre Gold (#C9A227 / #D4AF37) with warm amber and ivory highlights. STRICTLY NO BLUE COLORS. Full composition without cropping.`
+      : "A professional legal illustration with modern scales of justice, Dark Mocha Brown (#382E26) and Regal Ochre Gold (#C9A227) palette, warm golden amber lighting, strictly no blue colors, premium digital art";
     
     const userPrompt = window.prompt("Enter the prompt for the AI image generator:", defaultPrompt);
     if (userPrompt === null) return; // User cancelled
@@ -438,14 +438,19 @@ export default function BlogsDashboard() {
 
   // Generate Infographic via AI
   const handleGenerateInfographic = async () => {
-    const defaultPrompt = infographicPrompt || (newBlog.title 
-      ? `A highly detailed, comprehensive data-driven vertical legal infographic diagram explaining: ${newBlog.title}, showing step-by-step procedures, comparison flowchart, clean typography, gold and charcoal corporate styling`
-      : "A highly detailed legal flowchart infographic with step by step processes, gold and charcoal modern design");
+    let cleanPrompt = "";
+    if (typeof infographicPrompt === "string" && infographicPrompt.trim() && !infographicPrompt.includes("[object Object]")) {
+      cleanPrompt = infographicPrompt.trim();
+    } else if (newBlog.title) {
+      cleanPrompt = `Professional structured legal infographic poster for: ${newBlog.title}. Executive dashboard layout: Top Dark Mocha Brown (#382E26) and Ochre Gold (#C9A227) title header banner with verified legal shield badge, 3-column structured grid containing (1) Key Statistics card with 4 circular gold metric badges, (2) Comparative dual-color bar chart in Ochre Gold and Dark Mocha Brown, (3) Numbered 6-step legal process roadmap connected by dotted lines, (4) Horizontal Timeline of Events milestone bar along a gold line at bottom, and Dark Mocha Brown footer contact banner displaying: "📞 +91 87003 43611 | 🌐 www.amaconnect.in | ✉️ notify@amaconnect.in | 📍 Sector 57, Gurugram, Delhi NCR". Crisp flat vector illustration, warm ivory background, Dark Mocha Brown and Ochre Gold corporate theme. STRICTLY NO BLUE COLORS, NO FAKE NUMBERS, uncropped full composition, ultra sharp 4k.`;
+    } else {
+      cleanPrompt = `Professional structured legal infographic poster: Top Dark Mocha Brown and Ochre Gold title banner, 3-column structured grid with Key Statistics, Comparative bar chart in Ochre Gold and Mocha Brown, Numbered 6-step legal roadmap, horizontal timeline of events, and Dark Mocha Brown footer contact bar with: "Phone: +91 87003 43611 | Website: www.amaconnect.in | Email: notify@amaconnect.in". Crisp flat vector, warm cream background, Dark Mocha Brown and Ochre Gold corporate theme. STRICTLY NO BLUE COLORS, NO FAKE DETAILS.`;
+    }
     
-    const userPrompt = window.prompt("Enter the prompt for the AI Infographic Generator:", defaultPrompt);
+    const userPrompt = window.prompt("Enter the prompt for the AI Infographic Generator:", cleanPrompt);
     if (userPrompt === null) return;
 
-    const finalPrompt = userPrompt.trim() || defaultPrompt;
+    const finalPrompt = userPrompt.trim() || cleanPrompt;
     setInfographicPrompt(finalPrompt);
     setShowImageLogs(true);
     addImageLog(`Initiating Infographic generation for prompt: "${finalPrompt}"`, 'info');
@@ -683,8 +688,17 @@ export default function BlogsDashboard() {
         reviews: generated.reviews || prevState.reviews,
       }));
 
+      if (generated.infographicPrompt) {
+        const promptStr = typeof generated.infographicPrompt === "string"
+          ? generated.infographicPrompt
+          : (generated.infographicPrompt.prompt || generated.infographicPrompt.description || JSON.stringify(generated.infographicPrompt));
+        if (promptStr && !promptStr.includes("[object Object]")) {
+          setInfographicPrompt(promptStr);
+        }
+      }
+
       // Alert successful completion
-      alert("✨ Blog contents populated successfully! Please verify fields, upload a cover image, and publish.");
+      alert("✨ High-depth blog populated successfully with statutory sources, internal links, and legal analysis! Please verify fields, upload or generate cover image, and publish.");
       setWriteupInput(""); // clear writeup input
     } catch (err: any) {
       console.error("Generation error:", err);
@@ -1254,24 +1268,28 @@ export default function BlogsDashboard() {
               {/* Cover Image Preview */}
               {imagePreview && (
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-150 flex flex-col items-center gap-2">
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cover Image Preview</span>
-                  <img
-                    src={imagePreview}
-                    alt="cover preview"
-                    className="w-full max-w-sm h-40 object-cover rounded-xl border border-slate-200 shadow-3xs"
-                  />
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cover Image Preview (Full View)</span>
+                  <div className="w-full bg-white rounded-xl border border-slate-200 p-2 flex items-center justify-center overflow-hidden shadow-3xs">
+                    <img
+                      src={imagePreview}
+                      alt="cover preview"
+                      className="w-full h-auto max-h-[380px] object-contain rounded-lg"
+                    />
+                  </div>
                 </div>
               )}
 
               {/* Infographic Preview */}
               {(infographicPreview || newBlog.infographic) && (
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-150 flex flex-col items-center gap-2">
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Infographic Diagram Preview</span>
-                  <img
-                    src={infographicPreview || newBlog.infographic}
-                    alt="infographic preview"
-                    className="w-full max-w-sm h-40 object-contain rounded-xl border border-slate-200 shadow-3xs bg-white"
-                  />
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Infographic Diagram Preview (Full View)</span>
+                  <div className="w-full bg-white rounded-xl border border-slate-200 p-2 flex items-center justify-center overflow-hidden shadow-3xs">
+                    <img
+                      src={infographicPreview || newBlog.infographic}
+                      alt="infographic preview"
+                      className="w-full h-auto max-h-[500px] object-contain rounded-lg"
+                    />
+                  </div>
                 </div>
               )}
             </div>
