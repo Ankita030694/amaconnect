@@ -473,13 +473,13 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
             </div>
 
             {/* Right Image */}
-            <div className="flex-1 w-full max-w-[600px] lg:max-w-none lg:pl-10">
-              <div className="relative w-full aspect-[4/3] sm:aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-100">
+            <div className="flex-1 w-full max-w-[560px] lg:max-w-none lg:pl-8 flex justify-center">
+              <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-[#382E26]/10 bg-[#FAF6EC] flex items-center justify-center p-2 sm:p-3">
                 {blog.image && (
                   <img 
                     src={getValidImageSrc(blog.image)} 
                     alt={blog.title} 
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto max-h-[480px] object-contain rounded-2xl"
                     onError={handleImageError}
                   />
                 )}
