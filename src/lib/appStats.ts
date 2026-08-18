@@ -1,4 +1,4 @@
 export const APP_STATS = {
-  RATING: "4.8",
-  DOWNLOADS: "10K+",
+  RATING: "4.9",
+  DOWNLOADS: "1,000+",
 };

@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef, useMemo, memo } from 'react';
 import Link from 'next/link';
 import { authorBios } from '@/lib/authorBios';
+import BlogCompanyOverview from '@/components/BlogCompanyOverview';
 
 // Custom inline SVG icons for zero-dependency reliability and premium rendering
 const StarIcon = ({ filled }: { filled: boolean }) => (
@@ -429,7 +430,7 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
             <div className="flex-1 flex flex-col items-start text-left">
 
               {/* Title */}
-              <h1 className="text-[32px] md:text-[42px] lg:text-[48px] font-extrabold leading-[1.2] text-[#0d3b66] mb-6">
+              <h1 className="text-[32px] md:text-[42px] lg:text-[48px] font-extrabold leading-[1.2] text-[#382E26] mb-6">
                 {blog.title}
               </h1>
 
@@ -444,11 +445,11 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
               <div className="flex flex-col sm:flex-row sm:items-center gap-6 mt-2">
                 {/* Author */}
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-[#0d3b66] flex items-center justify-center text-white font-bold text-[16px]">
+                  <div className="w-12 h-12 rounded-full bg-[#382E26] flex items-center justify-center text-white font-bold text-[16px]">
                     {blog.author ? blog.author.substring(0, 2).toUpperCase() : "AM"}
                   </div>
                   <div>
-                    <div className="text-[16px] font-bold text-[#0d3b66]">{blog.author || "Anuj Anand Malik"}</div>
+                    <div className="text-[16px] font-bold text-[#382E26]">{blog.author || "Anuj Anand Malik"}</div>
                     <div className="text-[12px] text-gray-500">Reviewed by {blog.author || "Anuj Anand Malik"}, Senior Legal Strategist</div>
                   </div>
                 </div>
@@ -488,66 +489,131 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
         </div>
       </div>
 
-      {/* Stats Banner with Animated Counters */}
-      <div className="w-full bg-[#413832] pt-8 pb-6 border-b border-black/5 overflow-hidden relative">
+      {/* Stats Banner with Animated Counters & App's Actual Stats */}
+      <div className="w-full bg-[#413832] pt-8 pb-7 border-b border-black/5 overflow-hidden relative">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Desktop Grid View */}
+          {/* Desktop & Tablet Grid View */}
           <div className="hidden md:grid grid-cols-4 divide-x divide-white/10">
+            {/* Stat 1: Google Reviews */}
             <div className="flex flex-col items-center justify-center text-center px-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-yellow-400 text-2xl">★</span>
-                <span className="text-[36px] font-bold text-white">
-                  <AnimatedCounter end={4.8} decimals={1} suffix="/5" duration={1500} />
+              <div className="flex items-center gap-2.5 mb-2">
+                <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm p-1">
+                  <svg viewBox="0 0 24 24" className="w-4 h-4">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                  </svg>
+                </div>
+                <span className="text-[34px] font-bold text-white tracking-tight">
+                  <AnimatedCounter end={4.9} decimals={1} suffix="/5" duration={1500} />
                 </span>
               </div>
-              <div className="text-[14px] text-white/80 font-medium">Client Rating</div>
+              <div className="text-[13px] text-white/80 font-medium">Google Reviews</div>
             </div>
 
+            {/* Stat 2: App Downloads */}
             <div className="flex flex-col items-center justify-center text-center px-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-[#D4AF37] text-2xl">⚖</span>
-                <span className="text-[36px] font-bold text-white">
-                  <AnimatedCounter end={10000} useLocale suffix="+" duration={1800} />
+                <svg className="w-7 h-7 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.93 2.05C2.61 2.37 2.45 2.85 2.45 3.5V20.5C2.45 21.15 2.61 21.63 2.93 21.95L3.03 22.05L13.88 11.2V10.8L3.03 1.95L2.93 2.05Z" fill="#3B82F6"/>
+                  <path d="M17.48 14.8L13.88 11.2V10.8L17.48 7.2L17.62 7.28L21.87 9.71C23.09 10.4 23.09 11.55 21.87 12.24L17.62 14.72L17.48 14.8Z" fill="#FBBF24"/>
+                  <path d="M17.62 14.72L13.88 11.05L2.93 21.95C3.34 22.37 4.02 22.42 4.78 21.99L17.62 14.72Z" fill="#EF4444"/>
+                  <path d="M17.62 7.28L4.78 2.01C4.02 1.58 3.34 1.63 2.93 2.05L13.88 10.95L17.62 7.28Z" fill="#10B981"/>
+                </svg>
+                <span className="text-[34px] font-bold text-white tracking-tight">
+                  <AnimatedCounter end={1000} useLocale suffix="+" duration={1800} />
                 </span>
               </div>
-              <div className="text-[14px] text-white/80 font-medium">Cases Resolved</div>
+              <div className="text-[13px] text-white/80 font-medium">App Downloads</div>
             </div>
 
+            {/* Stat 3: Verified Advocates */}
             <div className="flex flex-col items-center justify-center text-center px-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-[#D4AF37] text-2xl">👥</span>
-                <span className="text-[36px] font-bold text-white">
-                  <AnimatedCounter end={500} useLocale suffix="+" duration={1800} />
+                <svg className="w-6 h-6 text-[#D4AF37] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <polyline points="16 11 18 13 22 9" />
+                </svg>
+                <span className="text-[34px] font-bold text-white tracking-tight">
+                  <AnimatedCounter end={200} useLocale suffix="+" duration={1800} />
                 </span>
               </div>
-              <div className="text-[14px] text-white/80 font-medium">Expert Advocates</div>
+              <div className="text-[13px] text-white/80 font-medium">Verified Advocates</div>
             </div>
 
+            {/* Stat 4: Fast Legal Response */}
             <div className="flex flex-col items-center justify-center text-center px-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-[#D4AF37] text-2xl">🛡</span>
-                <span className="text-[36px] font-bold text-white">
-                  <AnimatedCounter end={100} suffix="%" duration={1600} />
+                <svg className="w-6 h-6 text-[#D4AF37] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span className="text-[34px] font-bold text-white tracking-tight">
+                  &lt; 45 Min
                 </span>
               </div>
-              <div className="text-[14px] text-white/80 font-medium">Confidential & Legal</div>
+              <div className="text-[13px] text-white/80 font-medium">Avg. Response Time</div>
             </div>
           </div>
 
-          {/* Mobile View */}
+          {/* Mobile Grid View (All 4 Stats) */}
           <div className="md:hidden grid grid-cols-2 gap-4">
-            <div className="flex flex-col items-center text-center">
-              <span className="text-[24px] font-bold text-white">
-                <AnimatedCounter end={4.8} decimals={1} suffix="/5" duration={1500} />
-              </span>
-              <div className="text-[12px] text-white/80 font-medium">Client Rating</div>
+            {/* Mobile Stat 1 */}
+            <div className="flex flex-col items-center text-center bg-white/5 p-3 rounded-2xl border border-white/10">
+              <div className="flex items-center gap-1.5 mb-1">
+                <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center shrink-0 p-0.5">
+                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                  </svg>
+                </div>
+                <span className="text-[20px] font-bold text-white">4.9/5</span>
+              </div>
+              <div className="text-[11px] text-white/80 font-medium">Google Reviews</div>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <span className="text-[24px] font-bold text-white">
-                <AnimatedCounter end={10000} useLocale suffix="+" duration={1800} />
-              </span>
-              <div className="text-[12px] text-white/80 font-medium">Cases Resolved</div>
+
+            {/* Mobile Stat 2 */}
+            <div className="flex flex-col items-center text-center bg-white/5 p-3 rounded-2xl border border-white/10">
+              <div className="flex items-center gap-1.5 mb-1">
+                <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.93 2.05C2.61 2.37 2.45 2.85 2.45 3.5V20.5C2.45 21.15 2.61 21.63 2.93 21.95L3.03 22.05L13.88 11.2V10.8L3.03 1.95L2.93 2.05Z" fill="#3B82F6"/>
+                  <path d="M17.48 14.8L13.88 11.2V10.8L17.48 7.2L17.62 7.28L21.87 9.71C23.09 10.4 23.09 11.55 21.87 12.24L17.62 14.72L17.48 14.8Z" fill="#FBBF24"/>
+                  <path d="M17.62 14.72L13.88 11.05L2.93 21.95C3.34 22.37 4.02 22.42 4.78 21.99L17.62 14.72Z" fill="#EF4444"/>
+                  <path d="M17.62 7.28L4.78 2.01C4.02 1.58 3.34 1.63 2.93 2.05L13.88 10.95L17.62 7.28Z" fill="#10B981"/>
+                </svg>
+                <span className="text-[20px] font-bold text-white">1,000+</span>
+              </div>
+              <div className="text-[11px] text-white/80 font-medium">App Downloads</div>
+            </div>
+
+            {/* Mobile Stat 3 */}
+            <div className="flex flex-col items-center text-center bg-white/5 p-3 rounded-2xl border border-white/10">
+              <div className="flex items-center gap-1.5 mb-1">
+                <svg className="w-5 h-5 text-[#D4AF37] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <polyline points="16 11 18 13 22 9" />
+                </svg>
+                <span className="text-[20px] font-bold text-white">200+</span>
+              </div>
+              <div className="text-[11px] text-white/80 font-medium">Verified Lawyers</div>
+            </div>
+
+            {/* Mobile Stat 4 */}
+            <div className="flex flex-col items-center text-center bg-white/5 p-3 rounded-2xl border border-white/10">
+              <div className="flex items-center gap-1.5 mb-1">
+                <svg className="w-5 h-5 text-[#D4AF37] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span className="text-[20px] font-bold text-white">&lt; 45m</span>
+              </div>
+              <div className="text-[11px] text-white/80 font-medium">Avg. Response</div>
             </div>
           </div>
 
@@ -674,6 +740,9 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                 .tiptap-content tr:last-child td { border-bottom: none; }
               `}</style>
 
+              {/* Company Overview, Media Mentions & Legal Solutions */}
+              <BlogCompanyOverview />
+
               {/* Popular Searches Section */}
               {blog.popularSearches && blog.popularSearches.length > 0 && (
                 <div className="border-t border-slate-100 pt-8">
@@ -684,18 +753,39 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                     </h3>
                   </div>
                   <div className="flex flex-wrap gap-2.5">
-                    {blog.popularSearches.map((term, idx) => (
-                      <Link
-                        key={idx}
-                        href={`/blog?search=${encodeURIComponent(term)}`}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF6EC] hover:bg-[#F2E8D2] border border-[#E9DFCA] text-xs md:text-sm font-semibold text-[#413832] transition-colors group shadow-3xs"
-                      >
-                        <span>{term}</span>
-                        <svg className="w-3.5 h-3.5 text-[#B8860B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </Link>
-                    ))}
+                    {blog.popularSearches.map((term, idx) => {
+                      const lower = term.toLowerCase();
+                      let targetHref = `/blog?search=${encodeURIComponent(term)}`;
+                      
+                      if (lower.includes("loan") || lower.includes("debt") || lower.includes("harassment") || lower.includes("recovery agent")) {
+                        targetHref = "/loan-app-debt-settlement-harassment-legal-help";
+                      } else if (lower.includes("cheque") || lower.includes("138") || lower.includes("dishonour")) {
+                        targetHref = "/cheque-bounce-legal-notice-section-138-guide";
+                      } else if (lower.includes("rera") || lower.includes("builder delay") || lower.includes("delayed possession")) {
+                        targetHref = "/homebuyer-rights-rera-builder-delay-remedies";
+                      } else if (lower.includes("draft") || lower.includes("template") || lower.includes("agreement")) {
+                        targetHref = "/drafts";
+                      } else if (lower.includes("legal notice") && !lower.includes("lawyer")) {
+                        targetHref = "/how-to-draft-legal-notice-india-guide";
+                      } else if (lower.includes("divorce") || lower.includes("custody")) {
+                        targetHref = "/how-to-file-divorce-india-legal-guide";
+                      } else if (lower.includes("property dispute") || lower.includes("partition")) {
+                        targetHref = "/property-dispute-resolution-india-legal-remedies";
+                      }
+
+                      return (
+                        <Link
+                          key={idx}
+                          href={targetHref}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF6EC] hover:bg-[#F2E8D2] border border-[#E9DFCA] text-xs md:text-sm font-semibold text-[#413832] transition-colors group shadow-3xs"
+                        >
+                          <span>{term}</span>
+                          <svg className="w-3.5 h-3.5 text-[#B8860B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               )}

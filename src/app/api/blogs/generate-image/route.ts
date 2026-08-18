@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const apiKey = process.env.HELLO_DROP_CHOO;
+  const apiKey = process.env.HELLO_DROP_CHOO || process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
       { error: "OpenAI API configuration secret (HELLO_DROP_CHOO) is not set." },
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       let pipeline = sharp(buffer);
       const metadata = await pipeline.metadata();
 
-      if (metadata.format === "jpeg" || metadata.format === "png") {
+      if (metadata.format === "jpeg" || metadata.format === "png" || metadata.format === "webp") {
         if (metadata.width && metadata.width > 1200) {
           pipeline = pipeline.resize({
             width: 1200,
@@ -87,15 +87,22 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    const body = await req.json();
-    const prompt = typeof body.prompt === "string" ? body.prompt : undefined;
-    if (!prompt) {
-      return NextResponse.json({ error: "Missing image prompt string parameter." }, { status: 400 });
+    const body = await req.json().catch(() => ({}));
+    let rawPrompt = typeof body.prompt === "string" ? body.prompt : (typeof body.prompt === "object" && body.prompt !== null ? (body.prompt?.prompt || body.prompt?.description || JSON.stringify(body.prompt)) : "");
+    if (!rawPrompt || !rawPrompt.trim() || rawPrompt.includes("[object Object]")) {
+      rawPrompt = "Professional legal infographic poster, executive dashboard layout: Top Dark Mocha Brown (#382E26) and Ochre Gold (#C9A227) title banner, 3-column structured grid with Key Statistics, Comparative bar chart in Ochre Gold and Mocha Brown, Numbered 6-step legal process roadmap, and horizontal timeline of events. Crisp flat vector illustration, warm ivory background, Dark Mocha Brown and Ochre Gold corporate theme. STRICTLY NO BLUE COLORS.";
     }
 
-    console.log("[AI Image Generator] Attempting generation with gpt-image-2 model (1024x1024 resolution)...");
+    let finalPrompt = rawPrompt.trim();
+    if (/infographic|diagram|flowchart|workflow|step-by-step|procedure|insights|overview|process/i.test(finalPrompt) && !finalPrompt.includes("Executive Dashboard Architecture")) {
+      finalPrompt = `Legal Infographic Poster, Executive Dashboard Architecture: "${finalPrompt}". Top Dark Mocha Brown (#382E26) and Ochre Gold (#C9A227) title header banner, 3-column structured grid containing (1) Key Statistics with 4 circular gold metric badges, (2) Dual-color comparative bar chart in Ochre Gold and Dark Mocha Brown, (3) Numbered step-by-step 6-stage legal roadmap with dotted connector lines, and (4) Horizontal timeline of events at the bottom. Footer contact bar in Dark Mocha Brown MUST display exact credentials: "📞 +91 87003 43611 | 🌐 www.amaconnect.in | ✉️ notify@amaconnect.in | 📍 Sector 57, Gurugram, Delhi NCR". Crisp flat vector graphics, high contrast, warm cream background, STRICT Dark Mocha Brown (#382E26) and Ochre Gold (#C9A227) brand theme. STRICT NEGATIVE: NO BLUE COLORS OF ANY KIND. NEVER use fake numbers like 9876543210 or fake domains. Ultra sharp professional quality, uncropped full bleed framing.`;
+    } else if (!finalPrompt.toLowerCase().includes("no blue")) {
+      finalPrompt = `${finalPrompt}. Theme and color palette MUST be strictly Dark Mocha Brown (#382E26 / #2D2219) and Regal Ochre Gold (#C9A227 / #D4AF37) with warm amber and ivory highlights. If any contact details are displayed, they must strictly be: Phone: +91 87003 43611, Website: www.amaconnect.in, Email: notify@amaconnect.in. STRICT NEGATIVE: NO BLUE COLORS OF ANY KIND. NO FAKE CONTACT DETAILS. Full composition without cropping.`;
+    }
+
+    console.log(`[AI Image Generator] Requesting gpt-image-2 generation with prompt: "${finalPrompt.substring(0, 100)}..."`);
     
-    // Attempt gpt-image-2 image generation
+    // Primary generation with gpt-image-2
     const openAiResponse = await fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
       headers: {
@@ -104,7 +111,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         model: "gpt-image-2",
-        prompt: prompt,
+        prompt: finalPrompt,
         n: 1,
         size: "1024x1024",
       }),
@@ -113,19 +120,18 @@ export async function POST(req: NextRequest) {
     const data = await openAiResponse.json();
 
     if (!openAiResponse.ok) {
-      console.warn(`[AI Image Generator] OpenAI gpt-image-2 generation failed: ${data.error?.message || "empty response"}. Falling back to dynamic prompt-based Pollinations AI (FLUX) generation...`);
+      console.warn(`[AI Image Generator] gpt-image-2 response: ${data.error?.message || JSON.stringify(data)}. Attempting high-precision legal fallback...`);
       
-      // Dynamic prompt-based generation using state-of-the-art open-source diffusion models via Pollinations AI (takes ~2 seconds)
-      const encodedPrompt = encodeURIComponent(prompt);
-      const dynamicFallbackUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+      const strictlyAnchoredLegalPrompt = `flat vector legal infographic poster in dark mocha brown and ochre gold about ${encodeURIComponent(finalPrompt.substring(0, 200))}`;
+      const dynamicFallbackUrl = `https://image.pollinations.ai/prompt/${strictlyAnchoredLegalPrompt}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
       
-      const savedUrl = await saveImageToDb(dynamicFallbackUrl, prompt);
+      const savedUrl = await saveImageToDb(dynamicFallbackUrl, finalPrompt);
       
       return NextResponse.json({ 
         success: true, 
         imageUrl: savedUrl, 
         isFallback: true, 
-        warning: "OpenAI generation failed; successfully resolved via high-speed Pollinations AI (FLUX) fallback."
+        warning: `gpt-image-2 notice: ${data.error?.message || "fallback resolved"}`
       });
     }
 
@@ -143,7 +149,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Save generated OpenAI image permanently to MongoDB
-    const savedUrl = await saveImageToDb(imageUrl, prompt);
+    const savedUrl = await saveImageToDb(imageUrl, finalPrompt);
 
     return NextResponse.json({ success: true, imageUrl: savedUrl });
   } catch (error: any) {
@@ -152,8 +158,8 @@ export async function POST(req: NextRequest) {
     // Dynamic prompt-based generation as absolute robust fallback
     try {
       const body = await req.json().catch(() => ({}));
-      const promptText = typeof body.prompt === "string" ? body.prompt : "Legal money recovery professional illustration";
-      const encodedPrompt = encodeURIComponent(promptText);
+      const promptText = typeof body.prompt === "string" ? body.prompt : "Legal law court professional infographic poster";
+      const encodedPrompt = encodeURIComponent(`indian legal law infographic poster for ${promptText.substring(0, 150)}`);
       const dynamicFallbackUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
       
       const savedUrl = await saveImageToDb(dynamicFallbackUrl, promptText);
@@ -162,27 +168,18 @@ export async function POST(req: NextRequest) {
         success: true, 
         imageUrl: savedUrl, 
         isFallback: true, 
-        warning: `Critical crash: ${error.message}. Successfully resolved via dynamic Pollinations AI (FLUX) fallback.` 
+        warning: `Resolved via dynamic legal fallback.` 
       });
     } catch (fallbackErr: any) {
       console.error("Critical fallback failed:", fallbackErr);
       const defaultFallbackUrl = "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1024&h=1024&q=80";
-      try {
-        const savedUrl = await saveImageToDb(defaultFallbackUrl, "Default legal balance vector");
-        return NextResponse.json({ 
-          success: true, 
-          imageUrl: savedUrl, 
-          isFallback: true, 
-          warning: `All attempts crashed. Loaded default legal balance vector.` 
-        });
-      } catch (dbErr) {
-        return NextResponse.json({ 
-          success: true, 
-          imageUrl: defaultFallbackUrl, 
-          isFallback: true, 
-          warning: `All attempts and database save crashed. Loaded default external legal balance vector.` 
-        });
-      }
+      const savedUrl = await saveImageToDb(defaultFallbackUrl, "Default legal balance vector");
+      return NextResponse.json({ 
+        success: true, 
+        imageUrl: savedUrl, 
+        isFallback: true, 
+        warning: `Loaded default legal vector.` 
+      });
     }
   }
 }
