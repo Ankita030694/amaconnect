@@ -450,7 +450,7 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                   </div>
                   <div>
                     <div className="text-[16px] font-bold text-[#382E26]">{blog.author || "Anuj Anand Malik"}</div>
-                    <div className="text-[12px] text-gray-500">Reviewed by {blog.author || "Anuj Anand Malik"}, Senior Legal Strategist</div>
+                    <div className="text-[12px] text-gray-500">Reviewed by {blog.author || "Anuj Anand Malik"}, Advocate</div>
                   </div>
                 </div>
 
