@@ -9,14 +9,14 @@ import ClosingCTA from "@/components/ClosingCTA";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About AMA Legal Solutions & Mission",
   description:
     "India's smarter way to get legal help. Download AMA Connect to ask legal questions, connect with lawyers, and access trusted legal support in one app.",
   alternates: {
     canonical: "https://www.amaconnect.in/about",
   },
   openGraph: {
-    title: "About Us",
+    title: "About AMA Legal Solutions & Mission",
     description:
       "India's smarter way to get legal help. Download AMA Connect to ask legal questions, connect with lawyers, and access trusted legal support in one app.",
     url: "https://www.amaconnect.in/about",
