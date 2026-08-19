@@ -129,8 +129,9 @@ export async function generateMetadata(
     const blogData = await getBlogBySlug(slug);
 
     if (blogData) {
-      const rawTitle = blogData.metaTitle || blogData.title || title;
-      title = getOptimalPageTitle(rawTitle);
+      const rawMetaTitle = blogData.metaTitle || "";
+      const rawTitle = blogData.title || title;
+      title = getOptimalPageTitle(rawMetaTitle, rawTitle);
       description = blogData.metaDescription || description;
       image = blogData.image || "";
       author = blogData.author || author;

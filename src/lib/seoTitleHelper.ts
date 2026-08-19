@@ -28,10 +28,18 @@ export function truncateToWordBoundary(str: string, maxLength: number): string {
 
 /**
  * Generates an optimal page-level title that fits within the recommended Next.js template
- * to ensure the final browser title (including " | AMA Connect") stays between 10 and 60 characters.
+ * to ensure the final browser title (including " | AMA Connect") stays between 45 and 60 characters.
  */
-export function getOptimalPageTitle(title: string): string {
-  const cleanTitle = stripBrandSuffix(title);
+export function getOptimalPageTitle(title: string, fallbackTitle?: string): string {
+  let cleanTitle = stripBrandSuffix(title || "");
+  
+  // If the provided title is too short (< 28 chars) and we have a fallback title, use fallback
+  if (cleanTitle.length < 28 && fallbackTitle) {
+    const cleanFallback = stripBrandSuffix(fallbackTitle);
+    if (cleanFallback.length >= 28) {
+      cleanTitle = cleanFallback;
+    }
+  }
   
   // Layout appends " | AMA Connect" which is 14 characters.
   // Maximum allowed child page title is 60 - 14 = 46 characters.
