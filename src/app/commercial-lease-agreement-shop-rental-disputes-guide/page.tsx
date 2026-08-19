@@ -7,7 +7,7 @@ import ScrollSpyNav from "@/components/ScrollSpyNav";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Commercial Lease Disputes & Shop Rental Guide | AMAConnect",
+  title: "Commercial Lease & Shop Rental Disputes",
   description:
     "A dedicated manual for small business owners and commercial landlords explaining commercial leases, lock-in period breaches, and legal eviction procedures.",
   keywords: "commercial lease agreement India, shop rent agreement template, security deposit recovery commercial, eviction commercial tenant, lock in period breach, commercial rent dispute",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/commercial-lease-agreement-shop-rental-disputes-guide",
   },
   openGraph: {
-    title: "Commercial Lease Disputes & Shop Rental Guide",
+    title: "Commercial Lease & Shop Rental Disputes",
     description:
       "A dedicated manual for small business owners and commercial landlords explaining commercial leases, lock-in period breaches, and legal eviction procedures.",
     url: "https://www.amaconnect.in/commercial-lease-agreement-shop-rental-disputes-guide",

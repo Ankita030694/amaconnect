@@ -16,7 +16,7 @@ import WillSidebar from "@/components/will-succession/WillSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Will Drafting & Succession Probate India Guide | AMAConnect",
+  title: "Will Drafting & Family Succession Probate",
   description:
     "How to draft, execute, and register a legal Will in India under the Indian Succession Act, and navigate the court probate process.",
   keywords: "will drafting India, legal will registration, intestate succession, probate court process, succession certificate, letter of administration, Hindu Succession Act, Muslim Sharia Will, family succession planning, executor appointment",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/will-drafting-family-succession-probate-india-guide",
   },
   openGraph: {
-    title: "Will Drafting & Succession Probate India Guide",
+    title: "Will Drafting & Family Succession Probate",
     description:
       "How to draft, execute, and register a legal Will in India under the Indian Succession Act, and navigate the court probate process.",
     url: "https://www.amaconnect.in/will-drafting-family-succession-probate-india-guide",

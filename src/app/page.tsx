@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import TopStatsBar from "@/components/TopStatsBar";
 import HeroFeatured from "@/components/HeroFeatured";
@@ -20,6 +21,25 @@ const AppDownloadBridge = dynamic(() => import("@/components/AppDownloadBridge")
 const Footer = dynamic(() => import("@/components/Footer"));
 import dbConnect from "@/lib/dbConnect";
 import { LawyerInterview as LawyerInterviewModel, Blog as BlogModel } from "@/lib/models";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "AMA Connect | Lawyer Interviews, Legal Community & AMA Sessions",
+  },
+  description:
+    "Join AMA Connect for professional lawyer interviews and posts. Engage with our exclusive legal communities and get answers to your legal queries in our Ask Me Anything (AMA) section of our AMA Connect application.",
+  alternates: {
+    canonical: "https://www.amaconnect.in",
+  },
+  openGraph: {
+    title: "AMA Connect | Lawyer Interviews, Legal Community & AMA Sessions",
+    description:
+      "Join AMA Connect for professional lawyer interviews and guest posts. Engage with our exclusive WhatsApp legal communities and get answers to your legal queries in our Ask Me Anything (AMA) sessions.",
+    url: "https://www.amaconnect.in",
+    siteName: "AMA Legal Solutions",
+    type: "website",
+  },
+};
 
 export const revalidate = 300; // Revalidate every 5 minutes
 
@@ -71,6 +91,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-dvh bg-white font-sans">
       <main className="flex-grow flex flex-col gap-8 pb-16">
+        <h1 className="sr-only">AMA Connect | Indian Lawyer Interviews, Legal Communities & Pro Bono Legal Consultations</h1>
         
         <div className="flex flex-col gap-2">
           {/* ROW 1: Top Stats Bar */}

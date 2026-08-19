@@ -17,7 +17,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "Loan App Debt Settlement Guide & Harassment Help | AMAConnect",
+  title: "Loan App Harassment & Debt Settlement",
   description:
     "Facing intimidation from illegal 7-day lending apps? Learn how to settle your debt, invoke RBI guidelines against recovery harassment, and protect your privacy.",
   keywords: "loan app harassment, 7 day loan app settlement, RBI recovery agent rules, digital lending fraud, stop loan app blackmail, cyber cell complaint, debt settlement India",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/loan-app-debt-settlement-harassment-legal-help",
   },
   openGraph: {
-    title: "Loan App Debt Settlement Guide & Harassment Help",
+    title: "Loan App Harassment & Debt Settlement",
     description:
       "Facing intimidation from illegal 7-day lending apps? Learn how to settle your debt, invoke RBI guidelines against recovery harassment, and protect your privacy.",
     url: "https://www.amaconnect.in/loan-app-debt-settlement-harassment-legal-help",

@@ -16,7 +16,7 @@ import TenantSidebar from "@/components/tenant-rights/TenantSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Tenant Rights, Eviction Defense & Security Deposit Disputes | AMAConnect",
+  title: "Tenant Rights & Eviction Defense Guide",
   description:
     "A complete legal guide for Indian tenants. Understand your protections against illegal evictions, arbitrary rent hikes, and withheld security deposits under rent control acts and the Model Tenancy Act.",
   keywords:
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/tenant-rights-eviction-security-deposit-disputes",
   },
   openGraph: {
-    title: "Tenant Rights, Eviction Defense & Security Deposit Disputes Guide",
+    title: "Tenant Rights & Eviction Defense Guide",
     description:
       "Understand your protections against illegal evictions, arbitrary rent hikes, and withheld security deposits under rent control acts and the Model Tenancy Act.",
     url: "https://www.amaconnect.in/tenant-rights-eviction-security-deposit-disputes",

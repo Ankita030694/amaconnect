@@ -16,14 +16,14 @@ import IbcSidebar from "@/components/ibc-msme/IbcSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Insolvency Recovery for MSMEs Legal Guide | AMAConnect",
+  title: "MSME Debt Recovery & IBC Insolvency Guide",
   description: "Learn how Indian MSMEs recover delayed payments through the Insolvency and Bankruptcy Code (IBC) and MSME Samadhaan arbitration. Serve Section 8 demand notices and file Section 9 petitions.",
   keywords: "insolvency recovery MSME, MSME delayed payments recovery, Section 8 demand notice, Section 9 NCLT petition, MSME Samadhaan arbitration, fast-track insolvency India, corporate debt recovery, NCLT threshold limit MSME",
   alternates: {
     canonical: "https://www.amaconnect.in/ibc-msme-payment-recovery-insolvency-guide",
   },
   openGraph: {
-    title: "Insolvency Recovery for MSMEs Legal Guide",
+    title: "MSME Debt Recovery & IBC Insolvency Guide",
     description: "Learn how Indian MSMEs recover delayed payments through the Insolvency and Bankruptcy Code (IBC) and MSME Samadhaan arbitration.",
     url: "https://www.amaconnect.in/ibc-msme-payment-recovery-insolvency-guide",
     siteName: "AMA Legal Solutions",

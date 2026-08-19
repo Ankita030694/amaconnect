@@ -17,7 +17,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "Homebuyer Rights under RERA: Builder Delay Remedies & Online Complaint Guide | AMAConnect",
+  title: "Homebuyer Rights & RERA Builder Remedies",
   description:
     "Discover your legal rights under RERA for project delays, plan changes, and structural defects. Learn how to file online complaints, claim refunds, and compare RERA versus NCLT and Consumer Courts.",
   keywords: "RERA homebuyer rights, builder delay refund, RERA online complaint, Form M RERA, Form N RERA, structural defects warranty, RERA vs NCLT vs Consumer Courts, real estate delay remedies",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/homebuyer-rights-rera-builder-delay-remedies",
   },
   openGraph: {
-    title: "Homebuyer Rights under RERA: Builder Delay Remedies & Online Complaint Guide",
+    title: "Homebuyer Rights & RERA Builder Remedies",
     description:
       "Discover your legal rights under RERA for project delays, plan changes, and structural defects. Learn how to file online complaints, claim refunds, and compare RERA versus NCLT and Consumer Courts.",
     url: "https://www.amaconnect.in/homebuyer-rights-rera-builder-delay-remedies",

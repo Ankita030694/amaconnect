@@ -16,7 +16,7 @@ import PartnershipSidebar from "@/components/partnership-dispute/PartnershipSide
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Co-Founder Disputes and Partnership Deed Guide | AMAConnect",
+  title: "Partnership Deed & Co-Founder Disputes",
   description:
     "How to draft registered partnership deeds and co-founder agreements, and resolve commercial disputes in business partnerships.",
   keywords: "partnership deed drafting, cofounder agreement, cofounder disputes, commercial arbitration, partnership dissolution, joint and several liability, LLP asset protection, exit strategy business",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/partnership-deed-cofounder-dispute-resolution-guide",
   },
   openGraph: {
-    title: "Co-Founder Disputes and Partnership Deed Guide",
+    title: "Partnership Deed & Co-Founder Disputes",
     description:
       "How to draft registered partnership deeds and co-founder agreements, and resolve commercial disputes in business partnerships.",
     url: "https://www.amaconnect.in/partnership-deed-cofounder-dispute-resolution-guide",

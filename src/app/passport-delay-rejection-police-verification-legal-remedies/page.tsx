@@ -7,7 +7,7 @@ import ScrollSpyNav from "@/components/ScrollSpyNav";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Passport Delays & Police Verification Issues Guide | AMAConnect",
+  title: "Passport Delays & Police Verification Guide",
   description:
     "A guide to navigating passport application delays, resolving adverse police verification status, handling show-cause notices, and filing appeals under the Passports Act.",
   keywords: "passport delay complaint online, passport police verification status adverse, passport impounded legal help, passport act appeal process, regional passport office show cause notice",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/passport-delay-rejection-police-verification-legal-remedies",
   },
   openGraph: {
-    title: "Passport Delays & Police Verification Issues Guide",
+    title: "Passport Delays & Police Verification Guide",
     description:
       "A guide to navigating passport application delays, resolving adverse police verification status, handling show-cause notices, and filing appeals under the Passports Act.",
     url: "https://www.amaconnect.in/passport-delay-rejection-police-verification-legal-remedies",

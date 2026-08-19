@@ -16,7 +16,7 @@ import VehicleTheftSidebar from "@/components/vehicle-theft/VehicleTheftSidebar"
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Vehicle Theft Insurance Claim Guide | Police Untraced Report | AMAConnect",
+  title: "Vehicle Theft Insurance & Untraced Report",
   description:
     "What is the step-by-step legal procedure, required police FIR, and RTO filings to successfully claim insurance for a stolen vehicle in India?",
   keywords: "stolen vehicle insurance claim, police untraced report, Section 173 CrPC, RTO theft endorsement, RTO Form 28, car theft claim keys, vehicle recovery superdari, IDV calculation, IRDAI dispute claim delay",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/vehicle-theft-insurance-claim-police-untraced-report-guide",
   },
   openGraph: {
-    title: "Vehicle Theft Insurance Claim Guide | Police Untraced Report",
+    title: "Vehicle Theft Insurance & Untraced Report",
     description:
       "What is the step-by-step legal procedure, required police FIR, and RTO filings to successfully claim insurance for a stolen vehicle in India?",
     url: "https://www.amaconnect.in/vehicle-theft-insurance-claim-police-untraced-report-guide",

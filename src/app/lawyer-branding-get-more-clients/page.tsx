@@ -16,14 +16,14 @@ import RightSidebarWidgets from "@/components/secure-app/RightSidebarWidgets";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "How Lawyers Can Build Their Brand & Get Clients | AMAConnect",
+  title: "Lawyer Branding & Practice Growth Guide",
   description:
     "Learn lawyer marketing strategies to get more legal clients in 2026. Claim your free online profile for advocates on AMAConnect to build your law practice.",
   alternates: {
     canonical: "https://www.amaconnect.in/lawyer-branding-get-more-clients",
   },
   openGraph: {
-    title: "Build Your Legal Brand | AMA Connect",
+    title: "Lawyer Branding & Practice Growth Guide",
     description:
       "Claim your free professional profile and act as a marketing engine for your law practice.",
     url: "https://www.amaconnect.in/lawyer-branding-get-more-clients",

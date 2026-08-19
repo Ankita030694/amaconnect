@@ -7,7 +7,7 @@ import ScrollSpyNav from "@/components/ScrollSpyNav";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Employee Rights, Unfair Dismissal & Salary Recovery Guide | AMAConnect",
+  title: "Employee Rights & Salary Recovery Guide",
   description:
     "What are the legal rights of private sector employees in India against wrongful termination, salary delays, and hostile work environments?",
   keywords: "employee rights india, wrongful termination lawyer, salary recovery legal notice, hostile work environment india, maternity benefit act, payment of gratuity act, non compete clause india, forced resignation legal action, labor court complaint",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/employee-rights-unfair-dismissal-salary-recovery-guide",
   },
   openGraph: {
-    title: "Employee Rights, Unfair Dismissal & Salary Recovery Guide",
+    title: "Employee Rights & Salary Recovery Guide",
     description:
       "What are the legal rights of private sector employees in India against wrongful termination, salary delays, and hostile work environments?",
     url: "https://www.amaconnect.in/employee-rights-unfair-dismissal-salary-recovery-guide",

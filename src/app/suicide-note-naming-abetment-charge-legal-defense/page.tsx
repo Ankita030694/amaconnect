@@ -16,14 +16,14 @@ import SuicideSidebar from "@/components/suicide-defense/SuicideSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Falsely Named in a Suicide Note: Legal Recourse and Abetment Defense under Indian Law | AMAConnect",
+  title: "Named in a Suicide Note: Abetment Defense",
   description: "Crucial legal defense guide detailing what to do if named in a suicide note. Explains abetment under Section 306 IPC, securing anticipatory bail, quashing FIRs under Section 482 CrPC, and Supreme Court benchmarks for proving active instigation vs. normal relationship disputes.",
   keywords: "named in suicide note legal advice, abetment of suicide section 306 ipc, anticipatory bail abetment charge, supreme court guidelines suicide note",
   alternates: {
     canonical: "https://www.amaconnect.in/suicide-note-naming-abetment-charge-legal-defense",
   },
   openGraph: {
-    title: "Falsely Named in a Suicide Note: Legal Recourse and Abetment Defense under Indian Law",
+    title: "Named in a Suicide Note: Abetment Defense",
     description: "Crucial legal defense guide detailing what to do if named in a suicide note. Explains abetment under Section 306 IPC, securing anticipatory bail, quashing FIRs under Section 482 CrPC, and Supreme Court benchmarks for proving active instigation vs. normal relationship disputes.",
     url: "https://www.amaconnect.in/suicide-note-naming-abetment-charge-legal-defense",
     siteName: "AMA Legal Solutions",

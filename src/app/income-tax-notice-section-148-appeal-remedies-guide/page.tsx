@@ -7,7 +7,7 @@ import ScrollSpyNav from "@/components/ScrollSpyNav";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Income Tax Notice Help: Section 143(1) & 148 Remedies | AMAConnect",
+  title: "Income Tax Notice Section 148 Remedies",
   description:
     "A step-by-step guide on handling tax scrutiny notices, drafting responses to Section 143(1) discrepancies or Section 148 reassessments, and filing online appeals.",
   keywords: "income tax notice section 148 India, reply to section 143 1 notice, income tax appeal online process, reassessment notice time limit, tax scrutiny reply format, faceless assessment scheme",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/income-tax-notice-section-148-appeal-remedies-guide",
   },
   openGraph: {
-    title: "Income Tax Notice Help: Section 143(1) & 148 Remedies",
+    title: "Income Tax Notice Section 148 Remedies",
     description:
       "A step-by-step guide on handling tax scrutiny notices, drafting responses to Section 143(1) discrepancies or Section 148 reassessments, and filing online appeals.",
     url: "https://www.amaconnect.in/income-tax-notice-section-148-appeal-remedies-guide",

@@ -1,22 +1,32 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
 import ScrollSpyNav from "@/components/ScrollSpyNav";
 import RightSidebarGeneral from "@/components/RightSidebarGeneral";
+import LawyerFaqAccordion from "@/components/LawyerFaqAccordion";
 import Footer from "@/components/Footer";
 
-export default function LegalResearchGuidePage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+export const metadata: Metadata = {
+  title: "Effective Legal Research & Case Briefing Guide",
+  description:
+    "Strategies for efficiently navigating SCC Online and Manupatra, filtering precedents, and preparing concise one-page case briefs for senior counsels in India.",
+  alternates: {
+    canonical: "https://www.amaconnect.in/effective-legal-research-case-briefing-advocates",
+  },
+  openGraph: {
+    title: "Effective Legal Research & Case Briefing Guide",
+    description:
+      "Strategies for efficiently navigating SCC Online and Manupatra, filtering precedents, and preparing concise one-page case briefs for senior counsels in India.",
+    url: "https://www.amaconnect.in/effective-legal-research-case-briefing-advocates",
+    siteName: "AMA Legal Solutions",
+    type: "website",
+  },
+};
 
+export default function LegalResearchGuidePage() {
   const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/effective-legal-research-case-briefing-advocates`;
-
-  const metadata = {
-    title: "Advanced Legal Research & Case Briefing Methodology | Advocates Guide",
-    description: "Strategies for efficiently navigating SCC Online and Manupatra, filtering precedents, and preparing concise one-page case briefs for senior counsels in India.",
-  };
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -276,35 +286,7 @@ export default function LegalResearchGuidePage() {
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#2D2219] mt-4 mb-8 tracking-tight">
                 Frequently Asked Questions
               </h2>
-              <div className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <div 
-                    key={index} 
-                    className={`border rounded-2xl overflow-hidden transition-all duration-200 ${
-                      openIndex === index 
-                        ? 'border-[#D4AF37] bg-[#FDFBF7] shadow-sm' 
-                        : 'border-gray-200 bg-white hover:border-[#D4AF37]/50'
-                    }`}
-                  >
-                    <button
-                      onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                      className="w-full text-left px-6 py-5 flex items-center justify-between focus:outline-none"
-                    >
-                      <span className="font-bold text-[#2D2219] pr-8">{faq.question}</span>
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-                        openIndex === index ? 'bg-[#D4AF37] text-white' : 'bg-gray-100 text-gray-500'
-                      }`}>
-                        <span className="text-xl leading-none">{openIndex === index ? '−' : '+'}</span>
-                      </div>
-                    </button>
-                    {openIndex === index && (
-                      <div className="px-6 pb-5 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-4">
-                        {faq.answer}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <LawyerFaqAccordion faqs={faqs} />
             </section>
           </div>
 

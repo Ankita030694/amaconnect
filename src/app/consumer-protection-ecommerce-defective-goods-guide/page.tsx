@@ -16,7 +16,7 @@ import ConsumerSidebar from "@/components/consumer-protection/ConsumerSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Consumer Protection & E-Commerce Defective Goods Guide | AMAConnect",
+  title: "Consumer Protection & E-Commerce Disputes",
   description:
     "A comprehensive legal guide on consumer rights, product defects, e-commerce rules, misleading advertisements, and e-Daakhil court filings in India.",
   keywords: "consumer protection act 2019, e-commerce rules 2020, product liability India, e-daakhil filing, pecuniary jurisdiction consumer court, misleading advertisements, consumer rights India, unfair trade practices",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/consumer-protection-ecommerce-defective-goods-guide",
   },
   openGraph: {
-    title: "Consumer Protection & E-Commerce Defective Goods Guide",
+    title: "Consumer Protection & E-Commerce Disputes",
     description:
       "A comprehensive legal guide on consumer rights, product defects, e-commerce rules, misleading advertisements, and e-Daakhil court filings in India.",
     url: "https://www.amaconnect.in/consumer-protection-ecommerce-defective-goods-guide",

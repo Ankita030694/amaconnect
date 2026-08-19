@@ -18,7 +18,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "Step-by-Step Guide to Filing for Divorce in India: Legal Procedure | AMAConnect",
+  title: "How to File for Divorce in India: Guide",
   description:
     "A comprehensive legal guide outlining the step-by-step procedure, timeline, and document checklist to file for mutual or contested divorce in India under family court jurisdiction.",
   keywords: "how to file divorce in India, mutual consent divorce procedure, contested divorce grounds, divorce document checklist, alimony calculation India, child custody laws India, family court jurisdiction",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/how-to-file-divorce-india-legal-guide",
   },
   openGraph: {
-    title: "Step-by-Step Guide to Filing for Divorce in India: Legal Procedure",
+    title: "How to File for Divorce in India: Guide",
     description:
       "A comprehensive legal guide outlining the step-by-step procedure, timeline, and document checklist to file for mutual or contested divorce in India under family court jurisdiction.",
     url: "https://www.amaconnect.in/how-to-file-divorce-india-legal-guide",

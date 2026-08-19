@@ -16,7 +16,7 @@ import PNSidebar from "@/components/public-nuisance/PNSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Noise Pollution & Public Nuisance Environmental Guide | AMAConnect",
+  title: "Noise Pollution & Public Nuisance Remedies",
   description:
     "How citizens file complaints against public nuisance, unauthorized waste dumping, and noise pollution under Indian environmental and criminal laws.",
   keywords: "public nuisance Section 268 IPC, noise pollution rules 2000, residential zone decibel limits, Section 133 CrPC petition, SDM nuisance complaint, State Pollution Control Board, loudspeaker restrictions police, Solid Waste Management rules, National Green Tribunal NGT, environmental damages notice",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/public-nuisance-noise-pollution-environmental-complaint-guide",
   },
   openGraph: {
-    title: "Noise Pollution & Public Nuisance Environmental Guide",
+    title: "Noise Pollution & Public Nuisance Remedies",
     description:
       "How citizens file complaints against public nuisance, unauthorized waste dumping, and noise pollution under Indian environmental and criminal laws.",
     url: "https://www.amaconnect.in/public-nuisance-noise-pollution-environmental-complaint-guide",
