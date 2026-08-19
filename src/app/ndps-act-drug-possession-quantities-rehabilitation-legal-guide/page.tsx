@@ -16,7 +16,7 @@ import NDPSSidebar from "@/components/ndps-defense/NDPSSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "NDPS Act Legal Defense, Drug Quantities & Rehab Guide | AMAConnect",
+  title: "NDPS Act Defense & Bail Procedure Guide",
   description:
     "What are the legal defense rights of suspects under the NDPS Act, the difference between drug quantities, and statutory options to seek rehabilitation instead of prosecution?",
   keywords: "NDPS Act Section 50 search rights, commercial quantity drug bail NDPS, Section 64A rehab immunity prosecution, Tofan Singh Section 67 statement inadmissible, NDPS bail application procedure, Chapter VA property forfeiture drugs, Section 57 arrest report police, small vs commercial quantity narcotics",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/ndps-act-drug-possession-quantities-rehabilitation-legal-guide",
   },
   openGraph: {
-    title: "NDPS Act Legal Defense, Drug Quantities & Rehab Guide",
+    title: "NDPS Act Defense & Bail Procedure Guide",
     description:
       "What are the legal defense rights of suspects under the NDPS Act, the difference between drug quantities, and statutory options to seek rehabilitation instead of prosecution?",
     url: "https://www.amaconnect.in/ndps-act-drug-possession-quantities-rehabilitation-legal-guide",

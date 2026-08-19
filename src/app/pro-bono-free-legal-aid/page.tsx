@@ -14,14 +14,14 @@ import RightSidebarWidgets from "@/components/secure-app/RightSidebarWidgets";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Free Legal Aid India | Access to Justice | AMAConnect",
+  title: "Free Legal Aid & Pro Bono Services in India",
   description: "AMAConnect's Pro Bono initiative connects marginalized communities and victims of injustice with top-tier advocates willing to work for free. Apply for free legal aid or pledge your hours today.",
   keywords: "free legal aid India, pro bono lawyers, free legal advice online, access to justice, NALSA legal aid, pro bono advocate India",
   alternates: {
     canonical: "https://www.amaconnect.in/pro-bono-free-legal-aid",
   },
   openGraph: {
-    title: "Access to Justice: The AMAConnect Free Legal Aid Initiative",
+    title: "Free Legal Aid & Pro Bono Services in India",
     description: "Democratizing legal support in India. Connecting marginalized communities with verified pro bono advocates.",
     url: "https://www.amaconnect.in/pro-bono-free-legal-aid",
     siteName: "AMAConnect",

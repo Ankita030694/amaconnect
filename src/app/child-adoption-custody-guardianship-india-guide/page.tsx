@@ -7,7 +7,7 @@ import ScrollSpyNav from "@/components/ScrollSpyNav";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Child Adoption, Custody & Guardianship Guide India | AMAConnect",
+  title: "Child Adoption & Custody Laws in India",
   description:
     "A comprehensive guide covering the CARA adoption framework, legal requirements for single parents, and navigating child custody, visitation rights, and legal guardianship disputes in family courts.",
   keywords: "child adoption process India, cara registration guide, child custody laws Hindu, legal guardian certificate, family court disputes, single parent adoption India, visitation rights, guardianship laws",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/child-adoption-custody-guardianship-india-guide",
   },
   openGraph: {
-    title: "Child Adoption, Custody & Guardianship Guide India",
+    title: "Child Adoption & Custody Laws in India",
     description:
       "A comprehensive guide covering the CARA adoption framework, legal requirements for single parents, and navigating child custody, visitation rights, and legal guardianship disputes in family courts.",
     url: "https://www.amaconnect.in/child-adoption-custody-guardianship-india-guide",

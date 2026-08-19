@@ -1,22 +1,32 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
 import ScrollSpyNav from "@/components/ScrollSpyNav";
 import RightSidebarGeneral from "@/components/RightSidebarGeneral";
+import LawyerFaqAccordion from "@/components/LawyerFaqAccordion";
 import Footer from "@/components/Footer";
 
-export default function EmergingFieldsPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+export const metadata: Metadata = {
+  title: "Emerging Legal Fields in 2026: AI, Space & ESG Law",
+  description:
+    "Explore highest paying futuristic legal niches in India by 2026. Learn how to specialize in Space Law, ESG compliance, Web3, and AI regulations.",
+  alternates: {
+    canonical: "https://www.amaconnect.in/emerging-legal-fields-2026",
+  },
+  openGraph: {
+    title: "Emerging Legal Fields in 2026: AI, Space & ESG Law",
+    description:
+      "Explore highest paying futuristic legal niches in India by 2026. Learn how to specialize in Space Law, ESG compliance, Web3, and AI regulations.",
+    url: "https://www.amaconnect.in/emerging-legal-fields-2026",
+    siteName: "AMA Legal Solutions",
+    type: "website",
+  },
+};
 
+export default function EmergingFieldsPage() {
   const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/emerging-legal-fields-2026`;
-
-  const metadata = {
-    title: "Emerging Legal Fields in 2026 | AI, Space, Web3 & Climate Law",
-    description: "Explore highest paying futuristic legal niches in India by 2026. Learn how to specialize in Space Law, ESG compliance, Web3, and AI regulations.",
-  };
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -378,33 +388,7 @@ export default function EmergingFieldsPage() {
                   Frequently Asked Questions
                 </h2>
                 
-                <div className="space-y-4">
-                  {faqs.map((faq, index) => {
-                    const isOpen = openIndex === index;
-                    return (
-                      <div 
-                        key={index}
-                        className="border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 bg-white shadow-sm hover:shadow-md"
-                      >
-                        <button
-                          onClick={() => setOpenIndex(isOpen ? null : index)}
-                          className="w-full flex items-center justify-between p-5 text-left font-bold text-base sm:text-lg text-[#2D2219] hover:bg-slate-50 transition-colors"
-                        >
-                          <span className="pr-4">{faq.question}</span>
-                          <span className={`text-[#D4AF37] text-2xl transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
-                            +
-                          </span>
-                        </button>
-                        {isOpen && (
-                          <div className="p-5 pt-2 text-sm sm:text-base text-gray-600 leading-relaxed bg-white">
-                            <div className="w-full h-px bg-gray-100 mb-4"></div>
-                            {faq.answer}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                <LawyerFaqAccordion faqs={faqs} />
               </div>
 
               {/* Review Section */}

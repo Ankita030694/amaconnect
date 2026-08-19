@@ -17,7 +17,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "How to Draft a Legal Notice in India: Legal Framework & Formats | AMAConnect",
+  title: "How to Draft a Legal Notice in India",
   description:
     "A comprehensive guide to drafting, sending, and replying to a legal notice in India. Learn about CPC Section 80, Section 138 notices, and standard formatting.",
   keywords: "legal notice India, how to draft legal notice, Section 80 CPC, cheque bounce notice, eviction notice, reply to legal notice, drafting fees",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/how-to-draft-legal-notice-india-guide",
   },
   openGraph: {
-    title: "How to Draft a Legal Notice in India: Legal Framework & Formats",
+    title: "How to Draft a Legal Notice in India",
     description:
       "A comprehensive guide to drafting, sending, and replying to a legal notice in India. Learn about CPC Section 80, Section 138 notices, and standard formatting.",
     url: "https://www.amaconnect.in/how-to-draft-legal-notice-india-guide",

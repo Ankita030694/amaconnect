@@ -16,7 +16,7 @@ import HospitalBillingSidebar from "@/components/hospital-billing/HospitalBillin
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Hospital Billing Disputes & Patient Confinement Guide | AMAConnect",
+  title: "Hospital Billing Disputes & Patient Rights",
   description:
     "What are the legal remedies, statutory consumer rights, and court protections available against hospital overcharging and illegal detention of patients or bodies?",
   keywords: "hospital overcharging legal options, illegal patient detention IPC, withholding deceased body, Clinical Establishments Act complaint, emergency stabilization Parmanand Katara, medical bill audit, e-Daakhil medical dispute, professional misconduct Medical Council, writ of Habeas Corpus patient",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/hospital-billing-dispute-patient-detention-legal-recourse",
   },
   openGraph: {
-    title: "Hospital Billing Disputes & Patient Confinement Guide",
+    title: "Hospital Billing Disputes & Patient Rights",
     description:
       "What are the legal remedies, statutory consumer rights, and court protections available against hospital overcharging and illegal detention of patients or bodies?",
     url: "https://www.amaconnect.in/hospital-billing-dispute-patient-detention-legal-recourse",

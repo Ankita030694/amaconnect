@@ -17,7 +17,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "Startup Registration & DPIIT Incorporation Guide | AMAConnect",
+  title: "Startup Registration & Incorporation Guide",
   description:
     "Learn how to incorporate a company in India, apply for DPIIT recognition and Section 80-IAC tax holiday, understand costs, and manage compliance.",
   keywords: "startup registration India, company incorporation India, DPIIT recognition, Section 80-IAC tax holiday, Private Limited vs LLP, OPC solo founder, SPICe plus form, company compliance checklist",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/startup-registration-incorporation-india-guide",
   },
   openGraph: {
-    title: "Startup Registration & DPIIT Incorporation Guide",
+    title: "Startup Registration & Incorporation Guide",
     description:
       "Learn how to incorporate a company in India, apply for DPIIT recognition and Section 80-IAC tax holiday, understand costs, and manage compliance.",
     url: "https://www.amaconnect.in/startup-registration-incorporation-india-guide",

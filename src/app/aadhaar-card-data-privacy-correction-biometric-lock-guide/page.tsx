@@ -16,7 +16,7 @@ import AadhaarSidebar from "@/components/aadhaar-privacy/AadhaarSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Aadhaar Card Privacy, Biometric Lock & Correction Guide | AMAConnect",
+  title: "Aadhaar Privacy & Biometric Lock Guide",
   description:
     "How do citizens lock/unlock Aadhaar biometrics, handle chronic data mismatch errors, and enforce digital privacy rights under the Aadhaar Act?",
   keywords: "lock Aadhaar biometrics online, AEPS fingerprint cloning scam, correct Aadhaar date of birth error, pension biometric matching failure, Aadhaar mandatory vs voluntary, file UIDAI complaint portal, Aadhaar card deactivation rules, generate Aadhaar Virtual ID, Information Technology Act Section 43A compensation",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/aadhaar-card-data-privacy-correction-biometric-lock-guide",
   },
   openGraph: {
-    title: "Aadhaar Card Privacy, Biometric Lock & Correction Guide",
+    title: "Aadhaar Privacy & Biometric Lock Guide",
     description:
       "How do citizens lock/unlock Aadhaar biometrics, handle chronic data mismatch errors, and enforce digital privacy rights under the Aadhaar Act?",
     url: "https://www.amaconnect.in/aadhaar-card-data-privacy-correction-biometric-lock-guide",

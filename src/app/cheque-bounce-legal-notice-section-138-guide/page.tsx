@@ -16,14 +16,14 @@ import ChequeSidebar from "@/components/cheque-bounce/ChequeSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Cheque Bounce Legal Notice Section 138 Guide | AMAConnect",
+  title: "Cheque Bounce Section 138 Legal Notice Guide",
   description: "Learn about cheque dishonor, Section 138 legal notice rules, timelines, magistrate complaints, interim compensation, and legal defenses in India.",
   keywords: "cheque bounce India, Section 138 Negotiable Instruments Act, legal notice for cheque bounce, demand notice timeline, summary suit Order 37 CPC, interim compensation Section 143A",
   alternates: {
     canonical: "https://www.amaconnect.in/cheque-bounce-legal-notice-section-138-guide",
   },
   openGraph: {
-    title: "Cheque Bounce Legal Notice Section 138 Guide",
+    title: "Cheque Bounce Section 138 Legal Notice Guide",
     description: "Learn about cheque dishonor, Section 138 legal notice rules, timelines, magistrate complaints, interim compensation, and legal defenses in India.",
     url: "https://www.amaconnect.in/cheque-bounce-legal-notice-section-138-guide",
     siteName: "AMA Legal Solutions",

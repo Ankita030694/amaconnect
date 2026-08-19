@@ -16,7 +16,7 @@ import MNDSidebar from "@/components/municipal-notices/MNDSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Municipal Demolition Notices & Construction Legal Guide | AMAConnect",
+  title: "Demolition Notices & Illegal Construction",
   description:
     "How property owners respond to municipal demolition notices, secure court stay orders, and challenge illegal construction under local town planning rules.",
   keywords: "municipal demolition notice, stay order construction, illegal encroachment remedy, compoundable deviations, municipal appellate tribunal appeal, article 300a property rights, specific relief act possession, mandamus petition high court, demolition damages compensation, town planning rules",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/illegal-construction-local-authority-demolition-notice-guide",
   },
   openGraph: {
-    title: "Municipal Demolition Notices & Construction Legal Guide",
+    title: "Demolition Notices & Illegal Construction",
     description:
       "How property owners respond to municipal demolition notices, secure court stay orders, and challenge illegal construction under local town planning rules.",
     url: "https://www.amaconnect.in/illegal-construction-local-authority-demolition-notice-guide",

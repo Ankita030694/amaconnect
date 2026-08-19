@@ -16,7 +16,7 @@ import SCMSidebar from "@/components/senior-maintenance/SCMSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Senior Citizens Maintenance & Welfare Rights Guide | AMAConnect",
+  title: "Senior Citizens Maintenance & Welfare Rights",
   description:
     "What are the legal rights, maintenance claims, and tribunal routes available to parents and senior citizens facing abandonment or property disputes in India.",
   keywords: "senior citizens maintenance act 2007, parents welfare legislation, maintenance tribunal claim, section 23 property revocation, evicting abusive children, section 125 CrPC parents, geriatric health care, recovery of maintenance, senior citizen support police, old age homes",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/senior-citizens-maintenance-welfare-legal-rights-guide",
   },
   openGraph: {
-    title: "Senior Citizens Maintenance & Welfare Rights Guide",
+    title: "Senior Citizens Maintenance & Welfare Rights",
     description:
       "What are the legal rights, maintenance claims, and tribunal routes available to parents and senior citizens facing abandonment or property disputes in India.",
     url: "https://www.amaconnect.in/senior-citizens-maintenance-welfare-legal-rights-guide",

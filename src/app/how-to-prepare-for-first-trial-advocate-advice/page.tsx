@@ -18,7 +18,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "How to Prepare for Your First Trial: Advice from Seasoned Advocates | AMAConnect",
+  title: "First Court Trial Preparation Guide",
   description:
     "Courtroom-tested advice, etiquette guidelines, mock trial systems, and cross-examination strategies from senior advocates to help junior lawyers navigate their first trial.",
   keywords: "prepare for first trial, advocate tips for beginners, junior lawyer advice, courtroom etiquette, trial preparation, litigation strategy, witness examination, court dressing code, legal mentorship",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/how-to-prepare-for-first-trial-advocate-advice",
   },
   openGraph: {
-    title: "How to Prepare for Your First Trial: Advice from Seasoned Advocates",
+    title: "First Court Trial Preparation Guide",
     description:
       "Courtroom-tested advice, etiquette guidelines, mock trial systems, and cross-examination strategies from senior advocates to help junior lawyers navigate their first trial.",
     url: "https://www.amaconnect.in/how-to-prepare-for-first-trial-advocate-advice",

@@ -16,7 +16,7 @@ import IPSidebar from "@/components/ip-protection/IPSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Intellectual Property and Creator Rights Guide | AMAConnect",
+  title: "Trademark & Copyright Registration Guide",
   description:
     "How creators, brand owners, and developers register and protect trademarks and copyrights under Indian IP law, and resolve infringement disputes.",
   keywords: "intellectual property India, trademark registration, copyright protection, patent filing, cease and desist notice, DMCA takedown, Indian copyright act, passing off, commercial mediation, work for hire",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/ip-protection-trademark-copyright-registration-guide",
   },
   openGraph: {
-    title: "Intellectual Property and Creator Rights Guide",
+    title: "Trademark & Copyright Registration Guide",
     description:
       "How creators, brand owners, and developers register and protect trademarks and copyrights under Indian IP law, and resolve infringement disputes.",
     url: "https://www.amaconnect.in/ip-protection-trademark-copyright-registration-guide",

@@ -18,7 +18,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "Know Your Rights: A Free Legal Guide for Everyday Citizens | AMAConnect",
+  title: "Know Your Legal Rights in India: Guide",
   description:
     "Learn your basic legal rights in India. A comprehensive free guide covering tenant rights, consumer protection, employee rights, arrest guidelines, criminal defense, privacy, and women's rights.",
   keywords: "know your rights India, basic legal rights, consumer rights, employee rights guide, legal rights in India, free legal guide, criminal defense rights, cyber privacy laws, senior citizen protection",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/know-your-rights-legal-guide",
   },
   openGraph: {
-    title: "Know Your Rights: A Free Legal Guide for Everyday Citizens",
+    title: "Know Your Legal Rights in India: Guide",
     description:
       "Learn your basic legal rights in India. A comprehensive free guide covering tenant rights, consumer protection, employee rights, arrest guidelines, criminal defense, privacy, and women's rights.",
     url: "https://www.amaconnect.in/know-your-rights-legal-guide",

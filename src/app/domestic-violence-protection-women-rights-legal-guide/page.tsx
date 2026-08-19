@@ -16,7 +16,7 @@ import DVSidebar from "@/components/domestic-violence/DVSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Domestic Violence & Women Rights Legal Guide | AMAConnect",
+  title: "Domestic Violence & Women Rights Guide",
   description:
     "What are the legal remedies, statutory protections, and filing procedures available to Indian women under the Domestic Violence Act.",
   keywords: "domestic violence act 2005, PWDVA, shared household rights, maintenance under section 20, protection orders section 18, child custody section 21, domestic incident report, section 498a cruelty, streedhan rights Hindu law, Arnesh Kumar guidelines",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/domestic-violence-protection-women-rights-legal-guide",
   },
   openGraph: {
-    title: "Domestic Violence & Women Rights Legal Guide",
+    title: "Domestic Violence & Women Rights Guide",
     description:
       "What are the legal remedies, statutory protections, and filing procedures available to Indian women under the Domestic Violence Act.",
     url: "https://www.amaconnect.in/domestic-violence-protection-women-rights-legal-guide",

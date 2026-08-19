@@ -17,7 +17,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "Resolving Property Disputes in India: Legal Remedies & Court Procedures | AMAConnect",
+  title: "Property Dispute Remedies & Legal Procedures",
   description:
     "Learn about the specific legal actions, court procedures, and evidence requirements for resolving land and property ownership disputes in India.",
   keywords: "property dispute resolution, land dispute India, specific relief act, declaration of title, permanent injunction, adverse possession law, court case timeline, records of rights, partition suit",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/property-dispute-resolution-india-legal-remedies",
   },
   openGraph: {
-    title: "Resolving Property Disputes in India: Legal Remedies & Court Procedures",
+    title: "Property Dispute Remedies & Legal Procedures",
     description:
       "Learn about the specific legal actions, court procedures, and evidence requirements for resolving land and property ownership disputes in India.",
     url: "https://www.amaconnect.in/property-dispute-resolution-india-legal-remedies",

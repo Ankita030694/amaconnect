@@ -16,7 +16,7 @@ import InsuranceSidebar from "@/components/insurance-dispute/InsuranceSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Insurance Claim Rejection Dispute Resolution Guide | AMAConnect",
+  title: "Insurance Claim Rejection Remedies Guide",
   description:
     "Learn the legal remedies, statutory options, and Insurance Ombudsman procedures available to contest denied claims in India.",
   keywords: "insurance claim rejection, contest denied claim, Insurance Ombudsman India, Section 45 Insurance Act, deficiency of service, GRO appeal, Bima Bharosa portal, legal notice insurer",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/insurance-claim-rejection-dispute-resolution-guide",
   },
   openGraph: {
-    title: "Insurance Claim Rejection Dispute Resolution Guide",
+    title: "Insurance Claim Rejection Remedies Guide",
     description:
       "Learn the legal remedies, statutory options, and Insurance Ombudsman procedures available to contest denied claims in India.",
     url: "https://www.amaconnect.in/insurance-claim-rejection-dispute-resolution-guide",

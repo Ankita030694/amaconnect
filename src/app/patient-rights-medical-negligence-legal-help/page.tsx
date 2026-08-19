@@ -16,7 +16,7 @@ import PatientRightsSidebar from "@/components/patient-rights/PatientRightsSideb
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Patient Rights & Medical Negligence Guide in India | AMAConnect",
+  title: "Patient Rights & Medical Negligence Guide",
   description:
     "Learn about legal remedies, statutory rights under the Clinical Establishments Act, and consumer commission procedures for patient malpractice claims in India.",
   keywords: "patient rights India, medical negligence IPC 304A, consumer protection act medical, Jacob Mathew guidelines, Bolam test medical negligence, clinical establishments charter, informed medical consent",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/patient-rights-medical-negligence-legal-help",
   },
   openGraph: {
-    title: "Patient Rights & Medical Negligence Guide in India",
+    title: "Patient Rights & Medical Negligence Guide",
     description:
       "Learn about legal remedies, statutory rights under the Clinical Establishments Act, and consumer commission procedures for patient malpractice claims in India.",
     url: "https://www.amaconnect.in/patient-rights-medical-negligence-legal-help",

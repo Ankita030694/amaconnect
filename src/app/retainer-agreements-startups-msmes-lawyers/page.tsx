@@ -1,22 +1,32 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
 import ScrollSpyNav from "@/components/ScrollSpyNav";
 import RightSidebarGeneral from "@/components/RightSidebarGeneral";
+import LawyerFaqAccordion from "@/components/LawyerFaqAccordion";
 import Footer from "@/components/Footer";
 
-export default function RetainerAgreementsPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+export const metadata: Metadata = {
+  title: "Retainer Agreements for Startups & MSMEs: Guide",
+  description:
+    "A complete guide for advocates on structuring monthly retainers for startups and MSMEs in India. Learn fee pricing and scopes of work.",
+  alternates: {
+    canonical: "https://www.amaconnect.in/retainer-agreements-startups-msmes-lawyers",
+  },
+  openGraph: {
+    title: "Retainer Agreements for Startups & MSMEs: Guide",
+    description:
+      "A complete guide for advocates on structuring monthly retainers for startups and MSMEs in India. Learn fee pricing and scopes of work.",
+    url: "https://www.amaconnect.in/retainer-agreements-startups-msmes-lawyers",
+    siteName: "AMA Legal Solutions",
+    type: "website",
+  },
+};
 
+export default function RetainerAgreementsPage() {
   const baseUrl = "https://www.amaconnect.in";
   const pageUrl = `${baseUrl}/retainer-agreements-startups-msmes-lawyers`;
-
-  const metadata = {
-    title: "Retainer Agreements for Startups & MSMEs | Pricing & Drafts",
-    description: "A complete guide for advocates on structuring monthly retainers for startups and MSMEs in India. Learn fee pricing and scopes of work.",
-  };
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -380,33 +390,8 @@ export default function RetainerAgreementsPage() {
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#2D2219] mt-4 mb-8 tracking-tight">
                   Frequently Asked Questions
                 </h2>
-                        <div className="space-y-4">
-                  {faqs.map((faq, index) => {
-                    const isOpen = openIndex === index;
-                    return (
-                      <div 
-                        key={index}
-                        className="border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 bg-white shadow-sm hover:shadow-md"
-                      >
-                        <button
-                          onClick={() => setOpenIndex(isOpen ? null : index)}
-                          className="w-full flex items-center justify-between p-5 text-left font-bold text-base sm:text-lg text-[#2D2219] hover:bg-slate-50 transition-colors"
-                        >
-                          <span className="pr-4">{faq.question}</span>
-                          <span className={`text-[#D4AF37] text-2xl transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
-                            +
-                          </span>
-                        </button>
-                        {isOpen && (
-                          <div className="p-5 pt-2 text-sm sm:text-base text-gray-600 leading-relaxed bg-white">
-                            <div className="w-full h-px bg-gray-100 mb-4"></div>
-                            {faq.answer}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                
+                <LawyerFaqAccordion faqs={faqs} />
               </div>
 
               {/* Review Section */}

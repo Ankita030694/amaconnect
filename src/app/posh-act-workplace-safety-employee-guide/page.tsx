@@ -18,7 +18,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata Injection
 export const metadata: Metadata = {
-  title: "Employee Guide to Workplace Safety and POSH Act in India | AMAConnect",
+  title: "Workplace Safety & POSH Act Guide",
   description:
     "A comprehensive legal guide outlining the Prevention of Sexual Harassment, or POSH, Act in India, internal complaint procedures, ICC board structures, and employee protection rights.",
   keywords: "POSH Act India, workplace harassment laws, internal complaints committee composition, filing POSH complaint, sexual harassment inquiry process, employee protection rights, Vishaka guidelines",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/posh-act-workplace-safety-employee-guide",
   },
   openGraph: {
-    title: "Employee Guide to Workplace Safety and POSH Act in India",
+    title: "Workplace Safety & POSH Act Guide",
     description:
       "A comprehensive legal guide outlining the Prevention of Sexual Harassment, or POSH, Act in India, internal complaint procedures, ICC board structures, and employee protection rights.",
     url: "https://www.amaconnect.in/posh-act-workplace-safety-employee-guide",

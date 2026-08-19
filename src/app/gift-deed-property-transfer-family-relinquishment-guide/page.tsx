@@ -16,7 +16,7 @@ import FamilyTransfersSidebar from "@/components/family-transfers/FamilyTransfer
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Gift Deeds and Family Property Transfers Guide | AMAConnect",
+  title: "Gift Deed & Property Transfer Guide",
   description:
     "How family members transfer property titles using Gift Deeds, Relinquishment Deeds, and Partition Deeds under Indian property law.",
   keywords: "gift deed drafting, property transfer family, relinquishment deed, partition deed ancestral, stamp duty concessions, minor property transfer, tax exemption gifts, Section 122 Transfer of Property Act",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/gift-deed-property-transfer-family-relinquishment-guide",
   },
   openGraph: {
-    title: "Gift Deeds and Family Property Transfers Guide",
+    title: "Gift Deed & Property Transfer Guide",
     description:
       "How family members transfer property titles using Gift Deeds, Relinquishment Deeds, and Partition Deeds under Indian property law.",
     url: "https://www.amaconnect.in/gift-deed-property-transfer-family-relinquishment-guide",

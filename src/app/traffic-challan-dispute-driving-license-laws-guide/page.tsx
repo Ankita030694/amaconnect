@@ -7,7 +7,7 @@ import ScrollSpyNav from "@/components/ScrollSpyNav";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Contest Traffic E-Challans & Driving License Laws | AMAConnect",
+  title: "Contest Traffic E-Challans & License Laws",
   description:
     "A helpful guide explaining how traffic e-challans are generated, the legal grounds to contest wrongful virtual challans, the Virtual Court system, and driving license rules.",
   keywords: "check e challan online India, contest traffic challan, driving license renewal rules, new traffic rules fines, virtual court challan dispute, motor vehicles act rules",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/traffic-challan-dispute-driving-license-laws-guide",
   },
   openGraph: {
-    title: "Contest Traffic E-Challans & Driving License Laws",
+    title: "Contest Traffic E-Challans & License Laws",
     description:
       "A helpful guide explaining how traffic e-challans are generated, the legal grounds to contest wrongful virtual challans, the Virtual Court system, and driving license rules.",
     url: "https://www.amaconnect.in/traffic-challan-dispute-driving-license-laws-guide",

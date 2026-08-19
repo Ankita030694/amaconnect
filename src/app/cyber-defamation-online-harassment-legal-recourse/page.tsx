@@ -16,7 +16,7 @@ import CDSidebar from "@/components/cyber-defamation/CDSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Cyber Defamation & Online Harassment Legal Guide | AMAConnect",
+  title: "Cyber Defamation & Online Harassment Guide",
   description:
     "How victims of cyber defamation, digital trolling, and online harassment secure legal remedies and file complaints under Indian law.",
   keywords: "cyber defamation India, online harassment, digital trolling, libel and slander, section 66c identity theft, section 66d impersonation, cyber crime cell complaint, section 65b certificate, intermediary liability section 79, john doe orders",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/cyber-defamation-online-harassment-legal-recourse",
   },
   openGraph: {
-    title: "Cyber Defamation & Online Harassment Legal Guide",
+    title: "Cyber Defamation & Online Harassment Guide",
     description:
       "How victims of cyber defamation, digital trolling, and online harassment secure legal remedies and file complaints under Indian law.",
     url: "https://www.amaconnect.in/cyber-defamation-online-harassment-legal-recourse",

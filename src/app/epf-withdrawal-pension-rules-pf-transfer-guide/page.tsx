@@ -16,7 +16,7 @@ import EPFSidebar from "@/components/epf-disputes/EPFSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "EPF Withdrawal & Pension PF Transfer Rules Guide | AMAConnect",
+  title: "EPF Withdrawal & PF Transfer Rules Guide",
   description:
     "How employees withdraw, transfer, and claim EPF funds and pension benefits, and resolve EPFO disputes under Indian labor rules.",
   keywords: "EPF withdrawal online, EPS pension eligibility, PF transfer form 13, form 19 complete settlement, form 10c pension withdrawal, EPFiGMS grievance portal, employer PF default, EDLI insurance claim, TDS on PF withdrawal, UAN portal rules",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/epf-withdrawal-pension-rules-pf-transfer-guide",
   },
   openGraph: {
-    title: "EPF Withdrawal & Pension PF Transfer Rules Guide",
+    title: "EPF Withdrawal & PF Transfer Rules Guide",
     description:
       "How employees withdraw, transfer, and claim EPF funds and pension benefits, and resolve EPFO disputes under Indian labor rules.",
     url: "https://www.amaconnect.in/epf-withdrawal-pension-rules-pf-transfer-guide",

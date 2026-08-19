@@ -16,7 +16,7 @@ import FDSidebar from "@/components/franchise-disputes/FDSidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Franchise Agreement & Business Disputes Guide | AMAConnect",
+  title: "Franchise Agreement & Dispute Resolution",
   description:
     "How business owners and brands draft franchise agreements, handle territorial disputes, and resolve contract breaches under Indian commercial laws.",
   keywords: "Franchise Agreement India, FDD disclosure document, territorial exclusivity radius, trademark licensing Section 48, marketing fund audit, supply chain vendor clause, wrongful franchise termination, cure notice window, Section 29B fast track arbitration, Contract Act 1872",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/franchise-agreement-business-disputes-fdd-disclosure-guide",
   },
   openGraph: {
-    title: "Franchise Agreement & Business Disputes Guide",
+    title: "Franchise Agreement & Dispute Resolution",
     description:
       "How business owners and brands draft franchise agreements, handle territorial disputes, and resolve contract breaches under Indian commercial laws.",
     url: "https://www.amaconnect.in/franchise-agreement-business-disputes-fdd-disclosure-guide",

@@ -16,7 +16,7 @@ import RTISidebar from "@/components/rti-guide/RTISidebar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Right to Information (RTI) Online Filing Guide | AMAConnect",
+  title: "Right to Information (RTI) Online Filing",
   description:
     "Learn the legal procedure, drafting formats, fees, and appeals processes to successfully file a Right to Information (RTI) application under Indian law.",
   keywords: "RTI filing online, right to information guide, how to file RTI, Section 8 exemptions, first appeal, second appeal, Indian postal order, public information officer",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/rti-filing-online-right-to-information-guide",
   },
   openGraph: {
-    title: "Right to Information (RTI) Online Filing Guide",
+    title: "Right to Information (RTI) Online Filing",
     description:
       "Learn the legal procedure, drafting formats, fees, and appeals processes to successfully file a Right to Information (RTI) application under Indian law.",
     url: "https://www.amaconnect.in/rti-filing-online-right-to-information-guide",

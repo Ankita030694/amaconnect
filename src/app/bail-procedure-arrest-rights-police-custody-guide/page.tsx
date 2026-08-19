@@ -18,7 +18,7 @@ import Footer from "@/components/Footer";
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "Bail and Arrest Rights Guide: Police Custody & Bail Procedures | AMAConnect",
+  title: "Bail & Arrest Rights in Police Custody",
   description:
     "Understand your rights during arrest, police versus judicial custody limits, anticipatory bail filing, and remedies for illegal detention under Indian laws.",
   keywords: "bail procedure, arrest rights, police custody, judicial custody, anticipatory bail, default bail, illegal detention, India, legal rights, CrPC, BNSS",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "https://www.amaconnect.in/bail-procedure-arrest-rights-police-custody-guide",
   },
   openGraph: {
-    title: "Bail and Arrest Rights Guide: Police Custody & Bail Procedures",
+    title: "Bail & Arrest Rights in Police Custody",
     description:
       "Understand your rights during arrest, police versus judicial custody limits, anticipatory bail filing, and remedies for illegal detention under Indian laws.",
     url: "https://www.amaconnect.in/bail-procedure-arrest-rights-police-custody-guide",

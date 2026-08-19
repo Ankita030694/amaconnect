@@ -36,7 +36,7 @@ export default function LatestArticles({ blogs = [] }: { blogs?: Blog[] }) {
     <section className="w-full flex flex-col font-sans">
       <div className="flex items-center justify-between mb-4 sm:mb-6">
         <h3 className="text-xl sm:text-2xl font-extrabold text-[#2D2219]">Latest Blogs</h3>
-        <Link href="/blogs" className="text-sm font-bold text-[#D4AF37] hover:text-[#B8860B] transition-colors">
+        <Link href="/blog" className="text-sm font-bold text-[#D4AF37] hover:text-[#B8860B] transition-colors">
           View All
         </Link>
       </div>
@@ -53,7 +53,7 @@ export default function LatestArticles({ blogs = [] }: { blogs?: Blog[] }) {
           return (
             <Link
               key={blog._id}
-              href={`/blogs/${blog.slug}`}
+              href={`/blog/${blog.slug}`}
               className="flex flex-col group transition-transform duration-300 hover:-translate-y-1 h-full"
             >
               <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mb-3 sm:mb-4 relative border border-gray-150">
