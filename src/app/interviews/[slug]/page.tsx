@@ -78,6 +78,7 @@ export async function generateMetadata(
   const { slug } = await props.params;
 
   let title = "Lawyer Interview";
+  let ogTitle = "Lawyer Interview";
   let description = "Read verified legal insights and advocate guides at AMA Legal Solutions";
   let image = "";
   let author = "AMA Legal Solutions";
@@ -88,11 +89,32 @@ export async function generateMetadata(
     const interviewData = await getInterviewBySlug(slug);
     
     if (interviewData) {
-      const rawTitle = interviewData.metaTitle || interviewData.title || title;
+      const lawyerName = (interviewData.lawyer || "").trim();
+      const sanitizePlaceholders = (text: string) => {
+        if (!text) return text;
+        let cleaned = text;
+        if (lawyerName) {
+          cleaned = cleaned
+            .replace(/\[Lawyer Name\]/gi, lawyerName)
+            .replace(/\[Lawyer's Name\]/gi, `${lawyerName}'s`)
+            .replace(/\[Lawyer\]/gi, lawyerName)
+            .replace(/\[Name\]/gi, lawyerName);
+        }
+        return cleaned;
+      };
+
+      const rawTitle = sanitizePlaceholders(interviewData.metaTitle || interviewData.title || title);
       title = getOptimalPageTitle(rawTitle);
-      description = interviewData.metaDescription || description;
+
+      // For OpenGraph and Twitter cards (LinkedIn, X, WhatsApp), social platforms allow
+      // up to 90-100 characters. We use the full descriptive headline so the lawyer's name
+      // is never truncated from social share previews.
+      const fullTitle = sanitizePlaceholders(interviewData.title || interviewData.metaTitle || title);
+      ogTitle = fullTitle;
+
+      description = sanitizePlaceholders(interviewData.metaDescription || description);
       image = interviewData.image || "";
-      author = interviewData.lawyer || author;
+      author = lawyerName || author;
     }
   } catch (error) {
     console.error("Error fetching interview metadata:", error);
@@ -107,7 +129,7 @@ export async function generateMetadata(
       canonical: interviewUrl,
     },
     openGraph: {
-      title,
+      title: ogTitle,
       description,
       url: interviewUrl,
       siteName: "AMA Legal Solutions",
@@ -117,14 +139,14 @@ export async function generateMetadata(
           url: image,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: ogTitle,
         }
       ] : [],
       authors: [author],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: ogTitle,
       description,
       images: image ? [image] : [],
       creator: "@amaconnect",

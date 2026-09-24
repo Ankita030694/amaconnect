@@ -87,9 +87,20 @@ export async function PUT(
       }
     }
 
+    const cleanLawyer = lawyer.trim();
+    const sanitizePlaceholders = (text: string) => {
+      if (!text) return "";
+      return text
+        .replace(/\[Lawyer Name\]/gi, cleanLawyer)
+        .replace(/\[Lawyer's Name\]/gi, `${cleanLawyer}'s`)
+        .replace(/\[Lawyer\]/gi, cleanLawyer)
+        .replace(/\[Name\]/gi, cleanLawyer)
+        .trim();
+    };
+
     // Update fields
-    interview.title = title.trim();
-    interview.lawyer = lawyer.trim();
+    interview.title = sanitizePlaceholders(title);
+    interview.lawyer = cleanLawyer;
     interview.designation = designation ? designation.trim() : "";
     interview.companyName = companyName ? companyName.trim() : "";
     interview.image = image;
@@ -100,8 +111,8 @@ export async function PUT(
     interview.description = description || "";
     interview.videoUrl = videoUrl || "";
     interview.slug = slug;
-    interview.metaTitle = metaTitle || "";
-    interview.metaDescription = metaDescription || "";
+    interview.metaTitle = sanitizePlaceholders(metaTitle || "");
+    interview.metaDescription = sanitizePlaceholders(metaDescription || "");
     interview.faqs = faqs || [];
     interview.reviews = reviews || [];
     interview.author = author || "Anuj Anand Malik";
