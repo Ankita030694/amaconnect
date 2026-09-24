@@ -27,20 +27,21 @@ export async function POST(request: Request) {
 Your task is to take a raw lawyer's writeup/interview and generate structured JSON metadata, FAQs, and client reviews as the first step towards creating a professional, magazine-style profile article.
 
 The output MUST be a JSON object with the following fields:
-- "title": A compelling, magazine-style headline based on the lawyer's journey, expertise, and key insights (e.g., 'From Courtrooms to Communities: How [Lawyer Name] is Redefining [Specialization]').
+- "title": A compelling, magazine-style headline based on the lawyer's journey, expertise, and key insights (e.g., 'From Courtrooms to Communities: How Priya Sharma is Redefining Corporate Litigation').
 - "slug": A URL-safe slug generated from the title.
-- "lawyer": The name of the lawyer/expert (extracted from the writeup or generated if not found).
+- "lawyer": The full real name of the lawyer/expert extracted from the writeup.
 - "specialization": The legal specialization of the expert lawyer (e.g. 'Employment Disputes & Labor Regulations').
 - "bgColor": One of the allowed tailwind accent colors: 'bg-[#FFB5A7]/30', 'bg-[#D4AF37]/20', 'bg-[#B5E2FA]/30', 'bg-[#EDF2F4]/30', 'bg-[#C1F0C4]/30'. Select the one that best matches the topic.
-- "metaTitle": Search engine optimized listing title (Max 60 characters).
-- "metaDescription": Compelling snippet appearing in search results (Max 160 characters).
+- "metaTitle": Search engine optimized listing title incorporating the lawyer's full name (Max 60 characters).
+- "metaDescription": Compelling snippet appearing in search results highlighting the lawyer's actual name and core expertise (Max 160 characters).
 - "faqs": An array of at least 10 highly relevant, comprehensive Frequently Asked Questions (FAQs) based on the lawyer's journey, practice areas, and legal advice. Each FAQ must have a detailed, professional legal answer. Do not output fewer than 10 FAQs.
 - "reviews": An array of at least 5 client feedback / review snippets. Each snippet must contain:
   - "name": A realistic Indian name.
   - "rating": An integer rating (must be 5).
   - "review": A detailed, positive comment praising the lawyer's guidance, professionalism, and representation. Do not output fewer than 5 review snippets.
 
-CRITICAL NEGATIVE CONSTRAINT:
+CRITICAL CONSTRAINTS:
+- NEVER output bracketed placeholders like '[Lawyer Name]', '[Lawyer]', '[Lawyer\\'s Name]', '[Specialization]', or '[Name]' anywhere in your entire response. Always use the lawyer's actual full name.
 - Under no circumstances should you include any em dashes (—) anywhere in your entire response (including in FAQs, reviews, title, or description). Always use normal hyphens (-), colons, commas, or parentheses, or rewrite the sentence to avoid them.
 - DO NOT output HTML entities like '&amp;' or '&amp;amp;' in any generated text (including titles, FAQs, and reviews). Use normal characters directly (e.g., write '&' directly as '&' or use the word 'and' instead).
 
@@ -413,8 +414,24 @@ CRITICAL:
       }
     }
 
-    // Final em-dash clean up across all fields to guarantee compliance
-    const sanitizeText = (txt: string) => txt.replace(/—/g, "-").replace(/\u2014/g, "-");
+    // Final clean up across all fields: remove em-dashes and substitute any accidental placeholders
+    const lawyerName = (mergedData.lawyer || "").trim();
+    const spec = (mergedData.specialization || "").trim();
+    const sanitizeText = (txt: string) => {
+      if (!txt) return txt;
+      let cleaned = txt.replace(/—/g, "-").replace(/\u2014/g, "-");
+      if (lawyerName) {
+        cleaned = cleaned
+          .replace(/\[Lawyer Name\]/gi, lawyerName)
+          .replace(/\[Lawyer's Name\]/gi, `${lawyerName}'s`)
+          .replace(/\[Lawyer\]/gi, lawyerName)
+          .replace(/\[Name\]/gi, lawyerName);
+      }
+      if (spec) {
+        cleaned = cleaned.replace(/\[Specialization\]/gi, spec);
+      }
+      return cleaned;
+    };
     
     if (mergedData.title) mergedData.title = sanitizeText(mergedData.title);
     if (mergedData.description) mergedData.description = sanitizeText(mergedData.description);

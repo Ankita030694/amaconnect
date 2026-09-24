@@ -76,9 +76,20 @@ export async function POST(request: Request) {
       finalSlug = `${slug}-${Date.now()}`;
     }
 
+    const cleanLawyer = lawyer.trim();
+    const sanitizePlaceholders = (text: string) => {
+      if (!text) return "";
+      return text
+        .replace(/\[Lawyer Name\]/gi, cleanLawyer)
+        .replace(/\[Lawyer's Name\]/gi, `${cleanLawyer}'s`)
+        .replace(/\[Lawyer\]/gi, cleanLawyer)
+        .replace(/\[Name\]/gi, cleanLawyer)
+        .trim();
+    };
+
     const newInterview = new LawyerInterview({
-      title: title.trim(),
-      lawyer: lawyer.trim(),
+      title: sanitizePlaceholders(title),
+      lawyer: cleanLawyer,
       designation: designation ? designation.trim() : "",
       companyName: companyName ? companyName.trim() : "",
       image,
@@ -89,8 +100,8 @@ export async function POST(request: Request) {
       description: description || "",
       videoUrl: videoUrl || "",
       slug: finalSlug,
-      metaTitle: metaTitle || "",
-      metaDescription: metaDescription || "",
+      metaTitle: sanitizePlaceholders(metaTitle || ""),
+      metaDescription: sanitizePlaceholders(metaDescription || ""),
       faqs: faqs || [],
       reviews: reviews || [],
       author: author || "Anuj Anand Malik",
