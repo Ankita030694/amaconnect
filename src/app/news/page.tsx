@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import LawyerFaqAccordion from "@/components/LawyerFaqAccordion";
-import NewsContent, { NewsArticle } from "./NewsContent";
-import dbConnect from "@/lib/dbConnect";
-import { CustomNews } from "@/lib/models";
+import NewsContent from "./NewsContent";
+import { getNewsFeed, NewsArticle } from "@/lib/newsService";
 import { Scale, Newspaper, Radio, Landmark, ShieldCheck, HelpCircle, FileText, CheckCircle2, Search } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Latest Legal News, Court Judgments & Legal Updates in India",
@@ -22,54 +23,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-
-const fallbackCourtArticles: NewsArticle[] = [
-  {
-    title: "Supreme Court of India Issues Guidelines on Digital Privacy and Electronic Evidence under BSA",
-    description: "In a landmark judgment, the Supreme Court has laid down robust guidelines on electronic certificate generation under the Bharatiya Sakshya Adhiniyam, 2023, standardizing digital record handling in trial courts.",
-    url: "https://www.supremecourtofindia.nic.in",
-    urlToImage: "",
-    publishedAt: new Date().toISOString(),
-    source: "Supreme Court Dispatch",
-    author: "Adv. Ananya Sen"
-  },
-  {
-    title: "Bombay High Court Clarifies Gig Worker Social Security and Employment Contract Liabilities",
-    description: "Resolving statutory ambiguities, the High Court delivered a comprehensive ruling defining social security fund obligations and dispute recourse for platform-based contract workers.",
-    url: "https://bombayhighcourt.nic.in",
-    urlToImage: "",
-    publishedAt: new Date(Date.now() - 86400000).toISOString(),
-    source: "Labour Law Journal",
-    author: "Adv. Rohan Mehta"
-  },
-  {
-    title: "Delhi High Court Rules on Copyright Ownership of AI-Assisted Legal Pleading Drafts",
-    description: "The Delhi High Court held that purely automated algorithmic text lacks requisite human intellectual labor for copyright protection, establishing crucial parameters for legal technology adoption.",
-    url: "https://delhihighcourt.nic.in",
-    urlToImage: "",
-    publishedAt: new Date(Date.now() - 2 * 86400000).toISOString(),
-    source: "IP Law Review",
-    author: "Adv. Kabir Malhotra"
-  },
-  {
-    title: "NCLAT Defines Territorial Admissibility Criteria for Section 9 MSME Operational Debt Claims",
-    description: "The National Company Law Appellate Tribunal held that pre-existing contractual disputes must be supported by contemporaneous documentation to bar insolvency admissions under the IBC.",
-    url: "https://nclat.nic.in",
-    urlToImage: "",
-    publishedAt: new Date(Date.now() - 3 * 86400000).toISOString(),
-    source: "Insolvency Bulletin",
-    author: "Adv. Meera Joshi"
-  },
-  {
-    title: "Calcutta High Court Clarifies Intermediary Safe Harbor Provisions for E-Commerce Platforms",
-    description: "The Court held that digital marketplaces acting solely as transactional intermediaries are protected from third-party trademark infringements provided takedown procedures are executed diligently.",
-    url: "https://calcuttahighcourt.nic.in",
-    urlToImage: "",
-    publishedAt: new Date(Date.now() - 4 * 86400000).toISOString(),
-    source: "Calcutta Legal Review",
-    author: "Adv. Priya Nair"
-  }
-];
 
 const newsFaqs = [
   {
@@ -99,25 +52,15 @@ const newsFaqs = [
 ];
 
 export default async function NewsPage() {
-  let initialArticles: NewsArticle[] = fallbackCourtArticles;
+  let initialArticles: NewsArticle[] = [];
+  let initialHasMore = false;
+
   try {
-    await dbConnect();
-    const customNews = await CustomNews.find({}).sort({ isPinned: -1, order: 1, createdAt: -1 }).lean();
-    if (customNews && customNews.length > 0) {
-      const sanitizedCustom: NewsArticle[] = customNews.map((n: any) => ({
-        title: n.title,
-        description: n.description || "",
-        url: n.url || "",
-        urlToImage: n.urlToImage || "",
-        publishedAt: n.createdAt ? new Date(n.createdAt).toISOString() : new Date().toISOString(),
-        source: n.source || "AMA Dispatch",
-        author: n.author || "Legal Reporter",
-        slug: n.slug || ""
-      }));
-      initialArticles = [...sanitizedCustom, ...fallbackCourtArticles];
-    }
+    const feed = await getNewsFeed({ page: 1, category: "All", pageSize: 10 });
+    initialArticles = feed.articles;
+    initialHasMore = feed.hasMore;
   } catch (err) {
-    console.error("[NewsPage] Error loading custom news:", err);
+    console.error("[NewsPage] Error loading news feed:", err);
   }
 
   const jsonLd = {
@@ -132,6 +75,7 @@ export default async function NewsPage() {
       "logo": "https://www.amaconnect.in/logo2.svg"
     }
   };
+
 
   return (
     <>
