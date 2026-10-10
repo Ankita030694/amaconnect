@@ -19,22 +19,25 @@ interface NewsContentProps {
   initialHasMore?: boolean;
 }
 
+const DEFAULT_LEGAL_IMAGE = "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop";
+
 const timeAgo = (dateStr: string) => {
   if (!dateStr) return "recently";
   const date = new Date(dateStr);
   const now = new Date();
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
+  if (seconds < 60) return "just now";
   let interval = seconds / 31536000;
-  if (interval > 1) return Math.floor(interval) + "y ago";
+  if (interval >= 1) return Math.floor(interval) + "y ago";
   interval = seconds / 2592000;
-  if (interval > 1) return Math.floor(interval) + "mo ago";
+  if (interval >= 1) return Math.floor(interval) + "mo ago";
   interval = seconds / 86400;
-  if (interval > 1) return Math.floor(interval) + "d ago";
+  if (interval >= 1) return Math.floor(interval) + "d ago";
   interval = seconds / 3600;
-  if (interval > 1) return Math.floor(interval) + "h ago";
+  if (interval >= 1) return Math.floor(interval) + "h ago";
   interval = seconds / 60;
-  if (interval > 1) return Math.floor(interval) + "m ago";
+  if (interval >= 1) return Math.floor(interval) + "m ago";
   return "just now";
 };
 
@@ -62,20 +65,34 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
   useEffect(() => {
-    // Only trigger client fetch if switching categories or if initialArticles were empty
-    if (activeCategory === "All" && initialArticles.length > 0 && page === 1) {
+    // Check if initialArticles were empty or fallback articles
+    const isFallbackArticles =
+      initialArticles.length === 0 ||
+      initialArticles.some(
+        (a) =>
+          a.source === "Supreme Court Dispatch" ||
+          a.source === "Supreme Court Brief" ||
+          !a.urlToImage
+      );
+
+    // If activeCategory is "All", we have real articles from server, and page is 1, keep them
+    if (activeCategory === "All" && initialArticles.length > 0 && !isFallbackArticles && page === 1) {
       return;
     }
 
     async function fetchNews() {
       try {
-        setIsLoading(true);
+        if (activeCategory !== "All" || articles.length === 0) {
+          setIsLoading(true);
+        }
         setPage(1);
         const res = await fetch(`/api/news?page=1&category=${encodeURIComponent(activeCategory)}`);
         if (res.ok) {
           const data = await res.json();
-          setArticles(data.articles || []);
-          setHasMore(data.hasMore || false);
+          if (data.articles && data.articles.length > 0) {
+            setArticles(data.articles);
+            setHasMore(data.hasMore || false);
+          }
         }
       } catch (err) {
         console.error("Error loading news:", err);
@@ -154,16 +171,22 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                 rel={topStory.slug ? undefined : "noopener noreferrer"}
                 className="block group relative w-full h-[400px] sm:h-[440px] rounded-2xl overflow-hidden mb-10 shadow-sm border border-[#E8E4DE] cursor-pointer"
               >
-                {topStory.urlToImage && !brokenImages[0] ? (
-                  <img
-                    src={topStory.urlToImage}
-                    alt={topStory.title}
-                    onError={() => handleImageError(0)}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#1E1E1E] to-[#3A3530]" />
-                )}
+                <img
+                  src={
+                    !brokenImages[0] && topStory.urlToImage
+                      ? topStory.urlToImage
+                      : DEFAULT_LEGAL_IMAGE
+                  }
+                  alt={topStory.title}
+                  onError={(e) => {
+                    if (!brokenImages[0]) {
+                      handleImageError(0);
+                    } else {
+                      (e.target as HTMLImageElement).src = "/legal_scales_hero.png";
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full">
                   <span className="inline-block bg-[#C9A227] text-[#111111] text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-sm mb-3">
@@ -178,7 +201,7 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                   <div className="flex items-center text-xs text-white/80 gap-2">
                     <span className="font-semibold text-[#C9A227]">{topStory.source || "Court Reporter"}</span>
                     <span>•</span>
-                    <span>{timeAgo(topStory.publishedAt)}</span>
+                    <span suppressHydrationWarning>{timeAgo(topStory.publishedAt)}</span>
                   </div>
                 </div>
               </Link>
@@ -221,7 +244,7 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                                   {story.source || "Legal Dispatch"}
                                 </span>
                                 <span className="text-xs text-gray-400">•</span>
-                                <span className="text-xs text-gray-500">{timeAgo(story.publishedAt)}</span>
+                                <span className="text-xs text-gray-500" suppressHydrationWarning>{timeAgo(story.publishedAt)}</span>
                               </div>
                               <h4 className="text-base sm:text-lg font-bold text-[#1E1E1E] leading-snug group-hover:text-[#C9A227] transition-colors line-clamp-2">
                                 {story.title}
@@ -288,7 +311,7 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                           <h4 className="text-xs sm:text-sm font-semibold text-[#1E1E1E] leading-snug group-hover:text-[#C9A227] transition-colors line-clamp-2">
                             {story.title}
                           </h4>
-                          <div className="text-[11px] text-[#9C958C] mt-1">
+                          <div className="text-[11px] text-[#9C958C] mt-1" suppressHydrationWarning>
                             {story.source || "Court"} • {timeAgo(story.publishedAt)}
                           </div>
                         </div>
