@@ -1,11 +1,12 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPlus, 
   faEdit, 
   faTrash, 
+  faUpload,
   faSearch, 
   faChevronLeft, 
   faChevronRight,
@@ -75,6 +76,51 @@ export default function CustomNewsDashboard() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStep, setGenerationStep] = useState('');
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+
+      if (file.size > 10 * 1024 * 1024) {
+        alert("Image is too large. Max size is 10MB.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Upload failed");
+      }
+
+      const data = await res.json();
+      if (data.url) {
+        setNewArticle(prev => ({
+          ...prev,
+          urlToImage: data.url,
+        }));
+      }
+    } catch (err: any) {
+      console.error("Error uploading news image:", err);
+      alert(`Failed to upload image: ${err.message || "Unknown error"}`);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
 
   const handleGenerateAIImage = async () => {
     const defaultPrompt = newArticle.title 
@@ -669,23 +715,42 @@ export default function CustomNewsDashboard() {
                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide">
                           Image URL <span className="text-red-500">*</span>
                         </label>
-                        <button
-                          type="button"
-                          onClick={handleGenerateAIImage}
-                          disabled={isGeneratingImage}
-                          className="px-3 py-1 bg-amber-50 hover:bg-amber-100 border border-[#D4AF37]/35 text-[#B8860B] rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
-                          title="Generate image with AI"
-                        >
-                          <span>{isGeneratingImage ? '💫 Generating...' : '✨ Generate AI'}</span>
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            accept="image/*"
+                            onChange={handleFileUpload}
+                            className="hidden"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={uploading}
+                            className="px-3 py-1 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+                            title="Upload image from computer"
+                          >
+                            <FontAwesomeIcon icon={faUpload} />
+                            <span>{uploading ? 'Uploading...' : 'Upload'}</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleGenerateAIImage}
+                            disabled={isGeneratingImage}
+                            className="px-3 py-1 bg-amber-50 hover:bg-amber-100 border border-[#D4AF37]/35 text-[#B8860B] rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+                            title="Generate image with AI"
+                          >
+                            <span>{isGeneratingImage ? '💫 Generating...' : '✨ Generate AI'}</span>
+                          </button>
+                        </div>
                       </div>
                       <input
-                        type="url"
+                        type="text"
                         name="urlToImage"
                         value={newArticle.urlToImage}
                         onChange={handleInputChange}
                         required
-                        placeholder="https://..."
+                        placeholder="e.g. /api/images/... or https://..."
                         className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#B8860B] focus:bg-white transition-all text-slate-800 placeholder:text-slate-400"
                       />
                     </div>
