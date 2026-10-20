@@ -50,11 +50,16 @@ export function sanitizeHtml(html: string): string {
     }
 
     if (tag === "a") {
-      const hasHref = attrs.some((a) => a.startsWith("href="));
-      if (hasHref) {
-        const filtered = attrs.filter((a) => !a.startsWith("rel=") && !a.startsWith("target="));
-        filtered.push('target="_blank"', 'rel="noopener noreferrer nofollow"');
-        return `<a ${filtered.join(" ")}>`;
+      const hrefAttr = attrs.find((a) => a.startsWith("href="));
+      if (hrefAttr) {
+        const hrefVal = hrefAttr.slice(6, -1);
+        const isInternal = hrefVal.startsWith("/") || hrefVal.startsWith("#");
+        if (!isInternal) {
+          const filtered = attrs.filter((a) => !a.startsWith("rel=") && !a.startsWith("target="));
+          filtered.push('target="_blank"', 'rel="noopener noreferrer nofollow"');
+          return `<a ${filtered.join(" ")}>`;
+        }
+        return `<a ${attrs.join(" ")}>`;
       }
     }
 

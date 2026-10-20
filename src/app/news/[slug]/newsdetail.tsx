@@ -1,16 +1,20 @@
 'use client'
 import React, { useEffect, useState, useMemo, memo } from 'react';
 import Link from 'next/link';
+import BlogCompanyOverview from '@/components/BlogCompanyOverview';
 
-const FALLBACK_IMAGE = '/ashishbhay.png';
+const FALLBACK_IMAGE = '/legal_scales_hero.png';
+const FALLBACK_AVATAR = '/ashishbhay.png';
 
 const getValidImageSrc = (src: string | undefined | null): string =>
   !src || src.trim() === '' ? FALLBACK_IMAGE : src;
 
 const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-  const target = e.target as HTMLImageElement;
+  const target = e.currentTarget;
   if (!target.src.endsWith(FALLBACK_IMAGE)) {
     target.src = FALLBACK_IMAGE;
+  } else {
+    target.src = FALLBACK_AVATAR;
   }
 };
 
@@ -121,6 +125,21 @@ function TableOfContents({
     </div>
   );
 }
+
+// Popular legal topic interlinks
+const POPULAR_LEGAL_INTERLINKS = [
+  { label: "Cheque Bounce (Sec 138) Notice", href: "/cheque-bounce-legal-notice-section-138-guide" },
+  { label: "Draft Legal Notice Online", href: "/how-to-draft-legal-notice-india-guide" },
+  { label: "Homebuyer & RERA Delay Relief", href: "/homebuyer-rights-rera-builder-delay-remedies" },
+  { label: "Ready Legal Notice & Agreement Templates", href: "/drafts" },
+  { label: "Cyber Fraud & Online Scams Recourse", href: "/cyber-fraud-online-scams-legal-recourse" },
+  { label: "Property & Lease Dispute Remedies", href: "/property-dispute-resolution-india-legal-remedies" },
+  { label: "Mutual Consent Divorce Guide", href: "/how-to-file-divorce-india-legal-guide" },
+  { label: "Loan Recovery Harassment Protection", href: "/loan-app-debt-settlement-harassment-legal-help" },
+  { label: "Consumer Court Protection Guide", href: "/consumer-protection-ecommerce-defective-goods-guide" },
+  { label: "Senior Advocate Case Studies & Interviews", href: "/interviews" },
+  { label: "Ask a Verified Advocate Free", href: "/ask-me-anything" },
+];
 
 // Adds ids to h2/h3 headings and builds the table of contents
 const processContent = (html: string) => {
@@ -312,7 +331,7 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[176px_1fr_256px] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[176px_1fr_276px] gap-6 items-start">
           {/* Left Sidebar - TOC (Desktop) */}
           <div className="hidden lg:block sticky top-24">
             <TableOfContents sections={tocSections} activeId={activeId} onLinkClick={handleLinkClick} orientation="vertical" />
@@ -342,10 +361,38 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
                 .tiptap-content blockquote { border-left: 3px solid #D2A02A; padding-left: 1rem; font-style: italic; color: #475569; background: #fffaf0; padding: 1rem; border-radius: 0.5rem; }
                 .tiptap-content img { border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin: 1.5rem 0; max-width: 100%; height: auto; }
                 .tiptap-content a { color: #B8860B; text-decoration: underline; font-weight: 600; }
+                .tiptap-content a:hover { color: #8A6506; }
                 .tiptap-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9em; }
                 .tiptap-content th { background: #f8fafc; padding: 0.7rem; text-align: left; font-weight: 700; border: 1px solid #e2e8f0; color: #0f172a; }
                 .tiptap-content td { padding: 0.7rem; border: 1px solid #e2e8f0; color: #334155; }
               `}</style>
+
+              {/* Interlinked Legal Solutions & Media Mentions */}
+              <BlogCompanyOverview />
+
+              {/* Interlinked Popular Legal Guides & Resources */}
+              <div className="border-t border-slate-100 pt-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-base">🔍</span>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                    Related Legal Guides & Ready Resources
+                  </h3>
+                </div>
+                <div className="flex flex-wrap gap-2.5">
+                  {POPULAR_LEGAL_INTERLINKS.map((item, idx) => (
+                    <Link
+                      key={idx}
+                      href={item.href}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF6EC] hover:bg-[#F2E8D2] border border-[#E9DFCA] text-xs md:text-sm font-semibold text-[#413832] transition-colors group shadow-3xs"
+                    >
+                      <span>{item.label}</span>
+                      <svg className="w-3.5 h-3.5 text-[#B8860B] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </Link>
+                  ))}
+                </div>
+              </div>
 
               {/* Share Section */}
               <div className="border-t border-slate-100 pt-6 mt-6">
@@ -370,7 +417,7 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
             </div>
           </div>
 
-          {/* Right Sidebar - Publisher & Related News */}
+          {/* Right Sidebar - Publisher, Consultation Bridge & Related News */}
           <div className="space-y-6 lg:sticky lg:top-24">
             <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-3xs">
               <div className="flex items-center justify-between border-b border-slate-150 pb-1.5 mb-3">
@@ -378,14 +425,48 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
               </div>
               <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">{article.author || 'AMA Connect'}</h4>
               <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed mt-1.5">
-                Legal news desk at {article.source || 'AMA Connect'}. Reports are compiled from the cited sources.
+                Legal news desk at {article.source || 'AMA Connect'}. Reports are compiled from verified judicial cause lists and orders.
               </p>
               <Link
                 href="/news"
                 className="inline-flex items-center justify-center gap-1 w-full border border-slate-200 text-slate-700 hover:border-[#B8860B] hover:text-[#B8860B] text-center py-2 rounded-xl text-[10px] font-extrabold transition-all shadow-3xs mt-3"
               >
-                More legal news
+                Browse All News →
               </Link>
+            </div>
+
+            {/* Advocate Consultation & Assistance Card */}
+            <div className="bg-gradient-to-br from-[#2D2219] to-[#1E1711] text-white p-6 rounded-2xl border border-[#D4AF37]/30 shadow-md relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-[#B8860B]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#B8860B]/20 text-[#D4AF37] text-[9px] font-bold uppercase tracking-wider mb-3">
+                Advocate Desk
+              </div>
+              <h4 className="text-sm font-bold text-white leading-snug mb-2 font-playfair">
+                Need Legal Assistance on Similar Court Matters?
+              </h4>
+              <p className="text-[11px] text-gray-300 leading-relaxed mb-4">
+                Consult verified senior advocates for legal notices, High Court petitions, RERA cases, and commercial disputes.
+              </p>
+              <div className="space-y-2">
+                <Link
+                  href="/ask-me-anything"
+                  className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white text-xs font-bold hover:brightness-105 transition-all shadow-xs"
+                >
+                  Ask Legal Question Free
+                </Link>
+                <Link
+                  href="/drafts"
+                  className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all border border-white/10"
+                >
+                  Download Legal Notice Drafts
+                </Link>
+                <Link
+                  href="/interviews"
+                  className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-semibold transition-all"
+                >
+                  Read Lawyer Case Studies
+                </Link>
+              </div>
             </div>
 
             {relatedNews && relatedNews.length > 0 && (
@@ -403,7 +484,7 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
                           />
                           <img
                             src={getValidImageSrc(item.urlToImage)}
-                            alt=""
+                            alt={item.title}
                             className="relative z-10 max-w-full max-h-full h-full w-auto object-contain group-hover:scale-103 transition-transform duration-300"
                             onError={handleImageError}
                           />

@@ -20,6 +20,24 @@ interface NewsContentProps {
 }
 
 const DEFAULT_LEGAL_IMAGE = "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop";
+const FALLBACK_LOCAL_IMAGE = "/legal_scales_hero.png";
+const FALLBACK_AVATAR = "/ashishbhay.png";
+
+const getSafeImage = (src?: string | null): string => {
+  if (!src || !src.trim()) return DEFAULT_LEGAL_IMAGE;
+  return src.trim();
+};
+
+const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  const target = e.currentTarget;
+  if (!target.src.includes("images.unsplash.com")) {
+    target.src = DEFAULT_LEGAL_IMAGE;
+  } else if (!target.src.endsWith(FALLBACK_LOCAL_IMAGE)) {
+    target.src = FALLBACK_LOCAL_IMAGE;
+  } else {
+    target.src = FALLBACK_AVATAR;
+  }
+};
 
 const timeAgo = (dateStr: string) => {
   if (!dateStr) return "recently";
@@ -58,7 +76,6 @@ const formatNewsDate = (dateStr: string) => {
 export default function NewsContent({ initialArticles = [], initialHasMore = false }: NewsContentProps) {
   const [articles, setArticles] = useState<NewsArticle[]>(initialArticles);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [brokenImages, setBrokenImages] = useState<Record<number, boolean>>({});
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore);
@@ -122,10 +139,6 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
     }
   };
 
-  const handleImageError = (index: number) => {
-    setBrokenImages((prev) => ({ ...prev, [index]: true }));
-  };
-
   const topStory = articles.length > 0 ? articles[0] : null;
   const topStories = [
     ...(articles.length > 1 ? articles.slice(1, 4) : []),
@@ -169,22 +182,12 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                 href={topStory.slug ? `/news/${topStory.slug}` : (topStory.url || "#")}
                 target={topStory.slug ? undefined : "_blank"}
                 rel={topStory.slug ? undefined : "noopener noreferrer"}
-                className="block group relative w-full h-[400px] sm:h-[440px] rounded-2xl overflow-hidden mb-10 shadow-sm border border-[#E8E4DE] cursor-pointer"
+                className="block group relative w-full h-[400px] sm:h-[440px] rounded-2xl overflow-hidden mb-10 shadow-sm border border-[#E8E4DE] cursor-pointer bg-[#2D2219]"
               >
                 <img
-                  src={
-                    !brokenImages[0] && topStory.urlToImage
-                      ? topStory.urlToImage
-                      : DEFAULT_LEGAL_IMAGE
-                  }
+                  src={getSafeImage(topStory.urlToImage)}
                   alt={topStory.title}
-                  onError={(e) => {
-                    if (!brokenImages[0]) {
-                      handleImageError(0);
-                    } else {
-                      (e.target as HTMLImageElement).src = "/legal_scales_hero.png";
-                    }
-                  }}
+                  onError={handleImgError}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
@@ -230,16 +233,30 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                         className="group relative block w-full rounded-2xl overflow-hidden bg-white border border-[#E8E4DE] shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                       >
                         <div className="flex flex-col sm:flex-row items-stretch">
-                          {/* Left Date Column */}
-                          <div className="bg-[#FAF9F6] sm:w-[90px] p-4 flex sm:flex-col items-center justify-center border-b sm:border-b-0 sm:border-r border-[#E8E4DE] shrink-0 text-center gap-2 sm:gap-0">
+                          {/* Left Date Column (Desktop/Tablet) */}
+                          <div className="hidden sm:flex bg-[#FAF9F6] sm:w-[85px] p-4 flex-col items-center justify-center border-r border-[#E8E4DE] shrink-0 text-center">
                             <span className="text-2xl font-bold text-[#1E1E1E] leading-none">{day}</span>
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A227] sm:mt-1">{monthYear.split(" ")[0]}</span>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A227] mt-1">{monthYear.split(" ")[0]}</span>
+                          </div>
+
+                          {/* News Thumbnail Image */}
+                          <div className="w-full sm:w-[200px] md:w-[240px] h-[190px] sm:h-auto shrink-0 relative overflow-hidden bg-[#2D2219]/5 border-b sm:border-b-0 sm:border-r border-[#E8E4DE]">
+                            <img
+                              src={getSafeImage(story.urlToImage)}
+                              alt={story.title}
+                              onError={handleImgError}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            {/* Mobile Date Overlay */}
+                            <div className="sm:hidden absolute top-3 left-3 bg-black/75 backdrop-blur-xs text-white px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+                              <span>{day} {monthYear.split(" ")[0]}</span>
+                            </div>
                           </div>
 
                           {/* Content */}
-                          <div className="p-5 flex-1 flex flex-col justify-between">
+                          <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                             <div>
-                              <div className="flex items-center gap-2 mb-2">
+                              <div className="flex items-center gap-2 mb-2 flex-wrap">
                                 <span className="text-[10px] font-bold text-[#C9A227] uppercase tracking-wider bg-[#C9A227]/10 px-2 py-0.5 rounded">
                                   {story.source || "Legal Dispatch"}
                                 </span>
@@ -302,12 +319,20 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                         target={story.slug ? undefined : "_blank"}
                         rel={story.slug ? undefined : "noopener noreferrer"}
                         key={index}
-                        className="group flex gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0 cursor-pointer"
+                        className="group flex gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0 cursor-pointer items-start"
                       >
-                        <span className="text-xl font-bold text-[#C9A227] italic shrink-0 w-6 font-playfair">
+                        <span className="text-xl font-bold text-[#C9A227] italic shrink-0 w-6 font-playfair pt-1">
                           0{index + 1}
                         </span>
-                        <div>
+                        <div className="w-[74px] h-[54px] rounded-xl overflow-hidden shrink-0 bg-[#2D2219]/5 border border-[#E8E4DE] relative">
+                          <img
+                            src={getSafeImage(story.urlToImage)}
+                            alt={story.title}
+                            onError={handleImgError}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
                           <h4 className="text-xs sm:text-sm font-semibold text-[#1E1E1E] leading-snug group-hover:text-[#C9A227] transition-colors line-clamp-2">
                             {story.title}
                           </h4>
@@ -320,6 +345,34 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                   </div>
                 </div>
               )}
+
+              {/* ADVOCATE CONSULTATION INTERLINK BANNER */}
+              <div className="bg-gradient-to-br from-[#2D2219] to-[#1E1711] text-white p-6 rounded-2xl border border-[#D4AF37]/30 shadow-md relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[#B8860B]/10 rounded-full blur-2xl pointer-events-none" />
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8860B]/20 text-[#D4AF37] text-[9px] font-bold uppercase tracking-wider mb-3">
+                  Legal Consultation
+                </span>
+                <h4 className="text-sm font-bold text-white leading-snug mb-2 font-playfair">
+                  Have a Question on Court Orders or Rights?
+                </h4>
+                <p className="text-[11px] text-gray-300 leading-relaxed mb-4">
+                  Connect with verified legal counsel on AMA Connect for confidential advice.
+                </p>
+                <div className="space-y-2">
+                  <Link
+                    href="/ask-me-anything"
+                    className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white text-xs font-bold hover:brightness-105 transition-all shadow-xs"
+                  >
+                    Ask AMA (Free) →
+                  </Link>
+                  <Link
+                    href="/drafts"
+                    className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all border border-white/10"
+                  >
+                    Explore Ready Drafts →
+                  </Link>
+                </div>
+              </div>
 
               {/* KEY JUDGMENTS THIS WEEK */}
               <div className="bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs">

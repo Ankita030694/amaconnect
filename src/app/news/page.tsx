@@ -1,9 +1,10 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import Footer from "@/components/Footer";
 import LawyerFaqAccordion from "@/components/LawyerFaqAccordion";
 import NewsContent from "./NewsContent";
 import { getNewsFeed, NewsArticle } from "@/lib/newsService";
-import { Scale, Newspaper, Radio, Landmark, ShieldCheck, HelpCircle, FileText, CheckCircle2, Search } from "lucide-react";
+import { Scale, Newspaper, Radio, Landmark, ShieldCheck, HelpCircle, FileText, CheckCircle2, Search, ArrowRight } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -220,6 +221,115 @@ export default async function NewsPage() {
                   Consult daily supplementary and regular cause lists published on official High Court registries by 7:00 PM the preceding evening for item serial numbers.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* LEGAL SOLUTIONS & INTERLINKED RESOURCES SECTION */}
+        <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto w-full">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <span className="text-[#C9A227] text-xs font-bold uppercase tracking-widest">
+              LEGAL SERVICES & CITIZEN RESOURCES
+            </span>
+            <h2 className="font-playfair font-bold text-2xl sm:text-3xl text-[#1E1E1E] mt-2 mb-3">
+              Explore AMA Connect Legal Solutions & Practical Guides
+            </h2>
+            <p className="text-sm sm:text-base text-[#6B6560]">
+              From ready legal notice drafting and court petitions to free advocate consultations, access authoritative legal support.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            <Link
+              href="/drafts"
+              className="group bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs hover:shadow-md hover:border-[#C9A227] transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#C9A227]/10 flex items-center justify-center text-[#C9A227] mb-3">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h3 className="font-playfair font-bold text-base text-[#1E1E1E] group-hover:text-[#C9A227] transition-colors mb-2">
+                  Legal Notice & Agreement Templates
+                </h3>
+                <p className="text-xs text-[#6B6560] leading-relaxed">
+                  Download lawyer-drafted statutory notices, rent agreements, employment contracts, and Section 138 notices.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#C9A227]">
+                <span>Browse Catalog</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              href="/ask-me-anything"
+              className="group bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs hover:shadow-md hover:border-[#C9A227] transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#C9A227]/10 flex items-center justify-center text-[#C9A227] mb-3">
+                  <HelpCircle className="w-5 h-5" />
+                </div>
+                <h3 className="font-playfair font-bold text-base text-[#1E1E1E] group-hover:text-[#C9A227] transition-colors mb-2">
+                  Free Legal Advice (Ask AMA)
+                </h3>
+                <p className="text-xs text-[#6B6560] leading-relaxed">
+                  Post confidential queries regarding recovery harassment, property disputes, or criminal complaints and get answers.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#C9A227]">
+                <span>Consult an Advocate</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              href="/interviews"
+              className="group bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs hover:shadow-md hover:border-[#C9A227] transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#C9A227]/10 flex items-center justify-center text-[#C9A227] mb-3">
+                  <CheckCircle2 className="w-5 h-5" />
+                </div>
+                <h3 className="font-playfair font-bold text-base text-[#1E1E1E] group-hover:text-[#C9A227] transition-colors mb-2">
+                  Senior Lawyer Case Studies
+                </h3>
+                <p className="text-xs text-[#6B6560] leading-relaxed">
+                  Deep-dive interviews and practice frameworks from advocates handling trial court to Supreme Court litigation.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#C9A227]">
+                <span>Read Interviews</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          </div>
+
+          {/* Quick Pillar Links */}
+          <div className="bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#1E1E1E] mb-4">
+              Trending Practice Area Guides & Citizen Rights
+            </h4>
+            <div className="flex flex-wrap gap-2.5">
+              {[
+                { label: "Cheque Bounce (Sec 138) Notice", href: "/cheque-bounce-legal-notice-section-138-guide" },
+                { label: "RERA Delayed Possession Relief", href: "/homebuyer-rights-rera-builder-delay-remedies" },
+                { label: "Drafting a Legal Notice", href: "/how-to-draft-legal-notice-india-guide" },
+                { label: "Cyber Fraud & Financial Scams Recourse", href: "/cyber-fraud-online-scams-legal-recourse" },
+                { label: "Property Partition & Boundary Disputes", href: "/property-dispute-resolution-india-legal-remedies" },
+                { label: "Mutual Consent Divorce & Alimony", href: "/how-to-file-divorce-india-legal-guide" },
+                { label: "Loan Recovery Harassment Protection", href: "/loan-app-debt-settlement-harassment-legal-help" },
+                { label: "Consumer Protection & Defective Products", href: "/consumer-protection-ecommerce-defective-goods-guide" },
+                { label: "Startup Incorporation & Shareholder Disputes", href: "/startup-registration-incorporation-india-guide" }
+              ].map((item, i) => (
+                <Link
+                  key={i}
+                  href={item.href}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF9F6] hover:bg-[#F2E8D2] border border-[#E8E4DE] text-xs font-medium text-[#1E1E1E] hover:text-[#C9A227] transition-all shadow-3xs"
+                >
+                  <span>{item.label}</span>
+                  <ArrowRight className="w-3 h-3 text-[#C9A227]" />
+                </Link>
+              ))}
             </div>
           </div>
         </section>

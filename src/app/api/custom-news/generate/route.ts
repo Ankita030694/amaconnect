@@ -201,6 +201,21 @@ STRICT GROUNDING RULES:
 - If the source material does not describe a real, specific news event, return {"insufficient": true, "reason": "..."} and nothing else.
 - Write in a neutral news style, inverted-pyramid structure: the most important facts first, then details, then context only if it is in the source. Attribute claims ("the Court observed", "according to LiveLaw").
 
+CONTEXTUAL INTERNAL LINKING:
+If the news context naturally discusses legal remedies, notices, court procedures, contracts, arbitration, debt/recovery, cyber scams, property/RERA issues, family law, or consulting lawyers, seamlessly embed 1 to 2 contextual internal links to relevant AMA Connect resources using natural anchor text:
+- <a href="/drafts">legal notice and agreement templates</a>
+- <a href="/ask-me-anything">consult an expert advocate on AMA Connect</a>
+- <a href="/interviews">advocate case studies and interviews</a>
+- <a href="/how-to-draft-legal-notice-india-guide">legal notice drafting guide</a>
+- <a href="/cheque-bounce-legal-notice-section-138-guide">cheque bounce Section 138 procedure</a>
+- <a href="/homebuyer-rights-rera-builder-delay-remedies">RERA homebuyer legal remedies</a>
+- <a href="/property-dispute-resolution-india-legal-remedies">property dispute legal strategies</a>
+- <a href="/cyber-fraud-online-scams-legal-recourse">cyber fraud legal remedies</a>
+- <a href="/loan-app-debt-settlement-harassment-legal-help">relief against recovery harassment</a>
+- <a href="/consumer-protection-ecommerce-defective-goods-guide">consumer protection complaint guide</a>
+- <a href="/how-to-file-divorce-india-legal-guide">mutual consent divorce legal process</a>
+Only include an internal link if it naturally and contextually fits the topic of the news article. Do not force unrelated links.
+
 FORMAT:
 - Body in HTML using only <h2>, <h3>, <p>, <ul>, <li>, <ol>, <strong>, <em>, <blockquote>. No markdown, no wrapping <div>, no <h1>, no "Sources" section (added automatically).
 - Never use em dashes. Use hyphens, colons or commas.
