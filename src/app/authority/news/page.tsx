@@ -175,25 +175,26 @@ export default function CustomNewsDashboard() {
       return;
     }
 
+    let interval: ReturnType<typeof setInterval> | undefined;
     try {
       setIsGenerating(true);
       
       const steps = [
-        "Analyzing context...",
-        "Drafting journalistic headline...",
-        "Writing detailed news article...",
+        "Reading sources / searching real news reports...",
+        "Verifying facts against the sources...",
+        "Writing the news report from the facts...",
         "Formatting outputs..."
       ];
 
       let currentStepIdx = 0;
       setGenerationStep(steps[0]);
       
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         if (currentStepIdx < steps.length - 1) {
           currentStepIdx++;
           setGenerationStep(steps[currentStepIdx]);
         }
-      }, 4000);
+      }, 8000);
 
       const res = await fetch("/api/custom-news/generate", {
         method: "POST",
@@ -203,10 +204,8 @@ export default function CustomNewsDashboard() {
         body: JSON.stringify({ writeup: writeupInput }),
       });
 
-      clearInterval(interval);
-
       if (!res.ok) {
-        const errData = await res.json();
+        const errData = await res.json().catch(() => ({}));
         throw new Error(errData.error || "Failed to generate news content.");
       }
 
@@ -222,12 +221,18 @@ export default function CustomNewsDashboard() {
       setNewsType('internal');
       setWriteupInput('');
       
-      alert("AI News generated successfully! Please review before saving.");
+      const sourceCount = Array.isArray(generated.sources) ? generated.sources.length : 0;
+      alert(
+        `News draft generated from ${generated.mode === 'researched' ? 'real news reports found online' : 'the text/links you provided'}` +
+        `${sourceCount ? ` (${sourceCount} source${sourceCount > 1 ? 's' : ''} linked at the bottom)` : ''}. ` +
+        `Please fact-check it against the sources before saving.`
+      );
       
     } catch (err: any) {
       console.error("AI Generation Error:", err);
       alert(err.message || "Something went wrong during generation.");
     } finally {
+      if (interval) clearInterval(interval);
       setIsGenerating(false);
     }
   };
@@ -583,7 +588,7 @@ export default function CustomNewsDashboard() {
                           AI News Auto-Generator (ChatGPT)
                         </h3>
                         <p className="text-slate-500 text-[11px] mt-0.5 leading-relaxed normal-case">
-                          Paste the raw news writeup, notes, or topic below. ChatGPT will automatically draft the title, summary, slug, and a detailed news article.
+                          Paste the actual article text and/or a news link, or just a headline/topic. ChatGPT only reports facts from your text, the linked pages, or real news reports it finds online (with sources). It will not invent details.
                         </p>
                       </div>
                     </div>
@@ -593,7 +598,7 @@ export default function CustomNewsDashboard() {
                     <textarea
                       value={writeupInput}
                       onChange={(e) => setWriteupInput(e.target.value)}
-                      placeholder="E.g. Supreme Court ruled today that right to privacy is a fundamental right. Include details about Justice KS Puttaswamy..."
+                      placeholder="Paste the news article text and/or its link (https://...), or enter a specific headline to research, e.g. 'Supreme Court verdict on ...'"
                       className="w-full bg-white border border-amber-200/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/20 transition-all text-slate-800 placeholder:text-slate-400 min-h-[100px] resize-y shadow-inner shadow-slate-50/50"
                     />
                     
