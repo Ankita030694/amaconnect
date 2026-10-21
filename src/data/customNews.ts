@@ -19,7 +19,7 @@ export const customNews: CustomNewsArticle[] = [
     urlToImage: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop",
     publishedAt: new Date().toISOString(),
     source: "AMA Connect Press",
-    author: "Admin",
+    author: "Vanshika Dhiman",
     categories: ["All", "Corporate"]
   }
 ];

@@ -65,7 +65,7 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
   const actualFeaturedIndex = 0;
 
   const featuredStory = sortedInterviews[actualFeaturedIndex];
-  const sidebarStories = sortedInterviews.filter((_, index) => index !== actualFeaturedIndex).slice(0, 3); // top 3 for the right sidebar
+  const sidebarStories = sortedInterviews.filter((_, index) => index !== actualFeaturedIndex);
 
   const featuredImage = featuredStory.image || "/man.png";
   // We removed the manual ?w=800 hack because we are letting Next.js optimize it now.
@@ -80,7 +80,7 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
             <div className="flex items-center justify-center w-full mb-4 sm:mb-5">
               <h3 className="text-xl sm:text-2xl font-extrabold text-[#2D2219] tracking-wide uppercase">Featured Interview</h3>
             </div>
-            <div className="bg-[#0a0a0a] rounded-3xl overflow-hidden flex flex-col relative group shadow-2xl flex-1 border border-gray-800">
+            <div className="bg-[#0a0a0a] rounded-3xl overflow-hidden flex flex-col relative group shadow-2xl flex-1 border border-gray-800 min-h-[380px] sm:min-h-[460px] lg:min-h-[500px]">
               {/* Full Background Image */}
               <div className="relative md:absolute inset-0 z-0 w-full aspect-video md:aspect-auto md:h-full shrink-0">
                 <Image
@@ -137,23 +137,25 @@ export default function HeroFeatured({ initialInterviews = [] }: { initialInterv
           </div>
         )}
 
-        {/* Right: More Interviews List (Bento Grid Embedded) */}
-        <div className="lg:col-span-5 flex flex-col h-auto lg:h-[380px] xl:h-auto">
-          <div className="flex items-center justify-between w-full mb-4 sm:mb-5">
-            <h3 className="text-xl sm:text-2xl font-extrabold text-[#2D2219] tracking-wide uppercase">More Interviews</h3>
-            <Link href="/interviews" className="text-sm font-bold text-[#D4AF37] hover:text-[#B8860B] transition-colors flex items-center gap-1">
-              View All <ArrowRight className="w-4 h-4" />
-            </Link>
+        {/* Right: More Interviews List (Bento Grid Embedded Auto-scrolling) */}
+        <div className="lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between w-full mb-3 sm:mb-4">
+              <h3 className="text-xl sm:text-2xl font-extrabold text-[#2D2219] tracking-wide uppercase">More Interviews</h3>
+              <Link href="/interviews" className="text-sm font-bold text-[#D4AF37] hover:text-[#B8860B] transition-colors flex items-center gap-1">
+                View All <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <BentoInterviewsGrid interviews={sidebarStories} theme="light" embedded={true} autoScroll={true} />
           </div>
-          <BentoInterviewsGrid interviews={sidebarStories} theme="light" embedded={true} />
 
-          {/* View More Button */}
-          <div className="mt-5 w-full flex justify-center sm:justify-start">
+          {/* Suggest an Interview Button */}
+          <div className="mt-4 w-full flex justify-center sm:justify-start">
             <Link
-              href="/interviews"
-              className="inline-flex items-center justify-center px-6 py-3 bg-[#5A4C33] text-[#F5F2EB] text-[13px] sm:text-sm font-extrabold rounded-xl shadow-xs hover:bg-[#4A3C23] active:scale-95 transition-all cursor-pointer w-full sm:w-auto"
+              href="/contact?reason=Suggest%20a%20Professional%20Interview"
+              className="inline-flex items-center justify-center px-6 py-2.5 bg-[#5A4C33] text-[#F5F2EB] text-[13px] sm:text-sm font-extrabold rounded-xl shadow-xs hover:bg-[#4A3C23] active:scale-95 transition-all cursor-pointer w-full sm:w-auto"
             >
-              <span>View More Interviews</span>
+              <span>Suggest an Interview</span>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </div>

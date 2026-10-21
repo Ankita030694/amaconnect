@@ -131,7 +131,6 @@ const POPULAR_LEGAL_INTERLINKS = [
   { label: "Cheque Bounce (Sec 138) Notice", href: "/cheque-bounce-legal-notice-section-138-guide" },
   { label: "Draft Legal Notice Online", href: "/how-to-draft-legal-notice-india-guide" },
   { label: "Homebuyer & RERA Delay Relief", href: "/homebuyer-rights-rera-builder-delay-remedies" },
-  { label: "Ready Legal Notice & Agreement Templates", href: "/drafts" },
   { label: "Cyber Fraud & Online Scams Recourse", href: "/cyber-fraud-online-scams-legal-recourse" },
   { label: "Property & Lease Dispute Remedies", href: "/property-dispute-resolution-india-legal-remedies" },
   { label: "Mutual Consent Divorce Guide", href: "/how-to-file-divorce-india-legal-guide" },
@@ -455,14 +454,8 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
                   Ask Legal Question Free
                 </Link>
                 <Link
-                  href="/drafts"
-                  className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all border border-white/10"
-                >
-                  Download Legal Notice Drafts
-                </Link>
-                <Link
                   href="/interviews"
-                  className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-semibold transition-all"
+                  className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all border border-white/10"
                 >
                   Read Lawyer Case Studies
                 </Link>

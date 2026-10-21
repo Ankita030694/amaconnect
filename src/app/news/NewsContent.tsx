@@ -150,7 +150,7 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 w-full pt-4 pb-12">
       {/* CATEGORY FILTER PILLS */}
       <div className="flex flex-row gap-[10px] overflow-x-auto pb-4 mb-8 no-scrollbar">
-        {["All", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"].map(cat => (
+        {["All", "Legal Updates", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"].map(cat => (
           <button 
             key={cat} 
             onClick={() => setActiveCategory(cat)}
@@ -366,10 +366,10 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                     Ask AMA (Free) →
                   </Link>
                   <Link
-                    href="/drafts"
+                    href="/interviews"
                     className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all border border-white/10"
                   >
-                    Explore Ready Drafts →
+                    Explore Lawyer Case Studies →
                   </Link>
                 </div>
               </div>

@@ -51,7 +51,7 @@ const getInterviews = async () => {
       .select("-description -faqs -reviews")
       .lean();
 
-    const limit = featured ? 9 : 10;
+    const limit = featured ? 18 : 19;
     const query = featured ? { _id: { $ne: featured._id } } : {};
 
     const latest = await LawyerInterviewModel.find(query)

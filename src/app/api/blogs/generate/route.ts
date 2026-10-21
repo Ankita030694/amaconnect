@@ -229,7 +229,6 @@ INSTRUCTIONS FOR DEPTH, RESEARCH & FACTUAL ACCURACY:
 
 4. **CONTEXTUAL INTERNAL LINKING (MANDATORY)**:
    You MUST naturally embed 1 to 2 contextual internal links inside this section to relevant AMA Connect resources using descriptive, natural anchor text:
-   - <a href="/drafts">explore ready-to-use legal notice templates</a>
    - <a href="/ask-me-anything">consult an expert advocate on AMA Connect</a>
    - <a href="/loan-app-debt-settlement-harassment-legal-help">legal protection against recovery harassment</a>
    - <a href="/cheque-bounce-legal-notice-section-138-guide">step-by-step cheque bounce legal notice procedure</a>

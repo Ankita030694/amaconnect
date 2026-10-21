@@ -764,7 +764,7 @@ const BlogDetail = memo(function BlogDetail({ blog, relatedBlogs }: BlogDetailPr
                       } else if (lower.includes("rera") || lower.includes("builder delay") || lower.includes("delayed possession")) {
                         targetHref = "/homebuyer-rights-rera-builder-delay-remedies";
                       } else if (lower.includes("draft") || lower.includes("template") || lower.includes("agreement")) {
-                        targetHref = "/drafts";
+                        targetHref = "/how-to-draft-legal-notice-india-guide";
                       } else if (lower.includes("legal notice") && !lower.includes("lawyer")) {
                         targetHref = "/how-to-draft-legal-notice-india-guide";
                       } else if (lower.includes("divorce") || lower.includes("custody")) {

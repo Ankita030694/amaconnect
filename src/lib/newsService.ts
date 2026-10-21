@@ -24,6 +24,7 @@ export const DEFAULT_LEGAL_IMAGE = "https://images.unsplash.com/photo-1589829085
 
 const CATEGORY_KEYWORDS: Record<string, string[]> = {
   "All": ["supreme court", "high court", "district court", "law", "legal", "legislation", "court", "judge", "justice", "tribunal", "nclt"],
+  "Legal Updates": ["legal update", "law update", "update", "amendment", "statutory", "notification", "guidelines", "guideline", "circular", "ordinance", "rule", "bar council", "regulatory", "compliance", "law commission", "ruling", "gazette", "bench", "verdict", "order"],
   "Supreme Court": ["supreme court", "sc", "cji"],
   "High Court": ["high court", "hc"],
   "Legislation": ["legislation", "parliament", "bill", "act", "amendment", "statute"],
@@ -89,44 +90,74 @@ export function getFallbackArticles(): NewsArticle[] {
   ];
 }
 
-function mergeNewsFeed(customNews: any[], externalNews: NewsArticle[]): NewsArticle[] {
-  const pinnedNews = customNews.filter(n => n.isPinned);
-  const unpinnedNews = customNews.filter(n => !n.isPinned);
-  
-  const sanitizedUnpinned: NewsArticle[] = unpinnedNews.map((n: any) => ({
-    title: n.title,
-    description: n.description || "",
-    url: n.url || "",
-    urlToImage: n.urlToImage || DEFAULT_LEGAL_IMAGE,
-    publishedAt: n.createdAt ? new Date(n.createdAt).toISOString() : new Date().toISOString(),
-    source: n.source || "AMA Dispatch",
-    author: n.author || "Legal Reporter",
-    slug: n.slug || "",
-    isPinned: false
-  }));
+function mergeAndSortNewsFeed(customNews: any[], externalNews: NewsArticle[]): NewsArticle[] {
+  const sanitize = (n: any, isPinned: boolean): NewsArticle => {
+    let pubDate = n.publishedAt;
+    if (pubDate) {
+      const d = new Date(pubDate);
+      if (!isNaN(d.getTime())) {
+        pubDate = d.toISOString();
+      } else if (n.createdAt) {
+        pubDate = new Date(n.createdAt).toISOString();
+      } else {
+        pubDate = new Date().toISOString();
+      }
+    } else if (n.createdAt) {
+      pubDate = new Date(n.createdAt).toISOString();
+    } else {
+      pubDate = new Date().toISOString();
+    }
 
-  const sanitizedPinned: NewsArticle[] = pinnedNews.map((n: any) => ({
-    title: n.title,
-    description: n.description || "",
-    url: n.url || "",
-    urlToImage: n.urlToImage || DEFAULT_LEGAL_IMAGE,
-    publishedAt: n.createdAt ? new Date(n.createdAt).toISOString() : new Date().toISOString(),
-    source: n.source || "AMA Dispatch",
-    author: n.author || "Legal Reporter",
-    slug: n.slug || "",
-    isPinned: true,
-    order: n.order || 1
-  }));
+    return {
+      title: n.title,
+      description: n.description || "",
+      url: n.url || "",
+      urlToImage: n.urlToImage || DEFAULT_LEGAL_IMAGE,
+      publishedAt: pubDate,
+      source: n.source || "AMA Dispatch",
+      author: n.author || "Legal Reporter",
+      slug: n.slug || "",
+      isPinned,
+      order: typeof n.order === "number" ? n.order : 1
+    };
+  };
 
-  const combined = [...sanitizedUnpinned, ...externalNews];
-  
-  // Insert pinned news at exact requested indices (1-indexed)
-  sanitizedPinned.forEach(article => {
-    const targetIndex = Math.max(0, (article.order || 1) - 1);
-    combined.splice(targetIndex, 0, article);
+  const pinnedCustom = customNews.filter(n => n.isPinned).map(n => sanitize(n, true));
+  const unpinnedCustom = customNews.filter(n => !n.isPinned).map(n => sanitize(n, false));
+
+  // Combine unpinned custom news from DB and external NewsAPI news
+  const unpinnedCombined = [...unpinnedCustom, ...externalNews];
+
+  // Deduplicate articles by slug or title
+  const seen = new Set<string>();
+  for (const p of pinnedCustom) {
+    const k = (p.slug || p.title || "").toLowerCase().trim();
+    if (k) seen.add(k);
+  }
+
+  const uniqueUnpinned: NewsArticle[] = [];
+  for (const art of unpinnedCombined) {
+    const key = (art.slug || art.title || "").toLowerCase().trim();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    uniqueUnpinned.push(art);
+  }
+
+  // Sort all unpinned articles (DB news + API news mixed) strictly by publishedAt descending (newest first)
+  uniqueUnpinned.sort((a, b) => {
+    const timeA = new Date(a.publishedAt).getTime() || 0;
+    const timeB = new Date(b.publishedAt).getTime() || 0;
+    return timeB - timeA;
   });
-  
-  return combined;
+
+  // Keep pinned feature as it was: insert pinned news at exact requested indices (1-indexed order)
+  const finalArticles = [...uniqueUnpinned];
+  pinnedCustom.forEach(article => {
+    const targetIndex = Math.max(0, (article.order || 1) - 1);
+    finalArticles.splice(targetIndex, 0, article);
+  });
+
+  return finalArticles;
 }
 
 export async function getNewsFeed({
@@ -154,19 +185,27 @@ export async function getNewsFeed({
 
   // Filter custom news by category
   const filteredCustomNews = customNewsArticles.filter(news => {
-    if (!news.categories || news.categories.length === 0) return true;
-    return news.categories.includes("All") || news.categories.includes(category);
+    if (category === "All") return true;
+    if (news.categories && news.categories.includes(category)) return true;
+    const titleLower = (news.title || "").toLowerCase();
+    const descLower = (news.description || "").toLowerCase();
+    const keywords = CATEGORY_KEYWORDS[category] || [];
+    return keywords.some(k => titleLower.includes(k) || descLower.includes(k));
   });
 
   // If there's no API key, serve from static fallbacks
   if (!apiKey) {
-    const fallbackArticles = getFallbackArticles();
-    let combinedFallback: NewsArticle[] = [];
-    if (page === 1) {
-      combinedFallback = mergeNewsFeed(filteredCustomNews, fallbackArticles);
-    } else {
-      combinedFallback = fallbackArticles;
-    }
+    const rawFallback = getFallbackArticles();
+    const relevantKeywords = CATEGORY_KEYWORDS[category] || CATEGORY_KEYWORDS["All"];
+    const filteredFallback = category === "All"
+      ? rawFallback
+      : rawFallback.filter(art => {
+          const t = art.title.toLowerCase();
+          const d = art.description.toLowerCase();
+          return relevantKeywords.some(w => t.includes(w) || d.includes(w));
+        });
+    const fallbackArticles = filteredFallback.length > 0 ? filteredFallback : rawFallback;
+    const combinedFallback = mergeAndSortNewsFeed(filteredCustomNews, fallbackArticles);
 
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
@@ -188,6 +227,7 @@ export async function getNewsFeed({
       let queryStr = '("Supreme Court" OR "High Court" OR "District Court" OR "Law") AND India -Bollywood -cricket -sports -entertainment -movie -actor -actress -match -game -film -celeb';
       
       if (category === "Supreme Court") queryStr = '"Supreme Court" AND India -Bollywood -cricket -sports';
+      else if (category === "Legal Updates") queryStr = '("Legal Updates" OR "Legal Update" OR "Law Amendment" OR "Statutory Notification" OR "Bar Council" OR "Regulatory Update" OR "Court Order" OR "Judicial Order") AND India -Bollywood -cricket -sports';
       else if (category === "High Court") queryStr = '"High Court" AND India -Bollywood -cricket -sports';
       else if (category === "Legislation") queryStr = '("Legislation" OR "Parliament" OR "Bill" OR "Act") AND Law AND India -Bollywood -cricket -sports';
       else if (category === "Corporate") queryStr = '("Corporate Law" OR "NCLT" OR "NCLAT" OR "Company Law" OR "Insolvency") AND India -Bollywood -cricket -sports';
@@ -256,15 +296,6 @@ export async function getNewsFeed({
           });
 
         if (validArticles.length > 0) {
-          // Shift all articles' publication dates forward so the newest matches "now"
-          const firstArticleTime = new Date(validArticles[0].publishedAt).getTime();
-          const timeDiff = now - firstArticleTime;
-          if (timeDiff > 0) {
-            validArticles.forEach((art: any) => {
-              const originalTime = new Date(art.publishedAt).getTime();
-              art.publishedAt = new Date(originalTime + timeDiff).toISOString();
-            });
-          }
           cachedArticles[category] = validArticles;
           lastFetchedTime[category] = now;
           articlesToUse = validArticles;
@@ -277,13 +308,17 @@ export async function getNewsFeed({
 
   // Fallback if NewsAPI failed and there are no cached articles
   if (!articlesToUse || articlesToUse.length === 0) {
-    const fallbackArticles = getFallbackArticles();
-    let combinedFallback: NewsArticle[] = [];
-    if (page === 1) {
-      combinedFallback = mergeNewsFeed(filteredCustomNews, fallbackArticles);
-    } else {
-      combinedFallback = fallbackArticles;
-    }
+    const rawFallback = getFallbackArticles();
+    const relevantKeywords = CATEGORY_KEYWORDS[category] || CATEGORY_KEYWORDS["All"];
+    const filteredFallback = category === "All"
+      ? rawFallback
+      : rawFallback.filter(art => {
+          const t = art.title.toLowerCase();
+          const d = art.description.toLowerCase();
+          return relevantKeywords.some(w => t.includes(w) || d.includes(w));
+        });
+    const fallbackArticles = filteredFallback.length > 0 ? filteredFallback : rawFallback;
+    const combinedFallback = mergeAndSortNewsFeed(filteredCustomNews, fallbackArticles);
 
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
@@ -295,13 +330,8 @@ export async function getNewsFeed({
     };
   }
 
-  // Combine custom news with fetched news
-  let combinedArticles: NewsArticle[] = [];
-  if (page === 1) {
-    combinedArticles = mergeNewsFeed(filteredCustomNews, articlesToUse);
-  } else {
-    combinedArticles = articlesToUse;
-  }
+  // Combine custom news from DB and fetched news, mixed and sorted by date
+  const combinedArticles = mergeAndSortNewsFeed(filteredCustomNews, articlesToUse);
 
   const start = (page - 1) * pageSize;
   const end = start + pageSize;

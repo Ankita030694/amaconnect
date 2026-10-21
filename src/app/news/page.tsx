@@ -241,7 +241,7 @@ export default async function NewsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             <Link
-              href="/drafts"
+              href="/how-to-draft-legal-notice-india-guide"
               className="group bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs hover:shadow-md hover:border-[#C9A227] transition-all flex flex-col justify-between"
             >
               <div>
@@ -249,14 +249,14 @@ export default async function NewsPage() {
                   <FileText className="w-5 h-5" />
                 </div>
                 <h3 className="font-playfair font-bold text-base text-[#1E1E1E] group-hover:text-[#C9A227] transition-colors mb-2">
-                  Legal Notice & Agreement Templates
+                  Legal Notice Drafting Guides
                 </h3>
                 <p className="text-xs text-[#6B6560] leading-relaxed">
-                  Download lawyer-drafted statutory notices, rent agreements, employment contracts, and Section 138 notices.
+                  Step-by-step advocate guides for statutory demand notices, rent agreements, employment contracts, and Section 138 notices.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#C9A227]">
-                <span>Browse Catalog</span>
+                <span>Read Drafting Guide</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>

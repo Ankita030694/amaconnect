@@ -204,7 +204,6 @@ STRICT GROUNDING RULES:
 
 CONTEXTUAL INTERNAL LINKING (MANDATORY):
 You MUST naturally embed 1 to 2 contextual internal links inside the article paragraphs to relevant AMA Connect legal resources and guides using natural anchor text:
-- <a href="/drafts">explore ready-to-use legal notice templates</a>
 - <a href="/ask-me-anything">consult an expert advocate on AMA Connect</a>
 - <a href="/interviews">interviews with senior Indian advocates</a>
 - <a href="/how-to-draft-legal-notice-india-guide">comprehensive legal notice drafting guide</a>

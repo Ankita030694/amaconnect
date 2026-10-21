@@ -40,11 +40,9 @@ const gridConfigFull = [
 ];
 
 const gridConfigEmbedded = [
-  { grid: "col-span-2 md:col-span-2 lg:col-span-2 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse sm:flex-row", textClass: "flex-1 sm:h-full sm:w-[60%]", imageClass: "h-[140px] sm:h-full sm:w-[40%]" },
-  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[140px]", isCompact: true },
-  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[140px]", isCompact: true },
-  { grid: "col-span-2 md:col-span-2 lg:col-span-2 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse sm:flex-row", textClass: "flex-1 sm:h-full sm:w-[60%]", imageClass: "h-[140px] sm:h-full sm:w-[40%]" },
-  { grid: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1 min-h-[150px] sm:min-h-[170px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[140px]", isCompact: true }
+  { grid: "col-span-2 row-span-1 min-h-[150px] sm:min-h-[165px]", flex: "flex-col-reverse sm:flex-row", textClass: "flex-1 sm:h-full sm:w-[60%]", imageClass: "h-[140px] sm:h-full sm:w-[40%]" },
+  { grid: "col-span-1 row-span-1 min-h-[150px] sm:min-h-[165px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[135px] sm:h-[145px]", isCompact: true },
+  { grid: "col-span-1 row-span-1 min-h-[150px] sm:min-h-[165px]", flex: "flex-col-reverse", textClass: "flex-1", imageClass: "h-[135px] sm:h-[145px]", isCompact: true }
 ];
 
 const formatDate = (dateStr: string) => {
@@ -71,11 +69,160 @@ const getOptimizedImageSrc = (src: string | undefined | null, width: number, fal
   return src;
 };
 
-export default function BentoInterviewsGrid({ interviews, theme = "dark", embedded = false, excludeFirstOnEmptySearch = false }: { interviews: any[], theme?: "dark" | "light", embedded?: boolean, excludeFirstOnEmptySearch?: boolean }) {
+export default function BentoInterviewsGrid({
+  interviews,
+  theme = "dark",
+  embedded = false,
+  autoScroll = false,
+  excludeFirstOnEmptySearch = false
+}: {
+  interviews: any[];
+  theme?: "dark" | "light";
+  embedded?: boolean;
+  autoScroll?: boolean;
+  excludeFirstOnEmptySearch?: boolean;
+}) {
   const [visibleCount, setVisibleCount] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
 
   if (!interviews || interviews.length === 0) return null;
+
+  // Auto-scrolling Vertical Marquee for embedded Hero section
+  if (embedded && autoScroll) {
+    let baseList = [...interviews];
+    if (baseList.length === 0) return null;
+
+    // Align to multiple of 3 so rows always pack symmetrically (1 wide, 2 half)
+    if (baseList.length >= 3) {
+      const rem = baseList.length % 3;
+      if (rem !== 0) {
+        baseList = baseList.slice(0, baseList.length - rem);
+      }
+    }
+
+    // Ensure at least 6 cards for seamless looping
+    while (baseList.length < 6 && baseList.length > 0) {
+      baseList = [...baseList, ...baseList];
+    }
+
+    const marqueeCards = [...baseList, ...baseList];
+    const duration = Math.max(22, Math.round(baseList.length * 3.2));
+
+    return (
+      <div className="w-full relative">
+        <style>{`
+          @keyframes verticalInterviewsScroll {
+            0% {
+              transform: translate3d(0, 0, 0);
+            }
+            100% {
+              transform: translate3d(0, -50%, 0);
+            }
+          }
+          .animate-vertical-interviews {
+            animation: verticalInterviewsScroll ${duration}s linear infinite;
+            will-change: transform;
+          }
+          .animate-vertical-interviews:hover {
+            animation-play-state: paused !important;
+          }
+        `}</style>
+
+        <div
+          className="group relative overflow-hidden w-full h-[460px] sm:h-[480px] lg:h-[500px] rounded-3xl"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={() => setIsHovered(true)}
+          onTouchEnd={() => setIsHovered(false)}
+        >
+          {/* Scrolling Grid */}
+          <div
+            className="animate-vertical-interviews group-hover:[animation-play-state:paused] grid grid-cols-2 gap-3 sm:gap-4 w-full"
+            style={{
+              animationPlayState: isHovered ? "paused" : undefined,
+            }}
+          >
+            {marqueeCards.map((card: any, idx: number) => {
+              const assignedConfig = gridConfigEmbedded[idx % gridConfigEmbedded.length];
+              const isCompact = assignedConfig.isCompact;
+              const cardKey = `scroll-${card._id || card.slug || idx}-${idx}`;
+
+              return (
+                <div key={cardKey} className={assignedConfig.grid}>
+                  <Link
+                    href={`/interviews/${card.slug}`}
+                    className={`flex ${assignedConfig.flex} relative w-full h-full overflow-hidden border border-[#3A3530] hover:border-[#C9A227] hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(201,162,39,0.15)] transition-all duration-300 ease-out group/card rounded-3xl bg-[#1E1C19]`}
+                  >
+                    {/* Text Content */}
+                    <div className={`flex flex-col justify-start shrink-0 ${assignedConfig.textClass || "flex-1"} p-3.5 sm:p-4 relative z-10 bg-[#1E1C19]`}>
+                      <div className="flex flex-col relative z-10 w-full h-full justify-start">
+                        <div className={`flex items-center gap-1.5 sm:gap-2 ${isCompact ? "mb-1 sm:mb-1.5" : "mb-1.5 sm:mb-2"} flex-wrap`}>
+                          <span className="font-sans text-[#C9A227] text-[9px] sm:text-[10px] font-bold tracking-[0.15em] uppercase border border-[#C9A227] bg-[#1E1C19] px-1.5 py-0.5 rounded-sm shrink-0">
+                            INTERVIEW
+                          </span>
+                          <span className="font-sans text-[#9C958C] text-[10px] sm:text-[11px] shrink-0">
+                            {formatDate(card.date)}
+                          </span>
+                        </div>
+
+                        <h3 className="font-serif italic font-semibold text-[15px] sm:text-[17px] lg:text-[18px] text-[#C9A227] truncate shrink-0 w-full mb-0.5">
+                          {card.lawyer}
+                        </h3>
+
+                        {(() => {
+                          const displayDesignation = card.designation || card.lawyerBio;
+                          if (!displayDesignation && !card.companyName) return null;
+                          return (
+                            <div className="flex flex-wrap items-center gap-1.5 mb-1.5 mt-0.5">
+                              {displayDesignation && (
+                                <span className="inline-flex px-1.5 py-0.5 bg-[#C9A227]/10 border border-[#C9A227]/30 text-[#C9A227] text-[7.5px] sm:text-[8.5px] font-extrabold uppercase tracking-widest rounded">
+                                  {displayDesignation}
+                                </span>
+                              )}
+                              {card.companyName && (
+                                <span className="text-[#A39E98] text-[8.5px] sm:text-[9.5px] font-bold uppercase tracking-wide truncate max-w-[140px]">
+                                  @ {card.companyName}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })()}
+
+                        <p className={`font-sans text-[#F5F3EE] text-[11px] sm:text-[12px] font-medium ${isCompact ? "line-clamp-1" : "line-clamp-2"} leading-snug shrink-0 w-full mt-0.5`}>
+                          {card.title}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Image Section */}
+                    <div className={`relative shrink-0 bg-black overflow-hidden flex items-center justify-center border-white/5 ${assignedConfig.imageClass || "flex-1 min-h-[120px]"}`}>
+                      <div className="absolute inset-0 z-0">
+                        <Image
+                          src={getOptimizedImageSrc(card.image, 100)}
+                          alt=""
+                          fill
+                          unoptimized
+                          className="object-cover blur-xl opacity-40 scale-125"
+                        />
+                      </div>
+                      <Image
+                        src={getOptimizedImageSrc(card.image, 600)}
+                        alt={card.lawyer || "Unknown"}
+                        fill
+                        unoptimized
+                        className="relative z-10 object-contain group-hover/card:scale-105 transition-transform duration-300 ease-out p-1"
+                      />
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const isLight = theme === "light";
 

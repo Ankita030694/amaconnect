@@ -115,10 +115,10 @@ export default async function Page({
               The legal template you are looking for does not exist or has been removed from our index.
             </p>
             <Link
-              href="/drafts"
+              href="/"
               className="mt-6 inline-block bg-[#1C1A17] hover:bg-black text-white px-6 py-2.5 rounded-[12px] font-bold text-sm transition-all"
             >
-              Back to Drafts Library
+              Back to Home
             </Link>
           </div>
         </div>

@@ -52,8 +52,8 @@ const LINK_RULES: LinkRule[] = [
   },
   {
     pattern: /\b(legal\s+templates?|notice\s+templates?|agreement\s+draft|contract\s+templates?)\b/i,
-    href: "/drafts",
-    replacement: (m) => `<a href="/drafts">${m}</a>`,
+    href: "/how-to-draft-legal-notice-india-guide",
+    replacement: (m) => `<a href="/how-to-draft-legal-notice-india-guide">${m}</a>`,
   },
   {
     pattern: /\b(senior\s+advocates?|advocate\s+insights?|lawyer\s+interviews?)\b/i,

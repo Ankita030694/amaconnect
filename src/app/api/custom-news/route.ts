@@ -67,7 +67,7 @@ export async function POST(request: Request) {
       urlToImage: urlToImage.trim(),
       publishedAt: publishedAt || new Date().toISOString(),
       source: source || "AMA Connect",
-      author: author || "Admin",
+      author: author || "Vanshika Dhiman",
       categories: categories || ["All"],
       isPinned: Boolean(isPinned),
       order: Number(order) || 0

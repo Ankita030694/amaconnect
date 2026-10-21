@@ -58,7 +58,7 @@ export default function CustomNewsDashboard() {
     urlToImage: '',
     publishedAt: new Date().toISOString(),
     source: 'AMA Connect',
-    author: 'Admin',
+    author: 'Vanshika Dhiman',
     categories: ['All'],
     slug: '',
     content: '',
@@ -404,7 +404,7 @@ export default function CustomNewsDashboard() {
                     urlToImage: '',
                     publishedAt: new Date().toISOString(),
                     source: 'AMA Connect',
-                    author: 'Admin',
+                    author: 'Vanshika Dhiman',
                     categories: ['All'],
                     slug: '',
                     content: ''
