@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://<db_user>:<db_password>@cluster0.n9jkwna.mongodb.net/?appName=Cluster0";
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/test";
 mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 })
   .then(() => {
     console.log("Successfully connected to MongoDB");
