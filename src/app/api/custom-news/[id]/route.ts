@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
+import { invalidateCustomNewsCache } from "@/lib/newsService";
 
 const normalizeCategories = (categories: unknown): string[] => {
   const raw = Array.isArray(categories) ? categories : ["All"];
@@ -85,6 +86,7 @@ export async function PUT(request: Request, { params }: any) {
     );
 
     if (!updatedArticle) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    invalidateCustomNewsCache();
 
     try {
       revalidatePath("/news");
@@ -114,6 +116,7 @@ export async function DELETE(request: Request, { params }: any) {
     const { id } = await params;
     const deletedArticle = await CustomNews.findByIdAndDelete(id);
     if (!deletedArticle) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    invalidateCustomNewsCache();
 
     try {
       revalidatePath("/news");

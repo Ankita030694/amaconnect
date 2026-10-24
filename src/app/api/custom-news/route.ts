@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
+import { invalidateCustomNewsCache } from "@/lib/newsService";
 
 const normalizeCategories = (categories: unknown): string[] => {
   const raw = Array.isArray(categories) ? categories : ["All"];
@@ -97,6 +98,7 @@ export async function POST(request: Request) {
     });
 
     const savedArticle = await newArticle.save();
+    invalidateCustomNewsCache();
 
     try {
       revalidatePath("/news");

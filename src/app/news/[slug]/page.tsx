@@ -1,21 +1,20 @@
-import React from "react";
+import React, { cache } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Script from "next/script";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import Footer from "@/components/Footer";
-import { sanitizeHtml } from "@/lib/sanitizeHtml";
+import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
 import NewsDetail from "./newsdetail";
 
-export const revalidate = 3600; // Cache the page at the Edge for 1 hour
+export const dynamic = "force-dynamic";
 
 const BASE_URL = "https://www.amaconnect.in";
 
-export async function generateStaticParams() {
-  // On-demand static generation. Returns empty array so it builds when first visited.
-  return [];
-}
+// In-memory cache ONLY for valid found articles (never caches null/404)
+const articleMemoryCache = new Map<string, { data: any; timestamp: number }>();
+const ARTICLE_CACHE_TTL = 2 * 60 * 1000; // 2 minutes
 
 const decodeEntities = (str: string): string => {
   if (!str) return "";
@@ -28,40 +27,80 @@ const decodeEntities = (str: string): string => {
     .replace(/&nbsp;/gi, " ");
 };
 
-const getNewsBySlug = async (slug: string) => {
-  try {
-    await dbConnect();
-    let article = await CustomNews.findOne({ slug }).lean();
+const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-    if (!article) {
-      const decoded = decodeURIComponent(slug);
-      if (decoded !== slug) article = await CustomNews.findOne({ slug: decoded }).lean();
-    }
-    if (!article) {
-      const trimmed = slug.trim();
-      if (trimmed !== slug) article = await CustomNews.findOne({ slug: trimmed }).lean();
-    }
+const getNewsBySlug = cache(async (rawSlug: string) => {
+  const cleanSlug = decodeURIComponent(rawSlug || "").trim();
+  if (!cleanSlug) return null;
 
-    if (article) {
-      const data = JSON.parse(JSON.stringify(article));
-      return {
-        ...data,
-        title: decodeEntities(data.title || ""),
-        description: decodeEntities(data.description || ""),
-        content: sanitizeHtml(data.content || ""),
-      };
-    }
-    return null;
-  } catch (err) {
-    console.error("Error fetching news by slug:", err);
-    return null;
+  const cachedEntry = articleMemoryCache.get(cleanSlug);
+  if (cachedEntry && Date.now() - cachedEntry.timestamp < ARTICLE_CACHE_TTL) {
+    return cachedEntry.data;
   }
-};
+
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      await dbConnect();
+
+      // 1. Exact match on raw or decoded slug
+      let article: any = await CustomNews.findOne({
+        slug: { $in: [rawSlug, cleanSlug, cleanSlug.toLowerCase()] },
+      }).lean();
+
+      // 2. Case-insensitive regex match
+      if (!article) {
+        article = await CustomNews.findOne({
+          slug: { $regex: new RegExp(`^${escapeRegex(cleanSlug)}$`, "i") },
+        }).lean();
+      }
+
+      // 3. Fallback: match against slugified title if slug field was slightly different
+      if (!article) {
+        const candidates = await CustomNews.find(
+          {},
+          { title: 1, slug: 1 }
+        ).lean();
+        const matchedCandidate = candidates.find(
+          (c: any) =>
+            slugify(c.slug || "") === slugify(cleanSlug) ||
+            slugify(c.title || "") === slugify(cleanSlug)
+        );
+        if (matchedCandidate?._id) {
+          article = await CustomNews.findById(matchedCandidate._id).lean();
+        }
+      }
+
+      if (article) {
+        const data = JSON.parse(JSON.stringify(article));
+        const formatted = {
+          ...data,
+          title: decodeEntities(data.title || ""),
+          description: decodeEntities(data.description || ""),
+          content: sanitizeHtml(data.content || `<p>${data.description || ""}</p>`),
+        };
+        articleMemoryCache.set(cleanSlug, { data: formatted, timestamp: Date.now() });
+        return formatted;
+      }
+
+      return null;
+    } catch (err) {
+      console.error(`[getNewsBySlug] Attempt ${attempt} error for slug "${cleanSlug}":`, err);
+      if (attempt < 2) {
+        await new Promise((r) => setTimeout(r, 250));
+      }
+    }
+  }
+  return null;
+});
 
 const getRelatedNews = async (excludeId: string) => {
   try {
     await dbConnect();
-    const related = await CustomNews.find({ _id: { $ne: excludeId }, slug: { $nin: ["", null] } })
+    // Exclude the large `content` HTML field for fast query execution
+    const related = await CustomNews.find(
+      { _id: { $ne: excludeId }, slug: { $nin: ["", null] } },
+      { content: 0 }
+    )
       .sort({ isPinned: -1, publishedAt: -1, createdAt: -1 })
       .limit(4)
       .lean();

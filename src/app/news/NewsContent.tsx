@@ -100,6 +100,11 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const isFirstRenderRef = useRef<boolean>(true);
+  const categoryCacheRef = useRef<Record<string, { articles: NewsArticle[]; hasMore: boolean; page: number }>>(
+    initialArticles.length > 0
+      ? { All: { articles: initialArticles, hasMore: initialHasMore, page: 1 } }
+      : {}
+  );
 
   // Read ?category= from URL on mount if present
   useEffect(() => {
@@ -119,21 +124,22 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
   }, []);
 
   useEffect(() => {
-    const isFallbackArticles =
-      initialArticles.length === 0 ||
-      initialArticles.some(
-        (a) =>
-          a.source === "Supreme Court Dispatch" ||
-          a.source === "Supreme Court Brief" ||
-          !a.urlToImage
-      );
-
-    // On initial mount with "All" and valid SSR articles, skip redundant fetch
+    // On initial mount with "All" and SSR articles, never re-fetch on the client
     if (isFirstRenderRef.current) {
       isFirstRenderRef.current = false;
-      if (activeCategory === "All" && initialArticles.length > 0 && !isFallbackArticles) {
+      if (activeCategory === "All" && initialArticles.length > 0) {
         return;
       }
+    }
+
+    // Serve immediately from client cache if this category was already loaded
+    const cached = categoryCacheRef.current[activeCategory];
+    if (cached && cached.articles.length > 0) {
+      setArticles(cached.articles);
+      setHasMore(cached.hasMore);
+      setPage(cached.page);
+      setIsLoading(false);
+      return;
     }
 
     let cancelled = false;
@@ -145,8 +151,14 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
         if (res.ok && !cancelled) {
           const data = await res.json();
           if (Array.isArray(data.articles)) {
+            const nextHasMore = Boolean(data.hasMore);
             setArticles(data.articles);
-            setHasMore(Boolean(data.hasMore));
+            setHasMore(nextHasMore);
+            categoryCacheRef.current[activeCategory] = {
+              articles: data.articles,
+              hasMore: nextHasMore,
+              page: 1,
+            };
           }
         }
       } catch (err) {
@@ -161,7 +173,7 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
     return () => {
       cancelled = true;
     };
-  }, [activeCategory, initialArticles]);
+  }, [activeCategory]);
 
   const handleLoadMore = async () => {
     if (isLoadingMore || !hasMore) return;
@@ -171,8 +183,17 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
       const res = await fetch(`/api/news?page=${nextPage}&category=${encodeURIComponent(activeCategory)}`);
       if (res.ok) {
         const data = await res.json();
-        setArticles((prev) => [...prev, ...(data.articles || [])]);
-        setHasMore(Boolean(data.hasMore));
+        const nextHasMore = Boolean(data.hasMore);
+        setArticles((prev) => {
+          const updated = [...prev, ...(data.articles || [])];
+          categoryCacheRef.current[activeCategory] = {
+            articles: updated,
+            hasMore: nextHasMore,
+            page: nextPage,
+          };
+          return updated;
+        });
+        setHasMore(nextHasMore);
         setPage(nextPage);
       }
     } catch (err) {
@@ -183,13 +204,10 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
   };
 
   const topStory = articles.length > 0 ? articles[0] : null;
-  // When there are <= 9 articles (e.g. filtered category or custom news), show all remaining articles in topStories so none are hidden
-  const topStories =
-    articles.length > 9
-      ? [...articles.slice(1, 4), ...articles.slice(9)]
-      : articles.slice(1);
+  // Show all remaining articles in LATEST JUDICIAL DISPATCHES so custom backend news and API news are visibly mixed
+  const topStories = articles.slice(1);
   const trendingStories =
-    articles.length > 4 ? articles.slice(4, 9) : articles.slice(0, Math.min(5, articles.length));
+    articles.length > 5 ? articles.slice(1, 6) : articles.slice(0, Math.min(5, articles.length));
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 w-full pt-4 pb-12">
