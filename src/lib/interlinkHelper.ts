@@ -60,11 +60,6 @@ const LINK_RULES: LinkRule[] = [
     href: "/interviews",
     replacement: (m) => `<a href="/interviews">${m}</a>`,
   },
-  {
-    pattern: /\b(legal\s+remedy|legal\s+recourse|legal\s+counsel|advocate\s+consultation)\b/i,
-    href: "/ask-me-anything",
-    replacement: (m) => `<a href="/ask-me-anything">${m}</a>`,
-  },
 ];
 
 /**

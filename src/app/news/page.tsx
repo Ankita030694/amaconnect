@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import AppDownloadCTA from "@/components/AppDownloadCTA";
 import LawyerFaqAccordion from "@/components/LawyerFaqAccordion";
 import NewsContent from "./NewsContent";
 import { getNewsFeed, NewsArticle } from "@/lib/newsService";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Real-time Indian legal news, Supreme Court of India judgments, High Court rulings, tribunal orders, and statutory legislative amendments reported by advocates.",
     url: "https://www.amaconnect.in/news",
-    siteName: "AMA Legal Solutions",
+    siteName: "AMA Connect",
     type: "website",
   },
 };
@@ -72,7 +73,7 @@ export default async function NewsPage() {
     "description": "Authoritative court reporting, Supreme Court judgments, High Court updates, and statutory compliance news in India.",
     "publisher": {
       "@type": "Organization",
-      "name": "AMA Legal Solutions",
+      "name": "AMA Connect",
       "logo": "https://www.amaconnect.in/logo2.svg"
     }
   };
@@ -225,23 +226,23 @@ export default async function NewsPage() {
           </div>
         </section>
 
-        {/* LEGAL SOLUTIONS & INTERLINKED RESOURCES SECTION */}
+        {/* AMA CONNECT COMMUNITY & INTERLINKED RESOURCES SECTION */}
         <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto w-full">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <span className="text-[#C9A227] text-xs font-bold uppercase tracking-widest">
-              LEGAL SERVICES & CITIZEN RESOURCES
+              AMA CONNECT PLATFORM &amp; RESOURCES
             </span>
             <h2 className="font-playfair font-bold text-2xl sm:text-3xl text-[#1E1E1E] mt-2 mb-3">
-              Explore AMA Connect Legal Solutions & Practical Guides
+              Explore AMA Connect Communities, Interviews &amp; Legal Guides
             </h2>
             <p className="text-sm sm:text-base text-[#6B6560]">
-              From ready legal notice drafting and court petitions to free advocate consultations, access authoritative legal support.
+              From exclusive senior lawyer interviews and specialized legal communities to Ask Me Anything (AMA) sessions and educational guides.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             <Link
-              href="/how-to-draft-legal-notice-india-guide"
+              href="/communities"
               className="group bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs hover:shadow-md hover:border-[#C9A227] transition-all flex flex-col justify-between"
             >
               <div>
@@ -249,14 +250,14 @@ export default async function NewsPage() {
                   <FileText className="w-5 h-5" />
                 </div>
                 <h3 className="font-playfair font-bold text-base text-[#1E1E1E] group-hover:text-[#C9A227] transition-colors mb-2">
-                  Legal Notice Drafting Guides
+                  Legal Communities
                 </h3>
                 <p className="text-xs text-[#6B6560] leading-relaxed">
-                  Step-by-step advocate guides for statutory demand notices, rent agreements, employment contracts, and Section 138 notices.
+                  Join specialized legal communities on AMA Connect to discuss court updates, statutory reforms, and practice insights.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#C9A227]">
-                <span>Read Drafting Guide</span>
+                <span>Explore Communities</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -270,14 +271,14 @@ export default async function NewsPage() {
                   <HelpCircle className="w-5 h-5" />
                 </div>
                 <h3 className="font-playfair font-bold text-base text-[#1E1E1E] group-hover:text-[#C9A227] transition-colors mb-2">
-                  Free Legal Advice (Ask AMA)
+                  Ask Me Anything (AMA) Q&amp;A
                 </h3>
                 <p className="text-xs text-[#6B6560] leading-relaxed">
-                  Post confidential queries regarding recovery harassment, property disputes, or criminal complaints and get answers.
+                  Browse community legal questions and answers shared by verified lawyers on the AMA Connect app.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#C9A227]">
-                <span>Consult an Advocate</span>
+                <span>Explore AMA Sessions</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -352,6 +353,8 @@ export default async function NewsPage() {
             <LawyerFaqAccordion faqs={newsFaqs} />
           </div>
         </section>
+
+        <AppDownloadCTA />
 
         <Footer />
       </main>

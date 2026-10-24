@@ -5,6 +5,7 @@ import Script from "next/script";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import Footer from "@/components/Footer";
+import AppDownloadCTA from "@/components/AppDownloadCTA";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
 import NewsDetail from "./newsdetail";
 
@@ -137,7 +138,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: article.title,
       description: article.description,
       url,
-      siteName: "AMA Legal Solutions",
+      siteName: "AMA Connect",
       type: "article",
       publishedTime: article.publishedAt,
       authors: [article.author || "AMA Connect"],
@@ -177,8 +178,8 @@ function generateSchema(article: any) {
         author: { "@type": "Organization", name: article.author || "AMA Connect", url: `${BASE_URL}/about` },
         publisher: {
           "@type": "Organization",
-          name: "AMA Legal Solutions",
-          logo: { "@type": "ImageObject", url: `${BASE_URL}/ama-legal-solutions-logo.png` },
+          name: "AMA Connect",
+          logo: { "@type": "ImageObject", url: `${BASE_URL}/logo2.svg` },
         },
       },
       {
@@ -234,6 +235,7 @@ export default async function NewsArticlePage(props: Props) {
       <main className="flex-grow pt-0">
         <NewsDetail article={article} relatedNews={relatedNews} />
       </main>
+      <AppDownloadCTA />
       <Footer />
     </div>
   );

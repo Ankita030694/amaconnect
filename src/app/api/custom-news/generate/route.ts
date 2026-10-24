@@ -5,7 +5,6 @@ import OpenAI from "openai";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
-import { injectContextualInternalLinks } from "@/lib/interlinkHelper";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -335,7 +334,7 @@ BAR & BENCH HEADLINE & STANDFIRST CONVENTIONS:
   * For rulings, pleas, or corporate news: Use crisp active voice naming the Court/Institution and exact legal action (e.g., "UK Court of Appeal rejects India's challenge to arbitration over Andhra Pradesh bauxite project").
 - "description": A 2-sentence Bar & Bench style subheadline / standfirst (160 to 260 characters) that captures the key hook, bench/speaker, and core legal or strategic takeaway.
 - "slug": Clean URL-friendly kebab-case slug.
-- "categories": Array of 2 to 3 matching categories chosen strictly from: ["All", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"]. Always include "All".
+- "categories": Array of 2 to 3 matching categories chosen strictly from: ["All", "Legal Updates", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"]. Always include "All".
 - "outline": An array of 6 to 8 specific, vivid, journalistic <h2> headings that map out the entire story in depth. Never use generic one-word headings like "Introduction" or "Conclusion".
 - "insufficient": Set to true ONLY if the source material is completely empty, gibberish, or contains no identifiable legal/news subject.
 
@@ -443,18 +442,10 @@ SIGNATURE BAR & BENCH EDITORIAL STYLE & STRUCTURE (MANDATORY):
    - Every specific name, judge, court, case number, date, figure, and direct quotation MUST come from the source material. Never fabricate quotes, case numbers, or party names.
    - To achieve full Bar & Bench depth (1,300-1,800 words), DO elaborate thoroughly on every detail in the source material and explain the broader legal, statutory, regulatory, and institutional context of the Acts, treaties, court procedures, or market trends discussed in the source.
 
-7. **CONTEXTUAL INTERNAL LINKING (MANDATORY)**:
-   Naturally embed 2 contextual internal links inside appropriate article paragraphs to AMA Connect resources:
-   - <a href="/ask-me-anything">consult an expert advocate on AMA Connect</a>
-   - <a href="/interviews">interviews with senior Indian advocates</a>
-   - <a href="/how-to-draft-legal-notice-india-guide">comprehensive legal notice drafting guide</a>
-   - <a href="/cheque-bounce-legal-notice-section-138-guide">step-by-step Section 138 cheque bounce proceedings</a>
-   - <a href="/homebuyer-rights-rera-builder-delay-remedies">remedies for delayed possession under RERA</a>
-   - <a href="/property-dispute-resolution-india-legal-remedies">property dispute legal strategies</a>
-   - <a href="/cyber-fraud-online-scams-legal-recourse">cyber fraud legal recourse and complaints</a>
-   - <a href="/loan-app-debt-settlement-harassment-legal-help">protection against recovery harassment</a>
-   - <a href="/consumer-protection-ecommerce-defective-goods-guide">consumer protection complaint guide</a>
-   - <a href="/how-to-file-divorce-india-legal-guide">mutual consent divorce legal process</a>
+7. **STRICT JOURNALISTIC NEUTRALITY & PLATFORM RULES (MANDATORY)**:
+   - AMA Connect is an independent legal news, lawyer interview, and community app. It is NOT a law firm and does NOT sell legal services or provide legal representation.
+   - NEVER write that readers can "contact AMA Connect's advocates", "consult an expert advocate on AMA Connect", or hire AMA Connect for legal advice or representation.
+   - Do NOT insert promotional sentences, self-referential mentions of AMA Connect, or artificial call-to-action links inside the news report. Keep the article 100% objective, third-person Bar & Bench-style journalism.
 
 8. **HTML & TYPOGRAPHY RULES**:
    - Allowed HTML tags: <h2>, <h3>, <h4>, <p>, <ul>, <ol>, <li>, <strong>, <em>, <blockquote>, <table>, thead, tbody, tr, th, td, <a>.
@@ -514,7 +505,7 @@ HOW TO EXPAND IN BAR & BENCH STYLE:
 2. Incorporate every single detail, quote, question-and-answer exchange, date, statistic, argument, and counsel/partner name from the SOURCE MATERIAL that was summarized too briefly.
 3. Add deeper legal, statutory, regulatory, and institutional context explaining the significance of the rulings, provisions, treaties, SEBI/RBI/ECB frameworks, judicial precedents, or law firm market dynamics mentioned in the source.
 4. Ensure there are 3 to 5 <blockquote><p>"..."</p></blockquote> elements highlighting key verbatim observations or quotes from the source.
-5. Keep all existing <h2> headings, Key Highlights, and internal <a href="/..."> links intact, and add <h3> subheadings where helpful to break up long sections.
+5. Keep all existing <h2> headings and Key Highlights intact, and add <h3> subheadings where helpful to break up long sections. Never insert promotional pitches or tell readers to contact AMA Connect's advocates.
 6. Return ONLY the complete, expanded raw HTML article from start to finish. Never use em dashes (\u2014).`,
           },
           {
@@ -541,8 +532,6 @@ HOW TO EXPAND IN BAR & BENCH STYLE:
     const title = sanitizeText(String(parsedMeta.title || "")).trim();
     const description = sanitizeText(String(parsedMeta.description || "")).trim();
 
-    // Ensure contextual internal links are present
-    htmlContent = injectContextualInternalLinks(htmlContent, 3);
     htmlContent = sanitizeHtml(htmlContent);
 
     const plainLength = htmlContent.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().length;
@@ -554,7 +543,7 @@ HOW TO EXPAND IN BAR & BENCH STYLE:
     }
 
     // Validate categories against allowed dashboard categories
-    const allowedCategories = new Set(["All", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"]);
+    const allowedCategories = new Set(["All", "Legal Updates", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"]);
     const categories = Array.isArray(parsedMeta.categories)
       ? Array.from(new Set(["All", ...parsedMeta.categories.filter((c: string) => allowedCategories.has(c))]))
       : ["All"];

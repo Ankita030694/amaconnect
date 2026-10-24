@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
+import AppDownloadCTA from "@/components/AppDownloadCTA";
 import LawyerFaqAccordion from "@/components/LawyerFaqAccordion";
 import BlogExplorer from "./BlogExplorer";
 import dbConnect from "@/lib/dbConnect";
@@ -309,11 +310,13 @@ export default async function BlogsPage() {
                 </h3>
               </div>
               <p className="text-[#A0A2A8] text-xs sm:text-sm leading-[1.8]">
-                The legal articles, commentaries, case analyses, and procedural guides provided on https://www.amaconnect.in are intended strictly for general educational and informational purposes. They do not constitute formal legal, financial, or professional advice, nor do they establish an advocate-client relationship. Laws, procedural rules, and court precedents change frequently; readers must consult an enrolled advocate or qualified legal practitioner for formal counsel on individual cases. AMA Legal Solutions disclaims any liability for actions taken based on the information published herein.
+                The legal articles, commentaries, case analyses, and procedural guides provided on https://www.amaconnect.in are intended strictly for general educational and informational purposes. They do not constitute formal legal, financial, or professional advice, nor do they establish an advocate-client relationship. Laws, procedural rules, and court precedents change frequently; readers must consult an enrolled advocate or qualified legal practitioner for formal counsel on individual cases. AMA Connect disclaims any liability for actions taken based on the information published herein.
               </p>
             </div>
           </div>
         </section>
+
+        <AppDownloadCTA />
 
         <Footer />
       </div>

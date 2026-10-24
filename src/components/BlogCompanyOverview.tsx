@@ -56,62 +56,42 @@ const MEDIA_MENTIONS: MediaMention[] = [
   },
 ];
 
-interface SolutionItem {
+interface PlatformFeatureItem {
   title: string;
   href: string;
-  isExternal?: boolean;
 }
 
-const SOLUTIONS: SolutionItem[] = [
+const PLATFORM_FEATURES: PlatformFeatureItem[] = [
   {
-    title: "Settle your loans",
-    href: "/loan-app-debt-settlement-harassment-legal-help",
+    title: "Latest Court News & Dispatches",
+    href: "/news",
   },
   {
-    title: "Reduce your EMIs",
-    href: "/loan-app-debt-settlement-harassment-legal-help",
+    title: "Senior Lawyer Interviews",
+    href: "/interviews",
   },
   {
-    title: "Eliminate your loans",
-    href: "/loan-app-debt-settlement-harassment-legal-help",
-  },
-  {
-    title: "Support against Harassment",
-    href: "/loan-app-debt-settlement-harassment-legal-help",
-  },
-  {
-    title: "Draft Legal Notice",
-    href: "/how-to-draft-legal-notice-india-guide",
-  },
-  {
-    title: "Cheque Bounce (Sec 138)",
-    href: "/cheque-bounce-legal-notice-section-138-guide",
-  },
-  {
-    title: "Property & Lease Disputes",
-    href: "/property-dispute-resolution-india-legal-remedies",
-  },
-  {
-    title: "Homebuyer & RERA Relief",
-    href: "/homebuyer-rights-rera-builder-delay-remedies",
-  },
-  {
-    title: "Consumer Court Protection",
-    href: "/consumer-protection-ecommerce-defective-goods-guide",
-  },
-  {
-    title: "Mutual Divorce & Family Law",
-    href: "/mutual-consent-divorce-alimony-child-support-guide",
-  },
-  {
-    title: "Startup & Corporate Legal",
-    href: "/startup-registration-incorporation-india-guide",
-  },
-  {
-    title: "Ask Legal Question Free",
+    title: "Ask Me Anything (AMA) Q&A",
     href: "/ask-me-anything",
   },
+  {
+    title: "Exclusive Legal Communities",
+    href: "/communities",
+  },
+  {
+    title: "Legal Articles & Practice Guides",
+    href: "/blog",
+  },
+  {
+    title: "About AMA Connect App",
+    href: "/about",
+  },
 ];
+
+const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions";
+const APP_STORE_URL =
+  "https://apps.apple.com/in/app/ama-legal-solutions/id6755156186";
 
 export default function BlogCompanyOverview() {
   return (
@@ -124,7 +104,7 @@ export default function BlogCompanyOverview() {
             <div className="relative">
               <Image
                 src="/logo2.svg"
-                alt="AMA Legal Solutions Logo"
+                alt="AMA Connect Logo"
                 width={170}
                 height={48}
                 className="h-9 sm:h-11 w-auto object-contain transition-transform group-hover:scale-[1.02]"
@@ -135,19 +115,19 @@ export default function BlogCompanyOverview() {
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF6EC] border border-[#E9DFCA] text-[11px] font-bold text-[#B8860B] tracking-wide uppercase">
             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
-            Verified Law Practice
+            Legal Community &amp; News App
           </div>
         </div>
 
-        {/* Company Description Tailored to AMA Legal Solutions */}
+        {/* Platform Description Tailored to AMA Connect App */}
         <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-8">
-          <strong>AMA Legal Solutions</strong> is India&apos;s trusted, law firm-backed and pro-bono driven legal advisory platform. Founded with a vision to democratize access to justice and headquartered in Gurugram, AMA Legal Solutions has counselled <strong>10,000+ individuals, startups, and enterprises</strong> across India on personal debt settlement, recovery agent harassment defense, cheque bounce cases, property disputes, consumer protection, and corporate litigation. We charge transparent fees with no hidden costs, delivering swift and confidential High Court and Supreme Court legal guidance.
+          <strong>AMA Connect</strong> is an Indian legal community, court journalism, and lawyer networking app. Designed to foster public legal literacy and connect citizens, law students, and legal professionals, the AMA Connect app features real-time Supreme Court and High Court news dispatches, in-depth lawyer interviews, specialized legal communities, and interactive <strong>Ask Me Anything (AMA)</strong> sessions.
         </p>
 
         {/* Media Mentions Section */}
         <div className="pt-2">
           <h4 className="text-center text-sm sm:text-base font-extrabold text-[#413832] uppercase tracking-wider mb-5">
-            Media Mentions
+            Featured In Media
           </h4>
 
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-12 py-2">
@@ -174,44 +154,53 @@ export default function BlogCompanyOverview() {
       {/* Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-[#E9DFCA] to-transparent" />
 
-      {/* Bottom Section: Our Solutions */}
+      {/* Bottom Section: Explore on AMA Connect + App Store Links */}
       <div className="p-6 sm:p-8 md:p-10 bg-[#FAF6EC]/60 border-t border-[#E9DFCA]/50">
         <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
-          <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#D97706] tracking-tight">
-            Our Solutions:
+          <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#413832] tracking-tight">
+            Explore on AMA Connect:
           </h3>
           <span className="text-xs font-semibold text-slate-500 hidden sm:inline-block">
-            Get instant legal assistance & case assessment
+            India&apos;s Legal News, Interviews &amp; Community App
           </span>
         </div>
 
-        {/* Solutions Grid matching the reference layout & project styling */}
+        {/* Platform Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-3.5">
-          {SOLUTIONS.map((item, idx) => (
+          {PLATFORM_FEATURES.map((item, idx) => (
             <Link
               key={idx}
               href={item.href}
-              className="group flex items-center justify-center text-center px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border-2 border-[#0d3b66] bg-white hover:bg-[#0d3b66] text-[#0d3b66] hover:text-white font-bold text-xs sm:text-sm shadow-2xs hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+              className="group flex items-center justify-center text-center px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border-2 border-[#382E26] bg-white hover:bg-[#382E26] text-[#382E26] hover:text-white font-bold text-xs sm:text-sm shadow-2xs hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
             >
               <span className="leading-snug">{item.title}</span>
             </Link>
           ))}
         </div>
 
-        {/* Action Callout Footnote */}
-        <div className="mt-6 pt-5 border-t border-[#E9DFCA] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <div className="text-xs text-slate-600 font-medium">
-            Facing an urgent legal notice, loan harassment, or dispute?
+        {/* App Download Footnote */}
+        <div className="mt-6 pt-5 border-t border-[#E9DFCA] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="text-xs sm:text-sm text-slate-700 font-semibold">
+            Download the <span className="text-[#B8860B] font-bold">AMA Connect</span> app on Google Play &amp; App Store:
           </div>
-          <a
-            href="tel:+918700343611"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#B8860B] hover:bg-[#9E7307] text-white font-bold text-xs transition-colors shadow-sm"
-          >
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-            </svg>
-            Speak to a Lawyer Now
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2D2219] hover:bg-[#1E1711] text-white font-bold text-xs transition-colors shadow-sm"
+            >
+              <span>Google Play</span>
+            </a>
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#B8860B] hover:bg-[#9E7307] text-white font-bold text-xs transition-colors shadow-sm"
+            >
+              <span>App Store</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

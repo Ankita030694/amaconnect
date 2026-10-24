@@ -5,6 +5,7 @@ import InterviewDetail from "./interviewdetail";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AppDownloadCTA from "@/components/AppDownloadCTA";
 import { getOptimalPageTitle } from "@/lib/seoTitleHelper";
 
 export const revalidate = 3600; // Cache the page at the Edge for 1 hour
@@ -222,6 +223,7 @@ export default async function Page({
           relatedInterviews={relatedInterviews}
         />
       </main>
+      <AppDownloadCTA />
       <Footer />
     </div>
   );

@@ -336,8 +336,8 @@ ${descriptionHtml}`;
       while (mergedData.faqs.length < 10) {
         const num = mergedData.faqs.length + 1;
         mergedData.faqs.push({
-          question: `What are the next key steps to discuss with ${expertName} regarding ${topic}?`,
-          answer: `For detailed, personalized guidance on ${topic}, consult ${expertName} directly through AMA Connect to review your specific documentation and legal options.`
+          question: `What are the key takeaways from ${expertName}'s perspective on ${topic}?`,
+          answer: `In this interview on AMA Connect, ${expertName} highlights the importance of thorough legal preparation, statutory compliance, and understanding procedural timelines when navigating ${topic}.`
         });
       }
     }

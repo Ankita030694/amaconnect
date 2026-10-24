@@ -228,9 +228,9 @@ INSTRUCTIONS FOR DEPTH, RESEARCH & FACTUAL ACCURACY:
    }
 
 4. **CONTEXTUAL INTERNAL LINKING (MANDATORY)**:
-   You MUST naturally embed 1 to 2 contextual internal links inside this section to relevant AMA Connect resources using descriptive, natural anchor text:
-   - <a href="/ask-me-anything">consult an expert advocate on AMA Connect</a>
-   - <a href="/loan-app-debt-settlement-harassment-legal-help">legal protection against recovery harassment</a>
+   You MUST naturally embed 1 to 2 contextual internal links inside this section to relevant AMA Connect educational guides and community pages using descriptive, natural anchor text:
+   - <a href="/ask-me-anything">explore legal discussions on the AMA Connect community</a>
+   - <a href="/loan-app-debt-settlement-harassment-legal-help">legal guide on protection against recovery harassment</a>
    - <a href="/cheque-bounce-legal-notice-section-138-guide">step-by-step cheque bounce legal notice procedure</a>
    - <a href="/how-to-draft-legal-notice-india-guide">comprehensive guide to drafting legal notices</a>
    - <a href="/homebuyer-rights-rera-builder-delay-remedies">remedies for delayed possession under RERA</a>
@@ -239,10 +239,11 @@ INSTRUCTIONS FOR DEPTH, RESEARCH & FACTUAL ACCURACY:
    - <a href="/how-to-file-divorce-india-legal-guide">mutual consent divorce legal process</a>
    - <a href="/startup-registration-incorporation-india-guide">startup legal compliance and registration</a>
    - <a href="/interviews">interviews with senior Indian advocates</a>
-   - <a href="/about">AMA Legal Solutions advocates</a>
-   - <a href="/contact">schedule a confidential legal consultation</a>
+   - <a href="/communities">join legal communities on AMA Connect</a>
+   - <a href="/news">latest court dispatches on AMA Connect</a>
 
 5. **CRITICAL CONSTRAINTS**:
+   - AMA Connect is a legal community, news, and lawyer interview app — it does NOT sell legal services. Do NOT write that readers can hire or contact AMA Connect's advocates for paid legal services.
    - Output RAW HTML ONLY. Do NOT wrap output in markdown code blocks (\`\`\`html or \`\`\`).
    - Under no circumstances include any em dashes (—). Always use normal hyphens (-), colons (:), commas, or parentheses instead.
    - Do NOT output <h1> tags.`;

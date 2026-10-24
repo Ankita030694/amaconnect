@@ -440,31 +440,35 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                 </div>
               )}
 
-              {/* ADVOCATE CONSULTATION INTERLINK BANNER */}
+              {/* AMA CONNECT APP DOWNLOAD BANNER */}
               <div className="bg-gradient-to-br from-[#2D2219] to-[#1E1711] text-white p-6 rounded-2xl border border-[#D4AF37]/30 shadow-md relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-[#B8860B]/10 rounded-full blur-2xl pointer-events-none" />
                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8860B]/20 text-[#D4AF37] text-[9px] font-bold uppercase tracking-wider mb-3">
-                  Legal Consultation
+                  AMA Connect App
                 </span>
                 <h4 className="text-sm font-bold text-white leading-snug mb-2 font-playfair">
-                  Have a Question on Court Orders or Rights?
+                  Download the AMA Connect Mobile App
                 </h4>
                 <p className="text-[11px] text-gray-300 leading-relaxed mb-4">
-                  Connect with verified legal counsel on AMA Connect for confidential advice.
+                  Follow real-time court updates, explore lawyer interviews, join legal communities, and ask questions in AMA sessions.
                 </p>
                 <div className="space-y-2">
-                  <Link
-                    href="/ask-me-anything"
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white text-xs font-bold hover:brightness-105 transition-all shadow-xs"
                   >
-                    Ask AMA (Free) →
-                  </Link>
-                  <Link
-                    href="/interviews"
+                    Get it on Google Play →
+                  </a>
+                  <a
+                    href="https://apps.apple.com/in/app/ama-legal-solutions/id6755156186"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all border border-white/10"
                   >
-                    Explore Lawyer Case Studies →
-                  </Link>
+                    Download on App Store →
+                  </a>
                 </div>
               </div>
 

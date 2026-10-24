@@ -222,17 +222,20 @@ function TableOfContents({
 
 // Popular legal topic interlinks
 const POPULAR_LEGAL_INTERLINKS = [
-  { label: 'Cheque Bounce (Sec 138) Notice', href: '/cheque-bounce-legal-notice-section-138-guide' },
-  { label: 'Draft Legal Notice Online', href: '/how-to-draft-legal-notice-india-guide' },
-  { label: 'Homebuyer & RERA Delay Relief', href: '/homebuyer-rights-rera-builder-delay-remedies' },
-  { label: 'Cyber Fraud & Online Scams Recourse', href: '/cyber-fraud-online-scams-legal-recourse' },
-  { label: 'Property & Lease Dispute Remedies', href: '/property-dispute-resolution-india-legal-remedies' },
-  { label: 'Mutual Consent Divorce Guide', href: '/how-to-file-divorce-india-legal-guide' },
-  { label: 'Loan Recovery Harassment Protection', href: '/loan-app-debt-settlement-harassment-legal-help' },
-  { label: 'Consumer Court Protection Guide', href: '/consumer-protection-ecommerce-defective-goods-guide' },
-  { label: 'Senior Advocate Case Studies & Interviews', href: '/interviews' },
-  { label: 'Ask a Verified Advocate Free', href: '/ask-me-anything' },
+  { label: 'Latest Legal News & Court Dispatches', href: '/news' },
+  { label: 'Senior Lawyer Case Studies & Interviews', href: '/interviews' },
+  { label: 'Join Legal Communities on AMA Connect', href: '/communities' },
+  { label: 'Ask Me Anything (AMA) Community Q&A', href: '/ask-me-anything' },
+  { label: 'Legal Insights & Practice Guides', href: '/blog' },
+  { label: 'Cheque Bounce (Sec 138) Guide', href: '/cheque-bounce-legal-notice-section-138-guide' },
+  { label: 'Legal Notice Drafting Guide', href: '/how-to-draft-legal-notice-india-guide' },
+  { label: 'Homebuyer & RERA Delay Guide', href: '/homebuyer-rights-rera-builder-delay-remedies' },
+  { label: 'Cyber Fraud & Online Scams Guide', href: '/cyber-fraud-online-scams-legal-recourse' },
+  { label: 'Property & Lease Dispute Guide', href: '/property-dispute-resolution-india-legal-remedies' },
 ];
+
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.ama.ama_legal_solutions';
+const APP_STORE_URL = 'https://apps.apple.com/in/app/ama-legal-solutions/id6755156186';
 
 // Adds ids to h2/h3 headings, wraps responsive tables, and builds the table of contents
 const processContent = (html: string) => {
@@ -420,7 +423,7 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
                     )}
                   </div>
                   <div>
-                    <div className="text-[16px] font-bold text-[#382E26]">{article.author || 'AMA Legal Solutions'}</div>
+                    <div className="text-[16px] font-bold text-[#382E26]">{article.author || 'AMA Connect'}</div>
                     <div className="text-[12px] text-gray-500">
                       {article.source || 'AMA Connect'} • Verified Legal News Desk
                     </div>
@@ -696,28 +699,40 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
                 .tiptap-content tr:last-child td { border-bottom: none; }
               `}</style>
 
-              {/* End of Article Legal Action Card */}
+              {/* End of Article App Download Card */}
               <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-[#30261C] text-white border border-[#D2A02A]/40 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#D2A02A]">
-                    Senior Advocate Review &amp; Legal Guidance
+                    AMA Connect Mobile App
                   </div>
                   <h4 className="text-sm sm:text-base font-bold text-[#FAF7F0]">
-                    Affected by This Ruling or Facing a Similar Legal Dispute?
+                    Follow Court Updates &amp; Join Legal Communities on AMA Connect
                   </h4>
                   <p className="text-xs text-gray-300 max-w-lg leading-relaxed">
-                    Consult our litigation, corporate, and regulatory advocates for case strategy, legal notices, and court representation under strict confidentiality.
+                    Download the AMA Connect app on Google Play Store and Apple App Store to read real-time court dispatches, explore lawyer interviews, and join Ask Me Anything (AMA) discussions.
                   </p>
                 </div>
-                <Link
-                  href="/ask-me-anything"
-                  className="w-full sm:w-auto px-5 py-3 bg-[#D2A02A] hover:bg-[#b88a22] text-[#1C160F] font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md text-center shrink-0 flex items-center justify-center gap-1.5"
-                >
-                  <span>Ask an Advocate Free →</span>
-                </Link>
+                <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                  <a
+                    href={PLAY_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2.5 bg-[#D2A02A] hover:bg-[#b88a22] text-[#1C160F] font-bold rounded-xl text-xs transition-all shadow-md text-center flex items-center justify-center gap-1.5"
+                  >
+                    <span>Google Play →</span>
+                  </a>
+                  <a
+                    href={APP_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-xl text-xs transition-all text-center flex items-center justify-center gap-1.5"
+                  >
+                    <span>App Store →</span>
+                  </a>
+                </div>
               </div>
 
-              {/* Company Overview, Media Mentions & Legal Solutions */}
+              {/* AMA Connect Platform Overview & Media Mentions */}
               <BlogCompanyOverview />
 
               {/* Popular Searches & Legal Resources Section */}
@@ -824,77 +839,78 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
             </div>
           </div>
 
-          {/* Right Sidebar - CTA & Trust Cards matching BlogDetail */}
+          {/* Right Sidebar - AMA Connect App & Community Cards */}
           <div className="space-y-5 sticky top-24">
-            {/* CTA Card */}
+            {/* Download AMA Connect App Card */}
             <div className="bg-[#413832] rounded-[20px] p-5 text-center shadow-lg relative overflow-hidden flex flex-col items-center">
               <div className="absolute top-0 right-0 w-20 h-20 bg-[#D4AF37]/10 rounded-full blur-2xl -mr-6 -mt-6 pointer-events-none" />
               <div className="w-10 h-10 mb-2.5 rounded-full bg-white/10 border border-white/15 flex items-center justify-center shadow-inner relative z-10">
                 <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-white text-base font-bold mb-2 relative z-10">Talk to a Legal Expert Free !</h3>
+              <h3 className="text-white text-base font-bold mb-2 relative z-10">Download AMA Connect App</h3>
               <p className="text-slate-300 text-xs mb-4 leading-relaxed relative z-10">
-                Get a personal legal assessment.<br />One call. No pressure.<br />Clear answers.
+                Real-time court news, lawyer interviews,<br />legal communities &amp; AMA sessions.<br />All in one free app.
               </p>
               <a
-                href="tel:+918700343611"
+                href={PLAY_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex w-full items-center justify-center gap-2 bg-[#B8860B] hover:bg-[#9E7307] text-white py-2.5 rounded-xl font-bold text-xs transition-colors relative z-10 shadow-[0_4px_14px_rgba(184,134,11,0.4)] mb-2"
               >
-                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-                </svg>
-                Book My Free Call
+                <span>Get it on Google Play</span>
               </a>
-              <Link
-                href="/ask-me-anything"
-                className="inline-flex w-full items-center justify-center gap-1.5 bg-white/10 hover:bg-white/15 border border-white/15 text-white py-2 rounded-xl font-semibold text-xs transition-colors relative z-10"
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center gap-1.5 bg-white/10 hover:bg-white/15 border border-white/15 text-white py-2.5 rounded-xl font-bold text-xs transition-colors relative z-10"
               >
-                Ask Legal Question Free →
-              </Link>
+                <span>Download on App Store</span>
+              </a>
             </div>
 
-            {/* Trust Signals Card */}
+            {/* AMA Connect Platform Highlights Card */}
             <div className="bg-white rounded-[20px] p-5 border border-[#D4AF37]/20 shadow-sm">
               <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">
-                WHY PEOPLE TRUST AMA LEGAL
+                WHY PEOPLE LOVE AMA CONNECT
               </h3>
               <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-[#413832] text-xs">1,000+ App Downloads</span>
+                </div>
+
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
                     <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
-                  <span className="font-bold text-[#413832] text-xs">10,000+ Clients Helped</span>
+                  <span className="font-bold text-[#413832] text-xs">200+ Verified Lawyers on App</span>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
                     <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                     </svg>
                   </div>
-                  <span className="font-bold text-[#413832] text-xs">Verified Expert Advocates</span>
+                  <span className="font-bold text-[#413832] text-xs">Daily Court Updates &amp; News</span>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
                     <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                     </svg>
                   </div>
-                  <span className="font-bold text-[#413832] text-xs">No Hidden Fees</span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#B8860B]/10 flex items-center justify-center shrink-0">
-                    <svg className="w-4 h-4 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <span className="font-bold text-[#413832] text-xs">100% Confidential</span>
+                  <span className="font-bold text-[#413832] text-xs">Free AMA Community Sessions</span>
                 </div>
               </div>
             </div>

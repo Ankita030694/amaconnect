@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Playfair_Display, Inter } from "next/font/google";
 import { FadeIn } from "@/components/FadeIn";
 import Footer from "@/components/Footer";
+import AppDownloadCTA from "@/components/AppDownloadCTA";
 import BentoInterviewsGrid from "@/components/BentoInterviewsGrid";
 import dbConnect from "@/lib/dbConnect";
 import { LawyerInterview as LawyerInterviewModel } from "@/lib/models";
@@ -333,6 +334,7 @@ export default async function InterviewsPage() {
         </section>
 
       </main>
+      <AppDownloadCTA />
       <Footer />
       </div>
     </>
