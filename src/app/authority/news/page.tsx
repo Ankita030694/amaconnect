@@ -180,10 +180,10 @@ export default function CustomNewsDashboard() {
       setIsGenerating(true);
       
       const steps = [
-        "Reading sources / searching real news reports...",
-        "Verifying facts against the sources...",
-        "Writing the news report from the facts...",
-        "Formatting outputs..."
+        "Extracting source article & researching legal reports...",
+        "Structuring Bar & Bench style headline & outline...",
+        "Drafting long-form legal news report (1,300+ words)...",
+        "Polishing sections, quotes & contextual interlinks..."
       ];
 
       let currentStepIdx = 0;
@@ -194,7 +194,7 @@ export default function CustomNewsDashboard() {
           currentStepIdx++;
           setGenerationStep(steps[currentStepIdx]);
         }
-      }, 8000);
+      }, 7500);
 
       const res = await fetch("/api/custom-news/generate", {
         method: "POST",
@@ -217,15 +217,19 @@ export default function CustomNewsDashboard() {
         description: generated.description || prev.description,
         slug: generated.slug || prev.slug,
         content: generated.content || prev.content,
+        categories: Array.isArray(generated.categories) && generated.categories.length > 0
+          ? generated.categories
+          : prev.categories,
       }));
       setNewsType('internal');
       setWriteupInput('');
       
       const sourceCount = Array.isArray(generated.sources) ? generated.sources.length : 0;
+      const wcText = generated.wordCount ? ` (${generated.wordCount} words)` : '';
       alert(
-        `News draft generated from ${generated.mode === 'researched' ? 'real news reports found online' : 'the text/links you provided'}` +
+        `Bar & Bench style news draft${wcText} generated from ${generated.mode === 'researched' ? 'real news reports found online' : 'the text/links you provided'}` +
         `${sourceCount ? ` (${sourceCount} source${sourceCount > 1 ? 's' : ''} linked at the bottom)` : ''}. ` +
-        `Please fact-check it against the sources before saving.`
+        `Please review before publishing.`
       );
       
     } catch (err: any) {

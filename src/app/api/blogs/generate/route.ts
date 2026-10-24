@@ -44,7 +44,8 @@ export async function POST(request: NextRequest) {
 
     // STEP 1: Deep Topic Analysis & Structured Outline Planning aligned with AMA Legal Solutions taxonomy
     const step1Completion = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-6.1-sol",
+      reasoning_effort: "low",
       messages: [
         {
           role: "system",
@@ -151,8 +152,7 @@ ${secondaryKeyword ? `Secondary Keywords: ${secondaryKeyword}` : ""}`
           }
         }
       },
-      temperature: 0.3,
-    });
+    } as any);
 
     const step1ResultStr = sanitizeText(step1Completion.choices[0]?.message?.content || "{}");
     const step1Result = JSON.parse(step1ResultStr);
@@ -254,13 +254,13 @@ ${rawInput}`;
 
       try {
         const chunkCompletion = await openai.chat.completions.create({
-          model: "gpt-4o",
+          model: "gpt-6.1-sol",
+          reasoning_effort: "low",
           messages: [
             { role: "system", content: chunkSystemPrompt },
             { role: "user", content: chunkUserPrompt },
           ],
-          temperature: 0.4,
-        });
+        } as any);
 
         let rawChunk = sanitizeText(chunkCompletion.choices[0]?.message?.content || "");
         let cleanedChunk = rawChunk.trim();
@@ -321,13 +321,13 @@ Under no circumstances should you include any em dashes (—) anywhere in your r
 Return ONLY a valid JSON object matching the requested schema.`;
 
       const step3Completion = await openai.chat.completions.create({
-        model: "gpt-4o",
+        model: "gpt-6-luna",
+        reasoning_effort: "low",
         messages: [
           { role: "system", content: step3SystemPrompt }
         ],
         response_format: { type: "json_object" },
-        temperature: 0.4,
-      });
+      } as any);
 
       const step3ResultStr = sanitizeText(step3Completion.choices[0]?.message?.content || "{}");
       const step3Result = JSON.parse(step3ResultStr);

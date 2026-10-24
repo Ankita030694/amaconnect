@@ -54,13 +54,13 @@ Return ONLY a valid JSON object matching the above structure.`;
         "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "gpt-4o",
+        model: "gpt-6.1-sol",
+        reasoning_effort: "low",
         messages: [
           { role: "system", content: step1SystemPrompt },
           { role: "user", content: `Here is the raw writeup: ${writeup}` }
         ],
-        response_format: { type: "json_object" },
-        temperature: 0.7
+        response_format: { type: "json_object" }
       })
     });
 
@@ -186,13 +186,13 @@ ${writeup}`;
         "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "gpt-4o",
+        model: "gpt-6.1-sol",
+        reasoning_effort: "low",
         messages: [
           { role: "system", content: step2SystemPrompt },
           { role: "user", content: step2UserPrompt }
         ],
-        max_tokens: 16384,
-        temperature: 0.75
+        max_completion_tokens: 32768
       })
     });
 
@@ -271,12 +271,12 @@ ${descriptionHtml}`;
           "Authorization": `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: "gpt-4o",
+          model: "gpt-6.1-sol",
+          reasoning_effort: "low",
           messages: [
             { role: "user", content: expandPrompt }
           ],
-          max_tokens: 16384,
-          temperature: 0.75
+          max_completion_tokens: 32768
         })
       });
 
@@ -371,12 +371,12 @@ CRITICAL:
             "Authorization": `Bearer ${apiKey}`
           },
           body: JSON.stringify({
-            model: "gpt-4o",
+            model: "gpt-6-luna",
+            reasoning_effort: "low",
             messages: [
               { role: "user", content: reviewPrompt }
             ],
-            response_format: { type: "json_object" },
-            temperature: 0.7
+            response_format: { type: "json_object" }
           })
         });
 

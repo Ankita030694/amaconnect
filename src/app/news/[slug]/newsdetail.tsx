@@ -350,20 +350,23 @@ const NewsDetail = memo(function NewsDetail({ article, relatedNews }: NewsDetail
               />
 
               <style jsx global>{`
-                .tiptap-content h1 { font-size: 1.6em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #B8860B; }
-                .tiptap-content h2 { font-size: 1.4em; font-weight: 800; margin-top: 1.2em; margin-bottom: 0.6em; color: #B8860B; scroll-margin-top: 80px; }
-                .tiptap-content h3 { font-size: 1.2em; font-weight: 800; margin-top: 1em; margin-bottom: 0.5em; color: #B8860B; scroll-margin-top: 80px; }
-                .tiptap-content p { margin-bottom: 1em; line-height: 1.65; color: #334155; text-align: justify; }
-                .tiptap-content ul { list-style-type: disc; padding-left: 1.25em; margin-bottom: 1em; }
-                .tiptap-content ol { list-style-type: decimal; padding-left: 1.25em; margin-bottom: 1em; }
-                .tiptap-content li { margin-bottom: 0.4em; color: #334155; line-height: 1.65; text-align: justify; }
-                .tiptap-content blockquote { border-left: 3px solid #D2A02A; padding-left: 1rem; font-style: italic; color: #475569; background: #fffaf0; padding: 1rem; border-radius: 0.5rem; }
+                .tiptap-content h1 { font-size: 1.6em; font-weight: 800; margin-top: 1.4em; margin-bottom: 0.6em; color: #2D2219; line-height: 1.3; }
+                .tiptap-content h2 { font-size: 1.35em; font-weight: 800; margin-top: 1.65em; margin-bottom: 0.65em; color: #2D2219; border-left: 3.5px solid #B8860B; padding-left: 0.65rem; line-height: 1.35; scroll-margin-top: 88px; }
+                .tiptap-content h3 { font-size: 1.15em; font-weight: 800; margin-top: 1.35em; margin-bottom: 0.55em; color: #B8860B; line-height: 1.4; scroll-margin-top: 88px; }
+                .tiptap-content h4 { font-size: 1.05em; font-weight: 700; margin-top: 1.1em; margin-bottom: 0.45em; color: #2D2219; }
+                .tiptap-content p { margin-bottom: 1.15em; line-height: 1.78; color: #263238; text-align: left; }
+                .tiptap-content ul { list-style-type: disc; padding-left: 1.4em; margin-top: 0.5em; margin-bottom: 1.25em; }
+                .tiptap-content ol { list-style-type: decimal; padding-left: 1.4em; margin-top: 0.5em; margin-bottom: 1.25em; }
+                .tiptap-content li { margin-bottom: 0.5em; color: #263238; line-height: 1.72; text-align: left; }
+                .tiptap-content blockquote { border-left: 4px solid #B8860B; font-style: italic; color: #334155; background: #FAF6EC; padding: 1.15rem 1.35rem; margin: 1.5rem 0; border-radius: 0.65rem; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); }
+                .tiptap-content blockquote p:last-child { margin-bottom: 0; }
+                .tiptap-content strong { color: #1e293b; font-weight: 700; }
                 .tiptap-content img { border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin: 1.5rem 0; max-width: 100%; height: auto; }
-                .tiptap-content a { color: #B8860B; text-decoration: underline; font-weight: 600; }
+                .tiptap-content a { color: #B8860B; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
                 .tiptap-content a:hover { color: #8A6506; }
-                .tiptap-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9em; }
-                .tiptap-content th { background: #f8fafc; padding: 0.7rem; text-align: left; font-weight: 700; border: 1px solid #e2e8f0; color: #0f172a; }
-                .tiptap-content td { padding: 0.7rem; border: 1px solid #e2e8f0; color: #334155; }
+                .tiptap-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.92em; }
+                .tiptap-content th { background: #FAF6EC; padding: 0.75rem; text-align: left; font-weight: 700; border: 1px solid #E9DFCA; color: #2D2219; }
+                .tiptap-content td { padding: 0.75rem; border: 1px solid #e2e8f0; color: #334155; }
               `}</style>
 
               {/* Interlinked Legal Solutions & Media Mentions */}
