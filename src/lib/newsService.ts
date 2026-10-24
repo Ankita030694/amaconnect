@@ -108,6 +108,15 @@ function mergeAndSortNewsFeed(customNews: any[], externalNews: NewsArticle[]): N
       pubDate = new Date().toISOString();
     }
 
+    const rawCats: string[] = Array.isArray(n.categories) && n.categories.length > 0 ? n.categories : ["All"];
+    const normalizedCats: string[] = Array.from(
+      new Set<string>(
+        rawCats.map((c: string) =>
+          String(c || "").trim().toLowerCase() === "legal update" ? "Legal Updates" : String(c || "").trim()
+        ).filter(Boolean)
+      )
+    );
+
     return {
       title: n.title,
       description: n.description || "",
@@ -117,8 +126,9 @@ function mergeAndSortNewsFeed(customNews: any[], externalNews: NewsArticle[]): N
       source: n.source || "AMA Dispatch",
       author: n.author || "Legal Reporter",
       slug: n.slug || "",
+      categories: normalizedCats,
       isPinned,
-      order: typeof n.order === "number" ? n.order : 1
+      order: typeof n.order === "number" && n.order > 0 ? n.order : 1
     };
   };
 
@@ -186,7 +196,16 @@ export async function getNewsFeed({
   // Filter custom news by category
   const filteredCustomNews = customNewsArticles.filter(news => {
     if (category === "All") return true;
-    if (news.categories && news.categories.includes(category)) return true;
+    const targetLower = category.toLowerCase();
+    if (Array.isArray(news.categories)) {
+      const matched = news.categories.some((c: string) => {
+        const cLower = String(c || "").trim().toLowerCase();
+        if (cLower === targetLower) return true;
+        if (targetLower === "legal updates" && cLower === "legal update") return true;
+        return false;
+      });
+      if (matched) return true;
+    }
     const titleLower = (news.title || "").toLowerCase();
     const descLower = (news.description || "").toLowerCase();
     const keywords = CATEGORY_KEYWORDS[category] || [];

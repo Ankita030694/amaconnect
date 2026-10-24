@@ -1,14 +1,27 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
+import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
 
-// GET: Fetch all custom news sorted by created date descending
+const normalizeCategories = (categories: unknown): string[] => {
+  const raw = Array.isArray(categories) ? categories : ["All"];
+  const normalized = raw
+    .map((c) => String(c || "").trim())
+    .filter(Boolean)
+    .map((c) => (c.toLowerCase() === "legal update" ? "Legal Updates" : c));
+  return Array.from(new Set(["All", ...normalized]));
+};
+
+// GET: Fetch all custom news sorted by pinned & created date descending
 export async function GET() {
   try {
     await dbConnect();
-    const newsList = await CustomNews.find({}).sort({ isPinned: -1, order: 1, createdAt: -1 }).exec();
+    const newsList = await CustomNews.find({})
+      .sort({ isPinned: -1, order: 1, publishedAt: -1, createdAt: -1 })
+      .exec();
     return NextResponse.json(newsList);
   } catch (error: any) {
     console.error("Error fetching custom news:", error);
@@ -40,17 +53,16 @@ export async function POST(request: Request) {
       author,
       categories,
       isPinned,
-      order
+      order,
     } = body;
 
-    // Validation
     if (!title || !description || !urlToImage) {
       return NextResponse.json(
         { error: "Required fields (title, description, urlToImage) are missing." },
         { status: 400 }
       );
     }
-    
+
     if (!url && !content) {
       return NextResponse.json(
         { error: "Either 'url' (for external news) or 'content' (for internal news) must be provided." },
@@ -58,22 +70,44 @@ export async function POST(request: Request) {
       );
     }
 
+    const isInternal = Boolean(content && String(content).trim());
+    let finalSlug = isInternal ? slugify(slug || title) : "";
+
+    if (isInternal && finalSlug) {
+      const baseSlug = finalSlug;
+      let counter = 2;
+      while (await CustomNews.exists({ slug: finalSlug })) {
+        finalSlug = `${baseSlug}-${counter++}`;
+      }
+    }
+
     const newArticle = new CustomNews({
       title: title.trim(),
       description: description.trim(),
-      url: url ? url.trim() : "",
-      slug: slug ? slug.trim() : "",
-      content: content || "",
+      url: !isInternal && url ? url.trim() : "",
+      slug: finalSlug,
+      content: isInternal ? sanitizeHtml(content) : "",
       urlToImage: urlToImage.trim(),
       publishedAt: publishedAt || new Date().toISOString(),
-      source: source || "AMA Connect",
-      author: author || "Vanshika Dhiman",
-      categories: categories || ["All"],
+      source: (source || "AMA Connect").trim(),
+      author: (author || "Vanshika Dhiman").trim(),
+      categories: normalizeCategories(categories),
       isPinned: Boolean(isPinned),
-      order: Number(order) || 0
+      order: Number(order) || 1,
     });
 
     const savedArticle = await newArticle.save();
+
+    try {
+      revalidatePath("/news");
+      if (savedArticle.slug) {
+        revalidatePath(`/news/${savedArticle.slug}`);
+      }
+      revalidatePath("/sitemap.xml");
+    } catch (revalErr) {
+      console.warn("[CustomNews POST] Revalidate warning:", revalErr);
+    }
+
     return NextResponse.json(savedArticle, { status: 201 });
   } catch (error: any) {
     console.error("Error creating custom news:", error);

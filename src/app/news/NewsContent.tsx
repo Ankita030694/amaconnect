@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 export interface NewsArticle {
@@ -12,12 +12,25 @@ export interface NewsArticle {
   source: string;
   author: string;
   slug?: string;
+  categories?: string[];
+  isPinned?: boolean;
+  order?: number;
 }
 
 interface NewsContentProps {
   initialArticles?: NewsArticle[];
   initialHasMore?: boolean;
 }
+
+const VALID_CATEGORIES = [
+  "All",
+  "Legal Updates",
+  "Supreme Court",
+  "High Court",
+  "Legislation",
+  "Corporate",
+  "Criminal",
+];
 
 const DEFAULT_LEGAL_IMAGE = "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop";
 const FALLBACK_LOCAL_IMAGE = "/legal_scales_hero.png";
@@ -73,6 +86,12 @@ const formatNewsDate = (dateStr: string) => {
   return { day: "01", monthYear: "LEGAL NEWS" };
 };
 
+const getPrimaryCategory = (article: NewsArticle): string | null => {
+  if (!Array.isArray(article.categories)) return null;
+  const nonAll = article.categories.find((c) => c && c !== "All");
+  return nonAll || null;
+};
+
 export default function NewsContent({ initialArticles = [], initialHasMore = false }: NewsContentProps) {
   const [articles, setArticles] = useState<NewsArticle[]>(initialArticles);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -80,9 +99,26 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const isFirstRenderRef = useRef<boolean>(true);
+
+  // Read ?category= from URL on mount if present
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlCat = params.get("category");
+      if (urlCat) {
+        const matched = VALID_CATEGORIES.find(
+          (c) => c.toLowerCase() === urlCat.trim().toLowerCase() ||
+            (c === "Legal Updates" && urlCat.trim().toLowerCase() === "legal update")
+        );
+        if (matched && matched !== "All") {
+          setActiveCategory(matched);
+        }
+      }
+    }
+  }, []);
 
   useEffect(() => {
-    // Check if initialArticles were empty or fallback articles
     const isFallbackArticles =
       initialArticles.length === 0 ||
       initialArticles.some(
@@ -92,33 +128,40 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
           !a.urlToImage
       );
 
-    // If activeCategory is "All", we have real articles from server, and page is 1, keep them
-    if (activeCategory === "All" && initialArticles.length > 0 && !isFallbackArticles && page === 1) {
-      return;
+    // On initial mount with "All" and valid SSR articles, skip redundant fetch
+    if (isFirstRenderRef.current) {
+      isFirstRenderRef.current = false;
+      if (activeCategory === "All" && initialArticles.length > 0 && !isFallbackArticles) {
+        return;
+      }
     }
 
+    let cancelled = false;
     async function fetchNews() {
       try {
-        if (activeCategory !== "All" || articles.length === 0) {
-          setIsLoading(true);
-        }
+        setIsLoading(true);
         setPage(1);
         const res = await fetch(`/api/news?page=1&category=${encodeURIComponent(activeCategory)}`);
-        if (res.ok) {
+        if (res.ok && !cancelled) {
           const data = await res.json();
-          if (data.articles && data.articles.length > 0) {
+          if (Array.isArray(data.articles)) {
             setArticles(data.articles);
-            setHasMore(data.hasMore || false);
+            setHasMore(Boolean(data.hasMore));
           }
         }
       } catch (err) {
         console.error("Error loading news:", err);
       } finally {
-        setIsLoading(false);
+        if (!cancelled) {
+          setIsLoading(false);
+        }
       }
     }
     fetchNews();
-  }, [activeCategory]);
+    return () => {
+      cancelled = true;
+    };
+  }, [activeCategory, initialArticles]);
 
   const handleLoadMore = async () => {
     if (isLoadingMore || !hasMore) return;
@@ -128,8 +171,8 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
       const res = await fetch(`/api/news?page=${nextPage}&category=${encodeURIComponent(activeCategory)}`);
       if (res.ok) {
         const data = await res.json();
-        setArticles(prev => [...prev, ...(data.articles || [])]);
-        setHasMore(data.hasMore || false);
+        setArticles((prev) => [...prev, ...(data.articles || [])]);
+        setHasMore(Boolean(data.hasMore));
         setPage(nextPage);
       }
     } catch (err) {
@@ -140,23 +183,25 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
   };
 
   const topStory = articles.length > 0 ? articles[0] : null;
-  const topStories = [
-    ...(articles.length > 1 ? articles.slice(1, 4) : []),
-    ...(articles.length > 9 ? articles.slice(9) : [])
-  ];
-  const trendingStories = articles.length > 4 ? articles.slice(4, 9) : [];
+  // When there are <= 9 articles (e.g. filtered category or custom news), show all remaining articles in topStories so none are hidden
+  const topStories =
+    articles.length > 9
+      ? [...articles.slice(1, 4), ...articles.slice(9)]
+      : articles.slice(1);
+  const trendingStories =
+    articles.length > 4 ? articles.slice(4, 9) : articles.slice(0, Math.min(5, articles.length));
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 w-full pt-4 pb-12">
       {/* CATEGORY FILTER PILLS */}
       <div className="flex flex-row gap-[10px] overflow-x-auto pb-4 mb-8 no-scrollbar">
-        {["All", "Legal Updates", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"].map(cat => (
-          <button 
-            key={cat} 
+        {VALID_CATEGORIES.map((cat) => (
+          <button
+            key={cat}
             onClick={() => setActiveCategory(cat)}
             className={`whitespace-nowrap px-[18px] py-[8px] rounded-full text-[13px] font-semibold transition-all duration-200 cursor-pointer ${
-              activeCategory === cat 
-                ? "bg-[#C9A227] text-white shadow-xs" 
+              activeCategory === cat
+                ? "bg-[#C9A227] text-white shadow-xs"
                 : "bg-white border border-[#E8E4DE] text-[#1E1E1E] hover:border-[#C9A227]"
             }`}
           >
@@ -170,16 +215,29 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
           <div className="w-8 h-8 border-4 border-[#C9A227] border-t-transparent rounded-full animate-spin mr-3" />
           Updating news feed...
         </div>
+      ) : articles.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-[#E8E4DE] p-12 text-center my-8">
+          <p className="text-base font-bold text-[#1E1E1E] mb-2">
+            No dispatches found under &ldquo;{activeCategory}&rdquo;
+          </p>
+          <p className="text-xs sm:text-sm text-[#6B6560] mb-5">
+            Switch to All dispatches to view the latest legal news and court updates.
+          </p>
+          <button
+            onClick={() => setActiveCategory("All")}
+            className="px-6 py-2.5 bg-[#C9A227] text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[#B8941F] transition-colors cursor-pointer"
+          >
+            View All News
+          </button>
+        </div>
       ) : (
         <div className="flex flex-col lg:flex-row gap-[36px] lg:gap-[48px]">
-          
           {/* LEFT CONTENT (Hero + Grid) */}
           <div className="lg:w-[70%]">
-            
             {/* FEATURED HERO */}
             {topStory && (
               <Link
-                href={topStory.slug ? `/news/${topStory.slug}` : (topStory.url || "#")}
+                href={topStory.slug ? `/news/${topStory.slug}` : topStory.url || "#"}
                 target={topStory.slug ? undefined : "_blank"}
                 rel={topStory.slug ? undefined : "noopener noreferrer"}
                 className="block group relative w-full h-[400px] sm:h-[440px] rounded-2xl overflow-hidden mb-10 shadow-sm border border-[#E8E4DE] cursor-pointer bg-[#2D2219]"
@@ -192,9 +250,16 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full">
-                  <span className="inline-block bg-[#C9A227] text-[#111111] text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-sm mb-3">
-                    LEAD STORY
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="inline-block bg-[#C9A227] text-[#111111] text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-sm">
+                      LEAD STORY
+                    </span>
+                    {getPrimaryCategory(topStory) && (
+                      <span className="inline-block bg-white/15 backdrop-blur-xs text-white border border-white/25 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-sm">
+                        {getPrimaryCategory(topStory)}
+                      </span>
+                    )}
+                  </div>
                   <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight max-w-[650px] line-clamp-3 mb-2 font-playfair">
                     {topStory.title}
                   </h2>
@@ -224,19 +289,22 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                   {topStories.map((story, idx) => {
                     const absIdx = idx + 1;
                     const { day, monthYear } = formatNewsDate(story.publishedAt);
+                    const primaryCat = getPrimaryCategory(story);
                     return (
                       <Link
-                        href={story.slug ? `/news/${story.slug}` : (story.url || "#")}
+                        href={story.slug ? `/news/${story.slug}` : story.url || "#"}
                         target={story.slug ? undefined : "_blank"}
                         rel={story.slug ? undefined : "noopener noreferrer"}
-                        key={absIdx}
+                        key={story.slug || `${story.title}-${absIdx}`}
                         className="group relative block w-full rounded-2xl overflow-hidden bg-white border border-[#E8E4DE] shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                       >
                         <div className="flex flex-col sm:flex-row items-stretch">
                           {/* Left Date Column (Desktop/Tablet) */}
                           <div className="hidden sm:flex bg-[#FAF9F6] sm:w-[85px] p-4 flex-col items-center justify-center border-r border-[#E8E4DE] shrink-0 text-center">
                             <span className="text-2xl font-bold text-[#1E1E1E] leading-none">{day}</span>
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A227] mt-1">{monthYear.split(" ")[0]}</span>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A227] mt-1">
+                              {monthYear.split(" ")[0]}
+                            </span>
                           </div>
 
                           {/* News Thumbnail Image */}
@@ -249,7 +317,9 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                             />
                             {/* Mobile Date Overlay */}
                             <div className="sm:hidden absolute top-3 left-3 bg-black/75 backdrop-blur-xs text-white px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
-                              <span>{day} {monthYear.split(" ")[0]}</span>
+                              <span>
+                                {day} {monthYear.split(" ")[0]}
+                              </span>
                             </div>
                           </div>
 
@@ -260,8 +330,15 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                                 <span className="text-[10px] font-bold text-[#C9A227] uppercase tracking-wider bg-[#C9A227]/10 px-2 py-0.5 rounded">
                                   {story.source || "Legal Dispatch"}
                                 </span>
+                                {primaryCat && (
+                                  <span className="text-[10px] font-bold text-[#413832] uppercase tracking-wider bg-[#FAF6EC] border border-[#E9DFCA] px-2 py-0.5 rounded">
+                                    {primaryCat}
+                                  </span>
+                                )}
                                 <span className="text-xs text-gray-400">•</span>
-                                <span className="text-xs text-gray-500" suppressHydrationWarning>{timeAgo(story.publishedAt)}</span>
+                                <span className="text-xs text-gray-500" suppressHydrationWarning>
+                                  {timeAgo(story.publishedAt)}
+                                </span>
                               </div>
                               <h4 className="text-base sm:text-lg font-bold text-[#1E1E1E] leading-snug group-hover:text-[#C9A227] transition-colors line-clamp-2">
                                 {story.title}
@@ -304,21 +381,20 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
           {/* RIGHT SIDEBAR */}
           <div className="lg:w-[30%]">
             <div className="sticky top-[100px] space-y-8">
-              
               {/* TRENDING IN COURTS */}
               {trendingStories.length > 0 && (
                 <div className="bg-white p-6 rounded-2xl border border-[#E8E4DE] shadow-xs">
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#1E1E1E] mb-5 border-b border-gray-100 pb-3">
                     TRENDING COURT UPDATES
                   </h3>
-                  
+
                   <div className="flex flex-col gap-4">
                     {trendingStories.map((story, index) => (
                       <Link
-                        href={story.slug ? `/news/${story.slug}` : (story.url || "#")}
+                        href={story.slug ? `/news/${story.slug}` : story.url || "#"}
                         target={story.slug ? undefined : "_blank"}
                         rel={story.slug ? undefined : "noopener noreferrer"}
-                        key={index}
+                        key={story.slug || `${story.title}-trend-${index}`}
                         className="group flex gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0 cursor-pointer items-start"
                       >
                         <span className="text-xl font-bold text-[#C9A227] italic shrink-0 w-6 font-playfair pt-1">
@@ -382,26 +458,32 @@ export default function NewsContent({ initialArticles = [], initialHasMore = fal
                 <div className="flex flex-col gap-3 text-xs sm:text-sm">
                   <div className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-[#C9A227] shrink-0 mt-1.5" />
-                    <span className="text-gray-800 font-medium">Supreme Court on Digital Privacy & Electronic Evidence under BSA</span>
+                    <span className="text-gray-800 font-medium">
+                      Supreme Court on Digital Privacy &amp; Electronic Evidence under BSA
+                    </span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-[#C9A227] shrink-0 mt-1.5" />
-                    <span className="text-gray-800 font-medium">Delhi High Court Clarifies Section 138 NI Act Territorial Jurisdiction</span>
+                    <span className="text-gray-800 font-medium">
+                      Delhi High Court Clarifies Section 138 NI Act Territorial Jurisdiction
+                    </span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-[#C9A227] shrink-0 mt-1.5" />
-                    <span className="text-gray-800 font-medium">NCLAT Ruling on Section 9 Insolvency Petitions by Operational Creditors</span>
+                    <span className="text-gray-800 font-medium">
+                      NCLAT Ruling on Section 9 Insolvency Petitions by Operational Creditors
+                    </span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-[#C9A227] shrink-0 mt-1.5" />
-                    <span className="text-gray-800 font-medium">Bombay High Court Guidelines on Anticipatory Bail in Commercial Frauds</span>
+                    <span className="text-gray-800 font-medium">
+                      Bombay High Court Guidelines on Anticipatory Bail in Commercial Frauds
+                    </span>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-          
         </div>
       )}
     </div>

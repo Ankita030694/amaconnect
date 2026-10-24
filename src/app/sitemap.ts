@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import dbConnect from "@/lib/dbConnect";
-import { Blog, LawyerInterview } from "@/lib/models";
+import { Blog, LawyerInterview, CustomNews } from "@/lib/models";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.amaconnect.in";
@@ -65,6 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/lawyer-branding-get-more-clients",
     "/pro-bono-free-legal-aid",
     "/blog",
+    "/news",
     "/interviews",
     "/alternative-legal-careers-india",
     "/transition-litigation-to-corporate-law",
@@ -130,5 +131,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("[Sitemap Generator] Failed to fetch dynamic lawyer interviews:", err);
   }
 
-  return [...staticPages, ...blogPages, ...interviewPages];
+  // 4. Dynamic Custom News Articles from MongoDB
+  let newsPages: any[] = [];
+  try {
+    await dbConnect();
+    const newsItems = await CustomNews.find({ slug: { $nin: ["", null] } }, { slug: 1, publishedAt: 1, createdAt: 1 }).lean();
+    newsPages = newsItems.map((item: any) => ({
+      url: `${baseUrl}/news/${item.slug}`,
+      lastModified: item.publishedAt ? new Date(item.publishedAt) : (item.createdAt ? new Date(item.createdAt) : currentDate),
+      changeFrequency: "daily" as const,
+      priority: 0.7,
+    }));
+  } catch (err) {
+    console.error("[Sitemap Generator] Failed to fetch dynamic custom news:", err);
+  }
+
+  return [...staticPages, ...blogPages, ...interviewPages, ...newsPages];
 }

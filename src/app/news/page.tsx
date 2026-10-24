@@ -107,7 +107,7 @@ export default async function NewsPage() {
         </section>
 
         {/* NEWS FEED & INTERACTIVE CATEGORIES */}
-        <NewsContent initialArticles={initialArticles} initialHasMore={initialArticles.length > 10} />
+        <NewsContent initialArticles={initialArticles} initialHasMore={initialHasMore} />
 
         {/* EDITORIAL SCOPE & COURTHOUSE REPORTING */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto w-full border-t border-[#E8E4DE]">

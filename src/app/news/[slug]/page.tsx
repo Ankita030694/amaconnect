@@ -62,8 +62,8 @@ const getRelatedNews = async (excludeId: string) => {
   try {
     await dbConnect();
     const related = await CustomNews.find({ _id: { $ne: excludeId }, slug: { $nin: ["", null] } })
-      .sort({ createdAt: -1 })
-      .limit(3)
+      .sort({ isPinned: -1, publishedAt: -1, createdAt: -1 })
+      .limit(4)
       .lean();
 
     return JSON.parse(JSON.stringify(related)).map((item: any) => ({

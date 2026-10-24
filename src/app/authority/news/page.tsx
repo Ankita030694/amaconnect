@@ -50,7 +50,7 @@ export default function CustomNewsDashboard() {
   const [news, setNews] = useState<CustomNews[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [formMode, setFormMode] = useState<'add' | 'edit'>('add');
-  const [newsType, setNewsType] = useState<'external' | 'internal'>('external');
+  const [newsType, setNewsType] = useState<'external' | 'internal'>('internal');
   const [newArticle, setNewArticle] = useState<CustomNews>({
     title: '',
     description: '',
@@ -59,11 +59,11 @@ export default function CustomNewsDashboard() {
     publishedAt: new Date().toISOString(),
     source: 'AMA Connect',
     author: 'Vanshika Dhiman',
-    categories: ['All'],
+    categories: ['All', 'Legal Updates'],
     slug: '',
     content: '',
     isPinned: false,
-    order: 0
+    order: 1
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -124,8 +124,8 @@ export default function CustomNewsDashboard() {
 
   const handleGenerateAIImage = async () => {
     const defaultPrompt = newArticle.title 
-      ? `A professional, high-quality news illustration or premium banner representing: ${newArticle.title}`
-      : "A professional legal news illustration with a modern scales of justice, gold and deep charcoal colors, premium high-quality digital art";
+      ? `A professional, high-quality legal editorial illustration representing: ${newArticle.title}. Theme colors MUST strictly be Dark Mocha Brown (#382E26 / #2D2219) and Regal Ochre Gold (#C9A227 / #D4AF37) with warm amber and ivory highlights. STRICTLY NO BLUE COLORS. Full composition without cropping.`
+      : "A professional legal news illustration with modern scales of justice, Dark Mocha Brown (#382E26) and Regal Ochre Gold (#C9A227) palette, warm golden amber lighting, strictly no blue colors, premium digital art";
     
     const userPrompt = window.prompt("Enter highly optimized prompt for the AI image generator:", defaultPrompt);
     if (userPrompt === null) return;
@@ -300,9 +300,10 @@ export default function CustomNewsDashboard() {
 
   const handleCategoryToggle = (category: string) => {
     setNewArticle(prevState => {
-      const cats = [...prevState.categories];
+      const cats = [...(prevState.categories || ['All'])];
       if (cats.includes(category)) {
-        return { ...prevState, categories: cats.filter(c => c !== category) };
+        const next = cats.filter(c => c !== category);
+        return { ...prevState, categories: next.length > 0 ? next : ['All'] };
       } else {
         return { ...prevState, categories: [...cats, category] };
       }
@@ -325,6 +326,25 @@ export default function CustomNewsDashboard() {
       return;
     }
 
+    const normalizedCategories = Array.from(
+      new Set([
+        'All',
+        ...(newArticle.categories || []).map(c =>
+          c.trim().toLowerCase() === 'legal update' ? 'Legal Updates' : c.trim()
+        )
+      ])
+    ).filter(Boolean);
+
+    const payload: CustomNews = {
+      ...newArticle,
+      categories: normalizedCategories,
+      url: newsType === 'external' ? (newArticle.url || '').trim() : '',
+      slug: newsType === 'internal' ? (newArticle.slug?.trim() || generateSlug(newArticle.title)) : '',
+      content: newsType === 'internal' ? (newArticle.content || '') : '',
+      isPinned: Boolean(newArticle.isPinned),
+      order: Number(newArticle.order) || 1
+    };
+
     try {
       setIsSubmitting(true);
       const url = formMode === 'add' ? '/api/custom-news' : `/api/custom-news/${newArticle._id}`;
@@ -333,7 +353,7 @@ export default function CustomNewsDashboard() {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newArticle)
+        body: JSON.stringify(payload)
       });
 
       if (!res.ok) {
@@ -355,8 +375,22 @@ export default function CustomNewsDashboard() {
 
   const handleEditNews = (article: CustomNews) => {
     setFormMode('edit');
-    setNewArticle({ ...article });
-    setNewsType(article.content ? 'internal' : 'external');
+    const normalizedCats = Array.from(
+      new Set(
+        (article.categories && article.categories.length > 0 ? article.categories : ['All']).map(c =>
+          c.trim().toLowerCase() === 'legal update' ? 'Legal Updates' : c.trim()
+        )
+      )
+    );
+    const isInternal = Boolean(article.content && article.content.trim());
+    setNewArticle({
+      ...article,
+      categories: normalizedCats,
+      slug: isInternal ? (article.slug || generateSlug(article.title)) : (article.slug || ''),
+      isPinned: Boolean(article.isPinned),
+      order: typeof article.order === 'number' && article.order > 0 ? article.order : 1
+    });
+    setNewsType(isInternal ? 'internal' : 'external');
     setShowForm(true);
   };
 
@@ -376,7 +410,7 @@ export default function CustomNewsDashboard() {
     }
   };
 
-  const availableCategories = ["All", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"];
+  const availableCategories = ["All", "Legal Updates", "Supreme Court", "High Court", "Legislation", "Corporate", "Criminal"];
 
   return (
     <div className="p-6 max-w-7xl mx-auto bg-slate-50 min-h-dvh text-slate-800 font-sans">
@@ -409,11 +443,13 @@ export default function CustomNewsDashboard() {
                     publishedAt: new Date().toISOString(),
                     source: 'AMA Connect',
                     author: 'Vanshika Dhiman',
-                    categories: ['All'],
+                    categories: ['All', 'Legal Updates'],
                     slug: '',
-                    content: ''
+                    content: '',
+                    isPinned: false,
+                    order: 1
                   });
-                  setNewsType('external');
+                  setNewsType('internal');
                   setShowForm(true);
                 }}
                 className="bg-[#B8860B] hover:bg-[#9E7307] text-white px-5 py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer shadow-3xs"
@@ -485,14 +521,18 @@ export default function CustomNewsDashboard() {
                             <span className="font-extrabold text-slate-900 text-xs sm:text-sm line-clamp-1 hover:text-[#B8860B] transition-colors">
                               {article.title}
                             </span>
-                            <div className="flex gap-2 items-center text-[10px] text-slate-400 font-semibold mt-1">
+                            <div className="flex gap-2 items-center text-[10px] text-slate-400 font-semibold mt-1 flex-wrap">
                               <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
                               <span>•</span>
                               <span>Source: {article.source}</span>
+                              <span>•</span>
+                              <span className={article.slug ? "text-emerald-600 font-bold" : "text-blue-600 font-bold"}>
+                                {article.slug ? "Internal Article" : "External Link"}
+                              </span>
                               {article.isPinned && (
                                 <>
                                   <span>•</span>
-                                  <span className="text-[#B8860B] font-bold">📌 Pinned (Order: {article.order})</span>
+                                  <span className="text-[#B8860B] font-bold">📌 Pinned (Order: {article.order || 1})</span>
                                 </>
                               )}
                             </div>
@@ -508,6 +548,17 @@ export default function CustomNewsDashboard() {
                           </td>
                           <td className="p-4 text-right">
                             <div className="flex items-center justify-end gap-2">
+                              {(article.slug || article.url) && (
+                                <a
+                                  href={article.slug ? `/news/${article.slug}` : article.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-2.5 h-8 rounded-lg hover:bg-amber-50 border border-slate-150 flex items-center justify-center text-slate-500 hover:text-[#B8860B] text-[10px] font-bold transition-colors"
+                                  title="View Live Article"
+                                >
+                                  View ↗
+                                </a>
+                              )}
                               <button
                                 onClick={() => handleEditNews(article)}
                                 className="w-8 h-8 rounded-lg hover:bg-slate-100 border border-slate-150 flex items-center justify-center text-slate-500 hover:text-[#B8860B] transition-colors cursor-pointer"
@@ -580,54 +631,52 @@ export default function CustomNewsDashboard() {
             <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6 max-h-[calc(100dvh-200px)] overflow-y-auto">
               
               {/* AI Writeup Generator Card */}
-              {formMode === 'add' && (
-                <div className="mb-2 p-6 border border-amber-200/80 bg-gradient-to-br from-amber-50/40 to-orange-50/10 rounded-2xl shadow-3xs relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-amber-200/10 to-transparent rounded-bl-full pointer-events-none"></div>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-amber-100 text-[#B8860B] text-xs font-bold animate-pulse">✨</span>
-                      <div>
-                        <h3 className="text-slate-800 text-sm font-bold uppercase tracking-wider">
-                          AI News Auto-Generator (ChatGPT)
-                        </h3>
-                        <p className="text-slate-500 text-[11px] mt-0.5 leading-relaxed normal-case">
-                          Paste the actual article text and/or a news link, or just a headline/topic. ChatGPT only reports facts from your text, the linked pages, or real news reports it finds online (with sources). It will not invent details.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 relative z-10">
-                    <textarea
-                      value={writeupInput}
-                      onChange={(e) => setWriteupInput(e.target.value)}
-                      placeholder="Paste the news article text and/or its link (https://...), or enter a specific headline to research, e.g. 'Supreme Court verdict on ...'"
-                      className="w-full bg-white border border-amber-200/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/20 transition-all text-slate-800 placeholder:text-slate-400 min-h-[100px] resize-y shadow-inner shadow-slate-50/50"
-                    />
-                    
-                    <div className="flex justify-end">
-                      <button
-                        type="button"
-                        onClick={handleGenerateNews}
-                        disabled={isGenerating || !writeupInput.trim()}
-                        className="bg-gradient-to-r from-[#B8860B] to-[#9E7307] hover:from-[#9E7307] hover:to-[#8A6506] text-white px-6 py-2.5 rounded-xl font-bold text-xs transition-all shadow-md shadow-amber-900/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-                      >
-                        {isGenerating ? (
-                          <>
-                            <span className="animate-spin text-xs">💫</span>
-                            <span>{generationStep || "Generating Content..."}</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>✨ Generate News with AI</span>
-                          </>
-                        )}
-                      </button>
+              <div className="mb-2 p-6 border border-amber-200/80 bg-gradient-to-br from-amber-50/40 to-orange-50/10 rounded-2xl shadow-3xs relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-amber-200/10 to-transparent rounded-bl-full pointer-events-none"></div>
+                
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-amber-100 text-[#B8860B] text-xs font-bold animate-pulse">✨</span>
+                    <div>
+                      <h3 className="text-slate-800 text-sm font-bold uppercase tracking-wider">
+                        AI News Auto-Generator (Bar &amp; Bench Style)
+                      </h3>
+                      <p className="text-slate-500 text-[11px] mt-0.5 leading-relaxed normal-case">
+                        Paste the actual article text and/or a news link, or just a headline/topic. AI reports facts from your text, linked pages, or verified court reports online (with sources) and auto-assigns categories.
+                      </p>
                     </div>
                   </div>
                 </div>
-              )}
+
+                <div className="space-y-3 relative z-10">
+                  <textarea
+                    value={writeupInput}
+                    onChange={(e) => setWriteupInput(e.target.value)}
+                    placeholder="Paste the news article text and/or its link (https://...), or enter a specific headline to research, e.g. 'Supreme Court verdict on ...'"
+                    className="w-full bg-white border border-amber-200/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/20 transition-all text-slate-800 placeholder:text-slate-400 min-h-[100px] resize-y shadow-inner shadow-slate-50/50"
+                  />
+                  
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleGenerateNews}
+                      disabled={isGenerating || !writeupInput.trim()}
+                      className="bg-gradient-to-r from-[#B8860B] to-[#9E7307] hover:from-[#9E7307] hover:to-[#8A6506] text-white px-6 py-2.5 rounded-xl font-bold text-xs transition-all shadow-md shadow-amber-900/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    >
+                      {isGenerating ? (
+                        <>
+                          <span className="animate-spin text-xs">💫</span>
+                          <span>{generationStep || "Generating Content..."}</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>✨ Generate News with AI</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               <div className="grid grid-cols-1 gap-6">
                 
@@ -636,19 +685,25 @@ export default function CustomNewsDashboard() {
                   <div className="flex bg-slate-100 p-1 rounded-xl w-full sm:w-fit">
                     <button
                       type="button"
+                      onClick={() => {
+                        setNewsType('internal');
+                        setNewArticle(prev => ({
+                          ...prev,
+                          slug: prev.slug || (prev.title ? generateSlug(prev.title) : '')
+                        }));
+                      }}
+                      className={`flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${newsType === 'internal' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                    >
+                      <FontAwesomeIcon icon={faFileAlt} className="mr-2 text-slate-400" />
+                      Write Article
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => setNewsType('external')}
                       className={`flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${newsType === 'external' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
                     >
                       <FontAwesomeIcon icon={faLink} className="mr-2 text-slate-400" />
                       External Link
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setNewsType('internal')}
-                      className={`flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${newsType === 'internal' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-                    >
-                      <FontAwesomeIcon icon={faFileAlt} className="mr-2 text-slate-400" />
-                      Write Article
                     </button>
                   </div>
                 </div>
@@ -811,6 +866,33 @@ export default function CustomNewsDashboard() {
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Publication Date
+                      </label>
+                      <input
+                        type="date"
+                        value={(() => {
+                          try {
+                            const d = new Date(newArticle.publishedAt);
+                            return !isNaN(d.getTime()) ? d.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+                          } catch {
+                            return new Date().toISOString().split('T')[0];
+                          }
+                        })()}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val) {
+                            setNewArticle(prev => ({
+                              ...prev,
+                              publishedAt: new Date(`${val}T09:00:00+05:30`).toISOString()
+                            }));
+                          }
+                        }}
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#B8860B] focus:bg-white transition-all text-slate-800"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
                         Categories
                       </label>
                       <div className="flex flex-wrap gap-2 mt-2">
@@ -819,7 +901,7 @@ export default function CustomNewsDashboard() {
                             key={cat}
                             type="button"
                             onClick={() => handleCategoryToggle(cat)}
-                            className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors ${
+                            className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-colors cursor-pointer ${
                               newArticle.categories.includes(cat)
                                 ? 'bg-[#B8860B] border-[#B8860B] text-white'
                                 : 'bg-white border-slate-200 text-slate-500 hover:border-[#B8860B] hover:text-[#B8860B]'
@@ -837,7 +919,7 @@ export default function CustomNewsDashboard() {
                           type="checkbox"
                           id="isPinned"
                           name="isPinned"
-                          checked={newArticle.isPinned}
+                          checked={Boolean(newArticle.isPinned)}
                           onChange={handleInputChange}
                           className="w-4 h-4 text-[#B8860B] rounded border-slate-300 focus:ring-[#B8860B]"
                         />
@@ -849,15 +931,15 @@ export default function CustomNewsDashboard() {
                       {newArticle.isPinned && (
                         <div className="flex items-center gap-2">
                           <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">
-                            Order
+                            Order (1 = Lead)
                           </label>
                           <input
                             type="number"
                             name="order"
-                            value={newArticle.order}
+                            value={newArticle.order || 1}
                             onChange={handleInputChange}
                             className="w-20 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-[#B8860B]"
-                            min="0"
+                            min="1"
                           />
                         </div>
                       )}
