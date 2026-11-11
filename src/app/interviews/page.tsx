@@ -12,7 +12,8 @@ import { LawyerInterview as LawyerInterviewModel } from "@/lib/models";
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600", "700"], style: ["normal", "italic"] });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
-export const dynamic = 'force-dynamic';
+// Served from cache; the admin APIs revalidate this path on every save, with a 5-minute fallback.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Lawyer Interviews",
@@ -40,7 +41,8 @@ const getInterviews = async () => {
     return sorted;
   } catch (error) {
     console.error("Error fetching lawyer interviews on server:", error);
-    return [];
+    // Throw rather than return nothing: a failed refresh then keeps serving the last good cached page.
+    throw error;
   }
 };
 

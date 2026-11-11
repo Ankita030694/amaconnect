@@ -7,7 +7,8 @@ import NewsContent from "./NewsContent";
 import { getNewsFeed, NewsArticle } from "@/lib/newsService";
 import { Scale, Newspaper, Radio, Landmark, ShieldCheck, HelpCircle, FileText, CheckCircle2, Search, ArrowRight } from "lucide-react";
 
-export const dynamic = "force-dynamic";
+// Served from cache; the admin APIs revalidate this path on every save, with a 5-minute fallback.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Latest Legal News, Court Judgments & Legal Updates in India",
@@ -63,6 +64,8 @@ export default async function NewsPage() {
     initialHasMore = feed.hasMore;
   } catch (err) {
     console.error("[NewsPage] Error loading news feed:", err);
+    // Throw rather than return nothing: a failed refresh then keeps serving the last good cached page.
+    throw err;
   }
 
   const jsonLd = {
