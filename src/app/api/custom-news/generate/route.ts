@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
+import { injectCompanyWebsiteLinks } from "@/lib/companyLinks";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -451,7 +452,8 @@ SIGNATURE BAR & BENCH EDITORIAL STYLE & STRUCTURE (MANDATORY):
    - Allowed HTML tags: <h2>, <h3>, <h4>, <p>, <ul>, <ol>, <li>, <strong>, <em>, <blockquote>, <table>, thead, tbody, tr, th, td, <a>.
    - Do NOT include <h1>, wrapping <div>s, or a "Sources" section (added automatically).
    - Never use em dashes (\u2014). Use normal hyphens (-), colons, or commas.
-   - Use Indian numbering and currency conventions naturally (₹, lakh, crore).`;
+   - Use Indian numbering and currency conventions naturally (₹, lakh, crore).
+   - **Company & Law Firm Website Links**: When a company, startup, investor, or law firm is mentioned in the body text and its official website URL is verified in the SOURCE MATERIAL (or is a well-known official corporate/firm domain), hyperlink its first mention in the body text using <a href="https://...">Company Name</a>. Never guess or invent URLs.`;
 
     const bodyCompletion = await openai.chat.completions.create({
       model: PRIMARY_MODEL,
@@ -532,7 +534,7 @@ HOW TO EXPAND IN BAR & BENCH STYLE:
     const title = sanitizeText(String(parsedMeta.title || "")).trim();
     const description = sanitizeText(String(parsedMeta.description || "")).trim();
 
-    htmlContent = sanitizeHtml(htmlContent);
+    htmlContent = injectCompanyWebsiteLinks(sanitizeHtml(htmlContent));
 
     const plainLength = htmlContent.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().length;
     if (!title || !description || plainLength < 400) {

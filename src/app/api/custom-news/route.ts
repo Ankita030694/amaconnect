@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
+import { injectCompanyWebsiteLinks } from "@/lib/companyLinks";
 import { invalidateCustomNewsCache } from "@/lib/newsService";
 
 const normalizeCategories = (categories: unknown): string[] => {
@@ -87,7 +88,7 @@ export async function POST(request: Request) {
       description: description.trim(),
       url: !isInternal && url ? url.trim() : "",
       slug: finalSlug,
-      content: isInternal ? sanitizeHtml(content) : "",
+      content: isInternal ? injectCompanyWebsiteLinks(sanitizeHtml(content)) : "",
       urlToImage: urlToImage.trim(),
       publishedAt: publishedAt || new Date().toISOString(),
       source: (source || "AMA Connect").trim(),

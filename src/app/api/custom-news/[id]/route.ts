@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import { CustomNews } from "@/lib/models";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
+import { injectCompanyWebsiteLinks } from "@/lib/companyLinks";
 import { invalidateCustomNewsCache } from "@/lib/newsService";
 
 const normalizeCategories = (categories: unknown): string[] => {
@@ -63,7 +64,7 @@ export async function PUT(request: Request, { params }: any) {
 
     const isInternal = Boolean(body.content && String(body.content).trim());
     if (isInternal) {
-      body.content = sanitizeHtml(body.content);
+      body.content = injectCompanyWebsiteLinks(sanitizeHtml(body.content));
       let candidateSlug = slugify(body.slug || body.title || "");
       if (candidateSlug) {
         const baseSlug = candidateSlug;

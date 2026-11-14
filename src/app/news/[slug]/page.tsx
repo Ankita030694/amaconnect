@@ -7,6 +7,7 @@ import { CustomNews } from "@/lib/models";
 import Footer from "@/components/Footer";
 import AppDownloadCTA from "@/components/AppDownloadCTA";
 import { sanitizeHtml, slugify } from "@/lib/sanitizeHtml";
+import { injectCompanyWebsiteLinks } from "@/lib/companyLinks";
 import NewsDetail from "./newsdetail";
 
 export const dynamic = "force-dynamic";
@@ -77,7 +78,7 @@ const getNewsBySlug = cache(async (rawSlug: string) => {
           ...data,
           title: decodeEntities(data.title || ""),
           description: decodeEntities(data.description || ""),
-          content: sanitizeHtml(data.content || `<p>${data.description || ""}</p>`),
+          content: injectCompanyWebsiteLinks(sanitizeHtml(data.content || `<p>${data.description || ""}</p>`)),
         };
         articleMemoryCache.set(cleanSlug, { data: formatted, timestamp: Date.now() });
         return formatted;
